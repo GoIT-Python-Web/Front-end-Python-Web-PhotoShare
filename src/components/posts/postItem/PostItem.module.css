@@ -1,0 +1,79 @@
+.postPic {
+  height: 328px !important;
+  object-fit: cover;
+}
+
+.credentials {
+  margin-block: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.credentials img {
+  object-fit: cover;
+  border-radius: 47px;
+}
+
+.credentials p {
+  font-weight: 600;
+  font-size: 20px;
+  text-transform: capitalize;
+  color: #132d62;
+}
+
+.postCredentials {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 120%;
+  background: linear-gradient(90deg, #4965a1 0%, #072f86 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tags,
+.dateDiv {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 120%;
+  color: #697a9e;
+}
+
+.ratingDiv,
+.dateDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rating {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  text-align: center;
+  color: #132d62;
+}
+
+.dateDiv {
+  font-weight: 500;
+}
+
+@media screen and (min-width: 768px) {
+  .postPic {
+    width: 336px;
+    height: 336px !important;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .postPic {
+    width: 416px;
+    height: 416px !important;
+  }
+}
