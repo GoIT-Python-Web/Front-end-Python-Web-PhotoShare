@@ -1,0 +1,57 @@
+.button {
+  border-radius: 8px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 120%;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+  padding: 8px 16px;
+  height: 48px;
+}
+
+/* ==== Варіанти кнопок ==== */
+.primary {
+  background: linear-gradient(90deg, #2b59ba 0%, #083494 100%);
+  background-color: var(--button-hover);
+}
+
+.primary:hover {
+  background: var(--button-hover);
+  transform: translateY(-2px);
+}
+.primary:active {
+  background: var(--button-pressed);
+  transform: translateY(0);
+}
+.disabled {
+  background: var(--button-notactive);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ==== Розміри кнопок ==== */
+.xs {
+  min-width: 156px;
+}
+.sm {
+  min-width: 198px;
+}
+.md {
+  min-width: 310px;
+}
+.lg {
+  min-width: 328px;
+}
+.xl {
+  min-width: 336px;
+}
+.xxl {
+  min-width: 416px;
+}
+.xxxl {
+  min-width: 526px;
+  height: 56px;
+}
