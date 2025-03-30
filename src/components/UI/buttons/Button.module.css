@@ -10,24 +10,29 @@
   transition: background 0.3s ease, transform 0.3s ease;
   padding: 8px 16px;
   height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 /* ==== Варіанти кнопок ==== */
 .primary {
   background: linear-gradient(90deg, #2b59ba 0%, #083494 100%);
-  background-color: var(--button-hover);
+  background-color: #1654d7;
 }
 
 .primary:hover {
-  background: var(--button-hover);
+  background: #1654d7;
   transform: translateY(-2px);
 }
 .primary:active {
-  background: var(--button-pressed);
+  background: #0051ff;
   transform: translateY(0);
 }
+
 .disabled {
-  background: var(--button-notactive);
+  background: #afb0b2;
   cursor: not-allowed;
   pointer-events: none;
 }
@@ -54,4 +59,26 @@
 .xxxl {
   min-width: 526px;
   height: 56px;
+}
+
+/* Стиль для стрілки */
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.button:hover .arrow.right {
+  transform: translateX(5px);
+}
+.button:hover .arrow.left {
+  transform: translateX(-5px);
+}
+
+.button:active .arrow.right {
+  transform: translateX(6px);
+}
+.button:active .arrow.left {
+  transform: translateX(-6px);
 }
