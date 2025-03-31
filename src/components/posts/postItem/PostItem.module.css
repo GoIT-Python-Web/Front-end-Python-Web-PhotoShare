@@ -3,11 +3,38 @@
   object-fit: cover;
 }
 
+.imageWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.imageContainer {
+  pointer-events: none;
+}
+
 .credentials {
   margin-block: 12px;
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.viewButton {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  border: 2px solid #fdfdfd;
+  padding: 2px;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  background-color: transparent;
+}
+
+.resize {
+  width: 28px;
+  height: 28px;
+  color: #fff;
 }
 
 .credentials img {
@@ -69,11 +96,19 @@
     width: 336px;
     height: 336px !important;
   }
+  .viewButton {
+    right: 18px;
+    top: 18px;
+  }
 }
 
 @media screen and (min-width: 1440px) {
   .postPic {
     width: 416px;
     height: 416px !important;
+  }
+  .viewButton {
+    right: 24px;
+    top: 24px;
   }
 }

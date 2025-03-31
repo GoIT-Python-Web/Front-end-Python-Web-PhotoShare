@@ -1,0 +1,46 @@
+.wrapper {
+  width: 96px;
+  display: flex;
+  gap: 16px;
+  margin-left: 28px;
+}
+
+.filterItem {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  padding: 0 8px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #2b59ba 0%, #083494 100%);
+}
+
+.filterIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.listIcon {
+  width: 24px;
+  height: 24px;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    width: 120px;
+    gap: 24px;
+    margin-left: 120px;
+  }
+  .filterItem {
+    width: 48px;
+    height: 48px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .wrapper {
+    margin-left: 475px;
+  }
+}
