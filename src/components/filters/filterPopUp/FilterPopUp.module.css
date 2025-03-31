@@ -2,6 +2,7 @@
   border-radius: 10px;
   padding: 16px;
   width: 360px;
+  margin-left: -16px;
   height: auto;
   box-shadow: 0 4px 10px 0 rgba(80, 80, 80, 0.05);
   background: #f2f6ff;
