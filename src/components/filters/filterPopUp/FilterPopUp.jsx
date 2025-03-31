@@ -116,7 +116,7 @@ export default function FilterPopUp({ location }) {
               <Button size="xs" type="submit">
                 Застосувати
               </Button>
-              <Button size="xs" type="reset">
+              <Button size="xs" variant="secondary-red" type="reset">
                 Очистити
               </Button>
             </div>

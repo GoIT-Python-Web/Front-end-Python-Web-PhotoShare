@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^2.6.1",
     "axios": "^1.8.4",
     "formik": "^2.4.6",
+    "lucide-react": "^0.486.0",
     "react": "^19.0.0",
     "react-datepicker": "^8.2.1",
     "react-dom": "^19.0.0",
