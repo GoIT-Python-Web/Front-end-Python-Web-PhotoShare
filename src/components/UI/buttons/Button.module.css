@@ -21,29 +21,7 @@
   background: linear-gradient(90deg, #2b59ba 0%, #083494 100%);
   background-color: #1654d7;
 }
-.secondary {
-  background: transparent;
-  border: 1px solid;
-  border-color: var(--button-hover);
-  color: var(--text);
-}
-.secondary:hover {
-  transform: translateY(-2px);
-}
-.secondary:active {
-  transform: translateY(0);
-}
-.secondary-red {
-  background-color: transparent;
-  border: 0.4px solid var(--red);
-  color: var(--red);
-}
-.secondary-red:hover {
-  transform: translateY(-2px);
-}
-.secondary-red:active {
-  transform: translateY(0);
-}
+
 .primary:hover {
   background: #1654d7;
   transform: translateY(-2px);

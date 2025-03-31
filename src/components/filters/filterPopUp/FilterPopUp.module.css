@@ -1,0 +1,153 @@
+.wrapper {
+  border-radius: 10px;
+  padding: 16px;
+  width: 360px;
+  margin-left: -16px;
+  height: auto;
+  box-shadow: 0 4px 10px 0 rgba(80, 80, 80, 0.05);
+  background: #f2f6ff;
+}
+
+.form,
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  gap: 16px;
+}
+
+.label {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: capitalize;
+  color: #132d62;
+}
+
+.searchInput,
+.dateInput {
+  border: 0.6px solid #697a9e;
+  border-radius: 8px;
+  padding: 10px;
+  width: 328px;
+  height: 40px;
+}
+
+.searchInput {
+  margin-top: 4px;
+}
+
+.dateInput {
+  width: 260px;
+  margin-top: 12px;
+}
+
+.inputWrapper:nth-child(3),
+.inputWrapper:nth-child(1) {
+  position: relative;
+}
+
+.glassIcon {
+  position: absolute;
+  width: 24px;
+  left: 10px;
+  bottom: 8px;
+  height: 24px;
+  color: #697a9e;
+  cursor: pointer;
+}
+
+.dateIcon {
+  width: 36px;
+  height: 36px;
+  color: #697a9e;
+  position: absolute;
+  right: 5px;
+  bottom: 3px;
+  cursor: pointer;
+}
+
+.searchInput:nth-child(1),
+.dateInput {
+  padding-left: 40px;
+}
+
+.searchInput::placeholder,
+.dateInput::placeholder {
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: 0em;
+  color: #697a9e;
+}
+
+.btnList {
+  display: flex;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.starList {
+  border-radius: 8px;
+  height: 40px;
+  background: #fdfdfd;
+  display: flex;
+  width: 190px;
+  justify-content: flex-start;
+  padding-left: 8px;
+  padding-top: 8px;
+  align-items: center;
+  gap: 8px;
+}
+
+.starFaIcon {
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  background-color: linear-gradient(90deg, #1041aa 0%, #071a44 100%);
+}
+
+.tagBtn {
+  border: 0.6px solid #697a9e;
+  border-radius: 8px;
+  padding: 8px 16px;
+  height: 36px;
+  background: #fdfdfd;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #697a9e;
+}
+
+.tagBtn[data-active="true"] {
+  border: 0.3px solid blue;
+}
+
+.hidden {
+  color: transparent;
+  background-color: transparent;
+  border: none;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin-left: 100px;
+  margin: 0;
+  pointer-events: none;
+}
+
+.dateBtn {
+  border-radius: 8px;
+  fill: #fdfdfd;
+  border: 0.6px solid #697a9e;
+  width: 40px;
+  height: 40px;
+  margin-left: 25px;
+}
+
+.buttons {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+}

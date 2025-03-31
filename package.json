@@ -12,15 +12,16 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.6.1",
     "axios": "^1.8.4",
-    "clsx": "^2.1.1",
     "formik": "^2.4.6",
-    "lucide-react": "^0.485.0",
     "react": "^19.0.0",
+    "react-datepicker": "^8.2.1",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-redux": "^9.2.0",
+    "react-responsive": "^10.0.1",
     "react-router-dom": "^7.4.0",
     "redux-persist": "^6.0.0",
+    "yet-another-react-lightbox": "^3.21.8",
     "yup": "^1.6.1"
   },
   "devDependencies": {
