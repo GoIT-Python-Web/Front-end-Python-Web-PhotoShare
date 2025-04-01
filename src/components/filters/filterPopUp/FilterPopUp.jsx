@@ -4,13 +4,15 @@ import Button from "../../UI/buttons/Button.jsx";
 import { LuCalendarDays } from "react-icons/lu";
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useMediaQuery } from "react-responsive";
 
 export default function FilterPopUp({ buttonRef, location, onClose }) {
   const tags = ["#tag1", "#tag2", "#tag3"];
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [startDate, endDate] = dateRange;
 
   const datepickerRef = useRef(null);
   const modalRef = useRef(null);
@@ -47,6 +49,9 @@ export default function FilterPopUp({ buttonRef, location, onClose }) {
           rating: 0,
         }}
         onSubmit={(values) => console.log(values)}
+        onReset={() => {
+          setDateRange([null, null]);
+        }}
       >
         {({ values, setFieldValue }) => (
           <Form className={css.form}>
@@ -95,14 +100,23 @@ export default function FilterPopUp({ buttonRef, location, onClose }) {
                 <input
                   className={css.dateInput}
                   readOnly
-                  placeholder="Введіть День, Місяць Або Рік"
-                  value={values.date ? values.date.toLocaleDateString() : ""}
+                  placeholder="Введіть дату або діапазон дат"
+                  value={
+                    startDate && endDate
+                      ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
+                      : startDate
+                      ? startDate.toLocaleDateString()
+                      : ""
+                  }
                   onClick={() => datepickerRef.current.setOpen(true)}
                 />
                 <HiOutlineMagnifyingGlass className={css.glassDateIcon} />
                 <DatePicker
-                  selected={values.date}
-                  onChange={(date) => setFieldValue("date", date)}
+                  selected={startDate}
+                  onChange={(update) => setDateRange(update)}
+                  startDate={startDate}
+                  endDate={endDate}
+                  selectsRange
                   dateFormat="dd/MM/yyyy"
                   className={css.dateBtn}
                   showPopperArrow={false}
