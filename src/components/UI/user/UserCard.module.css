@@ -1,18 +1,18 @@
-.userList {
+.userCard {
   max-width: 1296px;
   background-color: #ffffff;
   border-bottom: 1px solid var(--text);
   padding: 12px 16px;
 }
-.userList:hover {
+.userCard:hover {
   border: 1px solid var(--text);
   border-radius: 10px;
   background: var(--input-backgroung);
 }
-.userList:focus {
+.userCard:focus {
   border: 2px solid var(--text);
 }
-.userListContainer {
+.userCardContainer {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;

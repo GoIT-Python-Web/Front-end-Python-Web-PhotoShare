@@ -1,16 +1,17 @@
 import { Settings, BellOff, User, Trash2 } from "lucide-react";
-import s from "./UserList.module.css";
+import s from "./UserCard.module.css";
 
-function UserList({
+function UserCard({
   profileImage = "/placeholder.svg?height=48&width=48",
   profileAlt = "Profile picture",
   userName = "User Name",
   email = "email@example.com",
   dateTime = "DD.MM.YY HH:MM",
+  onDelete,
 }) {
   return (
-    <div className={s.userList}>
-      <div className={s.userListContainer}>
+    <div className={s.userCard}>
+      <div className={s.userCardContainer}>
         <div className={s.profileSection}>
           <div className={s.profileImageContainer}>
             <img
@@ -39,7 +40,7 @@ function UserList({
           <button className={s.iconButton}>
             <User size={20} />
           </button>
-          <button className={s.iconButton}>
+          <button className={s.iconButton} onClick={onDelete}>
             <Trash2 size={20} />
           </button>
         </div>
@@ -48,4 +49,4 @@ function UserList({
   );
 }
 
-export default UserList;
+export default UserCard;
