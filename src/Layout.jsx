@@ -1,11 +1,14 @@
 import { Suspense } from "react";
+import Footer from "./components/Footer/Footer";
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <div className="wrapper">
       {/* <Header /> */}
-      <Suspense fallback={null}>{children}</Suspense>
-      {/* <Footer /> */}
+      <main className="content">
+        <Suspense fallback={null}>{children}</Suspense>
+      </main>
+      <Footer />
     </div>
   );
 };
