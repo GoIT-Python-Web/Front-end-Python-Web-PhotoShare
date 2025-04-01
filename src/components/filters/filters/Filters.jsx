@@ -14,7 +14,7 @@ export default function Filters({ location }) {
   };
 
   return (
-    <div className={css.wrapper} aria-location={location}>
+    <div className={css.wrapper} aria-label={location}>
       <button
         ref={buttonRef}
         className={css.filterItem}

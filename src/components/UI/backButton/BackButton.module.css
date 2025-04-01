@@ -1,0 +1,41 @@
+.wrapper {
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-right: 100px;
+  border-bottom: 0.6px solid #697a9e;
+  padding: 0px 0px 10px 0px;
+  width: 328px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.wrapper[aria-label="view"] {
+  border: none;
+}
+
+.wrapper:hover img {
+  transform: translateX(-5px);
+  transition: transform 0.2s ease-in-out;
+}
+
+.wrapper p {
+  font-weight: 600;
+  font-size: 16px;
+  color: #24448a;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    width: 696px;
+  }
+  .wrapper p {
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .wrapper {
+    width: 1296px;
+  }
+}
