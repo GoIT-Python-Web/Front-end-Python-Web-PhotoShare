@@ -1,4 +1,4 @@
-import Container from "../Container/Container.jsx";
+import Container from "../container/Container.jsx";
 import Logo from "../Logo/Logo.jsx";
 import css from "./Header.module.css";
 import { useState } from "react";
@@ -44,11 +44,11 @@ const Header = () => {
                   Про нас
                 </a>
               </li>
-              <li className={css.sidebarItem}>
+              {/* <li className={css.sidebarItem}>
                 <a href="#" className={css.sidebarLink}>
                   Користувачі
                 </a>
-              </li>
+              </li> */}
             </ul>
           </nav>
         </div>

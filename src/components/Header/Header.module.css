@@ -4,7 +4,7 @@
   margin: 0 auto;
   padding: 10px 14px;
   backdrop-filter: blur(4px);
-  background: #555;
+  background: var(--header-footer);
 }
 
 .headerСontainer {
@@ -153,3 +153,7 @@ nav {
     color: #f3f2f2;
   }
 }
+
+/* h3 {
+  color: #fdfdfd !important;
+} */
