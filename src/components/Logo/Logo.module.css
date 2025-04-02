@@ -1,0 +1,44 @@
+.logobox {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .logobox {
+    display: flex;
+  }
+  .tempImg {
+    padding: 5px;
+    border: 1.5px solid black;
+    border-radius: 40%;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 8px;
+    text-decoration: none;
+    line-height: 1;
+    height: 100%;
+    padding: 0;
+  }
+  .icon {
+    width: 28px;
+    height: 28px;
+  }
+  .title {
+    font-family: var(--font3);
+    font-weight: 600;
+    font-size: 25px;
+    color: #a0a0a0;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .icon {
+    width: 28px;
+    height: 28px;
+  }
+  .title {
+    font-size: 30px;
+  }
+}
