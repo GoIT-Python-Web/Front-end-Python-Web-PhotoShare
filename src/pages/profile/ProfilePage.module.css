@@ -1,0 +1,18 @@
+.wrapper {
+  margin-top: 28px;
+}
+
+.title {
+  margin-top: 24px;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    margin-top: 49px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .wrapper {
+    margin-top: 56px;
+  }
+}

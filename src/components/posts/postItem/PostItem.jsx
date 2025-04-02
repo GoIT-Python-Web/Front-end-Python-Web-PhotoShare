@@ -7,7 +7,9 @@ import css from "./PostItem.module.css";
 import Button from "../../UI/buttons/Button.jsx";
 import { useMediaQuery } from "react-responsive";
 
-export default function PostItem({ post }) {
+export default function PostItem({ post, location }) {
+  const isAdmin = false;
+  const isMyProfile = false;
   const isDesktop = useMediaQuery({ minWidth: 1440 });
   const isTablet = useMediaQuery({ minWidth: 768 });
 

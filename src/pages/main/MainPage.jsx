@@ -11,7 +11,6 @@ export default function MainPage() {
         <Title location="main" />
         <Filters location="main" />
       </div>
-      <BackButton />
       <PostsList />
     </div>
   );

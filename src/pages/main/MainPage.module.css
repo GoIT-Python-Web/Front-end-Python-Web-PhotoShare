@@ -3,4 +3,17 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
+  margin-top: 28px;
+}
+
+@media screen and (min-width: 768px) {
+  .headWrapper {
+    margin-top: 48px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .headWrapper {
+    margin-top: 60px;
+  }
 }
