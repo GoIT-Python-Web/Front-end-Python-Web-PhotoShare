@@ -11,7 +11,7 @@ const LoginValidationSchema = Yup.object({
     .required("Name is required!"),
   password: Yup.string()
     .min(8, "Must be at least 8 characters!")
-    .max(20, "Must be less than 20 characters!")
+    .max(30, "Must be less than 20 characters!")
     .required("Password is required!"),
 });
 
@@ -100,5 +100,4 @@ const SignInForm = () => {
     </div>
   );
 };
-
 export default SignInForm;

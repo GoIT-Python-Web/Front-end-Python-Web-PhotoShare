@@ -1,6 +1,8 @@
 .container {
   padding: 24px;
+  margin: 0 auto;
   max-width: 340px;
+  min-width: 250px;
   border-radius: 8px;
   backdrop-filter: blur(40px);
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
@@ -21,24 +23,28 @@
   flex-direction: column;
   margin-bottom: 55px;
 }
-.nameContainer {
+.nameContainer,
+.passwordContainer {
   position: relative;
   display: flex;
   flex-direction: column;
+}
+.passwordContainer {
+  margin-bottom: 16px;
 }
 .inputForm {
   border: none;
   border-bottom: 1px solid #525252;
   border-radius: 8px;
   padding: 8px 16px 8px 8px;
-  width: 292px;
+  max-width: 292px;
   height: 48px;
   outline: none;
   background-color: transparent;
 }
-.inputForm:focus {
+/* .inputForm:focus {
   border: 1px solid rgba(47, 47, 47, 0.4);
-}
+} */
 .inputForm::placeholder {
   font-family: var(--second-family);
   font-size: 16px;
@@ -64,12 +70,6 @@
   bottom: -20px;
   left: 0;
 }
-.passwordContainer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
-}
 .closeEyeBtn {
   position: absolute;
   right: 16px;
@@ -88,9 +88,9 @@
   border: none;
   border-radius: 8px;
   padding: 10px 16px;
-  width: 292px;
+  max-width: 292px;
   height: 48px;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   background: rgba(27, 31, 38, 0.72);
   font-family: var(--second-family);
@@ -125,10 +125,10 @@
     margin-bottom: 0;
   }
   .inputForm {
-    width: 478px;
+    max-width: 478px;
   }
   .submitBtn {
-    width: 478px;
+    max-width: 478px;
   }
   .dscr {
     font-size: 14px;
