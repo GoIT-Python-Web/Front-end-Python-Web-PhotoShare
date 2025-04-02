@@ -1,0 +1,133 @@
+.footer {
+  width: 100%;
+  background: var(--header-footer);
+  max-width: 360px;
+  padding: 16px 16px 32px 16px;
+  margin: 0 auto;
+  color: var(--additional-text);
+}
+
+.up {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+}
+.footerLogo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 110px;
+  margin-bottom: 32px;
+  text-decoration: none;
+  color: var(--additional-text);
+}
+.footerLogoText {
+  font-family: var(--third-family);
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.wrapLinks {
+  display: flex;
+  gap: 80px;
+}
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 120%;
+}
+.links a {
+  text-decoration: none;
+  color: var(--additional-text);
+}
+.links a:hover {
+  text-decoration: underline;
+}
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  margin-left: auto;
+}
+.contacts a {
+  text-decoration: none;
+  color: var(--additional-text);
+}
+.contacts a:hover {
+  text-decoration: underline;
+}
+.socialList {
+  display: flex;
+  margin-top: 47px;
+  gap: 32px;
+}
+
+.down {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 120%;
+}
+.line {
+  border: 0.4px solid var(--additional-text);
+  width: 328px;
+  height: 0px;
+  margin-bottom: 16px;
+}
+.wrapPrivacy a {
+  text-decoration: none;
+  color: var(--additional-text);
+}
+.wrapPrivacy a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (min-width: 375px) {
+}
+@media screen and (min-width: 768px) {
+  .footer {
+    max-width: 768px;
+    padding: 28px 36px;
+  }
+  .up {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+  }
+  .down {
+    font-weight: 275;
+    font-size: 12px;
+    line-height: 150%;
+  }
+  .line {
+    width: 696px;
+    margin-bottom: 24px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .footer {
+    max-width: 1440px;
+    padding: 47px 80px 29px 88px;
+  }
+  .up {
+    flex-direction: row;
+    margin-bottom: 74px;
+  }
+ 
+  .line {
+    width: 1074px;
+  }
+}

@@ -1,5 +1,4 @@
 .container {
-  padding: 0 10px;
   margin: 0 auto;
   max-width: 360px;
   min-width: 320px;
@@ -7,14 +6,12 @@
 
 @media only screen and (min-width: 768px) {
   .container {
-    max-width: 526px;
-    padding: 0 121px;
+    min-width: 696px;
   }
 }
 
 @media only screen and (min-width: 1440px) {
   .container {
-    max-width: 1184px;
-    padding: 0 108px;
+    min-width: 1296px;
   }
 }
