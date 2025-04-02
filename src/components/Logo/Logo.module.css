@@ -5,28 +5,31 @@
 @media only screen and (min-width: 768px) {
   .logobox {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 177px;
+    height: 38px;
   }
-  .tempImg {
-    padding: 5px;
-    border: 1.5px solid black;
-    border-radius: 40%;
-  }
-  a {
+  .logoLink {
     display: flex;
     align-items: center;
     justify-content: space-between;
     column-gap: 8px;
     text-decoration: none;
+    font-family: var(--third-family);
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--additional-text);
     line-height: 1;
     height: 100%;
     padding: 0;
   }
-  .icon {
+  .logoImg {
     width: 28px;
     height: 28px;
   }
-  .title {
-    font-family: var(--font3);
+  .logoTitle {
+    font-family: var(--third-family);
     font-weight: 600;
     font-size: 25px;
     color: #fdfdfd;
@@ -34,11 +37,19 @@
 }
 
 @media only screen and (min-width: 1440px) {
-  .icon {
-    width: 28px;
+  .logobox {
+    min-width: 236px;
+    height: 46px;
+    font-size: 30px;
+  }
+  .logoImg {
+    width: 29px;
     height: 28px;
   }
-  .title {
+  .logoLink {
+    font-size: 30px;
+  }
+  .logoTitle {
     font-size: 30px;
   }
 }

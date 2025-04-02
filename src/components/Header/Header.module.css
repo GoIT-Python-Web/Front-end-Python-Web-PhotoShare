@@ -7,10 +7,6 @@
   background: var(--header-footer);
 }
 
-.headerСontainer {
-  padding: 5px 0;
-}
-
 .logo {
   display: none;
 }
@@ -26,30 +22,9 @@
 }
 
 .burgerBtn {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: none;
   border: none;
-  color: white;
-  font-size: 24px;
   cursor: pointer;
-}
-
-.addBtn {
-  min-width: 135px;
-  height: 29px;
-  padding: 4px 12px;
-  background-color: #b8b4b4;
-  border-radius: 5px;
-  border: none;
-  font-family: var(--font-family);
-  font-weight: 300;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #131212;
 }
 
 nav {
@@ -58,12 +33,9 @@ nav {
 
 @media only screen and (min-width: 768px) {
   .header {
-    max-width: 768px;
+    min-width: 768px;
     height: 80px;
     padding: 20px 36px;
-  }
-  .headerСontainer {
-    padding: 2.5px 0;
   }
   .headerСontainer {
     display: flex;
@@ -73,16 +45,13 @@ nav {
   .headerWrap {
     display: flex;
     flex-direction: row-reverse;
-    align-items: center;
-    justify-content: space-between;
+    align-items: start;
+    justify-content: center;
+    column-gap: 32px;
   }
-  .addBtn {
-    border-radius: 5px;
-    min-width: 152px;
-    height: 35px;
-    padding: 6px 16px;
-    margin-right: 21px;
-    font-size: 15px;
+  .burgerIcon {
+    max-width: 32px;
+    max-height: 32px;
   }
   .logo {
     display: flex;
@@ -91,11 +60,11 @@ nav {
 
 @media only screen and (min-width: 1440px) {
   .header {
-    max-width: 1440px;
+    min-width: 1440px;
     padding: 17.5px 72px;
   }
-  .headerСontainer {
-    padding: 0;
+  .headerWrap {
+    align-items: center;
   }
   .burgerBtn {
     display: none;
@@ -114,6 +83,7 @@ nav {
     border: 1px solid #525252;
     border-radius: 8px;
     background-color: #fff;
+    font-size: 20px;
   }
   .userName {
     font-family: var(--font-family);
@@ -146,14 +116,14 @@ nav {
     margin-right: 401px;
   }
   .sidebarLink {
+    text-decoration: none;
     font-family: var(--font-family);
     font-weight: 300;
     font-size: 14px;
     line-height: 1.5;
     color: #f3f2f2;
   }
+  .sidebarLink:hover {
+    text-decoration: underline;
+  }
 }
-
-/* h3 {
-  color: #fdfdfd !important;
-} */

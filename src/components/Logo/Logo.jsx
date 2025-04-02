@@ -1,16 +1,12 @@
-// import sprite from "/public/sprite.svg";
 import css from "./Logo.module.css";
 
 const Logo = () => {
   return (
     <>
       <div className={css.logobox}>
-        <a href="#" className={css.logolink}>
-          {/* <svg className={css.icon}>
-            <use xlinkHref={`${sprite}#logo`} href={`${sprite}#logo`} />
-          </svg> */}
-          <div className={css.tempImg}>👁️</div> {/* Тимчасова іконка :) */}
-          <h3 className={css.title}>PhotoShare</h3>
+        <a href="#" className={css.logoLink}>
+          <img className={css.logoImg} src="/favicon.svg" alt="Logo" />
+          <span className={css.logoTitle}>PhotoShare</span>
         </a>
       </div>
     </>
