@@ -1,7 +1,8 @@
-import s from "./UserCard.module.css";
-import Icon from "../icons/Icon";
-import getColorFromName from "../../../helpers/getColorFromName";
-function UserCard({
+import s from "./UserItem.module.css";
+import Icon from "../UI/icons/Icon";
+import getColorFromName from "../../helpers/getColorFromName";
+
+function UserItem({
   profileImage = null,
   profileAlt = "Profile picture",
   userName = "User Name",
@@ -11,8 +12,8 @@ function UserCard({
   role = "user",
 }) {
   return (
-    <div className={s.userCard}>
-      <div className={s.userCardContainer}>
+    <div className={s.userItem}>
+      <div className={s.userItemContainer}>
         <div className={s.profileSection}>
           <div className={s.profileImageContainer}>
             {typeof profileImage === "string" &&
@@ -35,7 +36,7 @@ function UserCard({
           </div>
           <span className={s.profileName}>
             {userName}
-            {role === "admin" && <span className={s.badgeAdmin}>Адмін</span>}
+            {/* {role === "admin" && <span className={s.badgeAdmin}>Адмін</span>} */}
           </span>
         </div>
 
@@ -69,4 +70,4 @@ function UserCard({
   );
 }
 
-export default UserCard;
+export default UserItem;

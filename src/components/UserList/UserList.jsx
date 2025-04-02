@@ -1,21 +1,13 @@
 import React from "react";
-import UserCard from "../UI/user/UserCard";
+import UserItem from "./UserItem";
+import styles from "./UserList.module.css";
 
 const UserList = ({ users, onDelete }) => {
   return (
-    <div>
-      {Array.isArray(users) &&
-        users.map((user) => (
-          <UserCard
-            key={user.id}
-            profileImage={user.profileImage}
-            userName={user.userName}
-            email={user.email}
-            dateTime={user.dateTime}
-            role={user.role}
-            onDelete={() => onDelete(user.id)}
-          />
-        ))}
+    <div className={styles.userList}>
+      {users.map((user) => (
+        <UserItem key={user.id} {...user} onDelete={() => onDelete(user.id)} />
+      ))}
     </div>
   );
 };

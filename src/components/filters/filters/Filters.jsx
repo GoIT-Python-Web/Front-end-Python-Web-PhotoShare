@@ -1,8 +1,9 @@
-import { TbFilterX } from "react-icons/tb";
-import { LuListCollapse } from "react-icons/lu";
+// import { TbFilterX } from "react-icons/tb";
+// import { LuListCollapse } from "react-icons/lu";
 import css from "./Filters.module.css";
 import { useRef, useState } from "react";
 import FilterPopUp from "../filterPopUp/FilterPopUp.jsx";
+import Icon from "../../UI/icons/Icon.jsx";
 
 export default function Filters({ location }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,10 +21,12 @@ export default function Filters({ location }) {
         className={css.filterItem}
         onClick={handleFilterClick}
       >
-        <TbFilterX className={css.filterIcon} />
+        <Icon name="filter-remove" className={css.filterIcon} />
+        {/* <TbFilterX className={css.filterIcon} /> */}
       </button>
       <button className={css.filterItem}>
-        <LuListCollapse className={css.listIcon} />
+        <Icon name="collapse-categories" className={css.listIcon} />
+        {/* <LuListCollapse className={css.listIcon} /> */}
       </button>
       {isOpen && (
         <FilterPopUp
