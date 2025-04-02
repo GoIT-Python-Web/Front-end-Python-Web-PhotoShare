@@ -1,12 +1,12 @@
-.container {
+.form {
   padding: 24px;
-  max-width: 340px;
+  max-width: 464px;
   border-radius: 8px;
   backdrop-filter: blur(40px);
   box-shadow: 0 4px 20px 0 rgba(105, 122, 158, 0.5);
   background: var(--input-backgroung);
 }
-.title {
+/* .title {
   font-family: var(--second-family);
   font-weight: 600;
   font-size: 30px;
@@ -14,20 +14,19 @@
   text-align: center;
   color: var(--text);
   margin-bottom: 32px;
-}
+} */
 .form {
   display: flex;
+  flex-direction: column;
   row-gap: 16px;
-  flex-direction: column;
-  margin-bottom: 55px;
   max-width: 464px;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 55px;
+  box-shadow: 0 4px 20px 0 rgba(105, 122, 158, 0.5);
+  background: var(--input-backgroung);
 }
-.nameContainer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-.inputForm {
+.input {
   border-radius: 8px;
   border: 1px solid var(--text);
   padding: 8px 16px 8px 8px;

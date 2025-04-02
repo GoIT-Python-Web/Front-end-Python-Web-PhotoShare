@@ -1,11 +1,15 @@
 import Container from "../../components/Container/Container";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
-// import css from "./SignUpPage.module.css";
+import css from "../SignUpPage/SingUpPage.module.css";
 
 const SignUpPage = () => {
   return (
     <Container>
-      <SignUpForm />
+      <img src="/public/favicon.svg" alt="" />
+      <div>
+        <h2 className={css.title}>Реєстрація</h2>
+        <SignUpForm />
+      </div>
     </Container>
   );
 };

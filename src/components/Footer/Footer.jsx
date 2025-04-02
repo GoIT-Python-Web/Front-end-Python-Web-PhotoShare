@@ -1,4 +1,5 @@
 import css from "./Footer.module.css";
+import Logo from "../Logo/Logo.jsx";
 
 const Footer = () => {
   return (
@@ -6,10 +7,11 @@ const Footer = () => {
 
       <div className={css.up}>
 
-        <a href="/" className={css.footerLogo}>
+        {/* <a href="/" className={css.footerLogo}>
           <img src="/favicon.svg" alt="Logo" />
           <span className={css.footerLogoText}>PhotoShare</span>
-        </a>
+        </a> */}
+        <Logo className={css.logo} />
 
         <div className={css.wrapLinks}>
           <nav className={css.links}>

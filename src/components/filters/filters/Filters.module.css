@@ -4,7 +4,7 @@
   gap: 16px;
 }
 
-.wrapper[aria-location="main"] {
+.wrapper[aria-label="main"] {
   margin-left: 28px;
 }
 .filterItem {
@@ -36,7 +36,7 @@
     width: 120px;
     gap: 24px;
   }
-  .wrapper[aria-location="main"] {
+  .wrapper[aria-label="main"] {
     margin-left: 120px;
   }
   .filterItem {
@@ -45,7 +45,7 @@
   }
 }
 @media screen and (min-width: 1440px) {
-  .wrapper[aria-location="main"] {
+  .wrapper[aria-label="main"] {
     margin-left: 475px;
   }
 }
