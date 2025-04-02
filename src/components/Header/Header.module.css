@@ -1,0 +1,159 @@
+.header {
+  max-width: 360px;
+  height: 60px;
+  margin: 0 auto;
+  padding: 10px 14px;
+  backdrop-filter: blur(4px);
+  background: var(--header-footer);
+}
+
+.headerСontainer {
+  padding: 5px 0;
+}
+
+.logo {
+  display: none;
+}
+
+.headerWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.userSettings {
+  display: none;
+}
+
+.burgerBtn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.addBtn {
+  min-width: 135px;
+  height: 29px;
+  padding: 4px 12px;
+  background-color: #b8b4b4;
+  border-radius: 5px;
+  border: none;
+  font-family: var(--font-family);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #131212;
+}
+
+nav {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .header {
+    max-width: 768px;
+    height: 80px;
+    padding: 20px 36px;
+  }
+  .headerСontainer {
+    padding: 2.5px 0;
+  }
+  .headerСontainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .headerWrap {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .addBtn {
+    border-radius: 5px;
+    min-width: 152px;
+    height: 35px;
+    padding: 6px 16px;
+    margin-right: 21px;
+    font-size: 15px;
+  }
+  .logo {
+    display: flex;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .header {
+    max-width: 1440px;
+    padding: 17.5px 72px;
+  }
+  .headerСontainer {
+    padding: 0;
+  }
+  .burgerBtn {
+    display: none;
+  }
+  .userSettings {
+    display: flex;
+    align-items: center;
+    column-gap: 13px;
+  }
+  .userIcon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #525252;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  .userName {
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 12px;
+    color: #fff;
+  }
+  .settingsIcon {
+    font-size: 24px;
+    cursor: pointer;
+  }
+  .addBtn {
+    border-radius: 9px;
+    min-width: 181px;
+    height: 42px;
+    font-size: 20px;
+    color: #141212;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sidebarHeader {
+    display: none;
+  }
+  .sidebarList {
+    display: flex;
+    column-gap: 16px;
+    margin-right: 401px;
+  }
+  .sidebarLink {
+    font-family: var(--font-family);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #f3f2f2;
+  }
+}
+
+/* h3 {
+  color: #fdfdfd !important;
+} */
