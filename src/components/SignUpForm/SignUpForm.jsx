@@ -79,11 +79,10 @@ const SignUpForm = () => {
             </a>
 
             <Button
-              size="lg"
+              size="fs"
               variant="primary"
               type="submit"
               disabled={isSubmitting}
-              // className={css.button}
             >
               Зареєструватись
             </Button>
