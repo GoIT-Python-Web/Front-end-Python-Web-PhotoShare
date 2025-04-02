@@ -28,6 +28,7 @@
 /* RESET STYLES */
 
 html {
+  height: 100%;
   box-sizing: border-box;
 }
 
@@ -69,6 +70,21 @@ img {
 body {
   background-color: var(--background);
   font-family: var(--font-family);
+}
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.content {
+  flex: 1;
 }
 
 .container {
