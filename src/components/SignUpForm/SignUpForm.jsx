@@ -83,7 +83,7 @@ const SignUpForm = () => {
               variant="primary"
               type="submit"
               disabled={isSubmitting}
-              className={css.button}
+              // className={css.button}
             >
               Зареєструватись
             </Button>

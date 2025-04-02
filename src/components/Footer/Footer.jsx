@@ -1,17 +1,15 @@
 import css from "./Footer.module.css";
-import Logo from "../Logo/Logo.jsx";
 
 const Footer = () => {
   return (
-    <div className={`${css.container} ${css.footer}`}>
+    <div className={`${css.footerContainer} ${css.footer}`}>
 
       <div className={css.up}>
 
-        {/* <a href="/" className={css.footerLogo}>
+        <a href="/" className={css.footerLogo}>
           <img src="/favicon.svg" alt="Logo" />
           <span className={css.footerLogoText}>PhotoShare</span>
-        </a> */}
-        <Logo className={css.logo} />
+        </a>
 
         <div className={css.wrapLinks}>
           <nav className={css.links}>
