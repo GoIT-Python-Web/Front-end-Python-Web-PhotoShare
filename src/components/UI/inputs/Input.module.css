@@ -68,6 +68,12 @@
   transition: color 0.3s ease;
 }
 
+.icon {
+  width: 24px;
+  height: 18px;
+  color: #24448a;
+}
+
 .error + .eyeIcon svg path {
   fill: red;
 }
