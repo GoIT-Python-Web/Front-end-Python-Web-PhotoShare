@@ -1,5 +1,6 @@
 .header {
-  max-width: 360px;
+  min-width: 360px;
+  width: 100%;
   height: 60px;
   margin: 0 auto;
   padding: 10px 14px;
@@ -33,7 +34,7 @@ nav {
 
 @media only screen and (min-width: 768px) {
   .header {
-    min-width: 768px;
+    min-width: 696px;
     height: 80px;
     padding: 20px 36px;
   }
@@ -60,7 +61,7 @@ nav {
 
 @media only screen and (min-width: 1440px) {
   .header {
-    min-width: 1440px;
+    min-width: 1196px;
     padding: 17.5px 72px;
   }
   .headerWrap {

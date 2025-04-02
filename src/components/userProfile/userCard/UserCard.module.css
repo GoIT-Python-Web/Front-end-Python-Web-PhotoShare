@@ -1,0 +1,159 @@
+.cardWrapper {
+  margin-bottom: 28px;
+}
+
+.cardWrapper img {
+  border-radius: 8px;
+}
+
+.flex {
+  margin-block: 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.flex > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardWrapper span {
+  margin-left: 8px;
+}
+
+.registerDate {
+  font-weight: 275;
+  font-size: 12px;
+  line-height: 134%;
+  letter-spacing: 0em;
+  color: #24448a;
+}
+
+.name,
+.userName {
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: capitalize;
+  color: #24448a;
+}
+
+.nameWrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 11px;
+}
+
+.userName {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 120%;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: 0em;
+  color: #24448a;
+}
+
+.tabDescription,
+.tabRegisterDate,
+.deskRegisterDate {
+  display: none;
+}
+
+.role {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #24448a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media screen and (min-width: 768px) {
+  .cardWrapper img {
+    width: 86px;
+    height: 86px;
+  }
+  .nameWrapper {
+    margin-bottom: 17px;
+  }
+
+  .cardWrapper {
+    margin-bottom: 50px;
+  }
+
+  .textWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .flex {
+    border-bottom: 0.4px solid #697a9e;
+    padding: 10px 0px;
+  }
+  .registerDate,
+  .description {
+    display: none;
+  }
+  .tabDescription {
+    display: block;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    letter-spacing: 0em;
+    color: #24448a;
+  }
+  .name {
+    font-style: italic;
+  }
+  .tabRegisterDate {
+    display: block;
+    margin-top: 24px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+    color: #697a9e;
+  }
+  .tabRegisterDate span {
+    font-weight: 500;
+  }
+  .userName {
+    font-weight: 400;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .tabDescription {
+    font-weight: 300;
+  }
+  .name {
+    font-weight: 400;
+    font-size: 16px;
+    font-style: normal;
+  }
+  .flex {
+    padding-bottom: 20px;
+  }
+  .nameWrapper {
+    width: 1195px;
+    padding-right: 24px;
+  }
+  .tabRegisterDate {
+    display: none;
+  }
+  .deskRegisterDate {
+    display: block;
+    font-weight: 400;
+    margin-left: auto;
+    font-size: 14px;
+    line-height: 120%;
+    color: #697a9e;
+  }
+}
