@@ -1,6 +1,6 @@
 // UsersManagement.jsx
 import React, { useState, useEffect } from "react";
-import { LayoutList, Trash2 } from "lucide-react";
+// import { LayoutList, Trash2 } from "lucide-react";
 import UserList from "../../components/UserList/UserList";
 import Input from "../../components/UI/inputs/Input";
 import Button from "../../components/UI/buttons/Button";
@@ -8,6 +8,7 @@ import Title from "../../components/UI/title/Title";
 import styles from "./UsersManagement.module.css";
 import importedUsers from "../../data/users.json";
 import Swal from "sweetalert2";
+import Icon from "../../components/UI/icons/Icon";
 
 function UsersManagement() {
   const isBackendPagination = false; //true, коли бекенд готовий
@@ -85,7 +86,6 @@ function UsersManagement() {
       setCurrentPage((prev) => prev + 1);
     }
   };
-  console.log("USERS 👉", users, Array.isArray(users));
   return (
     <div className={styles.usersPage}>
       <Title location="admin" />
@@ -99,10 +99,10 @@ function UsersManagement() {
 
         <div className={styles.iconButtons}>
           <Button size="sm" variant="secondary">
-            <Trash2 size={18} />
+            <Icon name="collapse-categories" fill="black" stroke="black" />
           </Button>
           <Button size="sm" variant="secondary">
-            <LayoutList size={18} />
+            <Icon name="filter-remove" fill="black" stroke="black" />
           </Button>
         </div>
       </div>

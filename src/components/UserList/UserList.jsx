@@ -12,6 +12,7 @@ const UserList = ({ users, onDelete }) => {
             userName={user.userName}
             email={user.email}
             dateTime={user.dateTime}
+            role={user.role}
             onDelete={() => onDelete(user.id)}
           />
         ))}

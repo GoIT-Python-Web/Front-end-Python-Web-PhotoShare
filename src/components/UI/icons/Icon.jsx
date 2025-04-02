@@ -20,10 +20,10 @@ const Icon = ({
       width={width}
       height={height}
       fill={color}
-      {...props}
       aria-hidden="true"
+      {...props}
     >
-      <use href={`/public/sprite.svg#${name}`} />
+      <use xlinkHref={`/sprite.svg#${name}`} />
     </svg>
   );
 };

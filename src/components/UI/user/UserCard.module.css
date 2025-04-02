@@ -93,3 +93,21 @@
 .actionsSection .iconButton:hover {
   color: #24448a;
 }
+
+.placeholder {
+  color: black;
+  stroke: #525252;
+}
+
+.initialAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
