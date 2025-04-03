@@ -1,4 +1,4 @@
-import Container from "../container/container.jsx";
+import Container from "../container/Container.jsx";
 import Logo from "../Logo/Logo.jsx";
 import Button from "../UI/buttons/Button.jsx";
 import Input from "../UI/inputs/Input.jsx";
