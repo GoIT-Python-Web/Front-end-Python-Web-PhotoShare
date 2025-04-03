@@ -3,12 +3,11 @@ import { TiSocialFacebook } from "react-icons/ti";
 import { IoLogoInstagram } from "react-icons/io5";
 import { TfiTwitter } from "react-icons/tfi";
 import { SlSocialLinkedin } from "react-icons/sl";
-import Container from "../container/Container.jsx";
 
 const Footer = () => {
   return (
     <footer className={css.footer}>
-      <Container>
+      <div className="container">
         <div className={css.up}>
           <a href="/" className={css.footerLogo}>
             <img src="/favicon.svg" alt="Logo" />
@@ -99,7 +98,7 @@ const Footer = () => {
           <hr className={css.line} />
           <p className={css.rights}>© 2025 PhotoShare. All rights reserved.</p>
         </div>
-      </Container>
+      </div>
     </footer>
   );
 };

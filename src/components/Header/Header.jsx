@@ -1,10 +1,8 @@
-import Container from "../container/Container.jsx";
 import Logo from "../Logo/Logo.jsx";
 import Button from "../UI/buttons/Button.jsx";
 import Input from "../UI/inputs/Input.jsx";
 import css from "./Header.module.css";
 import { useState } from "react";
-// import sprite from "/public/sprite.svg";
 
 const Header = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -22,7 +20,7 @@ const Header = () => {
 
   return (
     <header className={css.header}>
-      <Container className={css.headerСontainer}>
+      <div className={`container ${css.headerСontainer}`}>
         <Logo className={css.logo} />
         <div className={css.headerWrap}>
           <button className={css.burgerBtn} onClick={toggleMenu}>
@@ -97,7 +95,7 @@ const Header = () => {
             <nav className={css.sidebar} />
           )}
         </div>
-      </Container>
+      </div>
     </header>
   );
 };
