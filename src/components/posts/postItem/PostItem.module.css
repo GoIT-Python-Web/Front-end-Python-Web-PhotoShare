@@ -91,6 +91,11 @@
   font-weight: 500;
 }
 
+.buttonsWrapper {
+  display: flex;
+  gap: 16px;
+}
+
 @media screen and (min-width: 768px) {
   .postPic {
     width: 336px;
@@ -99,6 +104,9 @@
   .viewButton {
     right: 18px;
     top: 18px;
+  }
+  .buttonsWrapper {
+    gap: 22px;
   }
 }
 
@@ -110,5 +118,8 @@
   .viewButton {
     right: 24px;
     top: 24px;
+  }
+  .buttonsWrapper {
+    gap: 20px;
   }
 }

@@ -1,5 +1,6 @@
 .wrapper {
-  margin-top: 28px;
+  margin-block: 28px;
+  background-color: #fdfdfd;
 }
 
 .title {
@@ -8,11 +9,11 @@
 
 @media screen and (min-width: 768px) {
   .wrapper {
-    margin-top: 49px;
+    margin-block: 49px;
   }
 }
 @media screen and (min-width: 1440px) {
   .wrapper {
-    margin-top: 56px;
+    margin-block: 56px;
   }
 }
