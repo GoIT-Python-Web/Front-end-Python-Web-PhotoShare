@@ -12,7 +12,7 @@ export default function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<Navigate to="/posts" replace />} />
+      <Route path="/" element={<Navigate to="/posts" replace />} />
         <Route path="/posts" element={<MainPage />} />
         <Route path="/my-profile" element={<ProfilePage />} />
         <Route path="/register" element={<SignUpPage />} />
