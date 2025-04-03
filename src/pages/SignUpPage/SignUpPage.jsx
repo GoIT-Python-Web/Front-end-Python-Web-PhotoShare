@@ -4,7 +4,7 @@ import css from "../SignUpPage/SingUpPage.module.css";
 
 const SignUpPage = () => {
   return (
-    <Container >
+    <div className="container">
       <a href="/" className={css.Logo}>
         <img src="/favicon.svg" alt="Logo" />
         <span className={css.logoText}>PhotoShare</span>
@@ -16,7 +16,7 @@ const SignUpPage = () => {
           <SignUpForm />
         </div>
       </div>
-    </Container>
+    </div>
   );
 };
 
