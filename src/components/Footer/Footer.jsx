@@ -1,9 +1,9 @@
-import Container from "../Container/Container";
 import css from "./Footer.module.css";
 import { TiSocialFacebook } from "react-icons/ti";
 import { IoLogoInstagram } from "react-icons/io5";
 import { TfiTwitter } from "react-icons/tfi";
 import { SlSocialLinkedin } from "react-icons/sl";
+import Container from "../container/Container.jsx";
 
 const Footer = () => {
   return (
