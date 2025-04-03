@@ -1,7 +1,7 @@
 .footer {
+  min-width: 360px;
   width: 100%;
   background: var(--header-footer);
-  max-width: 360px;
   padding: 16px 16px 32px 16px;
   margin: 0 auto;
   color: var(--additional-text);
@@ -48,27 +48,7 @@
   text-decoration: underline;
 }
 
-.contacts {
-  display: flex;
-  flex-direction: column;
-  font-family: var(--font-family);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 150%;
-  margin-left: auto;
-}
-.contacts a {
-  text-decoration: none;
-  color: var(--additional-text);
-}
-.contacts a:hover {
-  text-decoration: underline;
-}
-.socialList {
-  display: flex;
-  margin-top: 47px;
-  gap: 32px;
-}
+
 
 .down {
   display: flex;
@@ -93,19 +73,65 @@
   text-decoration: underline;
 }
 
-@media screen and (min-width: 375px) {
-}
 @media screen and (min-width: 768px) {
   .footer {
-    max-width: 768px;
+    min-width: 696px;
     padding: 28px 36px;
   }
   .up {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    /* flex-direction: row; */
+    /* flex-wrap: wrap; */
+    /* justify-content: space-between; */
     align-items: flex-start;
     margin-bottom: 40px;
+  }
+  .wrap{
+    display: flex;
+    flex-direction: row;
+    gap: 76px;
+  }
+  .wrapLinks {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+  }
+  .contacts {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    margin-left: auto;
+  }
+  .contacts a {
+    text-decoration: none;
+    color: var(--additional-text);
+  }
+  .contacts a:hover {
+    text-decoration: underline;
+  }
+  .socialList {
+    display: flex;
+    margin-top: 47px;
+    gap: 20px;
+  }
+  .socialLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--additional-text);
+    font-size: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .socialLink:hover {
+        scale: 1.1;
   }
   .down {
     font-weight: 275;
@@ -119,12 +145,27 @@
 }
 @media screen and (min-width: 1440px) {
   .footer {
-    max-width: 1440px;
-    padding: 47px 80px 29px 88px;
+    min-width: 1196px;
+     padding: 47px 80px 29px 88px;
+  }
+  .footerLogo {
+   margin: 50px 110px 0 0;
   }
   .up {
     flex-direction: row;
     margin-bottom: 74px;
+  }
+  .wrap{
+    gap:250px;
+  }
+  .wrapLinks {
+     gap: 100px;
+  }
+  .contacts {
+    
+  }
+  .socialLink {
+   gap: 32px;
   }
  
   .line {

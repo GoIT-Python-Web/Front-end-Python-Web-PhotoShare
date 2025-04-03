@@ -66,6 +66,9 @@
 .sm {
   min-width: 198px;
 }
+.fs{
+  min-width: 280px;
+}
 .md {
   min-width: 310px;
 }
