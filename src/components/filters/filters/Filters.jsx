@@ -22,7 +22,6 @@ export default function Filters({ location }) {
         onClick={handleFilterClick}
       >
         <Icon name="filter-remove" className={css.filterIcon} />
-        {/* <TbFilterX className={css.filterIcon} /> */}
       </button>
       <button className={css.filterItem}>
         <Icon name="collapse-categories" className={css.listIcon} />

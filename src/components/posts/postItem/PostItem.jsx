@@ -8,8 +8,8 @@ import Button from "../../UI/buttons/Button.jsx";
 import { useMediaQuery } from "react-responsive";
 
 export default function PostItem({ post, location }) {
-  const isAdmin = false;
-  const isMyProfile = false;
+  const isAdmin = true;
+  const isMyProfile = true;
   const isDesktop = useMediaQuery({ minWidth: 1440 });
   const isTablet = useMediaQuery({ minWidth: 768 });
 
@@ -59,9 +59,20 @@ export default function PostItem({ post, location }) {
         </div>
       </div>
 
-      <Button size={isDesktop ? "xxl" : isTablet ? "xl" : "lg"}>
-        Детальніше
-      </Button>
+      {!isAdmin && !isMyProfile ? (
+        <Button size={isDesktop ? "xxl" : isTablet ? "xl" : "lg"}>
+          Детальніше
+        </Button>
+      ) : isAdmin ? (
+        <div className={css.buttonsWrapper}>
+          <Button size={isDesktop ? "sm" : "xs"}>
+            {isMyProfile ? "Редагувати" : "Детальніше"}
+          </Button>
+          <Button size={isDesktop ? "sm" : "xs"} variant="secondary-red">
+            Видалити
+          </Button>
+        </div>
+      ) : null}
     </li>
   );
 }

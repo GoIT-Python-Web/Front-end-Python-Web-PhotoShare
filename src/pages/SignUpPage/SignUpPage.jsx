@@ -1,10 +1,10 @@
-import Container from "../../components/Container/Container";
+import Container from "../../components/container/Container.jsx";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import css from "../SignUpPage/SingUpPage.module.css";
 
 const SignUpPage = () => {
   return (
-    <Container >
+    <Container>
       <a href="/" className={css.Logo}>
         <img src="/favicon.svg" alt="Logo" />
         <span className={css.logoText}>PhotoShare</span>

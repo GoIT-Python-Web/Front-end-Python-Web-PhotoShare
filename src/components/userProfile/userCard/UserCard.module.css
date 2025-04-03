@@ -1,5 +1,6 @@
 .cardWrapper {
   margin-bottom: 28px;
+  position: relative;
 }
 
 .cardWrapper img {
@@ -18,6 +19,16 @@
   flex-direction: column;
 }
 
+.dotsIcon {
+  position: absolute;
+  width: 32px;
+  right: 0;
+  top: -7.5px;
+  height: 32px;
+  color: #24448a;
+  cursor: pointer;
+}
+
 .cardWrapper span {
   margin-left: 8px;
 }
@@ -28,6 +39,8 @@
   line-height: 134%;
   letter-spacing: 0em;
   color: #24448a;
+  display: flex;
+  align-items: center;
 }
 
 .name,
@@ -77,6 +90,53 @@
   gap: 8px;
 }
 
+.dots {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* SETTINGS */
+.settings {
+  position: absolute;
+  border-radius: 10px;
+  top: 30px;
+  right: 0;
+  padding: 20px 16px;
+  width: auto;
+  height: auto;
+  background: #f2f6ff;
+}
+
+.settingsParagraph {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: 0em;
+  color: #24448a;
+  cursor: pointer;
+}
+
+.icons {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.closeIcon {
+  border-radius: 0 !important;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.settingsIcon {
+  width: 24px;
+  height: 24px;
+}
+
 @media screen and (min-width: 768px) {
   .cardWrapper img {
     width: 86px;
@@ -84,6 +144,10 @@
   }
   .nameWrapper {
     margin-bottom: 17px;
+  }
+
+  .dotsIcon {
+    top: 68.5px;
   }
 
   .cardWrapper {
@@ -127,6 +191,12 @@
   .userName {
     font-weight: 400;
   }
+
+  /* SETTINGS */
+  .settings {
+    top: 80px;
+    right: 40px;
+  }
 }
 
 @media screen and (min-width: 1440px) {
@@ -150,10 +220,24 @@
   }
   .deskRegisterDate {
     display: block;
-    font-weight: 400;
     margin-left: auto;
-    font-size: 14px;
-    line-height: 120%;
-    color: #697a9e;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    letter-spacing: 0em;
+    color: #24448a;
+  }
+  .deskIcons {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+  }
+  .deskIcons {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 30px;
+    top: 60px;
   }
 }
