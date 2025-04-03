@@ -1,4 +1,4 @@
-import Container from "../../components/container/Container.jsx";
+import Container from "../../components/container/container.jsx";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import css from "../SignUpPage/SingUpPage.module.css";
 
