@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import "./index.css";
 import Layout from "./Layout";
 import { lazy } from "react";
-import RestrictedRoute from "./components/RestrictedRoute";
+import UsersManagementPage from "./pages/UsersManagement/UsersManagementPage.jsx";
 
 export default function App() {
   const MainPage = lazy(() => import("./pages/main/MainPage.jsx"));
@@ -18,9 +18,10 @@ export default function App() {
         <Route
           path="/register"
           element={
-            <RestrictedRoute redirectTo="/my-profile" component={<SignUpPage />} />
+            <SignUpPage/>
           }
         />
+        <Route path="/admin/users" element={<UsersManagementPage />} />
       </Routes>
     </Layout>
   );

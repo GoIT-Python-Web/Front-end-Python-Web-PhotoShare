@@ -1,6 +1,7 @@
 import { useState } from "react";
 import s from "./Input.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Icon from "../icons/Icon";
 
 const Input = ({
   type = "text",
@@ -11,6 +12,7 @@ const Input = ({
   error = false,
   showPassword = false,
   errorMessage = "",
+  icon = null,
   ...props
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(showPassword);
@@ -21,6 +23,11 @@ const Input = ({
 
   return (
     <div className={`${s.inputWrapper} ${error ? s.error : ""}`}>
+      {icon && (
+        <span className={s.usersInputIcon}>
+          <Icon name={icon} stroke="#24448A" width={20} height={20} />
+        </span>
+      )}
       <input
         type={isPasswordVisible ? "text" : type}
         className={`${s.input} ${disabled ? s.disabled : ""} ${
