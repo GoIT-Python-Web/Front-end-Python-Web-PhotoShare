@@ -1,6 +1,7 @@
 import Container from "../container/Container.jsx";
 import Logo from "../Logo/Logo.jsx";
 import Button from "../UI/buttons/Button.jsx";
+import Input from "../UI/inputs/Input.jsx";
 import css from "./Header.module.css";
 import { useState } from "react";
 // import sprite from "/public/sprite.svg";
@@ -48,6 +49,7 @@ const Header = () => {
             <p className={css.userName}>Ім'я</p>
             <div className={css.settingsIcon}>⚙️</div>
           </div>
+
           <Button
             size="sm"
             variant="primary"
@@ -58,35 +60,42 @@ const Header = () => {
             <span>Додати світлину</span>
             <img src="/public/Plus@2x.png" width={20} height={20} alt="Plus" />
           </Button>
-          <nav className={`sidebar ${menuIsOpen ? "open" : ""}`}>
-            <div className={css.sidebarHeader}>
-              <div className={css.userIcon}></div>
-              <p className={css.userName}>Ім'я</p>
-              <div className={css.settingsIcon}></div>
-            </div>
-            <ul className={css.sidebarList}>
-              <li className={css.sidebarItem}>
-                <a href="#" className={css.sidebarLink}>
-                  Світлини
-                </a>
-              </li>
-              <li className={css.sidebarItem}>
-                <a href="#" className={css.sidebarLink}>
-                  Мій профіль
-                </a>
-              </li>
-              <li className={css.sidebarItem}>
-                <a href="#" className={css.sidebarLink}>
-                  Про нас
-                </a>
-              </li>
-              {/* <li className={css.sidebarItem}>
+
+          <input className={css.searchInput} placeholder={"🔍"} />
+
+          {menuIsOpen ? (
+            <nav className={css.sidebarOpen}>
+              <div className={css.sidebarHeader}>
+                <div className={css.userIcon}>👤</div>
+                <p className={css.userName}>Ім'я</p>
+                <div className={css.settingsIcon}>⚙️</div>
+              </div>
+              <ul className={css.sidebarList}>
+                <li className={css.sidebarItem}>
+                  <a href="#" className={css.sidebarLink}>
+                    Світлини
+                  </a>
+                </li>
+                <li className={css.sidebarItem}>
+                  <a href="#" className={css.sidebarLink}>
+                    Мій профіль
+                  </a>
+                </li>
+                <li className={css.sidebarItem}>
+                  <a href="#" className={css.sidebarLink}>
+                    Про нас
+                  </a>
+                </li>
+                {/* <li className={css.sidebarItem}>
                 <a href="#" className={css.sidebarLink}>
                   Користувачі
                 </a>
               </li> */}
-            </ul>
-          </nav>
+              </ul>
+            </nav>
+          ) : (
+            <nav className={css.sidebar} />
+          )}
         </div>
       </Container>
     </header>
