@@ -9,7 +9,6 @@ const Layout = ({ children }) => {
       <Header />
       <main className="content">
         <Suspense fallback={null}>{children}</Suspense>
-        <SignUpPage/>
       </main>
       <Footer />
     </div>

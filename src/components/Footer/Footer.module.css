@@ -48,27 +48,7 @@
   text-decoration: underline;
 }
 
-.contacts {
-  display: flex;
-  flex-direction: column;
-  font-family: var(--font-family);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 150%;
-  margin-left: auto;
-}
-.contacts a {
-  text-decoration: none;
-  color: var(--additional-text);
-}
-.contacts a:hover {
-  text-decoration: underline;
-}
-.socialList {
-  display: flex;
-  margin-top: 47px;
-  gap: 32px;
-}
+
 
 .down {
   display: flex;
@@ -99,16 +79,48 @@
     padding: 28px 36px;
   }
   .up {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    /* flex-direction: row; */
+    /* flex-wrap: wrap; */
+    /* justify-content: space-between; */
     align-items: flex-start;
     margin-bottom: 40px;
+  }
+  .wrap{
+    display: flex;
+    flex-direction: row;
+    gap: 76px;
+  }
+  .wrapLinks {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+  }
+  .contacts {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    margin-left: auto;
+  }
+  .contacts a {
+    text-decoration: none;
+    color: var(--additional-text);
+  }
+  .contacts a:hover {
+    text-decoration: underline;
+  }
+  .socialList {
+    display: flex;
+    margin-top: 47px;
+    gap: 20px;
   }
   .socialLink {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 24px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -136,9 +148,24 @@
     min-width: 1196px;
      padding: 47px 80px 29px 88px;
   }
+  .footerLogo {
+   margin: 50px 110px 0 0;
+  }
   .up {
     flex-direction: row;
     margin-bottom: 74px;
+  }
+  .wrap{
+    gap:250px;
+  }
+  .wrapLinks {
+     gap: 100px;
+  }
+  .contacts {
+    
+  }
+  .socialLink {
+   gap: 32px;
   }
  
   .line {
