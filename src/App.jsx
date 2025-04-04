@@ -1,8 +1,9 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { Suspense, lazy } from "react";
 import "./index.css";
 import Layout from "./Layout";
-import { lazy } from "react";
 import UsersManagementPage from "./pages/UsersManagement/UsersManagementPage.jsx";
+import Loader from "./components/UI/loader/Loader.jsx";
 
 export default function App() {
   const MainPage = lazy(() => import("./pages/main/MainPage.jsx"));
@@ -10,14 +11,17 @@ export default function App() {
   const SignUpPage = lazy(() => import("./pages/SignUpPage/SignUpPage.jsx"));
 
   return (
-    <Layout>
+    <Suspense fallback={<Loader />}>
       <Routes>
-      <Route path="/" element={<Navigate to="/posts" replace />} />
-        <Route path="/posts" element={<MainPage />} />
-        <Route path="/my-profile" element={<ProfilePage />} />
         <Route path="/register" element={<SignUpPage />} />
-        <Route path="/admin/users" element={<UsersManagementPage />} />
+
+        <Route element={<Layout />}>
+          <Route index element={<Navigate to="/posts" replace />} />
+          <Route path="posts" element={<MainPage />} />
+          <Route path="my-profile" element={<ProfilePage />} />
+          <Route path="admin/users" element={<UsersManagementPage />} />
+        </Route>
       </Routes>
-    </Layout>
+    </Suspense>
   );
 }

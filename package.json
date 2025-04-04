@@ -21,6 +21,7 @@
     "react-redux": "^9.2.0",
     "react-responsive": "^10.0.1",
     "react-router-dom": "^7.4.0",
+    "react-spinners": "^0.15.0",
     "redux-persist": "^6.0.0",
     "sweetalert2": "^11.17.2",
     "yet-another-react-lightbox": "^3.21.8",
