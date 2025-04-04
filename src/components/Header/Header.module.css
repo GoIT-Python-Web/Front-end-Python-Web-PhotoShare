@@ -221,7 +221,7 @@
     font-size: 14px;
   }
 
-  nav {
+  .sidebar {
     display: flex;
     justify-content: space-between;
     align-items: center;

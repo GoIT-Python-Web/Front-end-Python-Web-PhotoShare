@@ -46,7 +46,10 @@ export default function UserCard({ isMyPage, isAdmin }) {
           Дата реєстрації <span>{user.createdAt}</span>
         </p>
       </div>
-      <div className={css.flex}>
+      <div
+        className={css.flex}
+        data-label={isAdmin ? "admin" : isMyPage ? "myPage" : null}
+      >
         <img
           src={user.profilePic}
           alt={`${user.name}'s profile picture`}
@@ -119,34 +122,34 @@ export default function UserCard({ isMyPage, isAdmin }) {
               </p>
               <p className={css.deskRegisterDate}>
                 Дата реєстрації <span>{user.createdAt}</span>
-                {!isAdmin ? (
-                  <div className={css.deskIcons}>
-                    <p className={css.settingsParagraph}>
-                      <LuPencil className={css.settingsIcon} />
-                      Редагувати свій профіль
-                    </p>
-                    <p className={css.settingsParagraph}>
-                      <RiLockPasswordLine className={css.settingsIcon} />
-                      Змінити пароль
-                    </p>
-                  </div>
-                ) : isDesktop ? (
-                  <div className={css.deskIcons}>
-                    <p className={css.settingsParagraph}>
-                      <TbUserStar className={css.settingsIcon} />
-                      Змінити Роль
-                    </p>
-                    <p className={css.settingsParagraph}>
-                      <FiTrash2 className={css.settingsIcon} />
-                      Видалити Профіль
-                    </p>
-                    <p className={css.settingsParagraph}>
-                      <IoBan className={css.settingsIcon} />
-                      Забанити Користувача
-                    </p>
-                  </div>
-                ) : null}
               </p>
+              {!isAdmin && isDesktop && isMyPage ? (
+                <div className={css.deskIcons}>
+                  <p className={css.settingsParagraph}>
+                    <LuPencil className={css.settingsIcon} />
+                    Редагувати свій профіль
+                  </p>
+                  <p className={css.settingsParagraph}>
+                    <RiLockPasswordLine className={css.settingsIcon} />
+                    Змінити пароль
+                  </p>
+                </div>
+              ) : isAdmin && isDesktop ? (
+                <div className={css.deskIcons} data-label="admin">
+                  <p className={css.settingsParagraph}>
+                    <TbUserStar className={css.settingsIcon} />
+                    Змінити Роль
+                  </p>
+                  <p className={css.settingsParagraph}>
+                    <FiTrash2 className={css.settingsIcon} />
+                    Видалити Профіль
+                  </p>
+                  <p className={css.settingsParagraph}>
+                    <IoBan className={css.settingsIcon} />
+                    Забанити Користувача
+                  </p>
+                </div>
+              ) : null}
             </div>
           </div>
           <p className={css.tabDescription}>{user.description}</p>

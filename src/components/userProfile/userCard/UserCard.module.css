@@ -208,8 +208,11 @@
     font-size: 16px;
     font-style: normal;
   }
-  .flex {
-    padding-bottom: 20px;
+  .flex[data-label="myPage"] {
+    padding-bottom: 36px;
+  }
+  .flex[data-label="admin"] {
+    padding-bottom: 80px;
   }
   .nameWrapper {
     width: 1195px;
@@ -230,14 +233,13 @@
   }
   .deskIcons {
     display: flex;
-    gap: 16px;
-    flex-direction: column;
-  }
-  .deskIcons {
-    display: flex;
     flex-direction: column;
     position: absolute;
+    gap: 16px;
     right: 30px;
     top: 60px;
+  }
+  .deskIcons[data-label="admin"] {
+    right: 42.5px;
   }
 }

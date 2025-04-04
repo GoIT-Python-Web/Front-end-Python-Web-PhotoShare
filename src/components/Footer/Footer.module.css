@@ -34,6 +34,7 @@
 .links {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 16px;
   font-family: var(--font-family);
   font-weight: 500;
@@ -47,8 +48,6 @@
 .links a:hover {
   text-decoration: underline;
 }
-
-
 
 .down {
   display: flex;
@@ -85,7 +84,7 @@
     align-items: flex-start;
     margin-bottom: 40px;
   }
-  .wrap{
+  .wrap {
     display: flex;
     flex-direction: row;
     gap: 76px;
@@ -129,9 +128,9 @@
     text-decoration: none;
     transition: all 0.3s ease;
   }
-  
+
   .socialLink:hover {
-        scale: 1.1;
+    scale: 1.1;
   }
   .down {
     font-weight: 275;
@@ -146,28 +145,25 @@
 @media screen and (min-width: 1440px) {
   .footer {
     min-width: 1196px;
-     padding: 47px 80px 29px 88px;
+    padding: 47px 80px 29px 88px;
   }
   .footerLogo {
-   margin: 50px 110px 0 0;
+    margin: 50px 110px 0 0;
   }
   .up {
     flex-direction: row;
     margin-bottom: 74px;
   }
-  .wrap{
-    gap:250px;
+  .wrap {
+    gap: 250px;
   }
   .wrapLinks {
-     gap: 100px;
-  }
-  .contacts {
-    
+    gap: 100px;
   }
   .socialLink {
-   gap: 32px;
+    gap: 32px;
   }
- 
+
   .line {
     width: 1074px;
   }
