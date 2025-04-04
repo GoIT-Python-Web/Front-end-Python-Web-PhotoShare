@@ -6,12 +6,14 @@ import Stars from "../../../helpers/Stars.jsx";
 import css from "./PostItem.module.css";
 import Button from "../../UI/buttons/Button.jsx";
 import { useMediaQuery } from "react-responsive";
+import { useNavigate } from "react-router-dom";
 
 export default function PostItem({ post }) {
-  const isAdmin = true;
-  const isMyProfile = true;
+  const isAdmin = false;
+  const isMyProfile = false;
   const isDesktop = useMediaQuery({ minWidth: 1440 });
   const isTablet = useMediaQuery({ minWidth: 768 });
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -60,7 +62,12 @@ export default function PostItem({ post }) {
       </div>
 
       {!isAdmin && !isMyProfile ? (
-        <Button size={isDesktop ? "xxl" : isTablet ? "xl" : "lg"}>
+        <Button
+          size={isDesktop ? "xxl" : isTablet ? "xl" : "lg"}
+          onClick={() => {
+            navigate("/posts/view");
+          }}
+        >
           Детальніше
         </Button>
       ) : isAdmin ? (
