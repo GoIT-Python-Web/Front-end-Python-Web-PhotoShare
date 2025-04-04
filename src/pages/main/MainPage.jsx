@@ -6,7 +6,7 @@ import BackButton from "../../components/UI/backButton/BackButton.jsx";
 
 export default function MainPage() {
   return (
-    <div className="container">
+    <div className={`container  ${css.mainPage}`}>
       <div className={css.headWrapper}>
         <Title location="main" />
         <Filters location="main" />

@@ -1,6 +1,5 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import Input from "../UI/inputs/Input.jsx";
 import Button from "../UI/buttons/Button.jsx";
 import css from "./SignUpForm.module.css";
