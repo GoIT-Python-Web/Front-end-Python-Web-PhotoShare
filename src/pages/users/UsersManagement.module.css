@@ -1,9 +1,4 @@
-/* .usersPage {
-  padding: 52px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-} */
-.wrapper {
+.usersWrapper {
   margin-top: 28px;
 }
 
@@ -12,12 +7,12 @@
 }
 
 @media screen and (min-width: 768px) {
-  .wrapper {
+  .usersWrapper {
     margin-top: 49px;
   }
 }
 @media screen and (min-width: 1440px) {
-  .wrapper {
+  .usersWrapper {
     margin-top: 56px;
   }
 }

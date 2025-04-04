@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   gap: 11px;
+  flex: 2;
 }
 
 .profileImageContainer {
@@ -103,6 +104,7 @@
   display: flex;
   gap: 11px;
   align-items: center;
+  flex: 1;
 }
 
 .modalContent {

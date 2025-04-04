@@ -5,7 +5,7 @@ import s from "./UsersManagement.module.css";
 
 export default function UsersManagementPage() {
   return (
-    <div className={`container ${s.wrapper}`}>
+    <div className={`container ${s.usersWrapper}`}>
       <BackButton />
       <Title location="admin" className={s.title} />
       <UsersContainer />
