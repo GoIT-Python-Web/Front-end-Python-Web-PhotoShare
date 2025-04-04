@@ -1,136 +1,46 @@
-.container {
-  padding: 24px;
-  margin: 0 auto;
-  max-width: 340px;
-  min-width: 250px;
-  border-radius: 8px;
-  backdrop-filter: blur(40px);
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  background: rgba(0, 0, 0, 0.1);
-}
-.title {
-  font-family: var(--second-family);
-  font-weight: 600;
-  font-size: 30px;
-  line-height: 1.2;
-  text-align: center;
-  color: #525252;
-  margin-bottom: 32px;
-}
 .form {
   display: flex;
+  flex-direction: column;
   row-gap: 16px;
-  flex-direction: column;
-  margin-bottom: 55px;
-}
-.nameContainer,
-.passwordContainer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-.passwordContainer {
-  margin-bottom: 16px;
-}
-.inputForm {
-  border: none;
-  border-bottom: 1px solid #525252;
+  width: 328px;
   border-radius: 8px;
-  padding: 8px 16px 8px 8px;
-  max-width: 292px;
-  height: 48px;
-  outline: none;
-  background-color: transparent;
+  padding: 45px 24px;
+  backdrop-filter: blur(40px);
+  box-shadow: 0 4px 20px 0 rgba(105, 122, 158, 0.5);
+  background: var(--input-backgroung);
 }
-/* .inputForm:focus {
-  border: 1px solid rgba(47, 47, 47, 0.4);
-} */
-.inputForm::placeholder {
-  font-family: var(--second-family);
-  font-size: 16px;
-  line-height: 1.2;
-  color: rgba(0, 0, 0, 0.3);
-}
-.inputFormError {
+.bottomTxt {
   font-size: 14px;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  border-color: #ec0c0c;
-  color: #ec0c0c;
-}
-.error {
-  font-size: 14px;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  color: #ec0c0c;
-}
-.errorUserName,
-.errorPassword {
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-}
-.closeEyeBtn {
-  position: absolute;
-  right: 16px;
-  bottom: 15px;
-  display: flex;
-  border: none;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  padding: 0;
-  line-height: 1;
-  fill: none;
-  cursor: pointer;
-}
-.submitBtn {
-  border: none;
-  border-radius: 8px;
-  padding: 10px 16px;
-  max-width: 292px;
-  height: 48px;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  background: rgba(27, 31, 38, 0.72);
-  font-family: var(--second-family);
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.42857;
-  letter-spacing: 0.01em;
+  line-height: 1.2146;
   text-align: center;
-  color: #fff;
 }
 .dscr {
-  font-family: var(--second-family);
-  font-size: 12px;
-  line-height: 1.2;
-  text-align: center;
-  color: #525252;
+  color: var(--additional-text-title);
 }
 .dscrLink {
+  text-decoration: none;
+  color: var(--text);
+}
+.dscrLink:hover {
   text-decoration: underline;
-  cursor: pointer;
+}
+@media only screen and (min-width: 768px) {
+  .form {
+    width: 526px;
+    padding: 53px 24px;
+  }
+  .bottomTxt {
+    display: flex;
+    justify-content: center;
+    column-gap: 4px;
+  }
 }
 
-@media only screen and (min-width: 768px) {
-  .container {
-    padding: 53.5px 24px;
-    max-width: 526px;
-  }
-  .title {
-    font-size: 48px;
-  }
+@media only screen and (min-width: 1440px) {
   .form {
-    margin-bottom: 0;
+    width: 464px;
   }
-  .inputForm {
-    max-width: 478px;
-  }
-  .submitBtn {
-    max-width: 478px;
-  }
-  .dscr {
-    font-size: 14px;
+  .bottomTxt {
+    padding: 0.5px 0;
   }
 }

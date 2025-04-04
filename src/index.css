@@ -68,7 +68,6 @@ img {
 }
 
 body {
-  background-color: var(--background);
   font-family: var(--font-family);
 }
 #root {

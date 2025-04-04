@@ -6,14 +6,16 @@ import UserGallery from "../../components/userProfile/userGallery/UserGallery.js
 import css from "./ProfilePage.module.css";
 
 export default function ProfilePage() {
+  const isMyPage = true;
   const isAdmin = false;
+
   return (
     <div className={`container ${css.wrapper}`}>
       <BackButton />
       <div className={css.title}>
         <Title location="userProfile" className={css.title} />
       </div>
-      <UserCard />
+      <UserCard isMyPage={isMyPage} isAdmin={isAdmin} />
       <UserGallery />
     </div>
   );
