@@ -1,26 +1,19 @@
-.userItem {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
-
 .userItemContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0;
 }
 
-.profileSection {
+.settingsSection {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex: 1;
+  gap: 11px;
 }
 
 .profileImageContainer {
-  width: 56px;
-  height: 56px;
+  width: 76px;
+  height: 75px;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
@@ -45,6 +38,12 @@
   justify-content: center;
 }
 
+.mobilEmailSection {
+  display: flex;
+
+  flex-direction: column-reverse;
+}
+
 .profileInfo {
   display: flex;
   flex-direction: column;
@@ -57,13 +56,18 @@
 }
 
 .profileEmail {
-  font-size: 12px;
-  color: #888;
+  font-weight: 500;
+  font-size: 8px;
+  color: #24448a;
+  font-family: "Montserrat", sans-serif;
 }
 
 .timestamp {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
   font-size: 12px;
-  color: #999;
+  line-height: 1.34;
+  color: #24448a;
 }
 
 .actionsSection {
@@ -72,8 +76,20 @@
   gap: 8px;
   flex-shrink: 0;
 }
+.adminIconButton {
+  background: none;
+  border: none;
+  stroke: #24448a;
+  cursor: pointer;
+  padding: 0;
+}
+.dotsOnlyMobile svg {
+  width: 22px;
+  height: 32px;
+}
 
 .iconButton {
+  padding: 0;
   width: 24px;
   height: 24px;
   background: none;
@@ -81,15 +97,89 @@
   cursor: pointer;
   fill: #24448a;
   stroke: #24448a;
+  display: none;
+}
+.pickname {
+  display: flex;
+  gap: 11px;
+  align-items: center;
 }
 
-/* Dots-only button for mobile */
+.modalContent {
+  display: flex;
+  align-items: left;
+  justify-content: baseline;
+}
+
 .dotsOnlyMobile {
   display: block;
 }
 
 .actionIcon {
   display: none;
+}
+
+.dateFunction {
+  display: flex;
+  align-items: center;
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  /* padding: 16px; */
+}
+
+.modalContent {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.modalBtn {
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  stroke: #24448a;
+  color: #24448a;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: 0em;
+}
+
+.modalBtn:hover {
+  text-decoration: underline;
+}
+
+.closeModal {
+  border: 1px solid #24448a;
+  border-radius: 4px;
+  padding: 2px;
+  width: 24px;
+  height: 24px;
+  background: none;
+  cursor: pointer;
+  stroke: #24448a;
 }
 
 @media screen and (min-width: 768px) {
@@ -100,51 +190,4 @@
   .actionIcon {
     display: inline-flex;
   }
-}
-
-/* Modal Styles */
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modalContent {
-  background: white;
-  border-radius: 12px;
-  padding: 16px;
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-}
-
-.modalBtn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  color: #24448a;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.modalBtn:hover {
-  text-decoration: underline;
-}
-
-.closeModal {
-  align-self: flex-end;
-  background: none;
-  border: none;
-  cursor: pointer;
 }

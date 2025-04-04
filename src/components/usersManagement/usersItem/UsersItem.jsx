@@ -2,6 +2,7 @@ import s from "./UsersItem.module.css";
 import Icon from "../../UI/icons/Icon";
 import getColorFromName from "../../../helpers/getColorFromName";
 import { useState } from "react";
+import { useScrollLock } from "../../../helpers/useScrollLock";
 
 function UserItem({
   profileImage = null,
@@ -13,6 +14,7 @@ function UserItem({
   role = "user",
 }) {
   const [showModal, setShowModal] = useState(false);
+  useScrollLock(showModal);
 
   const handleRoleChange = () => {
     console.log(" change role to username");
@@ -27,7 +29,7 @@ function UserItem({
   return (
     <div className={s.userItem}>
       <div className={s.userItemContainer}>
-        <div className={s.profileSection}>
+        <div className={s.pickname}>
           <div className={s.profileImageContainer}>
             {typeof profileImage === "string" &&
             profileImage.trim() !== "" &&
@@ -52,44 +54,50 @@ function UserItem({
             {/* {role === "admin" && <span className={s.badgeAdmin}>Адмін</span>} */}
           </span>
         </div>
-
         <div className={s.settingsSection}>
-          <button className={s.iconButton}>
+          <button className={s.adminIconButton}>
             <Icon
               name={role === "admin" ? "shield" : "user"}
               // title={role === "admin" ? "Адмін" : "Користувач"}
             />
           </button>
-        </div>
+          <div className={s.dateFunction}>
+            <div className={s.mobilEmailSection}>
+              <div className={s.emailSection}>{email}</div>
+              <div className={s.timestampSection}>{dateTime}</div>
+            </div>
+            <div className={s.actionsSection}>
+              <button className={s.iconButton} onClick={handleBan}>
+                <Icon name="ban" />
+              </button>
+              <button className={s.iconButton} onClick={handleRoleChange}>
+                <Icon name="user-role" />
+              </button>
+              <button className={s.iconButton} onClick={onDelete}>
+                <Icon name="trash" />
+              </button>
 
-        <div className={s.emailSection}>{email}</div>
-
-        <div className={s.timestampSection}>{dateTime}</div>
-
-        <div className={s.actionsSection}>
-          <button className={s.iconButton} onClick={handleBan}>
-            <Icon name="ban" />
-          </button>
-          <button className={s.iconButton} onClick={handleRoleChange}>
-            <Icon name="user-role" />
-          </button>
-          <button className={s.iconButton} onClick={onDelete}>
-            <Icon name="trash" />
-          </button>
-
-          {/* Кнопка три крапки — тільки на мобільній версії */}
-          <button
-            className={`${s.iconButton} ${s.dotsOnlyMobile}`}
-            onClick={() => setShowModal(true)}
-          >
-            <Icon name="dots" />
-          </button>
+              {/* Кнопка три крапки — тільки на мобільній версії */}
+              <button
+                className={`${s.iconButton} ${s.dotsOnlyMobile}`}
+                onClick={() => setShowModal(true)}
+              >
+                <Icon name="dots" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
       {showModal && (
         <div className={s.modalOverlay}>
           <div className={s.modalContent}>
+            <button
+              className={s.closeModal}
+              onClick={() => setShowModal(false)}
+            >
+              <Icon name="xclose" />
+            </button>
             <button onClick={handleRoleChange} className={s.modalBtn}>
               <Icon name="user-role" /> Змінити Роль
             </button>
@@ -98,12 +106,6 @@ function UserItem({
             </button>
             <button onClick={handleBan} className={s.modalBtn}>
               <Icon name="ban" /> Забанити Користувача
-            </button>
-            <button
-              className={s.closeModal}
-              onClick={() => setShowModal(false)}
-            >
-              <Icon name="close" />
             </button>
           </div>
         </div>
