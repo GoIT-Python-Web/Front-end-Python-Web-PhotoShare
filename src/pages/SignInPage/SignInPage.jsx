@@ -1,3 +1,4 @@
+import Logo from "../../components/Logo/Logo.jsx";
 import SignInForm from "../../components/SignInForm/SignInForm";
 import css from "../SignUpPage/SingUpPage.module.css";
 

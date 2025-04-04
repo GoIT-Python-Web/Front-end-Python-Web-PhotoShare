@@ -14,11 +14,15 @@ export default function App() {
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
-        <Route path="/" element={<Navigate to="/posts" replace />} />
-        <Route path="/posts" element={<MainPage />} />
-        <Route path="/my-profile" element={<ProfilePage />} />
         <Route path="/register" element={<SignUpPage />} />
-        <Route path="/admin/users" element={<UsersManagementPage />} />
+        <Route path="/login" element={<SignInPage />} />
+
+        <Route element={<Layout />}>
+          <Route index element={<Navigate to="/posts" replace />} />
+          <Route path="posts" element={<MainPage />} />
+          <Route path="my-profile" element={<ProfilePage />} />
+          <Route path="admin/users" element={<UsersManagementPage />} />
+        </Route>
       </Routes>
     </Suspense>
   );
