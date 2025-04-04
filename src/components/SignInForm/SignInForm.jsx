@@ -55,7 +55,7 @@ const SignInForm = () => {
             </Button>
             <div className={css.bottomTxt}>
               <p className={css.dscr}>Немає облікового запису?</p>
-              <a href="/signup" className={css.dscrLink}>
+              <a href="/register" className={css.dscrLink}>
                 Зареєструватися
               </a>
             </div>
