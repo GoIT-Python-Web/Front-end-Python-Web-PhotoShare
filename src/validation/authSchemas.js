@@ -2,11 +2,11 @@ import * as Yup from "yup";
 
 export const loginValidationSchema = Yup.object({
   name: Yup.string()
-    .min(2, "Name is too short!")
-    .max(30, "Name is too long!")
-    .required("Name is required!"),
+    .min(2, "Занадто коротке!")
+    .max(30, "Занадто довге!")
+    .required("UserName є обовʼязковим!"),
   password: Yup.string()
-    .min(8, "Must be at least 8 characters!")
-    .max(30, "Must be less than 20 characters!")
-    .required("Password is required!"),
+    .min(8, "Має бути не менше 8 символів!")
+    .max(30, "Має бути менше 20 символів!")
+    .required("Пароль є обовʼязковим!"),
 });

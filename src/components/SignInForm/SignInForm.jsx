@@ -1,88 +1,64 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useState } from "react";
+import { Field, Form, Formik } from "formik";
 import css from "./SignInForm.module.css";
-import clsx from "clsx";
 import { loginValidationSchema } from "../../validation/authSchemas.js";
+import Input from "../UI/inputs/Input.jsx";
+import Button from "../UI/buttons/Button.jsx";
 
 const SignInForm = () => {
-  const [eyeIsOpen, setEyeIsOpen] = useState(false);
-
   const INITIALS_VALUES = {
     name: "",
     password: "",
   };
 
-  const handleOpenEye = () => {
-    setEyeIsOpen(!eyeIsOpen);
-  };
-
   return (
     <div className={css.container}>
-      <h2 className={css.title}>Вхід</h2>
       <Formik
         initialValues={INITIALS_VALUES}
         validationSchema={loginValidationSchema}
+        onSubmit={(values) => {
+          console.log("Login as:", values);
+        }}
       >
-        {({ touched, errors }) => (
+        {({ isSubmitting }) => (
           <Form className={css.form}>
-            <div className={css.nameContainer}>
-              <Field
-                type="text"
-                name="name"
-                id="name"
-                placeholder="UserName"
-                className={clsx(css.inputForm, {
-                  [css.inputFormError]: touched.name && errors.name,
-                })}
-                autoComplete="off"
-              />
-              <ErrorMessage
-                name="name"
-                component="label"
-                className={`${css.error} ${css.errorUserName}`}
-              />
-            </div>
-
-            <div className={css.passwordContainer}>
-              <Field
-                type={!eyeIsOpen ? "password" : "text"}
-                name="password"
-                id="password"
-                placeholder="Пароль"
-                className={clsx(css.inputForm, {
-                  [css.inputFormError]: touched.password && errors.password,
-                })}
-              />
-              {
-                <button
-                  type="button"
-                  className={css.closeEyeBtn}
-                  onClick={handleOpenEye}
-                >
-                  {!eyeIsOpen ? (
-                    <svg width="23" height="18" className={css.closeEye}>
-                      <use href="/public/sprite.svg#eye-close"></use>
-                    </svg>
-                  ) : (
-                    <svg width="23" height="18" className={css.openEye}>
-                      <use href="/public/sprite.svg#eye"></use>
-                    </svg>
-                  )}
-                </button>
-              }
-              <ErrorMessage
-                name="password"
-                component="label"
-                className={`${css.error} ${css.errorPassword}`}
-              />
-            </div>
-            <button type="submit" className={css.submitBtn}>
+            <Field name="name">
+              {({ field, meta }) => (
+                <Input
+                  {...field}
+                  type="text"
+                  placeholder="UserName"
+                  autoComplete="off"
+                  error={meta.touched && meta.error}
+                  errorMessage={meta.touched && meta.error ? meta.error : ""}
+                />
+              )}
+            </Field>
+            <Field name="password">
+              {({ field, meta }) => (
+                <Input
+                  {...field}
+                  type="password"
+                  placeholder="Пароль"
+                  error={meta.touched && meta.error}
+                  errorMessage={meta.touched && meta.error ? meta.error : ""}
+                />
+              )}
+            </Field>
+            <Button
+              size="fs"
+              variant="primary"
+              type="submit"
+              disabled={isSubmitting}
+              style={{ marginBottom: "24px", marginTop: "16px" }}
+            >
               Увійти
-            </button>
-            <p className={css.dscr}>
-              Немає облікового запису?{" "}
-              <span className={css.dscrLink}>Зареєструватися</span>
-            </p>
+            </Button>
+            <div className={css.bottomTxt}>
+              <p className={css.dscr}>Немає облікового запису?</p>
+              <a href="/signup" className={css.dscrLink}>
+                Зареєструватися
+              </a>
+            </div>
           </Form>
         )}
       </Formik>
