@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Input from "../UI/inputs/Input";
-import Button from "../UI/buttons/Button";
-import Icon from "../UI/icons/Icon";
-import UserList from "./UserList";
+import Input from "../../UI/inputs/Input";
+import Button from "../../UI/buttons/Button";
+import Icon from "../../UI/icons/Icon";
+import UserList from "../usersList/UsersList";
 import s from "./UsersContainer.module.css";
 import Swal from "sweetalert2";
-import usersData from "../../data/users.json";
-import Filters from "../../components/filters/filters/Filters";
+import usersData from "../../../data/users.json";
+import Filters from "../../filters/filters/Filters";
 
 const UsersContainer = () => {
   const usersPerPage = 10;
@@ -55,7 +55,7 @@ const UsersContainer = () => {
   return (
     <>
       <div className={s.searchContainer}>
-        <label className={s.label}>
+        <div className={s.label}>
           <Input
             className={s.searchInput}
             placeholder="Пошук користувачів / пошук за тегом"
@@ -66,7 +66,7 @@ const UsersContainer = () => {
             icon="magnifier"
           />
           <Icon name="user-role" className={s.magnifier} />
-        </label>
+        </div>
         <div className={s.iconButtons}>
           <Filters location="admin" />
         </div>

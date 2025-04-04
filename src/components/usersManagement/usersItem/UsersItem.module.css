@@ -1,0 +1,150 @@
+.userItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.userItemContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profileSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.profileImageContainer {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ccc;
+}
+
+.profileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.initialAvatar {
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileName {
+  font-weight: 600;
+  font-size: 16px;
+  color: #24448a;
+}
+
+.profileEmail {
+  font-size: 12px;
+  color: #888;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #999;
+}
+
+.actionsSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.iconButton {
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  fill: #24448a;
+  stroke: #24448a;
+}
+
+/* Dots-only button for mobile */
+.dotsOnlyMobile {
+  display: block;
+}
+
+.actionIcon {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .dotsOnlyMobile {
+    display: none;
+  }
+
+  .actionIcon {
+    display: inline-flex;
+  }
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.modalBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #24448a;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.modalBtn:hover {
+  text-decoration: underline;
+}
+
+.closeModal {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
