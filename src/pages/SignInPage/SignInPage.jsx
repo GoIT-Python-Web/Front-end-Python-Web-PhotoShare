@@ -6,6 +6,7 @@ const SignInPage = () => {
   return (
     <>
       <div className="container">
+        <Logo logoImg="signLogo" logoTitle="signTitle" display="sign" />
         <div className={css.wrap}>
           <picture className={css.img}>
             <source

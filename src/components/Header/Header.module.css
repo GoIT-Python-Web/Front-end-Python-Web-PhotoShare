@@ -110,9 +110,9 @@
 
 @media only screen and (min-width: 768px) {
   .header {
-    min-width: 696px;
+    min-width: 768px;
     height: 80px;
-    padding: 20px 36px;
+    padding: 20px 0;
   }
 
   .headerСontainer {
@@ -133,10 +133,6 @@
   .burgerIcon {
     max-width: 32px;
     max-height: 32px;
-  }
-
-  .logo {
-    display: flex;
   }
 
   .sidebar {
@@ -161,8 +157,8 @@
 
 @media only screen and (min-width: 1440px) {
   .header {
-    min-width: 1196px;
-    padding: 17.5px 72px;
+    min-width: 1440px;
+    padding: 17px 0;
   }
 
   .headerWrap {
