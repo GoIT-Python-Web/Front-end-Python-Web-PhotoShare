@@ -7,7 +7,9 @@ export default function UsersManagementPage() {
   return (
     <div className={`container ${s.usersWrapper}`}>
       <BackButton />
-      <Title location="admin" className={s.title} />
+      <div className={s.title}>
+        <Title location="admin" />
+      </div>
       <UsersContainer />
     </div>
   );

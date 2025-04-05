@@ -1,8 +1,9 @@
 import s from "./UsersItem.module.css";
 import Icon from "../../UI/icons/Icon";
 import getColorFromName from "../../../helpers/getColorFromName";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useScrollLock } from "../../../helpers/useScrollLock";
+import Modal from "../../modal/Modal";
 
 function UserItem({
   profileImage = null,
@@ -15,6 +16,12 @@ function UserItem({
 }) {
   const [showModal, setShowModal] = useState(false);
   useScrollLock(showModal);
+
+  const buttonRef = useRef(null);
+
+  const handleModalClick = () => {
+    setShowModal(!showModal);
+  };
 
   const handleRoleChange = () => {
     console.log(" change role to username");
@@ -49,17 +56,11 @@ function UserItem({
               </div>
             )}
           </div>
-          <span className={s.profileName}>
-            {userName}
-            {/* {role === "admin" && <span className={s.badgeAdmin}>Адмін</span>} */}
-          </span>
+          <span className={s.profileName}>{userName}</span>
         </div>
         <div className={s.settingsSection}>
           <button className={s.adminIconButton}>
-            <Icon
-              name={role === "admin" ? "shield" : "user"}
-              // title={role === "admin" ? "Адмін" : "Користувач"}
-            />
+            <Icon name={role === "admin" ? "shield" : "user"} />
           </button>
           <div className={s.dateFunction}>
             <div className={s.mobilEmailSection}>
@@ -79,8 +80,9 @@ function UserItem({
 
               {/* Кнопка три крапки — тільки на мобільній версії */}
               <button
+                ref={buttonRef}
                 className={`${s.iconButton} ${s.dotsOnlyMobile}`}
-                onClick={() => setShowModal(true)}
+                onClick={handleModalClick}
               >
                 <Icon name="dots" />
               </button>
@@ -89,27 +91,25 @@ function UserItem({
         </div>
       </div>
 
-      {showModal && (
-        <div className={s.modalOverlay}>
-          <div className={s.modalContent}>
-            <button
-              className={s.closeModal}
-              onClick={() => setShowModal(false)}
-            >
-              <Icon name="xclose" />
-            </button>
-            <button onClick={handleRoleChange} className={s.modalBtn}>
-              <Icon name="user-role" /> Змінити Роль
-            </button>
-            <button onClick={onDelete} className={s.modalBtn}>
-              <Icon name="trash" /> Видалити Профіль
-            </button>
-            <button onClick={handleBan} className={s.modalBtn}>
-              <Icon name="ban" /> Забанити Користувача
-            </button>
-          </div>
-        </div>
-      )}
+      <Modal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        size="sm"
+        className={s.customUserModal}
+      >
+        <button className={s.closeModal} onClick={() => setShowModal(false)}>
+          <Icon name="xclose" />
+        </button>
+        <button onClick={handleRoleChange} className={s.modalBtn}>
+          <Icon name="user-role" /> Змінити Роль
+        </button>
+        <button onClick={onDelete} className={s.modalBtn}>
+          <Icon name="trash" /> Видалити Профіль
+        </button>
+        <button onClick={handleBan} className={s.modalBtn}>
+          <Icon name="ban" /> Забанити Користувача
+        </button>
+      </Modal>
     </div>
   );
 }

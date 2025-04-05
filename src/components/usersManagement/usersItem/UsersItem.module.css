@@ -8,8 +8,9 @@
 .settingsSection {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 11px;
-  flex: 2;
+  flex: 1;
 }
 
 .profileImageContainer {
@@ -41,6 +42,9 @@
 
 .mobilEmailSection {
   display: flex;
+  /* font-weight: 500;
+  font-size: 8px;
+  color: #24448a; */
 
   flex-direction: column-reverse;
 }
@@ -56,14 +60,14 @@
   color: #24448a;
 }
 
-.profileEmail {
+.emailSection {
   font-weight: 500;
   font-size: 8px;
   color: #24448a;
   font-family: "Montserrat", sans-serif;
 }
 
-.timestamp {
+.timestampSection {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-size: 12px;
@@ -126,8 +130,21 @@
   align-items: center;
 }
 
+.customUserModal {
+  border-radius: 10px;
+  padding: 20px 16px;
+  width: 245px;
+  height: 200px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 16px;
+  background: #f2f6ff;
+}
+
 /* Modal Styles */
-.modalOverlay {
+/* .modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -138,10 +155,10 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  /* padding: 16px; */
-}
+  padding: 16px;
+} */
 
-.modalContent {
+/* .modalContent {
   background: white;
   border-radius: 12px;
   padding: 16px;
@@ -150,7 +167,7 @@
   flex-direction: column;
   gap: 24px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-}
+} */
 
 .modalBtn {
   padding: 0;

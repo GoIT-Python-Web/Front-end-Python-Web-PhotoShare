@@ -4,14 +4,27 @@
   margin-bottom: 58px;
   justify-content: space-between;
 }
-
+.label {
+  position: relative;
+  display: flex;
+}
+.magnifier {
+  position: absolute;
+  left: 12px;
+  top: 40%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 20px;
+  stroke: #24448a;
+}
 .userListWrapper {
   margin-bottom: 58px;
 }
 .pagination {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   justify-content: center;
+  margin-bottom: 56px;
 }
 .searchInput::placeholder {
   font-weight: 400;
@@ -24,19 +37,11 @@
   border: 0.6px solid #697a9e;
   border-radius: 8px;
   padding: 10px;
-  width: 348px;
-  height: 48px;
+  width: 216px;
+  height: 40px;
   font-size: 16px;
 }
 
 .searchInput:nth-child(1) {
   padding-left: 40px;
-}
-.icon {
-  position: absolute;
-  left: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
 }
