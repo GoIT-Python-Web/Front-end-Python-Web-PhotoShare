@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Input from "../UI/inputs/Input";
-import Button from "../UI/buttons/Button";
-import Icon from "../UI/icons/Icon";
-import UserList from "./UserList";
+import Input from "../../UI/inputs/Input";
+import Button from "../../UI/buttons/Button";
+import UserList from "../usersList/UsersList";
 import s from "./UsersContainer.module.css";
 import Swal from "sweetalert2";
-import usersData from "../../data/users.json";
-import Filters from "../../components/filters/filters/Filters";
+import usersData from "../../../data/users.json";
+import Filters from "../../filters/filters/Filters";
+import Icon from "../../UI/icons/Icon";
+import useWindowWidth from "../../../helpers/useWindowWidth";
 
 const UsersContainer = () => {
-  const usersPerPage = 10;
+  const usersPerPage = 8;
   const isBackendPagination = false;
 
   const [users, setUsers] = useState(usersData);
@@ -52,21 +53,24 @@ const UsersContainer = () => {
     });
   };
 
+  const width = useWindowWidth();
+
+  const buttonSize = width < 768 ? "xs" : width < 1440 ? "xl" : "md";
+
   return (
     <>
       <div className={s.searchContainer}>
-        <label className={s.label}>
+        <div className={s.label}>
           <Input
             className={s.searchInput}
-            placeholder="Пошук користувачів / пошук за тегом"
+            placeholder="Пошук користувачів..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             type="text"
             name="search"
-            icon="magnifier"
           />
-          <Icon name="user-role" className={s.magnifier} />
-        </label>
+          <Icon name="magnifier" className={s.magnifier} />
+        </div>
         <div className={s.iconButtons}>
           <Filters location="admin" />
         </div>
@@ -78,7 +82,7 @@ const UsersContainer = () => {
 
       <div className={s.pagination}>
         <Button
-          size="md"
+          size={buttonSize}
           variant="primary"
           withArrow
           arrowPosition="left"
@@ -88,7 +92,7 @@ const UsersContainer = () => {
           Назад
         </Button>
         <Button
-          size="md"
+          size={buttonSize}
           variant="primary"
           withArrow
           arrowPosition="right"

@@ -1,6 +1,6 @@
 import React from "react";
-import UserItem from "./UserItem";
-import styles from "./UserList.module.css";
+import UserItem from "../usersItem/UsersItem";
+import styles from "./UsersList.module.css";
 
 const UserList = ({ users, onDelete }) => {
   return (

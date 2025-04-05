@@ -1,17 +1,10 @@
-// const Icon = ({ name, size = 24, color = "currentColor", ...props }) => (
-//   <svg width={size} height={size} fill={color} {...props}>
-//     <use xlinkHref={`#${name}`} />
-//   </svg>
-// );
-
-// export default Icon;
-
 const Icon = ({
   name,
   width = 24,
   height = 24,
   className = "",
   color = "currentColor",
+  viewBox = "0 0 24 24", // 👈 Add default viewBox
   ...props
 }) => {
   return (
@@ -20,6 +13,7 @@ const Icon = ({
       width={width}
       height={height}
       fill={color}
+      viewBox={viewBox}
       aria-hidden="true"
       {...props}
     >

@@ -50,17 +50,20 @@
 .secondary-red:active {
   transform: translateY(0);
 }
-.primary:hover {
+/* .primary:hover {
   background: #1654d7;
   transform: translateY(-2px);
-}
-.primary:active {
+} */
+/* .primary:active {
   background: #0051ff;
   transform: translateY(0);
-}
+} */
 
 .disabled {
-  background: #afb0b2;
+  border: 0.5px solid #2a51a5;
+  border-radius: 8px;
+  background: #ffff;
+  color: black;
   cursor: not-allowed;
   pointer-events: none;
 }

@@ -2,8 +2,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import "./index.css";
 import Layout from "./Layout";
-import UsersManagementPage from "./pages/UsersManagement/UsersManagementPage.jsx";
 import Loader from "./components/UI/loader/Loader.jsx";
+import UsersManagementPage from "./pages/users/UsersManagementPage.jsx";
 
 export default function App() {
   const MainPage = lazy(() => import("./pages/main/MainPage.jsx"));
