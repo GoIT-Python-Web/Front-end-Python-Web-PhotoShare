@@ -69,13 +69,13 @@ function UserItem({
             </div>
             <div className={s.actionsSection}>
               <button className={s.iconButton} onClick={handleBan}>
-                <Icon name="ban" />
+                <Icon name="ban" className={s.icons} />
               </button>
               <button className={s.iconButton} onClick={handleRoleChange}>
-                <Icon name="user-role" />
+                <Icon name="user-role" className={s.icons} />
               </button>
               <button className={s.iconButton} onClick={onDelete}>
-                <Icon name="trash" />
+                <Icon name="trash" className={s.icons} />
               </button>
 
               {/* Кнопка три крапки — тільки на мобільній версії */}

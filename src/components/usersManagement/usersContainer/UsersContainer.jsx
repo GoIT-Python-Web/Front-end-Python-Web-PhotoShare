@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import usersData from "../../../data/users.json";
 import Filters from "../../filters/filters/Filters";
 import Icon from "../../UI/icons/Icon";
+import useWindowWidth from "../../../helpers/useWindowWidth";
 
 const UsersContainer = () => {
   const usersPerPage = 8;
@@ -52,6 +53,10 @@ const UsersContainer = () => {
     });
   };
 
+  const width = useWindowWidth();
+
+  const buttonSize = width < 768 ? "xs" : width < 1440 ? "xl" : "md";
+
   return (
     <>
       <div className={s.searchContainer}>
@@ -77,7 +82,7 @@ const UsersContainer = () => {
 
       <div className={s.pagination}>
         <Button
-          size="xs"
+          size={buttonSize}
           variant="primary"
           withArrow
           arrowPosition="left"
@@ -87,7 +92,7 @@ const UsersContainer = () => {
           Назад
         </Button>
         <Button
-          size="xs"
+          size={buttonSize}
           variant="primary"
           withArrow
           arrowPosition="right"
