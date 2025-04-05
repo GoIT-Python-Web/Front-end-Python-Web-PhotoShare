@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import Input from "../UI/inputs/Input.jsx";
 import Button from "../UI/buttons/Button.jsx";
 import css from "./SignUpForm.module.css";
-import { RegistrationSchema } from "/src/validation/schemas.js";
+import { registerValidationSchema } from "../../validation/authSchemas.js";
 
 const INITIAL_VALUES = {
   name: "",
@@ -17,7 +17,7 @@ const SignUpForm = () => {
     <div className={css.container}>
       <Formik
         initialValues={INITIAL_VALUES}
-        validationSchema={RegistrationSchema}
+        validationSchema={registerValidationSchema}
         onSubmit={(values) => {
           console.log("Форма відправлена:", values);
         }}
