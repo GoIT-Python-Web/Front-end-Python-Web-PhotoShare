@@ -5,15 +5,13 @@
 @media only screen and (min-width: 768px) {
   .logoBox {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 177px;
-    height: 38px;
   }
-  .logoLink {
+  .sign {
+    display: none;
+  }
+  .link {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     column-gap: 8px;
     text-decoration: none;
     font-family: var(--third-family);
@@ -24,13 +22,16 @@
     height: 100%;
     padding: 0;
   }
-  .logoImg {
+  .headerLogo {
     width: 28px;
     height: 28px;
   }
-  .logoTitle {
+  .title {
     font-family: var(--third-family);
     font-weight: 600;
+    text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  }
+  .headerTitle {
     font-size: 25px;
     color: #fdfdfd;
   }
@@ -38,17 +39,30 @@
 
 @media only screen and (min-width: 1440px) {
   .logoBox {
-    min-width: 236px;
-    height: 46px;
+    display: flex;
+    align-items: center;
   }
-  .logoImg {
-    width: 29px;
-    height: 28px;
+  .header {
+    padding: 4px 16.5px;
   }
-  .logoLink {
+  .sign {
+    display: flex;
+    margin-bottom: 85px;
+    padding-top: 40px;
+    padding-left: 86px;
+  }
+  .link {
     font-size: 30px;
   }
-  .logoTitle {
+  .signLogo {
+    width: 64px;
+    height: 64px;
+  }
+  .headerTitle {
     font-size: 30px;
+  }
+  .signTitle {
+    font-size: 64px;
+    color: var(--additional-text-title);
   }
 }

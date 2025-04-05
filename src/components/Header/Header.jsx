@@ -21,7 +21,7 @@ const Header = () => {
   return (
     <header className={css.header}>
       <div className={`container ${css.headerСontainer}`}>
-        <Logo className={css.logo} />
+        <Logo logoImg="headerLogo" logoTitle="headerTitle" display="header" />
         <div className={css.headerWrap}>
           <button className={css.burgerBtn} onClick={toggleMenu}>
             {menuIsOpen ? (

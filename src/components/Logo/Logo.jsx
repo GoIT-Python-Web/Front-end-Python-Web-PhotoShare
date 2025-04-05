@@ -1,12 +1,16 @@
 import css from "./Logo.module.css";
 
-const Logo = () => {
+const Logo = ({
+  display = "header",
+  logoImg = "headerLogo",
+  logoTitle = "headerTitle",
+}) => {
   return (
     <>
-      <div className={css.logoBox}>
-        <a href="#" className={css.logoLink}>
-          <img className={css.logoImg} src="/favicon.svg" alt="Logo" />
-          <span className={css.logoTitle}>PhotoShare</span>
+      <div className={`${css.logoBox} ${css[display]}`}>
+        <a href="#" className={css.link}>
+          <img className={css[logoImg]} src="/favicon.svg" alt="Logo" />
+          <span className={`${css.title} ${css[logoTitle]}`}>PhotoShare</span>
         </a>
       </div>
     </>
