@@ -5,6 +5,12 @@
   gap: 24px;
 }
 
+.buttons {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
 @media screen and (min-width: 768px) {
   .list {
     margin-top: 48px;
@@ -16,5 +22,9 @@
 @media screen and (min-width: 1440px) {
   .list {
     margin-top: 60px;
+  }
+  .buttons {
+    justify-content: center;
+    gap: 20px;
   }
 }

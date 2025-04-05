@@ -4,6 +4,7 @@ export default function Title({ location }) {
   const titles = {
     main: "Відкривайте, діліться та надихайте кожним знімком",
     editScreen: "Завантаження та редагування фото",
+    leaveAComment: "Залишити коментар",
     viewPublication: "Перегляд публікації",
     userProfile: "Профіль Користувача",
     admin: "Управління користувачами",

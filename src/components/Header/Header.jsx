@@ -1,6 +1,6 @@
+import { Link } from "react-router-dom";
 import Logo from "../Logo/Logo.jsx";
 import Button from "../UI/buttons/Button.jsx";
-import Input from "../UI/inputs/Input.jsx";
 import css from "./Header.module.css";
 import { useState } from "react";
 
@@ -43,7 +43,9 @@ const Header = () => {
             )}
           </button>
           <div className={css.userSettings}>
-            <div className={css.userIcon}>👤</div>
+            <Link to="/my-profile">
+              <div className={css.userIcon}>👤</div>
+            </Link>
             <p className={css.userName}>Ім'я</p>
             <div className={css.settingsIcon}>⚙️</div>
           </div>
@@ -64,7 +66,9 @@ const Header = () => {
           {menuIsOpen ? (
             <nav className={css.sidebarOpen}>
               <div className={css.sidebarHeader}>
-                <div className={css.userIcon}>👤</div>
+                <Link to="/my-profile" onClick={() => setMenuIsOpen(false)}>
+                  <div className={css.userIcon}>👤</div>
+                </Link>
                 <p className={css.userName}>Ім'я</p>
                 <div className={css.settingsIcon}>⚙️</div>
               </div>

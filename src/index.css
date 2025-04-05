@@ -28,7 +28,6 @@
 /* RESET STYLES */
 
 html {
-  height: 100%;
   box-sizing: border-box;
 }
 
@@ -70,22 +69,43 @@ img {
 body {
   font-family: var(--font-family);
 }
-#root {
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family: var(--font-family);
+}
+
+/* Головна обгортка */
+.wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
+/* Контент займає весь простір між хедером і футером */
 .content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Додатково центрує контент */
 }
 
+/* Футер завжди внизу */
+footer {
+  margin-top: auto;
+  width: 100%;
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 16px 0;
+}
 .container {
   width: 360px;
   padding-inline: 16px;

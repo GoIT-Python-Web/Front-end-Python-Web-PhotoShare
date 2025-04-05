@@ -7,7 +7,7 @@ import css from "./ProfilePage.module.css";
 
 export default function ProfilePage() {
   const isMyPage = true;
-  const isAdmin = false;
+  const isAdmin = true;
 
   return (
     <div className={`container ${css.wrapper}`}>

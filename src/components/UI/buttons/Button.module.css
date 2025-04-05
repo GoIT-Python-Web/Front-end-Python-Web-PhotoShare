@@ -7,7 +7,7 @@
   color: #fff;
   border: none;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s ease;
   padding: 8px 16px;
   height: 48px;
   display: flex;
@@ -26,6 +26,12 @@
   border: 1px solid;
   border-color: var(--button-hover);
   color: var(--text);
+}
+.secondary-black {
+  background: transparent;
+  border: 1px solid;
+  border-color: var(--button-hover);
+  color: black;
 }
 .secondary:hover {
   transform: translateY(-2px);
@@ -66,7 +72,7 @@
 .sm {
   min-width: 198px;
 }
-.fs{
+.fs {
   min-width: 280px;
 }
 .md {
