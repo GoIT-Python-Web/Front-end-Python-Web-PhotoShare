@@ -7,6 +7,7 @@ import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
 // import Stars from "../../../../helpers/Stars.jsx";
 import Button from "../../../common/buttons/Button.jsx";
+import formatDateTime from "../../../../helpers/formatDateTime.js";
 
 export default function PostItem({ post }) {
   const isAdmin = false;
@@ -60,7 +61,7 @@ export default function PostItem({ post }) {
         </div> */}
         <div className={css.dateDiv}>
           <p className={css.published}>Опубліковано</p>
-          <p className={css.createdAt}>{post.created_at}</p>
+          <p className={css.createdAt}>{formatDateTime(post.created_at)}</p>
         </div>
       </div>
 
