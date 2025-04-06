@@ -1,7 +1,7 @@
-import PostComments from "../../components/posts/postComments/PostComments.jsx";
-import PostView from "../../components/posts/postView/PostView.jsx";
-import BackButton from "../../components/UI/backButton/BackButton.jsx";
-import Title from "../../components/UI/title/Title.jsx";
+import PostComments from "../../components/features/comments/postComments/PostComments.jsx";
+import PostView from "../../components/features/posts/postView/PostView.jsx";
+import BackButton from "../../components/common/backButton/BackButton.jsx";
+import Title from "../../components/common/title/Title.jsx";
 import css from "./ViewPublicationPage.module.css";
 
 export default function ViewPublicationPage() {

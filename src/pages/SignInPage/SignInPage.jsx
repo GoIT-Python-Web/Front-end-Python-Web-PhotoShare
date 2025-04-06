@@ -1,5 +1,5 @@
-import Logo from "../../components/Logo/Logo.jsx";
-import SignInForm from "../../components/SignInForm/SignInForm";
+import SignInForm from "../../components/forms/signInForm/SignInForm.jsx";
+import Logo from "../../components/layout/logo/Logo.jsx";
 import css from "../SignInPage/SignInPage.module.css";
 
 const SignInPage = () => {

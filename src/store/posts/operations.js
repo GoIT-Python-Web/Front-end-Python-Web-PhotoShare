@@ -5,12 +5,10 @@ export const fetchPosts = createAsyncThunk(
   "posts/fetchAll",
   async (_, thunkAPI) => {
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNTYxOGFmMi05MTEzLTQzZDMtODJjYy0zZjRjYmNiMjFiOTQiLCJleHAiOjE3NDM5NDcyNjl9.y3M5LebshOOuh7nS0rYXV_msGtg9fGcv_dfZHgUz5hI";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNTYxOGFmMi05MTEzLTQzZDMtODJjYy0zZjRjYmNiMjFiOTQiLCJleHAiOjE3NDM5NjY0MjR9.m2PdDbb-kIcoaMbWF2Lu4WOz_qrqDhjU2BnF7fEw0Y0";
     try {
       if (token) {
         setAuthHeader(token);
-      } else {
-        console.error("No token provided");
       }
       const { data } = await instance.get("/posts");
       return data;
