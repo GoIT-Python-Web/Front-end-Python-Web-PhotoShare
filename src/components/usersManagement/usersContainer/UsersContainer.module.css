@@ -1,3 +1,7 @@
+.wrapper {
+  position: relative;
+}
+
 .searchContainer {
   display: flex;
   margin-top: 37px;

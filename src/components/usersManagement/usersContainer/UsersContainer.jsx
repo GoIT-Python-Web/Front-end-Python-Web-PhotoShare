@@ -58,7 +58,7 @@ const UsersContainer = () => {
   const buttonSize = width < 768 ? "xs" : width < 1440 ? "xl" : "md";
 
   return (
-    <>
+    <div className={s.wrapper}>
       <div className={s.searchContainer}>
         <div className={s.label}>
           <Input
@@ -102,7 +102,7 @@ const UsersContainer = () => {
           Далі
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 

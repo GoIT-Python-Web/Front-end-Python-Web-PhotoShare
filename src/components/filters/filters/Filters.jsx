@@ -1,37 +1,77 @@
-// import { TbFilterX } from "react-icons/tb";
-// import { LuListCollapse } from "react-icons/lu";
 import css from "./Filters.module.css";
 import { useRef, useState } from "react";
 import FilterPopUp from "../filterPopUp/FilterPopUp.jsx";
 import Icon from "../../UI/icons/Icon.jsx";
+import SortPopUp from "../sortPopUp/SortPopUp.jsx";
+import { LuCalendarDays } from "react-icons/lu";
+import DatePickerPopUp from "../datePickerPopUp/DatePickerPopUp.jsx";
 
 export default function Filters({ location }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [isSortingOpen, setIsSortingOpen] = useState(false);
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
-  const buttonRef = useRef(null);
+  const filterButtonRef = useRef(null);
+  const sortButtonRef = useRef(null);
+  const datePickerButtonRef = useRef(null);
+
+  const currentRef =
+    location === "main" ? filterButtonRef : datePickerButtonRef;
 
   const handleFilterClick = () => {
-    setIsOpen(!isOpen);
+    setIsSortingOpen(false);
+    setIsFiltersOpen(!isFiltersOpen);
+  };
+
+  const handleSortingClick = () => {
+    setIsFiltersOpen(false);
+    setIsSortingOpen(!isSortingOpen);
+  };
+
+  const handleDatePickerClick = () => {
+    setIsSortingOpen(false);
+    setIsDatePickerOpen(!isDatePickerOpen);
   };
 
   return (
     <div className={css.wrapper} aria-label={location}>
       <button
-        ref={buttonRef}
+        ref={currentRef}
         className={css.filterItem}
-        onClick={handleFilterClick}
+        onClick={
+          location === "main" ? handleFilterClick : handleDatePickerClick
+        }
       >
-        <Icon name="filter-remove" className={css.filterIcon} />
+        {location === "main" ? (
+          <Icon name="filter-remove" className={css.filterIcon} />
+        ) : (
+          <LuCalendarDays className={css.dateIcon} />
+        )}
       </button>
-      <button className={css.filterItem}>
-        <Icon name="collapse-categories" className={css.listIcon} />
-        {/* <LuListCollapse className={css.listIcon} /> */}
+      <button className={css.filterItem} ref={sortButtonRef}>
+        <Icon
+          name="collapse-categories"
+          onClick={handleSortingClick}
+          className={css.listIcon}
+        />
       </button>
-      {isOpen && (
+      {isFiltersOpen && (
         <FilterPopUp
-          buttonRef={buttonRef}
+          buttonRef={filterButtonRef}
           location={location}
-          onClose={() => setIsOpen(false)}
+          onClose={() => setIsFiltersOpen(false)}
+        />
+      )}
+      {isSortingOpen && (
+        <SortPopUp
+          onClose={() => setIsSortingOpen(false)}
+          buttonRef={sortButtonRef}
+        />
+      )}
+      {isDatePickerOpen && (
+        <DatePickerPopUp
+          onClose={() => setIsDatePickerOpen(false)}
+          buttonRef={datePickerButtonRef}
         />
       )}
     </div>

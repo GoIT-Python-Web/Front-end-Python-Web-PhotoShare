@@ -22,8 +22,14 @@
 }
 
 .filterIcon {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
+}
+
+.dateIcon {
+  width: 32px;
+  height: 32px;
+  padding-right: 8px;
 }
 
 .listIcon {
@@ -35,6 +41,11 @@
   .wrapper {
     width: 120px;
     gap: 24px;
+  }
+  .dateIcon {
+    padding-right: 7px;
+    width: 38px;
+    height: 38px;
   }
   .wrapper[aria-label="main"] {
     margin-left: 120px;

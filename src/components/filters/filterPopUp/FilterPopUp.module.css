@@ -67,7 +67,8 @@
 }
 
 .glassDateIcon {
-  bottom: 10.5px;
+  bottom: 190px;
+  left: 25px;
 }
 
 .dateIcon {
@@ -75,8 +76,8 @@
   height: 36px;
   color: #697a9e;
   position: absolute;
-  right: 5px;
-  bottom: 3px;
+  right: 21.5px;
+  bottom: 185px;
   cursor: pointer;
 }
 
@@ -187,6 +188,10 @@
     width: 210px;
   }
   .dateIcon {
-    right: 2px;
+    right: 18px;
+    bottom: 192.5px;
+  }
+  .glassDateIcon {
+    bottom: 200px;
   }
 }

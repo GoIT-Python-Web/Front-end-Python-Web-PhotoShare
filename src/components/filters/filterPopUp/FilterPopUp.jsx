@@ -4,13 +4,13 @@ import Button from "../../UI/buttons/Button.jsx";
 import { LuCalendarDays } from "react-icons/lu";
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useMediaQuery } from "react-responsive";
+import { useClickOutside } from "../../../helpers/useClickOutside.js";
 
 export default function FilterPopUp({ buttonRef, location, onClose }) {
-  const tags = ["#tag1", "#tag2", "#tag3"];
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
 
@@ -18,33 +18,13 @@ export default function FilterPopUp({ buttonRef, location, onClose }) {
   const modalRef = useRef(null);
 
   const isTablet = useMediaQuery({ minWidth: "768px" });
-
-  // close on click outside the modal
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target)
-      ) {
-        onClose();
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [onClose, buttonRef]);
+  useClickOutside(modalRef, buttonRef, onClose);
 
   return (
     <div className={css.wrapper} ref={modalRef}>
       <Formik
         initialValues={{
           search: "",
-          tags: [],
           date: null,
           rating: 0,
         }}
@@ -57,40 +37,14 @@ export default function FilterPopUp({ buttonRef, location, onClose }) {
           <Form className={css.form}>
             <div className={css.inputWrapper}>
               <label className={css.label}>
-                За тегами
+                Пошук
                 <Field
                   className={css.searchInput}
                   type="text"
                   name="search"
-                  placeholder="Введіть #"
+                  placeholder="Введіть #тег / пошту / Email "
                 />
                 <HiOutlineMagnifyingGlass className={css.glassIcon} />
-              </label>
-            </div>
-
-            <div className={css.inputWrapper}>
-              <label className={css.label}>
-                Популярні теги
-                <div className={css.btnList}>
-                  {tags.map((tag) => (
-                    <button
-                      type="button"
-                      key={tag}
-                      className={css.tagBtn}
-                      data-active={values.tags.includes(tag)}
-                      onClick={() =>
-                        setFieldValue(
-                          "tags",
-                          values.tags.includes(tag)
-                            ? values.tags.filter((t) => t !== tag)
-                            : [...values.tags, tag]
-                        )
-                      }
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
               </label>
             </div>
 
