@@ -2,7 +2,42 @@
   margin-block: 18px;
 }
 
+.leaveTitle {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: 0em;
+  color: #292828;
+}
+
 .title {
   margin-top: 24px;
   margin-bottom: 18px;
+}
+
+@media screen and (min-width: 768px) {
+  .commentsWrapper {
+    width: 500px;
+    margin-inline: auto;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .titleWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .postWrapper {
+    display: flex;
+    gap: 134px;
+    margin-bottom: 30px;
+  }
+  .commentsWrapper {
+    width: 526px;
+  }
+  .title {
+    width: 100%;
+    margin-left: 140px;
+  }
 }

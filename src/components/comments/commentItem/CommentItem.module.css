@@ -57,3 +57,13 @@
   cursor: pointer;
   right: 0;
 }
+
+@media screen and (min-width: 768px) {
+  .commentWrapper {
+    display: flex;
+    align-items: center;
+  }
+  .nameWrapper {
+    margin-right: 16px;
+  }
+}
