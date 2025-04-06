@@ -29,7 +29,7 @@
   .title {
     font-family: var(--third-family);
     font-weight: 600;
-    text-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   }
   .headerTitle {
     font-size: 25px;
@@ -42,7 +42,7 @@
     display: flex;
     align-items: center;
   }
-  .header {
+  .header_footer {
     padding: 4px 16.5px;
   }
   .sign {

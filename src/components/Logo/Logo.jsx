@@ -1,7 +1,7 @@
 import css from "./Logo.module.css";
 
 const Logo = ({
-  display = "header",
+  display = "header_footer",
   logoImg = "headerLogo",
   logoTitle = "headerTitle",
 }) => {
@@ -9,7 +9,11 @@ const Logo = ({
     <>
       <div className={`${css.logoBox} ${css[display]}`}>
         <a href="#" className={css.link}>
-          <img className={css[logoImg]} src="/favicon.svg" alt="Logo" />
+          <img
+            className={css[logoImg]}
+            src="/src/assets/icons/favicon.svg"
+            alt="Logo"
+          />
           <span className={`${css.title} ${css[logoTitle]}`}>PhotoShare</span>
         </a>
       </div>
