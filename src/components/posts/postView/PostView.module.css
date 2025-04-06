@@ -13,6 +13,32 @@
   margin-bottom: 16px;
 }
 
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.userInfo img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.userInfo p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 120%;
+  text-align: center;
+  color: #24448a;
+}
+
+.location {
+  margin-left: auto;
+}
+
 .rating {
   display: flex;
   justify-content: space-between;
@@ -52,4 +78,62 @@
   font-size: 14px;
   line-height: 120%;
   color: #fdfdfd;
+}
+
+@media screen and (min-width: 768px) {
+  .image {
+    width: 696px;
+    height: 504px;
+  }
+  .userInfo img {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+  }
+
+  .tabletDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .description {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .image {
+    width: 636px;
+    height: 636px;
+  }
+
+  .credentials {
+    width: 636px;
+  }
+  .userInfo img {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+  }
+
+  .tabletDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .description {
+    font-size: 16px;
+  }
 }
