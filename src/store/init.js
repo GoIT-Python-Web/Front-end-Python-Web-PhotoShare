@@ -2,7 +2,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: "BACKEND_LINK",
+  baseURL: "https://damp-giovanna-photohsare-3ee4d857.koyeb.app",
 });
 
 export const setAuthHeader = (token) => {
