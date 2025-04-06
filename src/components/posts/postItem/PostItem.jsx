@@ -20,7 +20,11 @@ export default function PostItem({ post }) {
   return (
     <li className={css.li}>
       <div className={css.imageWrapper}>
-        <img src={post.post_pic} alt="Post's picture" className={css.postPic} />
+        <img
+          src={post.image_url}
+          alt="Post's picture"
+          className={css.postPic}
+        />
 
         <button className={css.viewButton} onClick={() => setIsOpen(true)}>
           <IoIosResize className={css.resize} />
@@ -31,12 +35,12 @@ export default function PostItem({ post }) {
         <Lightbox
           open={isOpen}
           close={() => setIsOpen(false)}
-          slides={[{ src: post.post_pic }]}
+          slides={[{ src: post.image_url }]}
           carousel={{ finite: true, preload: 1 }}
         />
       )}
 
-      <div className={css.credentials}>
+      {/* <div className={css.credentials}>
         <img
           src={post.photo}
           alt={`${post.user_name}'s profile picture`}
@@ -44,20 +48,20 @@ export default function PostItem({ post }) {
           height={70}
         />
         <p>{post.user_name}</p>
-      </div>
+      </div> */}
 
       <div className={css.postCredentials}>
         <p className={css.title}>{post.title}</p>
-        <p className={css.tags}>{post.tags.join(" ")}</p>
-        <div className={css.ratingDiv}>
+        {/* <p className={css.tags}>{post.tags.join(" ")}</p> */}
+        {/* <div className={css.ratingDiv}>
           <Stars rating={post.rating} />
           <p className={css.rating}>
             {post.rating} ({post.rating_length} оцінок)
           </p>
-        </div>
+        </div> */}
         <div className={css.dateDiv}>
           <p className={css.published}>Опубліковано</p>
-          <p className={css.createdAt}>{post.createdAt}</p>
+          <p className={css.createdAt}>{post.created_at}</p>
         </div>
       </div>
 

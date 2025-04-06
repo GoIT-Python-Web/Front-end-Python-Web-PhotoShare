@@ -1,14 +1,16 @@
 import React from "react";
-import json from "../../../pages/main/posts.json";
+// import json from "../../../pages/main/posts.json";
 import PostItem from "../postItem/PostItem.jsx";
 import css from "./PostList.module.css";
 import Button from "../../UI/buttons/Button.jsx";
 import { useMediaQuery } from "react-responsive";
+import { useSelector } from "react-redux";
+import { selectPosts } from "../../../store/posts/selectors.js";
 
 export default function PostsList() {
   const isTablet = useMediaQuery({ minWidth: "768px" });
   const isDesktop = useMediaQuery({ minWidth: "1440px" });
-  const posts = json;
+  const posts = useSelector(selectPosts);
   return (
     <div>
       <ul className={css.list}>

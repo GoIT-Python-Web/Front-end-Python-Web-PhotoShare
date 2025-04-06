@@ -11,10 +11,12 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-// const postsPersistConfig = {
-//   key: "posts",
-//   storage,
-// };
+import { postsReducer } from "./posts/slice";
+
+const postsPersistConfig = {
+  key: "posts",
+  storage,
+};
 
 // const authPersistConfig = {
 //   key: "auth",
@@ -28,7 +30,7 @@ import storage from "redux-persist/lib/storage";
 
 export const store = configureStore({
   reducer: {
-    // posts: persistReducer(postsPersistConfig, postsReducer),
+    posts: persistReducer(postsPersistConfig, postsReducer),
     // auth: persistReducer(authPersistConfig, authReducer),
     // comments: persistReducer(commentsPersistConfig, commentsReducer),
   },

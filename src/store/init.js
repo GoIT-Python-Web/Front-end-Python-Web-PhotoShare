@@ -1,4 +1,3 @@
-import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const instance = axios.create({
@@ -11,4 +10,17 @@ export const setAuthHeader = (token) => {
 
 export const clearAuthHeader = () => {
   instance.defaults.headers.common.Authorization = "";
+};
+
+export const handleError = (error, defaultMessage) => {
+  return error instanceof Error ? error.message : defaultMessage;
+};
+
+export const handlePending = (state) => {
+  state.isLoading = true;
+};
+
+export const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload || "An unknown error occurred";
 };
