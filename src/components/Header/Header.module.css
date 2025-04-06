@@ -171,13 +171,14 @@
 
   .searchInput {
     display: flex;
+    padding: 0;
     width: 54px;
     height: 48px;
-    padding: 8px;
     border: 1px solid var(--text);
     border-radius: 8px;
     outline: none;
     font-family: var(--font-family);
+    font-size: 16px;
     color: var(--additional-text);
     transition: border-color 0.3s ease, color 0.3s ease;
     background: linear-gradient(90deg, #4965a1 0%, #072f86 100%);
@@ -189,14 +190,14 @@
   }
 
   .searchInput::placeholder {
-    font-size: 24px;
-    text-align: center;
+    background: url("/src/assets/icons/iconSearch.svg") center no-repeat;
     opacity: 1;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
   }
 
   .searchInput:focus::placeholder {
     opacity: 0;
+    background: left;
   }
 
   .addBtn {

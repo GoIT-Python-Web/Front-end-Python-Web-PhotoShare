@@ -3,42 +3,35 @@ import Logo from "../Logo/Logo.jsx";
 import Button from "../UI/buttons/Button.jsx";
 import css from "./Header.module.css";
 import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 const Header = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const toggleMenu = () => setMenuIsOpen(!menuIsOpen);
 
-  const addButton = {
-    display: "flex",
-    justifyContent: "space-between",
-    columnGap: "10",
-    padding: "10px 16px",
-    minWidth: "190px",
-    height: "40px",
-    color: "var(--additional-text)",
-  };
+  const isDesktopAddButton = useMediaQuery({ minWidth: 1440 });
 
   return (
     <header className={css.header}>
       <div className={`container ${css.headerСontainer}`}>
-        <Logo logoImg="headerLogo" logoTitle="headerTitle" display="header" />
+        <Logo />
         <div className={css.headerWrap}>
           <button className={css.burgerBtn} onClick={toggleMenu}>
             {menuIsOpen ? (
               <img
                 className={css.closeIcon}
-                src="/public/close@2x.png"
+                src="/src/assets/images/Header/close@2x.png"
                 width={32}
                 height={32}
-                alt="Close"
+                alt="Close Icon"
               />
             ) : (
               <img
                 className={css.burgerIcon}
-                src="/public/burger@2x.png"
+                src="/src/assets/images/Header/burger@2x.png"
                 width={32}
                 height={32}
-                alt="Burger"
+                alt="Burger Icon"
               />
             )}
           </button>
@@ -51,18 +44,21 @@ const Header = () => {
           </div>
 
           <Button
-            size="sm"
+            size={isDesktopAddButton ? "sml_header" : "sm_header"}
             variant="primary"
             disabled={false}
             withArrow={false}
-            style={addButton}
           >
             <span>Додати світлину</span>
-            <img src="/public/Plus@2x.png" width={20} height={20} alt="Plus" />
+            <img
+              src="/src/assets/images/Header/plus@2x.png"
+              width={20}
+              height={20}
+              alt="Plus Icon"
+            />
           </Button>
 
-          <input className={css.searchInput} placeholder={"🔍"} />
-
+          <input className={css.searchInput} type="text" placeholder=" " />
           {menuIsOpen ? (
             <nav className={css.sidebarOpen}>
               <div className={css.sidebarHeader}>
