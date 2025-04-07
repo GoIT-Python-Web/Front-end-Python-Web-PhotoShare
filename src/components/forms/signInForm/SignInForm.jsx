@@ -5,7 +5,7 @@ import { loginValidationSchema } from "../../../validation/authSchemas.js";
 import Input from "../../common/inputs/Input.jsx";
 import Button from "../../common/buttons/Button.jsx";
 
-const SignInForm = () => {
+const SignInForm = ({ onSwitch }) => {
   const INITIALS_VALUES = {
     name: "",
     password: "",
@@ -13,6 +13,7 @@ const SignInForm = () => {
 
   return (
     <div className={css.container}>
+      <h2 className={css.title}>Вхід</h2>
       <Formik
         initialValues={INITIALS_VALUES}
         validationSchema={loginValidationSchema}
@@ -49,6 +50,7 @@ const SignInForm = () => {
               size="fs"
               variant="primary"
               type="submit"
+              onClick={onSwitch}
               disabled={isSubmitting}
               style={{ marginBottom: "24px", marginTop: "16px" }}
             >
@@ -56,7 +58,14 @@ const SignInForm = () => {
             </Button>
             <div className={css.bottomTxt}>
               <p className={css.dscr}>Немає облікового запису?</p>
-              <a href="/register" className={css.dscrLink}>
+                            <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onSwitch();
+                }}
+                className={css.dscrLink}
+              >
                 Зареєструватися
               </a>
             </div>
