@@ -1,0 +1,249 @@
+.header {
+  min-width: 360px;
+  width: 100%;
+  height: 60px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  backdrop-filter: blur(4px);
+  background: var(--header-footer);
+}
+
+.headerWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo,
+.searchInput,
+.userSettings,
+.sidebar {
+  display: none;
+}
+
+.burgerBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+  z-index: 100;
+}
+
+.sidebarOpen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: visible;
+  z-index: 99;
+  width: 100%;
+  height: 321px;
+  border-radius: 8px;
+  padding: 80px 16px 20px;
+  backdrop-filter: blur(4px);
+  background: linear-gradient(
+    90deg,
+    rgba(73, 101, 161, 0.96) 0%,
+    rgba(7, 47, 134, 0.96) 100%
+  );
+  transition: all 0.5s ease-in-out;
+}
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  column-gap: 13px;
+  min-width: 148px;
+  height: 48px;
+  border-bottom: 0.4px solid var(--additional-text);
+  padding-bottom: 4px;
+  width: 328px;
+  height: 52px;
+  margin-bottom: 32px;
+}
+
+.userIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #525252;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 20px;
+}
+
+.userName {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+}
+
+.settingsIcon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.sidebarList {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.sidebarLink {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--additional-text);
+  text-decoration: none;
+}
+
+.sidebarLink:hover {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+@media only screen and (min-width: 768px) {
+  .header {
+    min-width: 768px;
+    height: 80px;
+    padding: 20px 0;
+  }
+
+  .headerСontainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .headerWrap {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: start;
+    justify-content: center;
+    column-gap: 32px;
+    padding: 0;
+  }
+
+  .burgerIcon {
+    max-width: 32px;
+    max-height: 32px;
+  }
+
+  .sidebar {
+    visibility: hidden;
+    top: -100%;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .sidebarOpen {
+    top: -10px;
+    left: -105px;
+    padding: 80px 36px 20px;
+    min-width: 372px;
+    width: 372px;
+    height: 337px;
+  }
+
+  .sidebarList {
+    row-gap: 28px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .header {
+    min-width: 1440px;
+    padding: 17px 0;
+  }
+
+  .headerWrap {
+    align-items: center;
+  }
+
+  .burgerBtn {
+    display: none;
+  }
+
+  .searchInput {
+    display: flex;
+    padding: 0;
+    width: 54px;
+    height: 48px;
+    border: 1px solid var(--text);
+    border-radius: 8px;
+    outline: none;
+    font-family: var(--font-family);
+    font-size: 16px;
+    color: var(--additional-text);
+    transition: border-color 0.3s ease, color 0.3s ease;
+    background: linear-gradient(90deg, #4965a1 0%, #072f86 100%);
+  }
+
+  .searchInput:focus {
+    border-color: var(--button-hover);
+    width: 100%;
+  }
+
+  .searchInput::placeholder {
+    background: url("/src/assets/icons/iconSearch.svg") center no-repeat;
+    opacity: 1;
+    transition: all 0.5s ease;
+  }
+
+  .searchInput:focus::placeholder {
+    opacity: 0;
+    background: left;
+  }
+
+  .addBtn {
+    border-radius: 9px;
+    min-width: 181px;
+    height: 42px;
+    font-size: 20px;
+    color: #141212;
+  }
+
+  .userSettings {
+    display: flex;
+    align-items: center;
+    column-gap: 13px;
+  }
+
+  .userName {
+    font-size: 14px;
+  }
+
+  .sidebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sidebarOpen {
+    display: none;
+  }
+
+  .sidebarList {
+    display: flex;
+    column-gap: 16px;
+    margin-right: 401px;
+  }
+
+  .sidebarLink {
+    text-decoration: none;
+    font-family: var(--font-family);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #f3f2f2;
+  }
+
+  .sidebarLink:hover {
+    text-decoration: underline;
+  }
+}

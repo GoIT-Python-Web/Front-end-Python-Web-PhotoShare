@@ -2,6 +2,7 @@
   display: none;
 }
 .wrap {
+  padding-top: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,8 +19,12 @@
 }
 
 @media only screen and (min-width: 768px) {
+  .signIn {
+    padding: 0;
+  }
   .wrap {
     flex-direction: column;
+    padding: 0;
   }
   .img {
     position: relative;
@@ -33,11 +38,15 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(-50%);
     width: 421px;
     font-family: var(--font5);
     font-size: 48px;
     color: var(--additional-text);
+  }
+  .title {
+    font-size: 48px;
+    line-height: 1.2;
   }
 }
 
@@ -55,7 +64,7 @@
     display: none;
   }
   .title {
-    font-size: 48px;
-    margin-bottom: 0;
+    line-height: 1.34;
+    margin-bottom: 24px;
   }
 }

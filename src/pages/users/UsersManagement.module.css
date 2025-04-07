@@ -1,0 +1,22 @@
+.usersWrapper {
+  margin-top: 24px;
+}
+
+.title {
+  margin-top: 24px;
+}
+
+/* .backButton {
+  margin-bottom: 24px;
+} */
+
+@media screen and (min-width: 768px) {
+  .title {
+    margin-top: 46px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .title {
+    /* margin-top: 56px; */
+  }
+}

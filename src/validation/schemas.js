@@ -47,3 +47,4 @@ export const ProfileEditSchema = Yup.object().shape({
     .max(1000, "Занадто довгий опис")
     .optional(),
 });
+

@@ -1,0 +1,30 @@
+.textareaWrapper {
+  position: relative;
+  margin-top: 18px;
+  margin-bottom: 10px;
+}
+
+.textarea {
+  width: 100%;
+  border: 1px solid #697a9e;
+  border-radius: 10px;
+  min-height: 88px;
+  resize: none;
+  padding: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 120%;
+}
+
+.send {
+  position: absolute;
+  cursor: pointer;
+  right: 15px;
+  bottom: 20px;
+}
+
+@media screen and (min-width: 1440px) {
+  .commentsWrapper {
+    width: 526px;
+  }
+}

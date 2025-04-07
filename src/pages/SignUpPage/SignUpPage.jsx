@@ -1,4 +1,4 @@
-import SignUpForm from "../../components/SignUpForm/SignUpForm";
+import SignUpForm from "../../components/forms/SignUpForm/SignUpForm";
 import css from "../SignUpPage/SingUpPage.module.css";
 
 const SignUpPage = () => {
@@ -9,7 +9,11 @@ const SignUpPage = () => {
         <span className={css.logoText}>PhotoShare</span>
       </a>
       <div className={css.wrap}>
-        <img src="/public/bg.jpg" className={css.img} alt="img" />
+        <img
+          src="/src/assets/images/SignPages/bg.jpg"
+          className={css.img}
+          alt="img"
+        />
         <div className={css.wrapForm}>
           <h2 className={css.title}>Реєстрація</h2>
           <SignUpForm />
