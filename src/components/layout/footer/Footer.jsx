@@ -26,6 +26,9 @@ const Footer = () => {
                 <a href="/settings" className={css.link}>
                   Налаштування
                 </a>
+                <a href="/about" className={css.link}>
+                  Про нас
+                </a>
               </nav>
               <div className={css.links}>
                 <a href="/profile" className={css.link}>
@@ -41,24 +44,18 @@ const Footer = () => {
                   Оцінки або рейтинг
                 </a>
               </div>
-              <div className={css.links}>
-                <a href="/about" className={css.link}>
-                  Про нас
-                </a>
-                <a href="/contacts" className={css.link}>
-                  Контакти
-                </a>
-              </div>
             </div>
 
             <div className={css.contacts}>
-              <h4 className={css.text}>Гаряча лінія</h4>
-              <a href="tel:0800502200" className={css.number}>
-                0 800 502 200
-              </a>
-              <a href="tel:+380442901683" className={css.number}>
-                +38 044 290 16 83
-              </a>
+              <div className={css.numberWrap}>
+                <h4 className={css.text}>Гаряча лінія&nbsp;</h4>
+                <a href="tel:0800502200" className={css.numberOne}>
+                  0 800 502 200
+                </a>
+                <a href="tel:+380442901683" className={css.numberTwo}>
+                  +38 044 290 16 83
+                </a>
+              </div>
               <ul className={css.socialList}>
                 <li>
                   <a href="https://facebook.com" className={css.socialLink}>

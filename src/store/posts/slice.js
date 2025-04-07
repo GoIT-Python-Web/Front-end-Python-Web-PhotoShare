@@ -3,7 +3,7 @@ import { fetchPosts } from "./operations";
 import { handlePending, handleRejected } from "../init.js";
 
 const postSlice = createSlice({
-  name: "slice",
+  name: "posts",
   initialState: {
     posts: [],
     isLoading: false,

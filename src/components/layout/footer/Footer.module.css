@@ -16,8 +16,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-right: 110px;
-  margin-bottom: 32px;
+  margin: 32px auto;
   text-decoration: none;
   color: var(--additional-text);
 }
@@ -26,7 +25,11 @@
   font-weight: 600;
   font-size: 30px;
 }
-
+.wrap {
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+}
 .wrapLinks {
   display: flex;
   gap: 80px;
@@ -47,6 +50,47 @@
 }
 .links a:hover {
   text-decoration: underline;
+}
+.contacts {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  margin: 0 auto;
+}
+.numberWrap {
+  display: flex;
+  flex-direction: row;
+}
+.numberOne {
+  display: none;
+}
+.contacts a {
+  text-decoration: none;
+  color: var(--additional-text);
+}
+.contacts a:hover {
+  text-decoration: underline;
+}
+.socialList {
+  display: flex;
+  margin-top: 15px;
+  gap: 20px;
+}
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--additional-text);
+  font-size: 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 .down {
@@ -77,17 +121,17 @@
     min-width: 696px;
     padding: 28px 36px;
   }
+  .footerLogo {
+    margin: 0 110px 28px 0;
+  }
   .up {
-    /* flex-direction: row; */
-    /* flex-wrap: wrap; */
-    /* justify-content: space-between; */
     align-items: flex-start;
     margin-bottom: 40px;
   }
   .wrap {
     display: flex;
     flex-direction: row;
-    gap: 76px;
+    gap: 180px;
   }
   .wrapLinks {
     display: flex;
@@ -95,42 +139,17 @@
     gap: 40px;
   }
   .contacts {
-    display: flex;
     flex-direction: column;
-    font-family: var(--font-family);
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 150%;
-    margin-left: auto;
+    justify-content: space-between;
   }
-  .contacts a {
-    text-decoration: none;
-    color: var(--additional-text);
+  .numberWrap {
+    flex-direction: column;
   }
-  .contacts a:hover {
-    text-decoration: underline;
+  .numberOne {
+    display: flex;
   }
   .socialList {
-    display: flex;
     margin-top: 47px;
-    gap: 20px;
-  }
-  .socialLink {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1px solid var(--additional-text);
-    font-size: 20px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .socialLink:hover {
-    scale: 1.1;
   }
   .down {
     font-weight: 275;

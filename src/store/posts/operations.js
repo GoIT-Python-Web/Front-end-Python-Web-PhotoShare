@@ -4,12 +4,12 @@ import { handleError, instance, setAuthHeader } from "../init.js";
 export const fetchPosts = createAsyncThunk(
   "posts/fetchAll",
   async (_, thunkAPI) => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNTYxOGFmMi05MTEzLTQzZDMtODJjYy0zZjRjYmNiMjFiOTQiLCJleHAiOjE3NDM5NjY0MjR9.m2PdDbb-kIcoaMbWF2Lu4WOz_qrqDhjU2BnF7fEw0Y0";
+    const state = thunkAPI.getState();
+    const persistedToken = state.auth.token;
+    if (persistedToken) {
+      setAuthHeader(persistedToken);
+    }
     try {
-      if (token) {
-        setAuthHeader(token);
-      }
       const { data } = await instance.get("/posts");
       return data;
     } catch (err) {

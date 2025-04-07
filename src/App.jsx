@@ -9,15 +9,22 @@ import About from "./components/layout/about/About.jsx";
 export default function App() {
   const MainPage = lazy(() => import("./pages/main/MainPage.jsx"));
   const ProfilePage = lazy(() => import("./pages/profile/ProfilePage.jsx"));
+  const AuthPage = lazy(() => import("./pages/AuthPage/AuthPage.jsx"));
   const SignInPage = lazy(() => import("./pages/SignInPage/SignInPage.jsx"));
   const SignUpPage = lazy(() => import("./pages/SignUpPage/SignUpPage.jsx"));
+  const ProfileEditPage = lazy(() => import("./pages/ProfileEditPage/ProfileEditPage.jsx"));
+
   const ViewPublicationPage = lazy(() =>
     import("./pages/view/ViewPublicationPage.jsx")
   );
 
+  
+
+
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
+        <Route path="/auth" element={<AuthPage />} />
         <Route path="/register" element={<SignUpPage />} />
         <Route path="/login" element={<SignInPage />} />
 
@@ -28,6 +35,7 @@ export default function App() {
           <Route path="my-profile" element={<ProfilePage />} />
           <Route path="admin/users" element={<UsersManagementPage />} />
           <Route path="about" element={<About />} />
+          <Route path="profile-edit" element={<ProfileEditPage />} />
         </Route>
       </Routes>
     </Suspense>

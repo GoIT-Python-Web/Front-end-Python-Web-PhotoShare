@@ -1,6 +1,7 @@
 import { Formik, Form, Field } from "formik";
 import Input from "../../common/inputs/Input.jsx";
 import Button from "../../common/buttons/Button.jsx";
+
 import css from "./SignUpForm.module.css";
 import { registerValidationSchema } from "../../../validation/authSchemas.js";
 
@@ -11,9 +12,10 @@ const INITIAL_VALUES = {
   password: "",
 };
 
-const SignUpForm = () => {
+const SignUpForm = ({ onSwitch }) => {
   return (
     <div className={css.container}>
+      <h2 className={css.title}>Реєстрація</h2>
       <Formik
         initialValues={INITIAL_VALUES}
         validationSchema={registerValidationSchema}
@@ -65,21 +67,17 @@ const SignUpForm = () => {
                   {...field}
                   type="password"
                   placeholder="Пароль"
-                  showPassword
                   error={meta.touched && meta.error}
                   errorMessage={meta.touched && meta.error ? meta.error : ""}
                 />
               )}
             </Field>
 
-            <a href="/forgot-password" className={css.forgotPassword}>
-              Забули пароль?
-            </a>
-
             <Button
               size="fs"
               variant="primary"
               type="submit"
+              onClick={onSwitch}
               disabled={isSubmitting}
             >
               Зареєструватись
@@ -91,7 +89,17 @@ const SignUpForm = () => {
             </p>
 
             <p className={css.loginText}>
-              Вже є обліковий запис? <a href="/login">Увійти</a>
+              Вже є обліковий запис?{" "}
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onSwitch();
+                }}
+                className={css.loginLink}
+              >
+                Увійти
+              </a>
             </p>
           </Form>
         )}
