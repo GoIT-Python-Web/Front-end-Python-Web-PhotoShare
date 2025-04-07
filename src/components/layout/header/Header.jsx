@@ -4,7 +4,9 @@ import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import Button from "../../common/buttons/Button.jsx";
 import Logo from "../logo/Logo.jsx";
-
+import close from "../../../assets/images/Header/close@2x.png";
+import burger from "../../../assets/images/Header/burger@2x.png";
+import plus from "../../../assets/images/Header/plus@2x.png";
 const Header = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const toggleMenu = () => setMenuIsOpen(!menuIsOpen);
@@ -20,7 +22,7 @@ const Header = () => {
             {menuIsOpen ? (
               <img
                 className={css.closeIcon}
-                src="/src/assets/images/Header/close@2x.png"
+                src={close}
                 width={32}
                 height={32}
                 alt="Close Icon"
@@ -28,7 +30,7 @@ const Header = () => {
             ) : (
               <img
                 className={css.burgerIcon}
-                src="/src/assets/images/Header/burger@2x.png"
+                src={burger}
                 width={32}
                 height={32}
                 alt="Burger Icon"
@@ -50,12 +52,7 @@ const Header = () => {
             withArrow={false}
           >
             <span>Додати світлину</span>
-            <img
-              src="/src/assets/images/Header/plus@2x.png"
-              width={20}
-              height={20}
-              alt="Plus Icon"
-            />
+            <img src={plus} width={20} height={20} alt="Plus Icon" />
           </Button>
 
           <input className={css.searchInput} type="text" placeholder=" " />
