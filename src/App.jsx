@@ -4,6 +4,7 @@ import "./index.css";
 import Layout from "./Layout";
 import UsersManagementPage from "./pages/users/UsersManagementPage.jsx";
 import Loader from "./components/common/loader/Loader.jsx";
+import About from "./components/layout/about/About.jsx";
 
 export default function App() {
   const MainPage = lazy(() => import("./pages/main/MainPage.jsx"));
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="posts/view" element={<ViewPublicationPage />} />
           <Route path="my-profile" element={<ProfilePage />} />
           <Route path="admin/users" element={<UsersManagementPage />} />
+          <Route path="about" element={<About />} />
         </Route>
       </Routes>
     </Suspense>
