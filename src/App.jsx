@@ -8,6 +8,7 @@ import Loader from "./components/common/loader/Loader.jsx";
 export default function App() {
   const MainPage = lazy(() => import("./pages/main/MainPage.jsx"));
   const ProfilePage = lazy(() => import("./pages/profile/ProfilePage.jsx"));
+  const AuthPage = lazy(() => import("./pages/AuthPage/AuthPage.jsx"));
   const SignInPage = lazy(() => import("./pages/SignInPage/SignInPage.jsx"));
   const SignUpPage = lazy(() => import("./pages/SignUpPage/SignUpPage.jsx"));
   const ProfileEditPage = lazy(() => import("./pages/ProfileEditPage/ProfileEditPage.jsx"));
@@ -16,10 +17,13 @@ export default function App() {
     import("./pages/view/ViewPublicationPage.jsx")
   );
 
+  
+
 
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
+        <Route path="/auth" element={<AuthPage />} />
         <Route path="/register" element={<SignUpPage />} />
         <Route path="/login" element={<SignInPage />} />
 

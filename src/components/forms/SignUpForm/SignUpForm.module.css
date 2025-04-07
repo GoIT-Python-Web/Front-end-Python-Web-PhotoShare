@@ -8,14 +8,6 @@
   box-shadow: 0 4px 20px 0 rgba(105, 122, 158, 0.5);
   background: var(--input-backgroung);
 }
-.forgotPassword {
-  font-family: var(--second-family);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 120%;
-  text-decoration: underline;
-  color: var(--text);
-}
 .terms {
   font-family: var(--font-family);
   font-weight: 275;
@@ -41,10 +33,25 @@
 .loginLink:hover {
   text-decoration: underline;
 }
+.title {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 134%;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 32px;
+}
 
 @media only screen and (min-width: 768px) {
   .form {
         width: 526px;
+      }
+      .title {
+        font-size: 48px;
+        line-height: 120%;
+        margin-bottom: 56px;
       }
 }
 @media only screen and (min-width: 1440px) {
