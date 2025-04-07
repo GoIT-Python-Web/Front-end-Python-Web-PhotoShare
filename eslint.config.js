@@ -22,11 +22,14 @@ export default [
     },
     rules: {
       ...js.configs.recommended.rules,
+      forceConsistentCasingInFileNames: true,
+      "no-mixed-operators": "warn",
+      "import/no-unresolved": "error",
       ...reactHooks.configs.recommended.rules,
       "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
       "react-refresh/only-export-components": [
         "warn",
-        { allowConstantExport: true, forceConsistentCasingInFileNames: true },
+        { allowConstantExport: true },
       ],
     },
   },
