@@ -1,5 +1,5 @@
 import styles from "./About.module.css";
-import Button from "../../common/buttons/Button";
+import Button from "../../components/common/buttons/Button";
 
 export default function PhotoShare() {
   return (

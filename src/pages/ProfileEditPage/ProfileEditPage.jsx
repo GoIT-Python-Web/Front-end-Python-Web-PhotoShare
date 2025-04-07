@@ -1,6 +1,4 @@
-// import css from "../ProfileEditPage/ProfileEditPage.module.css";
-
-import ProfileEditForm from "../../components/ProfileEditForm/ProfileEditForm.jsx";
+import ProfileEditForm from "../../components/forms/ProfileEditForm/ProfileEditForm.jsx";
 
 const ProfileEditPage = () => {
   return (

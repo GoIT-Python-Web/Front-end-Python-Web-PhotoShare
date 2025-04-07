@@ -1,9 +1,9 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
-import Input from "../common/inputs/Input.jsx";
-import Button from "../common/buttons/Button.jsx";
+import Input from "../../common/inputs/Input.jsx";
+import Button from "../../common/buttons/Button.jsx";
 import css from "./ProfileEditForm.module.css";
-import { ProfileEditSchema } from "/src/validation/schemas.js";
+import { ProfileEditSchema } from "../../../validation/schemas.js";
 
 const INITIAL_VALUES = {
   name: "",

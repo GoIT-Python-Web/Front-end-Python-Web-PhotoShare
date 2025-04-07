@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import Loader from "./components/common/loader/Loader.jsx";
 import Header from "./components/layout/header/Header.jsx";
 import Footer from "./components/layout/footer/Footer.jsx";
-import About from "./components/layout/about/About.jsx";
+import About from "./pages/about/About.jsx";
 
 const Layout = () => {
   return (

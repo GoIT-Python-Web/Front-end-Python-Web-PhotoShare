@@ -1,12 +1,11 @@
 import SignUpForm from "../../components/forms/SignUpForm/SignUpForm";
 import SignInForm from "../../components/forms/signInForm/SignInForm.jsx";
 import css from "../AuthPage/AuthPage.module.css";
-import { useState } from "react";
+import { useLocation, Navigate } from "react-router-dom";
 
 const AuthPage = () => {
-  const [isRegistering, setIsRegistering] = useState(true);
-
-  const toggleForm = () => setIsRegistering((prev) => !prev);
+  const location = useLocation();
+  const path = location.pathname;
 
   return (
     <div className="container">
@@ -21,11 +20,10 @@ const AuthPage = () => {
           className={css.img}
           alt="img"
         />
-        {isRegistering ? (
-          <SignUpForm onSwitch={toggleForm} />
-        ) : (
-          <SignInForm onSwitch={toggleForm} />
-        )}
+
+        {path === "/register" && <SignUpForm />}
+        {path === "/login" && <SignInForm />}
+        {!["/register", "/login"].includes(path) && <Navigate to="/login" />}
       </div>
     </div>
   );
