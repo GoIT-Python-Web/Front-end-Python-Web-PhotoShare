@@ -34,6 +34,13 @@
   text-align: center;
   color: var(--additional-text-title);
 }
+.loginLink{
+  text-decoration: none;
+  color: var(--text);
+}
+.loginLink:hover {
+  text-decoration: underline;
+}
 
 @media only screen and (min-width: 768px) {
   .form {

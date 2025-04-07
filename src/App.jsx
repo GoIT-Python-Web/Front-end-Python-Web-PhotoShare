@@ -10,6 +10,7 @@ export default function App() {
   const ProfilePage = lazy(() => import("./pages/profile/ProfilePage.jsx"));
   const SignInPage = lazy(() => import("./pages/SignInPage/SignInPage.jsx"));
   const SignUpPage = lazy(() => import("./pages/SignUpPage/SignUpPage.jsx"));
+  const ProfileEditPage = lazy(() => import("./pages/ProfileEditPage/ProfileEditPage.jsx"));
 
   return (
     <Suspense fallback={<Loader />}>
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="posts" element={<MainPage />} />
           <Route path="my-profile" element={<ProfilePage />} />
           <Route path="admin/users" element={<UsersManagementPage />} />
+          <Route path="profile-edit" element={<ProfileEditPage />} />
         </Route>
       </Routes>
     </Suspense>
