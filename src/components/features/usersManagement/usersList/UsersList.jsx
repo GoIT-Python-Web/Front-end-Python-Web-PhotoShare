@@ -1,4 +1,3 @@
-import React from "react";
 import UserItem from "../usersItem/UsersItem";
 import styles from "./UsersList.module.css";
 
