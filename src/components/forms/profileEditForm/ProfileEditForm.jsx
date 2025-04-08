@@ -128,11 +128,18 @@ const ProfileEditForm = () => {
 
             <div className={css.wrapAdditionalInfo}>
               <p className={css.title}>Додаткові данні</p>
-              <textarea
-                className={css.textarea}
-                placeholder="Додаткові данні"
-                rows="5"
-              />
+
+              <Field name="additionalInfo">
+                {({ field, meta }) => (
+                  <Input
+                    {...field}
+                    type="textarea"
+                    placeholder="Додаткові дані "
+                    error={meta.touched && meta.error}
+                    errorMessage={meta.touched && meta.error ? meta.error : ""}
+                  />
+                )}
+              </Field>
             </div>
 
             <div className={css.wrapBtn}>

@@ -4,6 +4,7 @@ import Button from "../../common/buttons/Button.jsx";
 
 import css from "./SignUpForm.module.css";
 import { registerValidationSchema } from "../../../validation/authSchemas.js";
+import { Link } from "react-router-dom";
 
 const INITIAL_VALUES = {
   name: "",
@@ -90,16 +91,9 @@ const SignUpForm = ({ onSwitch }) => {
 
             <p className={css.loginText}>
               Вже є обліковий запис?{" "}
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onSwitch();
-                }}
-                className={css.loginLink}
-              >
+              <Link to="/login" className={css.loginLink}>
                 Увійти
-              </a>
+              </Link>
             </p>
           </Form>
         )}

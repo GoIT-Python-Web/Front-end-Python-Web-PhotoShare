@@ -1,0 +1,108 @@
+.header_popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 360px;
+  height: 321px;
+  z-index: 100;
+  border-radius: 8px;
+  padding: 80px 16px 20px;
+  backdrop-filter: blur(4px);
+  background: linear-gradient(
+    90deg,
+    rgba(73, 101, 161, 0.96) 0%,
+    rgba(7, 47, 134, 0.96) 100%
+  );
+  transform: translateY(-100%);
+  transition: all 0.5s ease;
+}
+.header_popup_open {
+  transform: translateY(0);
+  transition: all 0.5s ease;
+}
+.close_btn {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+.header_popup_wrap {
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+}
+.header_popup_top {
+  display: flex;
+  align-items: center;
+  column-gap: 13px;
+  padding-bottom: 4px;
+  border-bottom: 0.4px solid var(--additional-text);
+}
+.popup_top_user,
+.popup_top_settings {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  line-height: 1;
+  font-size: 32px;
+  border-radius: 8px;
+  border: 0.4px solid var(--additional-text);
+}
+.popup_top_settings {
+  width: 24px;
+  height: 24px;
+  border: none;
+  font-size: 20px;
+}
+.popup_top_name {
+  font-family: var(--font-family);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.2;
+  color: var(--additional-text);
+}
+.header_popup_list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+.popup_list_item_link {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--additional-text);
+}
+.popup_list_item_link:hover {
+  font-weight: 600;
+  text-decoration: underline;
+}
+@media only screen and (min-width: 768px) {
+  .header_popup {
+    left: 396px;
+    width: 372px;
+    height: 337px;
+    padding: 80px 36px 20px;
+  }
+  .close_btn {
+    left: 308px;
+  }
+  .header_popup_list {
+    row-gap: 32px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .header_popup {
+    display: none;
+  }
+}

@@ -4,6 +4,7 @@ import { loginValidationSchema } from "../../../validation/authSchemas.js";
 
 import Input from "../../common/inputs/Input.jsx";
 import Button from "../../common/buttons/Button.jsx";
+import { Link } from "react-router-dom";
 
 const SignInForm = ({ onSwitch }) => {
   const INITIALS_VALUES = {
@@ -58,16 +59,9 @@ const SignInForm = ({ onSwitch }) => {
             </Button>
             <div className={css.bottomTxt}>
               <p className={css.dscr}>Немає облікового запису?</p>
-                            <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onSwitch();
-                }}
-                className={css.dscrLink}
-              >
+              <Link to="/register" className={css.dscrLink}>
                 Зареєструватися
-              </a>
+              </Link>
             </div>
           </Form>
         )}
