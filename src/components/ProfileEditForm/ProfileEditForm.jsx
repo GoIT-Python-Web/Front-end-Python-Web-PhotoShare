@@ -115,7 +115,6 @@ const ProfileEditForm = () => {
                       {...field}
                       type="password"
                       placeholder="Пароль"
-                      showPassword
                       error={meta.touched && meta.error}
                       errorMessage={
                         meta.touched && meta.error ? meta.error : ""
