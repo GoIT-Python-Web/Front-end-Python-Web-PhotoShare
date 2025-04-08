@@ -12,8 +12,8 @@ export const ProfileEditSchema = Yup.object().shape({
   email: Yup.string().email("Недійсний email!").optional(),
   number: Yup.string()
     .matches(
-      /^\+\d{2} \d{3} \d{3}-\d{2}-\d{2}$/,
-      "Має бути у форматі +38 077 777-77-77"
+      /^\+\d{2}\d{3}\d{3}\d{2}\d{2}$/,
+      "Має бути у форматі +380777777777"
     )
     .optional(),
   password: Yup.string()
