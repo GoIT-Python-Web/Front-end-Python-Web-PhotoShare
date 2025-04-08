@@ -8,11 +8,12 @@ import PopupHeaderMenu from "./PopupHeaderMenu/PopupHeaderMenu.jsx";
 import burger from "../../../assets/images/Header/burger@2x.png";
 import plus from "../../../assets/images/Header/plus@2x.png";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../../store/auth/selectors.js";
-import def from "../../../assets/images/def.webp";
+import { selectIsLoggedIn, selectUser } from "../../../store/auth/selectors.js";
+import def from "../../../assets/images/def.png";
 
 const Header = () => {
   const user = useSelector(selectUser);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const [isOpen, setIsOpen] = useState(false);
 
   const menuIsOpen = () => {
@@ -59,46 +60,52 @@ const Header = () => {
           {isOpen && (
             <PopupHeaderMenu menuIsOpen={menuIsOpen} onClose={menuIsClose} />
           )}
-
           <div className={css.header_right_side}>
             <input className={css.header_search} type="text" placeholder=" " />
+            {!isLoggedIn ? (
+              <div className={css.header_toggle_container}>
+                <input
+                  className={css.toggle_input}
+                  type="checkbox"
+                  id="toggle"
+                />
+                <label htmlFor="toggle" className={css.toggle_label}>
+                  <Link className={css.toggle_link} to="/login">
+                    Увійти
+                  </Link>
+                  <Link className={css.toggle_link} to="/register">
+                    Зареєструватися
+                  </Link>
+                </label>
+              </div>
+            ) : (
+              <>
+                <Button
+                  size={isDesktopAddButton ? "sml_header" : "sm_header"}
+                  variant="primary"
+                  disabled={false}
+                  withArrow={false}
+                >
+                  <span>Додати світлину</span>
+                  <img src={plus} width={20} height={20} alt="Plus Icon" />
+                </Button>
 
-            <div className={css.header_toggle_container}>
-              <input className={css.toggle_input} type="checkbox" id="toggle" />
-              <label htmlFor="toggle" className={css.toggle_label}>
-                <Link className={css.toggle_link} to="/login">
-                  Увійти
-                </Link>
-                <Link className={css.toggle_link} to="/register">
-                  Зареєструватися
-                </Link>
-              </label>
-            </div>
-
-            <Button
-              size={isDesktopAddButton ? "sml_header" : "sm_header"}
-              variant="primary"
-              disabled={false}
-              withArrow={false}
-            >
-              <span>Додати світлину</span>
-              <img src={plus} width={20} height={20} alt="Plus Icon" />
-            </Button>
-
-            <div className={css.header_user}>
-              <Link to="/my-profile">
-                <div className={css.header_user_icon}>
-                  <img
-                    src={user.img_link ?? def}
-                    alt={`${user.name}'s profile picture`}
-                  />
+                <div className={css.header_user}>
+                  <Link to="/my-profile">
+                    <div className={css.header_user_icon}>
+                      <img
+                        src={user.img_link ?? def}
+                        alt={`${user.name}'s profile picture`}
+                      />
+                    </div>
+                  </Link>
+                  <p className={css.header_user_name}>{user.username}</p>
+                  <Link to="my-profile">
+                    <div className={css.header_settings_icon}>⚙️</div>
+                  </Link>
                 </div>
-              </Link>
-              <p className={css.header_user_name}>{user.username}</p>
-              <Link to="my-profile">
-                <div className={css.header_settings_icon}>⚙️</div>
-              </Link>
-            </div>
+              </>
+            )}
           </div>
         </div>
       </div>

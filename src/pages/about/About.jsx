@@ -3,7 +3,7 @@ import Button from "../../components/common/buttons/Button";
 
 export default function PhotoShare() {
   return (
-    <div className="container">
+    <div className={`container`}>
       <div className={styles.content}>
         <header className={styles.header}>
           <div className={styles.logo}>
@@ -44,10 +44,10 @@ export default function PhotoShare() {
                 <span className={styles.contactIcon}></span>
                 <span>✉ Електронна Пошта:</span>
                 <a
-                  href="mailto:Support@PhotoShare.Com"
+                  href="mailto:support@photoshare.com"
                   className={styles.contactLink}
                 >
-                  Support@PhotoShare.Com
+                  support@photoshare.com
                 </a>
                 <div className={styles.contactItem}>
                   <span className={styles.contactIcon}></span>
@@ -70,7 +70,7 @@ export default function PhotoShare() {
 
         <div className={styles.buttonContainer}>
           <Button variant="primary" size="xxl">
-            Повернутися до сайтів
+            Повернутися до світлин
           </Button>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import close from "../../../../assets/images/Header/close@2x.png";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../../store/auth/selectors.js";
-import def from "../../../../assets/images/def.webp";
+import def from "../../../../assets/images/def.png";
 
 const PopupHeaderMenu = ({ menuIsOpen, onClose }) => {
   useEffect(() => {

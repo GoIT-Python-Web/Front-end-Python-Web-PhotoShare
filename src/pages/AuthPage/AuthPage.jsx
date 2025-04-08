@@ -13,7 +13,9 @@ const AuthPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUser());
+    return () => {
+      dispatch(getUser());
+    };
   }, [dispatch]);
 
   return (

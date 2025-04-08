@@ -57,7 +57,7 @@
   line-height: 1;
   font-size: 32px;
   border-radius: 8px;
-  border: 0.4px solid var(--additional-text);
+  /* border: 0.4px solid var(--additional-text); */
 }
 .popup_top_settings {
   width: 24px;

@@ -16,10 +16,10 @@
 }
 .header_list,
 .header_search,
-.header_toggle_container,
 .header_user {
   display: none;
 }
+
 a {
   text-decoration: none;
 }
@@ -42,7 +42,7 @@ a {
   line-height: 1;
   font-size: 32px;
   border-radius: 8px;
-  border: 0.4px solid var(--additional-text);
+  /* border: 0.4px solid var(--additional-text); */
 }
 .header_settings_icon {
   width: 24px;
@@ -90,7 +90,7 @@ a {
   }
   .header_list {
     display: flex;
-    column-gap: 16px;
+    gap: 32px;
   }
   .item_link {
     font-family: var(--font-family);
@@ -98,9 +98,10 @@ a {
     font-size: 18px;
     line-height: 1.5;
     color: var(--additional-text);
+    transition: all 100ms ease;
   }
   .item_link:hover {
-    text-decoration: underline;
+    font-weight: 600;
   }
   .header_right_side {
     display: flex;

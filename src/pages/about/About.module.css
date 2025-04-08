@@ -8,10 +8,7 @@
 
 .content {
   width: 100%;
-
-  background-color: white;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
@@ -67,6 +64,7 @@
 
 .mainContent {
   display: flex;
+  background-color: white;
 }
 
 .leftSection {
@@ -84,7 +82,7 @@
 }
 
 .banner {
-  padding: 10px 10px 10px 72px;
+  padding: 10px;
   width: 732px;
   height: 74px;
   margin-top: 41px;
@@ -169,7 +167,6 @@
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 20px;
-  text-transform: capitalize;
   color: var(--text);
 }
 
@@ -197,6 +194,7 @@
   border-radius: 31px;
   width: 636px;
   height: 580px;
+  object-fit: contain;
 }
 
 .buttonContainer {

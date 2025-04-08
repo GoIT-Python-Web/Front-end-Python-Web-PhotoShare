@@ -7,16 +7,17 @@ import { deleteComment } from "../../../../store/posts/operations.js";
 
 export default function CommentItem({ comment }) {
   const dispatch = useDispatch();
+  console.log(comment);
   return (
     <li className={css.wrapper}>
       <div className={css.commentItem}>
-        {/* <img
+        <img
           src={comment.userPic}
           alt={`${comment.userName}'s picture`}
           width={54}
           height={54}
           className={css.userPic}
-        /> */}
+        />
         <div className={css.commentWrapper}>
           <FiTrash2
             className={css.trashIcon}

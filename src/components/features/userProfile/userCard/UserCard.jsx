@@ -13,7 +13,7 @@ import { IoBan } from "react-icons/io5";
 import { selectUser } from "../../../../store/auth/selectors.js";
 import { useSelector } from "react-redux";
 import formatDateTime from "../../../../helpers/formatDateTime.js";
-import def from "../../../../assets/images/def.webp";
+import def from "../../../../assets/images/def.png";
 import { Link } from "react-router-dom";
 
 export default function UserCard({ isMyPage, isAdmin }) {
