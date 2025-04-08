@@ -20,11 +20,12 @@ const ProfileEditForm = () => {
       <Formik
         initialValues={INITIAL_VALUES}
         validationSchema={ProfileEditSchema}
-        onSubmit={(values) => {
+        onSubmit={(values, { resetForm }) => {
           console.log("Форма відправлена:", values);
+          resetForm();
         }}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, resetForm, values }) => (
           <Form className={css.form}>
             <p className={css.title}>Особисті данні</p>
             <div className={css.wrapInfo}>
@@ -81,7 +82,7 @@ const ProfileEditForm = () => {
                   {({ field, meta }) => (
                     <Input
                       {...field}
-                      type="number"
+                      type="text"
                       placeholder="Номер телефону"
                       error={meta.touched && meta.error}
                       errorMessage={
@@ -140,6 +141,9 @@ const ProfileEditForm = () => {
                 variant="secondary"
                 type="button"
                 disabled={isSubmitting}
+                onClick={() => {
+                  resetForm();
+                }}
               >
                 Скинути
               </Button>
@@ -149,6 +153,7 @@ const ProfileEditForm = () => {
                 variant="primary"
                 type="submit"
                 disabled={isSubmitting}
+                
               >
                 Застосувати Зміни
               </Button>
