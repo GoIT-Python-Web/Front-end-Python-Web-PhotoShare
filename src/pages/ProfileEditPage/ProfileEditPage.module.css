@@ -1,0 +1,107 @@
+/* .avatarWrap {
+  margin-top: 32px;
+  margin-bottom: 40px;
+} */
+.avatarWrap {
+  position: relative;
+  display: inline-block;
+  margin: 32px 8px 40px 8px;
+}
+.avatarImg {
+  border-radius: 8px;
+  width: 312px;
+  height: 300px;
+}
+.editBtn {
+  position: absolute;
+  bottom: -6px;
+  right: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--hashtag);
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: red;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+  color: var(--button-notactive);
+}
+.editBtn:hover {
+  fill: var(--button-hover);
+}
+.divider {
+  border: none;
+  border-top: 0.6px solid var(--hashtag);
+  width: 312px;
+  height: 0;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  margin: 0 auto 40px; /* для центрування і відступів */
+}
+
+@media only screen and (min-width: 768px) {
+  .avatarWrap {
+    margin-top: 50px;
+    width: 100%;
+    height: 192px;
+    border-radius: 8px;
+    background-image: image-set(
+      url("../../assets/images/EditProfilPage/frame.jpg") 1x,
+      url("../../assets/images/EditProfilPage/frame@2x.jpg") 2x
+    );
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .avatarImg {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid var(--additional-text);
+    position: absolute;
+    bottom: -33px;
+    left: 0;
+    object-fit: cover;
+    background-color: var(--background);
+  }
+    .editBtn {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--hashtag);
+    background-color: relative;
+    fill: var(--additional-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: -30px;
+    left: 70px;
+    padding: 0;
+  }
+  .divider {
+    display: none;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  .avatarWrap {
+    height: 273px;
+    margin-top: 0;
+    margin-bottom: 72px;
+  }
+  .avatarImg {
+    width: 134px;
+    height: 134px;
+    bottom: -53px;
+    left: 0;
+      }
+    .editBtn {
+    width: 40px;
+    height: 40px;
+    bottom: -55px;
+    left: 90px;
+  }
+}
