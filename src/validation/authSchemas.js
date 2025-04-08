@@ -3,12 +3,12 @@ import { nameField, userNameField, emailField, passwordField } from "./rules";
 
 export const registerValidationSchema = Yup.object().shape({
   name: nameField,
-  userName: userNameField,
+  username: userNameField,
   email: emailField,
   password: passwordField,
 });
 
 export const loginValidationSchema = Yup.object().shape({
-  name: userNameField.label("UserName"),
+  username: userNameField,
   password: passwordField,
 });

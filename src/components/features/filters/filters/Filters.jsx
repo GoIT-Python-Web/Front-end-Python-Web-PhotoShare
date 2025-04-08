@@ -5,11 +5,22 @@ import Icon from "../../../common/icons/Icon.jsx";
 import SortPopUp from "../popups/sortPopUp/SortPopUp.jsx";
 import { LuCalendarDays } from "react-icons/lu";
 import DatePickerPopUp from "../popups/datePickerPopUp/DatePickerPopUp.jsx";
+import { useDispatch } from "react-redux";
+import { fetchPostsByFilters } from "../../../../store/posts/operations.js";
 
 export default function Filters({ location }) {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [isSortingOpen, setIsSortingOpen] = useState(false);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+
+  const [filters, setFilters] = useState({
+    keyword: "",
+    tags: [],
+    from_date: null,
+    to_date: null,
+    sortBy: "",
+    order: "",
+  });
 
   const filterButtonRef = useRef(null);
   const sortButtonRef = useRef(null);
@@ -17,6 +28,8 @@ export default function Filters({ location }) {
 
   const currentRef =
     location === "main" ? filterButtonRef : datePickerButtonRef;
+
+  const dispatch = useDispatch();
 
   const handleFilterClick = () => {
     setIsSortingOpen(false);
@@ -31,6 +44,23 @@ export default function Filters({ location }) {
   const handleDatePickerClick = () => {
     setIsSortingOpen(false);
     setIsDatePickerOpen(!isDatePickerOpen);
+  };
+
+  const handleSortChange = (sortOption) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      sortBy: sortOption,
+    }));
+    dispatch(fetchPostsByFilters({ ...filters, sortBy: sortOption }));
+    setIsSortingOpen(false);
+  };
+
+  const handleFilterChange = (newFilters) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      ...newFilters,
+    }));
+    dispatch(fetchPostsByFilters({ ...filters, ...newFilters }));
   };
 
   return (
@@ -55,19 +85,24 @@ export default function Filters({ location }) {
           className={css.listIcon}
         />
       </button>
+
       {isFiltersOpen && (
         <FilterPopUp
           buttonRef={filterButtonRef}
           location={location}
           onClose={() => setIsFiltersOpen(false)}
+          onFilterChange={handleFilterChange}
         />
       )}
+
       {isSortingOpen && (
         <SortPopUp
           onClose={() => setIsSortingOpen(false)}
           buttonRef={sortButtonRef}
+          onSortChange={handleSortChange}
         />
       )}
+
       {isDatePickerOpen && (
         <DatePickerPopUp
           onClose={() => setIsDatePickerOpen(false)}

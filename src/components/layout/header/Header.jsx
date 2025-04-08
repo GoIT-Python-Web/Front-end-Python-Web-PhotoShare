@@ -61,7 +61,7 @@ const Header = () => {
 
             <div className={css.header_toggle_container}>
               <input className={css.toggle_input} type="checkbox" id="toggle" />
-              <label for="toggle" className={css.toggle_label}>
+              <label htmlFor="toggle" className={css.toggle_label}>
                 <a className={css.toggle_link} href="#">
                   Увійти
                 </a>

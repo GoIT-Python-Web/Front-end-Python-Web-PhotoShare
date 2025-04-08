@@ -26,7 +26,6 @@ export default function PostItem({ post }) {
           alt="Post's picture"
           className={css.postPic}
         />
-
         <button className={css.viewButton} onClick={() => setIsOpen(true)}>
           <IoIosResize className={css.resize} />
         </button>
@@ -69,7 +68,7 @@ export default function PostItem({ post }) {
         <Button
           size={isDesktop ? "xxl" : isTablet ? "xl" : "lg"}
           onClick={() => {
-            navigate("/posts/view");
+            navigate(`/posts/${post.id}`);
           }}
         >
           Детальніше

@@ -5,15 +5,18 @@ import Button from "../../common/buttons/Button.jsx";
 import css from "./SignUpForm.module.css";
 import { registerValidationSchema } from "../../../validation/authSchemas.js";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../../store/auth/operations.js";
 
 const INITIAL_VALUES = {
   name: "",
-  userName: "",
+  username: "",
   email: "",
   password: "",
 };
 
 const SignUpForm = ({ onSwitch }) => {
+  const dispatch = useDispatch();
   return (
     <div className={css.container}>
       <h2 className={css.title}>Реєстрація</h2>
@@ -21,7 +24,7 @@ const SignUpForm = ({ onSwitch }) => {
         initialValues={INITIAL_VALUES}
         validationSchema={registerValidationSchema}
         onSubmit={(values) => {
-          console.log("Форма відправлена:", values);
+          dispatch(registerUser(values));
         }}
       >
         {({ isSubmitting }) => (
@@ -38,7 +41,7 @@ const SignUpForm = ({ onSwitch }) => {
               )}
             </Field>
 
-            <Field name="userName">
+            <Field name="username">
               {({ field, meta }) => (
                 <Input
                   {...field}

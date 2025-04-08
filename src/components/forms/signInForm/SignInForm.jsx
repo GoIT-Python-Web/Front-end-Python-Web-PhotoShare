@@ -5,13 +5,16 @@ import { loginValidationSchema } from "../../../validation/authSchemas.js";
 import Input from "../../common/inputs/Input.jsx";
 import Button from "../../common/buttons/Button.jsx";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../../store/auth/operations.js";
+
+const INITIALS_VALUES = {
+  username: "",
+  password: "",
+};
 
 const SignInForm = ({ onSwitch }) => {
-  const INITIALS_VALUES = {
-    name: "",
-    password: "",
-  };
-
+  const dispatch = useDispatch();
   return (
     <div className={css.container}>
       <h2 className={css.title}>Вхід</h2>
@@ -19,12 +22,12 @@ const SignInForm = ({ onSwitch }) => {
         initialValues={INITIALS_VALUES}
         validationSchema={loginValidationSchema}
         onSubmit={(values) => {
-          console.log("Login as:", values);
+          dispatch(loginUser(values));
         }}
       >
         {({ isSubmitting }) => (
           <Form className={css.form}>
-            <Field name="name">
+            <Field name="username">
               {({ field, meta }) => (
                 <Input
                   {...field}

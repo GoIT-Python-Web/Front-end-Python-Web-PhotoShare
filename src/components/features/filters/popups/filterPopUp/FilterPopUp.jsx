@@ -10,7 +10,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useMediaQuery } from "react-responsive";
 import { useClickOutside } from "../../../../../helpers/hooks/useClickOutside.js";
 
-export default function FilterPopUp({ buttonRef, location, onClose }) {
+export default function FilterPopUp({
+  buttonRef,
+  location,
+  onClose,
+  onFilterChange,
+}) {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
 
@@ -28,9 +33,17 @@ export default function FilterPopUp({ buttonRef, location, onClose }) {
           date: null,
           rating: 0,
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => {
+          const filters = {
+            search: values.search,
+            date: { start: startDate, end: endDate },
+            rating: values.rating,
+          };
+          onFilterChange(filters);
+        }}
         onReset={() => {
           setDateRange([null, null]);
+          onFilterChange({ search: "", date: null, rating: 0 });
         }}
       >
         {({ values, setFieldValue }) => (

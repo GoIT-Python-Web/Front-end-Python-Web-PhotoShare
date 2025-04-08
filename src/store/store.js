@@ -12,16 +12,17 @@ import {
 import storage from "redux-persist/lib/storage";
 
 import { postsReducer } from "./posts/slice";
+import { authReducer } from "./auth/slice.js";
 
 const postsPersistConfig = {
   key: "posts",
   storage,
 };
 
-// const authPersistConfig = {
-//   key: "auth",
-//   storage,
-// };
+const authPersistConfig = {
+  key: "auth",
+  storage,
+};
 
 // const commentsPersistConfig = {
 //   key: "comments",
@@ -31,7 +32,7 @@ const postsPersistConfig = {
 export const store = configureStore({
   reducer: {
     posts: persistReducer(postsPersistConfig, postsReducer),
-    // auth: persistReducer(authPersistConfig, authReducer),
+    auth: persistReducer(authPersistConfig, authReducer),
     // comments: persistReducer(commentsPersistConfig, commentsReducer),
   },
   middleware: (getDefaultMiddleware) =>
