@@ -2,7 +2,7 @@ import SignUpForm from "../../components/forms/SignUpForm/SignUpForm";
 import SignInForm from "../../components/forms/signInForm/SignInForm.jsx";
 import css from "../AuthPage/AuthPage.module.css";
 import { useLocation, Navigate } from "react-router-dom";
-import img from "../../assets/images/SignPages/bg.png";
+import img from "../../assets/images/SignPages/bg.jpg";
 
 const AuthPage = () => {
   const location = useLocation();
