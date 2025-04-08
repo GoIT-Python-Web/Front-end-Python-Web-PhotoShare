@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import css from "./Logo.module.css";
 import logo from "../../../assets/icons/favicon.svg";
 
@@ -9,10 +10,10 @@ const Logo = ({
   return (
     <>
       <div className={`${css.logoBox} ${css[display]}`}>
-        <a href="#" className={css.link}>
+        <Link to="/posts" className={css.link}>
           <img className={css[logoImg]} src={logo} alt="Logo" />
           <span className={`${css.title} ${css[logoTitle]}`}>PhotoShare</span>
-        </a>
+        </Link>
       </div>
     </>
   );
