@@ -106,6 +106,7 @@
   width: auto;
   height: auto;
   background: #f2f6ff;
+  z-index: 10;
 }
 
 .settingsParagraph {
@@ -130,6 +131,8 @@
   border-radius: 0 !important;
   margin-bottom: 16px;
   cursor: pointer;
+  width: 24px;
+  height: 24px;
 }
 
 .settingsIcon {
@@ -138,7 +141,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .cardWrapper img {
+  .userPic {
     width: 86px;
     height: 86px;
   }

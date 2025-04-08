@@ -1,4 +1,3 @@
-import user from "./user.json";
 import css from "./UserCard.module.css";
 import { MdOutlineStars } from "react-icons/md";
 import { BsThreeDots } from "react-icons/bs";
@@ -9,11 +8,19 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import iconClose from "../../../../assets/icons/iconClose.svg";
 import { TbUserStar } from "react-icons/tb";
 import { FiTrash2 } from "react-icons/fi";
+import { MdAdminPanelSettings } from "react-icons/md";
 import { IoBan } from "react-icons/io5";
+import { selectUser } from "../../../../store/auth/selectors.js";
+import { useSelector } from "react-redux";
+import formatDateTime from "../../../../helpers/formatDateTime.js";
+import def from "../../../../assets/images/def.webp";
+import { Link } from "react-router-dom";
 
 export default function UserCard({ isMyPage, isAdmin }) {
   const isDesktop = useMediaQuery({ minWidth: "1440px" });
-  const isMobile = useMediaQuery({ maxWidth: "768px" });
+
+  const user = useSelector(selectUser);
+  console.log(user);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -43,7 +50,7 @@ export default function UserCard({ isMyPage, isAdmin }) {
     <div className={css.cardWrapper}>
       <div>
         <p className={css.tabRegisterDate}>
-          Дата реєстрації <span>{user.createdAt}</span>
+          Дата реєстрації <span>{formatDateTime(user.created_at, "date")}</span>
         </p>
       </div>
       <div
@@ -51,10 +58,11 @@ export default function UserCard({ isMyPage, isAdmin }) {
         data-label={isAdmin ? "admin" : isMyPage ? "myPage" : null}
       >
         <img
-          src={user.profilePic}
+          src={user.img_link ?? def}
           alt={`${user.name}'s profile picture`}
           width={70}
           height={74}
+          className={css.userPic}
         />
         <div className={css.textWrapper}>
           {(isAdmin || isMyPage) && !isDesktop && (
@@ -66,22 +74,20 @@ export default function UserCard({ isMyPage, isAdmin }) {
           )}
           {isOpen && (
             <div className={css.settings} ref={modalRef}>
-              {isMobile && (
-                <div className={css.closeIconWrapper}>
-                  <img
-                    src={iconClose}
-                    alt="Close"
-                    className={css.closeIcon}
-                    onClick={() => setIsOpen(false)}
-                  />
-                </div>
-              )}
+              <div className={css.closeIconWrapper}>
+                <img
+                  src={iconClose}
+                  alt="Close"
+                  className={css.closeIcon}
+                  onClick={() => setIsOpen(false)}
+                />
+              </div>
               {!isAdmin ? (
                 <div className={css.icons}>
-                  <p className={css.settingsParagraph}>
+                  <Link to="/profile-edit" className={css.settingsParagraph}>
                     <LuPencil className={css.settingsIcon} />
                     Редагувати свій профіль
-                  </p>
+                  </Link>
                   <p className={css.settingsParagraph}>
                     <RiLockPasswordLine className={css.settingsIcon} />
                     Змінити пароль
@@ -108,7 +114,8 @@ export default function UserCard({ isMyPage, isAdmin }) {
 
           <div className={css.column}>
             <p className={css.registerDate}>
-              Дата реєстрації <span>{user.createdAt}</span>
+              Дата реєстрації{" "}
+              <span>{formatDateTime(user.created_at, "date")}</span>
             </p>
 
             <div className={css.nameWrapper}>
@@ -117,18 +124,23 @@ export default function UserCard({ isMyPage, isAdmin }) {
                 <p className={css.userName}>{user.username}</p>
               </div>
               <p className={css.role}>
-                <MdOutlineStars />
+                {user.type === "user" ? (
+                  <MdOutlineStars />
+                ) : (
+                  <MdAdminPanelSettings />
+                )}
                 {user.role}
               </p>
               <p className={css.deskRegisterDate}>
-                Дата реєстрації <span>{user.createdAt}</span>
+                Дата реєстрації{" "}
+                <span>{formatDateTime(user.created_at, "date")}</span>
               </p>
               {!isAdmin && isDesktop && isMyPage ? (
                 <div className={css.deskIcons}>
-                  <p className={css.settingsParagraph}>
+                  <Link to="/profile-edit" className={css.settingsParagraph}>
                     <LuPencil className={css.settingsIcon} />
                     Редагувати свій профіль
-                  </p>
+                  </Link>
                   <p className={css.settingsParagraph}>
                     <RiLockPasswordLine className={css.settingsIcon} />
                     Змінити пароль

@@ -37,6 +37,9 @@
   flex-direction: column;
   row-gap: 32px;
 }
+.rounded {
+  border-radius: 8px;
+}
 .header_popup_top {
   display: flex;
   align-items: center;

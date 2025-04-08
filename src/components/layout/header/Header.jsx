@@ -7,8 +7,12 @@ import { useState } from "react";
 import PopupHeaderMenu from "./PopupHeaderMenu/PopupHeaderMenu.jsx";
 import burger from "../../../assets/images/Header/burger@2x.png";
 import plus from "../../../assets/images/Header/plus@2x.png";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../store/auth/selectors.js";
+import def from "../../../assets/images/def.webp";
 
 const Header = () => {
+  const user = useSelector(selectUser);
   const [isOpen, setIsOpen] = useState(false);
 
   const menuIsOpen = () => {
@@ -27,7 +31,7 @@ const Header = () => {
         <div className={css.header_wrap}>
           <ul className={css.header_list}>
             <li className={css.header_list_item}>
-              <Link to="" className={css.item_link}>
+              <Link to="/posts" className={css.item_link}>
                 Світлини
               </Link>
             </li>
@@ -37,7 +41,7 @@ const Header = () => {
               </Link>
             </li>
             <li className={css.header_list_item}>
-              <Link to="" className={css.item_link}>
+              <Link to="about" className={css.item_link}>
                 Про нас
               </Link>
             </li>
@@ -62,12 +66,12 @@ const Header = () => {
             <div className={css.header_toggle_container}>
               <input className={css.toggle_input} type="checkbox" id="toggle" />
               <label htmlFor="toggle" className={css.toggle_label}>
-                <a className={css.toggle_link} href="#">
+                <Link className={css.toggle_link} to="/login">
                   Увійти
-                </a>
-                <a className={css.toggle_link} href="#">
+                </Link>
+                <Link className={css.toggle_link} to="/register">
                   Зареєструватися
-                </a>
+                </Link>
               </label>
             </div>
 
@@ -83,10 +87,15 @@ const Header = () => {
 
             <div className={css.header_user}>
               <Link to="/my-profile">
-                <div className={css.header_user_icon}>👤</div>
+                <div className={css.header_user_icon}>
+                  <img
+                    src={user.img_link ?? def}
+                    alt={`${user.name}'s profile picture`}
+                  />
+                </div>
               </Link>
-              <p className={css.header_user_name}>Іванка</p>
-              <Link to="">
+              <p className={css.header_user_name}>{user.username}</p>
+              <Link to="my-profile">
                 <div className={css.header_settings_icon}>⚙️</div>
               </Link>
             </div>

@@ -3,10 +3,18 @@ import SignInForm from "../../components/forms/signInForm/SignInForm.jsx";
 import css from "../AuthPage/AuthPage.module.css";
 import { useLocation, Navigate } from "react-router-dom";
 import img from "../../assets/images/SignPages/bg.jpg";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getUser } from "../../store/auth/operations.js";
 
 const AuthPage = () => {
   const location = useLocation();
   const path = location.pathname;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
 
   return (
     <div className="container">

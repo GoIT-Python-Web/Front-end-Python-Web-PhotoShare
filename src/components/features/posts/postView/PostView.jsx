@@ -40,14 +40,14 @@ export default function PostView() {
         </div> */}
         <div className={css.tabletDiv}>
           <p className={css.title}>{post.title}</p>
-          {/* <div className={css.rating}>
+          <div className={css.rating}>
             <p>
-              <Stars rating={post.rating} />
+              <Stars rating={post.avg_rating} />
             </p>
             <p className={css.ratingText}>
-              {post.rating} ({post.rating_length} оцінок)
+              {post.rating} ({post.rating_count} оцінок)
             </p>
-          </div> */}
+          </div>
         </div>
         <p className={css.description}>{post.description}</p>
         {/* <div className={css.tags}>

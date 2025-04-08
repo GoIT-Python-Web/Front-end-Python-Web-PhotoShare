@@ -5,7 +5,7 @@ import { IoIosResize } from "react-icons/io";
 import css from "./PostItem.module.css";
 import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
-// import Stars from "../../../../helpers/Stars.jsx";
+import Stars from "../../../../helpers/Stars.jsx";
 import Button from "../../../common/buttons/Button.jsx";
 import formatDateTime from "../../../../helpers/formatDateTime.js";
 
@@ -52,12 +52,12 @@ export default function PostItem({ post }) {
       <div className={css.postCredentials}>
         <p className={css.title}>{post.title}</p>
         {/* <p className={css.tags}>{post.tags.join(" ")}</p> */}
-        {/* <div className={css.ratingDiv}>
-          <Stars rating={post.rating} />
+        <div className={css.ratingDiv}>
+          <Stars rating={post.avg_rating} />
           <p className={css.rating}>
-            {post.rating} ({post.rating_length} оцінок)
+            {post.rating} ({post.rating_count} оцінок)
           </p>
-        </div> */}
+        </div>
         <div className={css.dateDiv}>
           <p className={css.published}>Опубліковано</p>
           <p className={css.createdAt}>{formatDateTime(post.created_at)}</p>

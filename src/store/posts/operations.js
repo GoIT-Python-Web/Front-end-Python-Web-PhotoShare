@@ -5,6 +5,14 @@ export const fetchPosts = createAsyncThunk(
   "posts/fetchAll",
   async (_, thunkAPI) => {
     try {
+      const state = thunkAPI.getState();
+      const persistedToken = state.auth.token;
+      console.log(token);
+
+      if (!persistedToken) {
+        return thunkAPI.rejectWithValue("Unable to fetch user");
+      }
+      setAuthHeader(persistedToken);
       const { data } = await instance.get("/posts/");
       return data;
     } catch (err) {
@@ -46,6 +54,14 @@ export const fetchPostById = createAsyncThunk(
   "posts/fetchById",
   async ({ id }, thunkAPI) => {
     try {
+      const state = thunkAPI.getState();
+      const persistedToken = state.auth.token;
+      console.log(token);
+
+      if (!persistedToken) {
+        return thunkAPI.rejectWithValue("Unable to fetch user");
+      }
+      setAuthHeader(persistedToken);
       const { data } = await instance.get(`/posts/${id}`);
       return data;
     } catch (err) {
@@ -60,6 +76,13 @@ export const sendComment = createAsyncThunk(
   "comments/send",
   async ({ id, message }, thunkAPI) => {
     try {
+      const state = thunkAPI.getState();
+      const persistedToken = state.auth.token;
+
+      if (!persistedToken) {
+        return thunkAPI.rejectWithValue("Unable to fetch user");
+      }
+      setAuthHeader(persistedToken);
       const { data } = await instance.post(`/posts/${id}/comments`, {
         message,
       });
@@ -90,6 +113,13 @@ export const deleteComment = createAsyncThunk(
   "comments/delete",
   async ({ id }, thunkAPI) => {
     try {
+      const state = thunkAPI.getState();
+      const persistedToken = state.auth.token;
+
+      if (!persistedToken) {
+        return thunkAPI.rejectWithValue("Unable to fetch user");
+      }
+      setAuthHeader(persistedToken);
       await instance.delete(`/posts/comments/${id}`);
       return id;
     } catch (err) {

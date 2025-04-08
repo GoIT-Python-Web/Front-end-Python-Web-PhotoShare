@@ -25,7 +25,7 @@ const SignInForm = ({ onSwitch }) => {
           dispatch(loginUser(values));
         }}
       >
-        {({ isSubmitting }) => (
+        {() => (
           <Form className={css.form}>
             <Field name="username">
               {({ field, meta }) => (
@@ -55,7 +55,6 @@ const SignInForm = ({ onSwitch }) => {
               variant="primary"
               type="submit"
               onClick={onSwitch}
-              disabled={isSubmitting}
               style={{ marginBottom: "24px", marginTop: "16px" }}
             >
               Увійти

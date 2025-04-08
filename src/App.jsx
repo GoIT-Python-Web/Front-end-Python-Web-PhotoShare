@@ -55,7 +55,6 @@ export default function App() {
               <PrivateRoute redirectTo="/login" component={<ProfilePage />} />
             }
           />
-          <Route path="my-profile" element={<ProfilePage />} />
           <Route path="admin/users" element={<UsersManagementPage />} />
           <Route path="about" element={<About />} />
           <Route path="profile-edit" element={<ProfileEditPage />} />

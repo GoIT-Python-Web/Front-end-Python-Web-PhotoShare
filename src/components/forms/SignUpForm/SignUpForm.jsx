@@ -27,7 +27,7 @@ const SignUpForm = ({ onSwitch }) => {
           dispatch(registerUser(values));
         }}
       >
-        {({ isSubmitting }) => (
+        {() => (
           <Form className={css.form}>
             <Field name="name">
               {({ field, meta }) => (
@@ -82,7 +82,6 @@ const SignUpForm = ({ onSwitch }) => {
               variant="primary"
               type="submit"
               onClick={onSwitch}
-              disabled={isSubmitting}
             >
               Зареєструватись
             </Button>
