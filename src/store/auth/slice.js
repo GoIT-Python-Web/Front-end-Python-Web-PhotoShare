@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { registerUser, loginUser, getUser } from "./operations";
 import { handlePending, handleRejected } from "../init.js";
+import { updateUser } from "./operations.js";
 
 const authSlice = createSlice({
   name: "auth",
@@ -47,6 +48,18 @@ const authSlice = createSlice({
       })
       .addCase(getUser.rejected, (state) => {
         handleRejected, (state.isLoggedIn = false);
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });

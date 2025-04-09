@@ -1,3 +1,10 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
 .avatarWrap {
   position: relative;
   display: inline-block;
@@ -10,7 +17,7 @@
 }
 .editBtn {
   position: absolute;
-  bottom: 14px;
+  bottom: -4px;
   right: 0;
   width: 34px;
   height: 34px;
@@ -37,9 +44,63 @@
   width: 312px;
   height: 0;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  margin: 0 auto 40px; /* для центрування і відступів */
+  margin: 0 auto 40px;
+}
+/*dfd*/
+
+.title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 111%;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+.wrapInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+.wrapAdditionalInfo {
+  margin-bottom: 48px;
+}
+.textarea {
+  width: 328px;
+height: 82px;
+font-family: var(--font-family);
+font-weight: 400;
+font-size: 16px;
+line-height: 140%;
+letter-spacing: 0em;
+border-radius: 8px;
+padding: 8px 40px 8px 8px;
+font-size: 16px;
+color: var(--text);
+border: 1px solid #ccc;
+outline: none;
+transition: border-color 0.3s ease, color 0.3s ease;
+box-sizing: border-box;
+}
+.textarea:focus {
+  border-color: var(--button-hover);
 }
 
+.textarea::placeholder {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.textarea:focus::placeholder {
+  opacity: 0;
+}
+.wrapBtn {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
 @media only screen and (min-width: 768px) {
   .avatarWrap {
     margin-top: 60px;
@@ -48,8 +109,8 @@
     height: 192px;
     border-radius: 8px;
     background-image: image-set(
-      url("../../assets/images/EditProfilPage/frame.jpg") 1x,
-      url("../../assets/images/EditProfilPage/frame@2x.jpg") 2x
+      url("../../../assets/images/EditProfilPage/frame.jpg") 1x,
+      url("../../../assets/images/EditProfilPage/frame@2x.jpg") 2x
     );
     background-size: cover;
     background-position: center;
@@ -84,8 +145,30 @@
   .divider {
     display: none;
   }
+
+  /*csxc*/
+  .wrapInfo {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 24px 72px;
+  }
+  .infoItem {
+    width: calc((100% - 72px) / 2);
+  }
+  .textarea {
+    width: 696px;
+  }
+  .wrapBtn {
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 16px;
+  }
 }
 @media only screen and (min-width: 1440px) {
+  /* .form {
+    margin: 0 auto;
+  } */
+  /*cfdxc*/
   .avatarWrap {
     height: 273px;
     margin-top: 50px;
@@ -102,5 +185,16 @@
     height: 40px;
     bottom: -55px;
     left: 90px;
+  }
+  /*sdcs*/
+  .wrapInfo {
+    gap: 24px 70px;
+    width: 1076px;
+  }
+  .infoItem {
+    width: calc((100% - 70px * 2) / 3);
+  }
+  .textarea {
+    width: 1076px;
   }
 }
