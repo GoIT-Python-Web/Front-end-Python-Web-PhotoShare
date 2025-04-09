@@ -36,58 +36,63 @@ function UserItem({
   return (
     <div className={s.userItem}>
       <div className={s.userItemContainer}>
-        <div className={s.pickname}>
-          <div className={s.profileImageContainer}>
-            {typeof profileImage === "string" &&
-            profileImage.trim() !== "" &&
-            profileImage !== "null" &&
-            profileImage !== "undefined" ? (
-              <img
-                src={profileImage}
-                alt={profileAlt}
-                className={s.profileImage}
-              />
-            ) : (
-              <div
-                className={s.initialAvatar}
-                style={{ backgroundColor: getColorFromName(userName) }}
-              >
-                {userName.charAt(0).toUpperCase()}
-              </div>
-            )}
-          </div>
-          <span className={s.profileName}>{userName}</span>
+        <div className={s.profileImageContainer}>
+          {typeof profileImage === "string" &&
+          profileImage.trim() !== "" &&
+          profileImage !== "null" &&
+          profileImage !== "undefined" ? (
+            <img
+              src={profileImage}
+              alt={profileAlt}
+              className={s.profileImage}
+            />
+          ) : (
+            <div
+              className={s.initialAvatar}
+              style={{ backgroundColor: getColorFromName(userName) }}
+            >
+              {userName.charAt(0).toUpperCase()}
+            </div>
+          )}
         </div>
-        <div className={s.settingsSection}>
-          <button className={s.adminIconButton}>
-            <Icon name={role === "admin" ? "shield" : "user"} />
-          </button>
-          <div className={s.dateFunction}>
-            <div className={s.mobilEmailSection}>
-              <div className={s.emailSection}>{email}</div>
-              <div className={s.timestampSection}>{dateTime}</div>
-            </div>
-            <div className={s.actionsSection}>
-              <button className={s.iconButton} onClick={handleBan}>
-                <Icon name="ban" className={s.icons} />
-              </button>
-              <button className={s.iconButton} onClick={handleRoleChange}>
-                <Icon name="user-role" className={s.icons} />
-              </button>
-              <button className={s.iconButton} onClick={onDelete}>
-                <Icon name="trash" className={s.icons} />
-              </button>
-
-              {/* Кнопка три крапки — тільки на мобільній версії */}
-              <button
-                ref={buttonRef}
-                className={`${s.iconButton} ${s.dotsOnlyMobile}`}
-                onClick={handleModalClick}
-              >
-                <Icon name="dots" />
+        <div className={s.mobileContainer}>
+          <div className={s.pickname}>
+            <span className={s.profileName}>{userName}</span>
+            <div className={s.settingsSection}>
+              <button className={s.adminIconButton}>
+                <Icon name={role === "admin" ? "shield" : "user"} />
               </button>
             </div>
           </div>
+          <div className={s.mobilEmailSection}>
+            <div className={s.emailSection}>{email}</div>
+            <div className={s.timestampSection}>{dateTime}</div>
+          </div>
+        </div>
+
+        {/*  */}
+
+        {/* </div> */}
+
+        <div className={s.actionsSection}>
+          <button className={s.iconButton} onClick={handleBan}>
+            <Icon name="ban" className={s.icons} />
+          </button>
+          <button className={s.iconButton} onClick={handleRoleChange}>
+            <Icon name="user-role" className={s.icons} />
+          </button>
+          <button className={s.iconButton} onClick={onDelete}>
+            <Icon name="trash" className={s.icons} />
+          </button>
+
+          {/* Кнопка три крапки — тільки на мобільній версії */}
+          <button
+            ref={buttonRef}
+            className={`${s.iconButton} ${s.dotsOnlyMobile}`}
+            onClick={handleModalClick}
+          >
+            <Icon name="dots" />
+          </button>
         </div>
       </div>
 

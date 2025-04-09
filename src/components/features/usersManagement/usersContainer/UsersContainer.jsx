@@ -63,13 +63,17 @@ const UsersContainer = () => {
         <div className={s.label}>
           <Input
             className={s.searchInput}
-            placeholder="Пошук користувачів..."
+            placeholder="Пошук користувачів за ім’ям, поштою "
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             type="text"
             name="search"
           />
           <Icon name="magnifier" className={s.magnifier} />
+          <div className={s.statusFilter}>
+            <Icon name="user" className={s.statusIcon} />
+            <Icon name="shield" className={s.statusIcon} />
+          </div>
         </div>
         <div className={s.iconButtons}>
           <Filters location="admin" />
