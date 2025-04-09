@@ -10,6 +10,8 @@ import plus from "../../../assets/images/Header/plus@2x.png";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn, selectUser } from "../../../store/auth/selectors.js";
 import def from "../../../assets/images/def.png";
+import { RiLoginCircleLine } from "react-icons/ri";
+import { MdOutlineAppRegistration } from "react-icons/md";
 
 const Header = () => {
   const user = useSelector(selectUser);
@@ -24,6 +26,8 @@ const Header = () => {
   };
 
   const isDesktopAddButton = useMediaQuery({ minWidth: 1440 });
+  const isMobileLoginIcon = useMediaQuery({ maxWidth: 767 });
+  const isMobileRegisterIcon = useMediaQuery({ maxWidth: 767 });
 
   return (
     <header className={css.header}>
@@ -64,19 +68,16 @@ const Header = () => {
             <input className={css.header_search} type="text" placeholder=" " />
             {!isLoggedIn ? (
               <div className={css.header_toggle_container}>
-                <input
-                  className={css.toggle_input}
-                  type="checkbox"
-                  id="toggle"
-                />
-                <label htmlFor="toggle" className={css.toggle_label}>
-                  <Link className={css.toggle_link} to="/login">
-                    Увійти
-                  </Link>
-                  <Link className={css.toggle_link} to="/register">
-                    Зареєструватися
-                  </Link>
-                </label>
+                <Link className={css.toggle_link} to="/login">
+                  {isMobileLoginIcon ? <RiLoginCircleLine /> : "Увійти"}
+                </Link>
+                <Link className={css.toggle_link} to="/register">
+                  {isMobileRegisterIcon ? (
+                    <MdOutlineAppRegistration />
+                  ) : (
+                    "Зареєструватися"
+                  )}
+                </Link>
               </div>
             ) : (
               <>
