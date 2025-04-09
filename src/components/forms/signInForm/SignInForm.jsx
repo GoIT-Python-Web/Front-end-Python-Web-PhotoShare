@@ -6,7 +6,7 @@ import Input from "../../common/inputs/Input.jsx";
 import Button from "../../common/buttons/Button.jsx";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../../store/auth/operations.js";
+import { getUser, loginUser } from "../../../store/auth/operations.js";
 
 const INITIALS_VALUES = {
   username: "",
@@ -23,6 +23,7 @@ const SignInForm = ({ onSwitch }) => {
         validationSchema={loginValidationSchema}
         onSubmit={(values) => {
           dispatch(loginUser(values));
+          dispatch(getUser());
         }}
       >
         {() => (

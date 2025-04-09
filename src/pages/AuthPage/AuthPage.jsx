@@ -19,7 +19,7 @@ const AuthPage = () => {
   }, [dispatch]);
 
   return (
-    <div className="container">
+    <div className={`container ${css.wr}`}>
       <a href="/" className={css.Logo}>
         <img src="/favicon.svg" alt="Logo" className={css.logo} />
         <span className={css.logoText}>PhotoShare</span>

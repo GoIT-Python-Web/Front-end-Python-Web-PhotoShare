@@ -22,6 +22,7 @@ const postsPersistConfig = {
 const authPersistConfig = {
   key: "auth",
   storage,
+  whitelist: ["token", "refreshToken", "user", "isLoggedIn"],
 };
 
 // const commentsPersistConfig = {

@@ -95,7 +95,7 @@ const Header = () => {
                   <Link to="/my-profile">
                     <div className={css.header_user_icon}>
                       <img
-                        src={user.img_link ?? def}
+                        src={user?.img_link ?? def}
                         alt={`${user.name}'s profile picture`}
                       />
                     </div>
