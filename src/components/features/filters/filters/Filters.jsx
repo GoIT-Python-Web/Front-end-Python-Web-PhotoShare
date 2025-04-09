@@ -18,7 +18,8 @@ export default function Filters({ location }) {
     tags: [],
     from_date: null,
     to_date: null,
-    sortBy: "",
+    rating_to: null,
+    sort_by: "",
     order: "",
   });
 
@@ -46,12 +47,22 @@ export default function Filters({ location }) {
     setIsDatePickerOpen(!isDatePickerOpen);
   };
 
-  const handleSortChange = (sortOption) => {
+  const handleSortChange = ({ sort_by, order }) => {
+    console.log(filters);
     setFilters((prevFilters) => ({
       ...prevFilters,
-      sortBy: sortOption,
+      sort_by,
+      order,
     }));
-    dispatch(fetchPostsByFilters({ ...filters, sortBy: sortOption }));
+
+    dispatch(
+      fetchPostsByFilters({
+        ...filters,
+        sort_by,
+        order,
+      })
+    );
+
     setIsSortingOpen(false);
   };
 

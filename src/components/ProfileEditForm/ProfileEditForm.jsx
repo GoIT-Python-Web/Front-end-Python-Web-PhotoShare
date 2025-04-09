@@ -3,18 +3,22 @@ import css from "./ProfileEditForm.module.css";
 import Input from "../common/inputs/Input.jsx";
 import Button from "../common/buttons/Button.jsx";
 import { ProfileEditSchema } from "../../validation/schemas.js";
-
-const INITIAL_VALUES = {
-  name: "",
-  userName: "",
-  email: "",
-  number: "",
-  password: "",
-  birthday: "",
-  additionalInfo: "",
-};
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/auth/selectors.js";
 
 const ProfileEditForm = () => {
+  const user = useSelector(selectUser);
+
+  const INITIAL_VALUES = {
+    name: user.name ?? "",
+    userName: user.username ?? "",
+    email: user.email ?? "",
+    number: user.phone ?? "",
+    password: "",
+    birthday: user.birthday ?? "",
+    additionalInfo: user.description ?? "",
+  };
+
   return (
     <div className={css.container}>
       <Formik
@@ -153,7 +157,6 @@ const ProfileEditForm = () => {
                 variant="primary"
                 type="submit"
                 disabled={isSubmitting}
-                
               >
                 Застосувати Зміни
               </Button>

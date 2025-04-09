@@ -2,16 +2,14 @@ import css from "../ProfileEditPage/ProfileEditPage.module.css";
 import { useRef, useState } from "react";
 import ProfileEditForm from "../../components/ProfileEditForm/ProfileEditForm.jsx";
 import { FaPenToSquare } from "react-icons/fa6";
+import def from "../../assets/images/def.png";
 
 const ProfileEditPage = () => {
-  const defaultAvatar = "/src/assets/images/EditProfilPage/AvatarDef.png";
-  const userAvatar = "/src/assets/images/EditProfilPage/AvatarGirl.jpg";
-
-  const [avatarSrc, setAvatarSrc] = useState(userAvatar);
+  const [avatarSrc, setAvatarSrc] = useState(def);
   const fileInputRef = useRef(null);
 
   const handleImageError = () => {
-    setAvatarSrc(defaultAvatar);
+    setAvatarSrc(def);
   };
 
   const handleFileChange = (event) => {
