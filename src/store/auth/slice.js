@@ -63,7 +63,6 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
         handleRejected(state, action);
       })
-
       .addCase(refreshTokens.pending, handlePending)
       .addCase(refreshTokens.fulfilled, (state, action) => {
         state.token = action.payload.access_token;
@@ -72,8 +71,11 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = null;
       })
-      .addCase(getUser.rejected, (state) => {
-        handleRejected, (state.isLoggedIn = false);
+      .addCase(refreshTokens.rejected, (state, action) => {
+        state.isLoggedIn = false;
+        state.token = null;
+        state.refreshToken = null;
+        handleRejected(state, action);
       })
       .addCase(updateUser.pending, (state) => {
         state.isLoading = true;
@@ -86,11 +88,6 @@ const authSlice = createSlice({
       .addCase(updateUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-      .addCase(refreshTokens.rejected, (state, action) => {
-        state.isLoggedIn = false;
-        state.token = null;
-        state.refreshToken = null;
-        handleRejected(state, action);
       });
   },
 });
