@@ -13,6 +13,8 @@ import storage from "redux-persist/lib/storage";
 
 import { postsReducer } from "./posts/slice";
 import { authReducer } from "./auth/slice.js";
+import { setupInterceptors } from "./interceptor.js";
+import { instance } from "./init.js";
 
 const postsPersistConfig = {
   key: "posts",
@@ -44,5 +46,7 @@ export const store = configureStore({
     }),
   devTools: import.meta.env.MODE === "development",
 });
+
+setupInterceptors(instance, store);
 
 export const persistor = persistStore(store);

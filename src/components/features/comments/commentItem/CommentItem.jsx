@@ -8,7 +8,6 @@ import defineRole from "../../../../helpers/defineRole.jsx";
 
 export default function CommentItem({ comment }) {
   const dispatch = useDispatch();
-  console.log(comment);
   return (
     <li className={css.wrapper}>
       <div className={css.commentItem}>

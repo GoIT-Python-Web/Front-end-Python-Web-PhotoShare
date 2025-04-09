@@ -6,6 +6,7 @@ import {
   deleteComment,
   sendComment,
   fetchPostsByFilters,
+  fetchMyPosts,
 } from "./operations";
 import { handlePending, handleRejected } from "../init.js";
 
@@ -13,6 +14,7 @@ const postSlice = createSlice({
   name: "posts",
   initialState: {
     posts: [],
+    personalPosts: [],
     comments: [],
     post: null,
     isLoading: false,
@@ -33,6 +35,13 @@ const postSlice = createSlice({
         state.posts = action.payload;
       })
       .addCase(fetchPosts.rejected, handleRejected)
+      .addCase(fetchMyPosts.pending, handlePending)
+      .addCase(fetchMyPosts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.personalPosts = action.payload;
+      })
+      .addCase(fetchMyPosts.rejected, handleRejected)
       .addCase(fetchPostById.pending, handlePending)
       .addCase(fetchPostById.fulfilled, (state, action) => {
         state.isLoading = false;

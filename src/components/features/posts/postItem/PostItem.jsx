@@ -4,7 +4,7 @@ import "yet-another-react-lightbox/styles.css";
 import { IoIosResize } from "react-icons/io";
 import css from "./PostItem.module.css";
 import { useMediaQuery } from "react-responsive";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Stars from "../../../../helpers/Stars.jsx";
 import Button from "../../../common/buttons/Button.jsx";
 import formatDateTime from "../../../../helpers/formatDateTime.js";
@@ -44,13 +44,15 @@ export default function PostItem({ post }) {
       )}
 
       <div className={css.credentials}>
-        <img
-          src={post.user?.image_url ?? def}
-          alt={`${post.user?.name}'s profile picture`}
-          width={50}
-          height={50}
-        />
-        <p>{post.user?.name}</p>
+        <Link to={`/profile/${post.user?.id}`}>
+          <img
+            src={post.user?.image_url ?? def}
+            alt={`${post.user?.name}'s profile picture`}
+            width={50}
+            height={50}
+          />
+          <p>{post.user?.name}</p>
+        </Link>
       </div>
       <div className={css.postCredentials}>
         <p className={css.title}>{post.title}</p>
@@ -71,7 +73,7 @@ export default function PostItem({ post }) {
         <Button
           size={isDesktop ? "xxl" : isTablet ? "xl" : "lg"}
           onClick={() => {
-            navigate(`/posts/${post.id}`);
+            navigate(`/profile/${post.user.id}`);
           }}
         >
           Детальніше

@@ -41,7 +41,7 @@ const Header = () => {
               </Link>
             </li>
             <li className={css.header_list_item}>
-              <Link to="/my-profile" className={css.item_link}>
+              <Link to={`profile/${user?.id}`} className={css.item_link}>
                 Мій профіль
               </Link>
             </li>
@@ -66,7 +66,7 @@ const Header = () => {
           )}
           <div className={css.header_right_side}>
             <input className={css.header_search} type="text" placeholder=" " />
-            {!isLoggedIn ? (
+            {!isLoggedIn && !isOpen ? (
               <div className={css.header_toggle_container}>
                 <Link className={css.toggle_link} to="/login">
                   {isMobileLoginIcon ? <RiLoginCircleLine /> : "Увійти"}
@@ -92,16 +92,16 @@ const Header = () => {
                 </Button>
 
                 <div className={css.header_user}>
-                  <Link to="/my-profile">
+                  <Link to={`profile/${user?.id}`}>
                     <div className={css.header_user_icon}>
                       <img
                         src={user?.img_link ?? def}
-                        alt={`${user.name}'s profile picture`}
+                        alt={`${user?.name}'s profile picture`}
                       />
                     </div>
                   </Link>
-                  <p className={css.header_user_name}>{user.username}</p>
-                  <Link to="my-profile">
+                  <p className={css.header_user_name}>{user?.username}</p>
+                  <Link to={`profile/${user?.id}`}>
                     <div className={css.header_settings_icon}>⚙️</div>
                   </Link>
                 </div>

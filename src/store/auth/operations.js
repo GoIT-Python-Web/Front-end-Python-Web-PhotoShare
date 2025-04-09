@@ -75,14 +75,16 @@ export const refreshTokens = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       const refreshToken = state.auth.refreshToken;
-
+      console.log("trying");
       if (!refreshToken) {
         return thunkAPI.rejectWithValue("No refresh token available");
       }
 
-      const { data } = await instance.post("/auth/refresh", {
-        refresh_token: refreshToken,
-      });
+      const { data } = await instance.post(
+        "/refresh",
+        { refresh_token: refreshToken },
+        { headers: { refresh_token: refreshToken } }
+      );
 
       thunkAPI.dispatch(updateTokens(data));
       return data.access_token;
