@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { getUser } from "./store/auth/operations.js";
 import { RestrictedRoute } from "./routes/RestrictedRoute.jsx";
 import { PrivateRoute } from "./routes/PrivateRoute.jsx";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage.jsx";
 
 export default function App() {
   const MainPage = lazy(() => import("./pages/main/MainPage.jsx"));
@@ -59,6 +60,7 @@ export default function App() {
           <Route path="about" element={<About />} />
           <Route path="profile-edit" element={<ProfileEditPage />} />
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>
   );
