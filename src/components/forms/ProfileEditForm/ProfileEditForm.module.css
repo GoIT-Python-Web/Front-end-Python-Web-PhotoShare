@@ -34,6 +34,7 @@ border: 1px solid #ccc;
 outline: none;
 transition: border-color 0.3s ease, color 0.3s ease;
 box-sizing: border-box;
+outline: none;
 }
 .textarea:focus {
   border-color: var(--button-hover);

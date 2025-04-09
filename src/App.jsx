@@ -15,6 +15,9 @@ export default function App() {
   const ProfileEditPage = lazy(() =>
     import("./pages/ProfileEditPage/ProfileEditPage.jsx")
   );
+  const CreatePostPage = lazy(() =>
+    import("./pages/CreatePostPage/CreatePostPage.jsx")
+  );
   const ViewPublicationPage = lazy(() =>
     import("./pages/view/ViewPublicationPage.jsx")
   );
@@ -59,6 +62,7 @@ export default function App() {
           <Route path="admin/users" element={<UsersManagementPage />} />
           <Route path="about" element={<About />} />
           <Route path="profile-edit" element={<ProfileEditPage />} />
+          <Route path="create-post" element={<CreatePostPage />} />
         </Route>
       </Routes>
     </Suspense>

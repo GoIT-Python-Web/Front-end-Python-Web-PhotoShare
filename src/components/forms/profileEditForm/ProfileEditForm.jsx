@@ -1,8 +1,8 @@
 import { Formik, Form, Field } from "formik";
 import css from "./ProfileEditForm.module.css";
-import Input from "../common/inputs/Input.jsx";
-import Button from "../common/buttons/Button.jsx";
-import { ProfileEditSchema } from "../../validation/schemas.js";
+import Input from "../../common/inputs/Input.jsx";
+import Button from "../../common/buttons/Button.jsx";
+import { ProfileEditSchema } from "../../../validation/schemas.js";
 
 const INITIAL_VALUES = {
   name: "",
@@ -20,11 +20,12 @@ const ProfileEditForm = () => {
       <Formik
         initialValues={INITIAL_VALUES}
         validationSchema={ProfileEditSchema}
-        onSubmit={(values) => {
+        onSubmit={(values, { resetForm }) => {
           console.log("Форма відправлена:", values);
+          resetForm();
         }}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, resetForm, values }) => (
           <Form className={css.form}>
             <p className={css.title}>Особисті данні</p>
             <div className={css.wrapInfo}>
@@ -81,7 +82,7 @@ const ProfileEditForm = () => {
                   {({ field, meta }) => (
                     <Input
                       {...field}
-                      type="number"
+                      type="text"
                       placeholder="Номер телефону"
                       error={meta.touched && meta.error}
                       errorMessage={
@@ -115,7 +116,6 @@ const ProfileEditForm = () => {
                       {...field}
                       type="password"
                       placeholder="Пароль"
-                      showPassword
                       error={meta.touched && meta.error}
                       errorMessage={
                         meta.touched && meta.error ? meta.error : ""
@@ -128,18 +128,11 @@ const ProfileEditForm = () => {
 
             <div className={css.wrapAdditionalInfo}>
               <p className={css.title}>Додаткові данні</p>
-
-              <Field name="additionalInfo">
-                {({ field, meta }) => (
-                  <Input
-                    {...field}
-                    type="textarea"
-                    placeholder="Додаткові дані "
-                    error={meta.touched && meta.error}
-                    errorMessage={meta.touched && meta.error ? meta.error : ""}
-                  />
-                )}
-              </Field>
+              <textarea
+                className={css.textarea}
+                placeholder="Додаткові данні"
+                rows="5"
+              />
             </div>
 
             <div className={css.wrapBtn}>
@@ -148,6 +141,9 @@ const ProfileEditForm = () => {
                 variant="secondary"
                 type="button"
                 disabled={isSubmitting}
+                onClick={() => {
+                  resetForm();
+                }}
               >
                 Скинути
               </Button>
@@ -157,6 +153,7 @@ const ProfileEditForm = () => {
                 variant="primary"
                 type="submit"
                 disabled={isSubmitting}
+                
               >
                 Застосувати Зміни
               </Button>

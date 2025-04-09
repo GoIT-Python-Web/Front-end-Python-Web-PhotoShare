@@ -1,6 +1,6 @@
 import css from "../ProfileEditPage/ProfileEditPage.module.css";
 import { useRef, useState } from "react";
-import ProfileEditForm from "../../components/ProfileEditForm/ProfileEditForm.jsx";
+import ProfileEditForm from "../../components/forms/ProfileEditForm/ProfileEditForm.jsx";
 import { FaPenToSquare } from "react-icons/fa6";
 
 const ProfileEditPage = () => {
@@ -46,7 +46,7 @@ const ProfileEditPage = () => {
           accept="image/*"
           ref={fileInputRef}
           onChange={handleFileChange}
-          className={css.addAvatarInput}
+          style={{ display: "none" }}
         />
       </div>
       <hr className={css.divider} />

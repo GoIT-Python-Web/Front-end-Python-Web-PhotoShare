@@ -10,7 +10,7 @@
 }
 .editBtn {
   position: absolute;
-  bottom: 14px;
+  bottom: -10px;
   right: 0;
   width: 34px;
   height: 34px;
@@ -28,9 +28,6 @@
 }
 .editBtn:hover {
   fill: var(--button-hover);
-}
-.addAvatarInput{
-  visibility: hidden;
 }
 .divider {
   border: none;

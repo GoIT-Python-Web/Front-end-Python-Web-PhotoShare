@@ -1,0 +1,47 @@
+.wrapPostPage {
+  margin-top: 24px;
+  margin-bottom: 46px;
+}
+.wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  margin-top: 32px;
+}
+.title {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 134%;
+  color: var(--text);
+}
+.qrBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  width: 100px;
+  height: 34px;
+  padding: 0;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 120%;
+  color: var(--text);
+}
+
+@media only screen and (min-width: 768px) {
+}
+@media only screen and (min-width: 1440px) {
+  .title {
+    font-size: 32px;
+    text-transform: uppercase;
+  }
+  .qrBtn {
+    display: none;
+  }
+  
+}
