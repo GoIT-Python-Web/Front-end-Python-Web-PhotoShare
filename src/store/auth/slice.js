@@ -18,9 +18,7 @@ const authSlice = createSlice({
         handlePending, (state.isLoggedIn = false);
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.user = action.payload;
         state.isLoading = false;
-        state.isLoggedIn = true;
         state.error = null;
       })
       .addCase(registerUser.rejected, (state) => {

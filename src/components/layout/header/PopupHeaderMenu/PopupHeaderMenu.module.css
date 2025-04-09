@@ -1,9 +1,7 @@
 .header_popup {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  width: 360px;
+  width: 328px;
   height: 321px;
   z-index: 100;
   border-radius: 8px;
@@ -91,7 +89,6 @@
 }
 @media only screen and (min-width: 768px) {
   .header_popup {
-    left: 396px;
     width: 372px;
     height: 337px;
     padding: 80px 36px 20px;

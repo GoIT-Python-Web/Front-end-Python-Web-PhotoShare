@@ -29,21 +29,28 @@ export default function FilterPopUp({
     <div className={css.wrapper} ref={modalRef}>
       <Formik
         initialValues={{
-          search: "",
-          date: null,
-          rating: 0,
+          keyword: "",
+          from_date: null,
+          to_date: null,
+          rating_to: 0,
         }}
         onSubmit={(values) => {
           const filters = {
-            search: values.search,
-            date: { start: startDate, end: endDate },
-            rating: values.rating,
+            keyword: values.keyword,
+            from_date: startDate ? startDate.toISOString().split("T")[0] : null,
+            to_date: endDate ? endDate.toISOString().split("T")[0] : null,
+            rating_to: values.rating_to,
           };
           onFilterChange(filters);
         }}
         onReset={() => {
           setDateRange([null, null]);
-          onFilterChange({ search: "", date: null, rating: 0 });
+          onFilterChange({
+            keyword: "",
+            from_date: null,
+            to_date: null,
+            rating_to: 0,
+          });
         }}
       >
         {({ values, setFieldValue }) => (
@@ -54,7 +61,7 @@ export default function FilterPopUp({
                 <Field
                   className={css.searchInput}
                   type="text"
-                  name="search"
+                  name="keyword"
                   placeholder="Введіть #тег / пошту / Email "
                 />
                 <HiOutlineMagnifyingGlass className={css.glassIcon} />
@@ -103,9 +110,9 @@ export default function FilterPopUp({
                 За рейтингом
                 <div className={css.starList}>
                   {[1, 2, 3, 4, 5].map((star) => {
-                    const isFull = values.rating >= star;
+                    const isFull = values.rating_to >= star;
                     const isHalf =
-                      values.rating >= star - 0.5 && values.rating < star;
+                      values.rating_to >= star - 0.5 && values.rating_to < star;
 
                     return (
                       <span
@@ -116,7 +123,7 @@ export default function FilterPopUp({
                           const clickX = e.clientX - rect.left;
                           const newRating =
                             clickX < rect.width / 2 ? star - 0.5 : star;
-                          setFieldValue("rating", newRating);
+                          setFieldValue("rating_to", newRating);
                         }}
                       >
                         {isFull ? (

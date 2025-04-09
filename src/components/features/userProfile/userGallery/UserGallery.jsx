@@ -12,15 +12,6 @@ export default function UserGallery() {
             {/* {user.collection.length} завантажених фото */}
           </p>
         </div>
-        <div className={css.buttons}>
-          <div className={css.button}>
-            <GoArrowLeft className={css.icon} />
-          </div>
-          <div className={css.divider}></div>
-          <div className={css.button}>
-            <GoArrowRight className={css.icon} />
-          </div>
-        </div>
       </div>
       <PostsList />
     </div>
