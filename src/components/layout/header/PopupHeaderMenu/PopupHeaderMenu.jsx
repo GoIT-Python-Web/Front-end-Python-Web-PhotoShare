@@ -2,6 +2,9 @@ import { useEffect } from "react";
 import css from "./PopupHeaderMenu.module.css";
 import { Link } from "react-router-dom";
 import close from "../../../../assets/images/Header/close@2x.png";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../../store/auth/selectors.js";
+import def from "../../../../assets/images/def.png";
 
 const PopupHeaderMenu = ({ menuIsOpen, onClose }) => {
   useEffect(() => {
@@ -20,6 +23,8 @@ const PopupHeaderMenu = ({ menuIsOpen, onClose }) => {
   if (!menuIsOpen) {
     return null;
   }
+
+  const user = useSelector(selectUser);
 
   return (
     <div
@@ -40,16 +45,22 @@ const PopupHeaderMenu = ({ menuIsOpen, onClose }) => {
       <div className={css.header_popup_wrap}>
         <div className={css.header_popup_top}>
           <Link to="/my-profile">
-            <div className={css.popup_top_user}>👤</div>
+            <div className={css.popup_top_user}>
+              <img
+                src={user.img_link ?? def}
+                alt={`${user.name}'s profile picture`}
+                className={css.rounded}
+              />
+            </div>
           </Link>
-          <span className={css.popup_top_name}>Іванка</span>
-          <Link to="#">
+          <span className={css.popup_top_name}>{user.name ?? "User"}</span>
+          <Link to="/my-profile">
             <div className={css.popup_top_settings}>⚙️</div>
           </Link>
         </div>
         <ul className={css.header_popup_list}>
           <li className={css.popup_list_item}>
-            <Link to="#" className={css.popup_list_item_link}>
+            <Link to="/posts" className={css.popup_list_item_link}>
               Світлини
             </Link>
           </li>
@@ -59,7 +70,7 @@ const PopupHeaderMenu = ({ menuIsOpen, onClose }) => {
             </Link>
           </li>
           <li className={css.popup_list_item}>
-            <Link to="#" className={css.popup_list_item_link}>
+            <Link to="/about" className={css.popup_list_item_link}>
               Про нас
             </Link>
           </li>

@@ -16,10 +16,10 @@
 }
 .header_list,
 .header_search,
-.header_toggle_container,
 .header_user {
   display: none;
 }
+
 a {
   text-decoration: none;
 }
@@ -42,7 +42,6 @@ a {
   line-height: 1;
   font-size: 32px;
   border-radius: 8px;
-  border: 0.4px solid var(--additional-text);
 }
 .header_settings_icon {
   width: 24px;
@@ -56,6 +55,37 @@ a {
   font-size: 14px;
   line-height: 1.2;
   color: var(--additional-text);
+}
+.header_toggle_container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 95px;
+  height: 42px;
+  background: linear-gradient(90deg, #2b59ba 0%, #083494 100%);
+  border-radius: 8px;
+}
+.toggle_link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.2;
+  color: var(--additional-text);
+}
+.toggle_link:hover,
+.toggle_link:focus {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  color: #071a44;
 }
 
 @media only screen and (min-width: 768px) {
@@ -72,6 +102,15 @@ a {
   .header_wrap {
     flex-direction: row-reverse;
     column-gap: 32px;
+  }
+  .header_toggle_container {
+    width: 270px;
+  }
+  .toggle_link {
+    font-size: 14px;
+  }
+  .toggle_link:hover {
+    font-weight: 600;
   }
 }
 
@@ -90,7 +129,8 @@ a {
   }
   .header_list {
     display: flex;
-    column-gap: 16px;
+    justify-content: space-between;
+    gap: 32px;
   }
   .item_link {
     font-family: var(--font-family);
@@ -98,9 +138,10 @@ a {
     font-size: 18px;
     line-height: 1.5;
     color: var(--additional-text);
+    transition: all 100ms ease;
   }
   .item_link:hover {
-    text-decoration: underline;
+    font-weight: 600;
   }
   .header_right_side {
     display: flex;
@@ -135,6 +176,11 @@ a {
   .header_search:focus::placeholder {
     opacity: 0;
     background: left;
+  }
+  .header_toggle_container {
+    column-gap: 10px;
+    width: 330px;
+    height: 48px;
   }
   .header_user {
     display: flex;

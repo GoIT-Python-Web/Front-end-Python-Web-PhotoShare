@@ -1,6 +1,53 @@
 .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 48px;
 }
+
+.avatarWrap {
+  position: relative;
+  display: inline-block;
+  margin: 32px 8px 40px 8px;
+}
+.avatarImg {
+  border-radius: 8px;
+  width: 312px;
+  height: 300px;
+}
+.editBtn {
+  position: absolute;
+  bottom: -4px;
+  right: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--hashtag);
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+  color: var(--button-notactive);
+}
+.editBtn:hover {
+  fill: var(--button-hover);
+}
+.addAvatarInput{
+  visibility: hidden;
+}
+.divider {
+  border: none;
+  border-top: 0.6px solid var(--hashtag);
+  width: 312px;
+  height: 0;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  margin: 0 auto 40px;
+}
+/*dfd*/
+
 .title {
   font-family: var(--font-family);
   font-weight: 700;
@@ -12,13 +59,15 @@
 .wrapInfo {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 24px;
   margin-bottom: 24px;
+  width: 100%;
 }
 .wrapAdditionalInfo {
   margin-bottom: 48px;
 }
-.textarea{
+.textarea {
   width: 328px;
 height: 82px;
 font-family: var(--font-family);
@@ -34,7 +83,6 @@ border: 1px solid #ccc;
 outline: none;
 transition: border-color 0.3s ease, color 0.3s ease;
 box-sizing: border-box;
-outline: none;
 }
 .textarea:focus {
   border-color: var(--button-hover);
@@ -54,16 +102,61 @@ outline: none;
   row-gap: 16px;
 }
 @media only screen and (min-width: 768px) {
+  .avatarWrap {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    width: 100%;
+    height: 192px;
+    border-radius: 8px;
+    background-image: image-set(
+      url("../../../assets/images/EditProfilPage/frame.jpg") 1x,
+      url("../../../assets/images/EditProfilPage/frame@2x.jpg") 2x
+    );
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .avatarImg {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid var(--additional-text);
+    position: absolute;
+    bottom: -38px;
+    left: 0;
+    object-fit: cover;
+    background-color: var(--background);
+  }
+  .editBtn {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--hashtag);
+    background-color: relative;
+    fill: var(--additional-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: -36px;
+    left: 70px;
+    padding: 0;
+  }
+  .divider {
+    display: none;
+  }
+
+  /*csxc*/
   .wrapInfo {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 24px 72px;
   }
-  .infoItem{
+  .infoItem {
     width: calc((100% - 72px) / 2);
   }
-  .textarea{
-  width: 696px;
+  .textarea {
+    width: 696px;
   }
   .wrapBtn {
     flex-direction: row;
@@ -72,20 +165,36 @@ outline: none;
   }
 }
 @media only screen and (min-width: 1440px) {
-  .form {
-    margin-left: 110px;
-  }  
+  /* .form {
+    margin: 0 auto;
+  } */
+  /*cfdxc*/
+  .avatarWrap {
+    height: 273px;
+    margin-top: 50px;
+    margin-bottom: 72px;
+  }
+  .avatarImg {
+    width: 134px;
+    height: 134px;
+    bottom: -56px;
+    left: 0;
+  }
+  .editBtn {
+    width: 40px;
+    height: 40px;
+    bottom: -55px;
+    left: 90px;
+  }
+  /*sdcs*/
   .wrapInfo {
-      
-        gap: 24px 70px;
-        width: 1076px;
-
-      }
-      .infoItem{
-        width: calc((100% - 70px * 2) / 3);
-      }
-      .textarea{
-        width: 1076px;
-        }
-      
+    gap: 24px 70px;
+    width: 1076px;
+  }
+  .infoItem {
+    width: calc((100% - 70px * 2) / 3);
+  }
+  .textarea {
+    width: 1076px;
+  }
 }

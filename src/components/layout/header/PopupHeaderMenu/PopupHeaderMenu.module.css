@@ -1,9 +1,7 @@
 .header_popup {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  width: 360px;
+  width: 328px;
   height: 321px;
   z-index: 100;
   border-radius: 8px;
@@ -37,6 +35,9 @@
   flex-direction: column;
   row-gap: 32px;
 }
+.rounded {
+  border-radius: 8px;
+}
 .header_popup_top {
   display: flex;
   align-items: center;
@@ -54,7 +55,7 @@
   line-height: 1;
   font-size: 32px;
   border-radius: 8px;
-  border: 0.4px solid var(--additional-text);
+  /* border: 0.4px solid var(--additional-text); */
 }
 .popup_top_settings {
   width: 24px;
@@ -88,7 +89,6 @@
 }
 @media only screen and (min-width: 768px) {
   .header_popup {
-    left: 396px;
     width: 372px;
     height: 337px;
     padding: 80px 36px 20px;

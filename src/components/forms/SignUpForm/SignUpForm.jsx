@@ -4,7 +4,7 @@ import Button from "../../common/buttons/Button.jsx";
 
 import css from "./SignUpForm.module.css";
 import { registerValidationSchema } from "../../../validation/authSchemas.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../../store/auth/operations.js";
 
@@ -16,6 +16,7 @@ const INITIAL_VALUES = {
 };
 
 const SignUpForm = ({ onSwitch }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
     <div className={css.container}>
@@ -23,11 +24,11 @@ const SignUpForm = ({ onSwitch }) => {
       <Formik
         initialValues={INITIAL_VALUES}
         validationSchema={registerValidationSchema}
-        onSubmit={(values) => {
-          dispatch(registerUser(values));
+        onSubmit={async (values) => {
+          navigate("/login");
         }}
       >
-        {({ isSubmitting }) => (
+        {() => (
           <Form className={css.form}>
             <Field name="name">
               {({ field, meta }) => (
@@ -82,7 +83,6 @@ const SignUpForm = ({ onSwitch }) => {
               variant="primary"
               type="submit"
               onClick={onSwitch}
-              disabled={isSubmitting}
             >
               Зареєструватись
             </Button>

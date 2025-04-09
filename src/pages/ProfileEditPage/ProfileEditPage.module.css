@@ -10,7 +10,7 @@
 }
 .editBtn {
   position: absolute;
-  bottom: -10px;
+  bottom: 14px;
   right: 0;
   width: 34px;
   height: 34px;
@@ -20,7 +20,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  fill: red;
   cursor: pointer;
   padding: 0;
   transition: all 0.2s ease;
@@ -28,6 +27,9 @@
 }
 .editBtn:hover {
   fill: var(--button-hover);
+}
+.addAvatarInput{
+  visibility: hidden;
 }
 .divider {
   border: none;
@@ -64,7 +66,7 @@
     object-fit: cover;
     background-color: var(--background);
   }
-    .editBtn {
+  .editBtn {
     position: absolute;
     width: 30px;
     height: 30px;
@@ -94,8 +96,8 @@
     height: 134px;
     bottom: -56px;
     left: 0;
-      }
-    .editBtn {
+  }
+  .editBtn {
     width: 40px;
     height: 40px;
     bottom: -55px;
