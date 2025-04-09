@@ -1,10 +1,16 @@
 import { Formik, Form, Field } from "formik";
 import css from "./ProfileEditForm.module.css";
-import Input from "../common/inputs/Input.jsx";
-import Button from "../common/buttons/Button.jsx";
-import { ProfileEditSchema } from "../../validation/schemas.js";
+import Input from "../../common/inputs/Input.jsx";
+import Button from "../../common/buttons/Button.jsx";
+import { ProfileEditSchema } from "../../../validation/schemas.js";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../../store/auth/operations";
+import { FaPenToSquare } from "react-icons/fa6";
+import { useRef, useState } from "react";
+import def from "../../../assets/images/EditProfilPage/AvatarDef.png";
 
 const INITIAL_VALUES = {
+  avatar: "",
   name: "",
   userName: "",
   email: "",
@@ -15,17 +21,77 @@ const INITIAL_VALUES = {
 };
 
 const ProfileEditForm = () => {
+  const dispatch = useDispatch();
+
+  const [avatarSrc, setAvatarSrc] = useState(def);
+  const fileInputRef = useRef(null);
+
+  const handleImageError = () => {
+    setAvatarSrc(def);
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setAvatarSrc(imageUrl);
+    }
+  };
+
+  const handleEditClick = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
     <div className={css.container}>
       <Formik
         initialValues={INITIAL_VALUES}
         validationSchema={ProfileEditSchema}
-        onSubmit={(values) => {
-          console.log("Форма відправлена:", values);
+        onSubmit={async (values, { resetForm }) => {
+          try {
+            const formData = new FormData();
+        
+            Object.entries(values).forEach(([key, value]) => {
+              formData.append(key, value);
+            });
+        
+            if (fileInputRef.current?.files[0]) {
+              formData.append("avatar", fileInputRef.current.files[0]);
+            }
+        
+            await dispatch(updateUser(formData)).unwrap();
+            console.log("Форма відправлена:", values);
+            resetForm();
+          } catch (err) {
+            console.error("Помилка оновлення:", err);
+          }
         }}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, resetForm }) => (
           <Form className={css.form}>
+            <div className={css.avatarWrap}>
+              <img
+                className={css.avatarImg}
+                src={avatarSrc}
+                alt="Аватар"
+                onError={handleImageError}
+              />
+              <button className={css.editBtn} onClick={handleEditClick}>
+                {/* <svg width="16" height="16">
+            <use href="/public/sprite.svg#pen" />
+          </svg> */}
+                <FaPenToSquare size={22} />
+              </button>
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                style={{ display: "none" }}
+              />
+            </div>
+            <hr className={css.divider} />
+
             <p className={css.title}>Особисті данні</p>
             <div className={css.wrapInfo}>
               <div className={css.infoItem}>
@@ -81,7 +147,7 @@ const ProfileEditForm = () => {
                   {({ field, meta }) => (
                     <Input
                       {...field}
-                      type="number"
+                      type="text"
                       placeholder="Номер телефону"
                       error={meta.touched && meta.error}
                       errorMessage={
@@ -115,7 +181,6 @@ const ProfileEditForm = () => {
                       {...field}
                       type="password"
                       placeholder="Пароль"
-                      showPassword
                       error={meta.touched && meta.error}
                       errorMessage={
                         meta.touched && meta.error ? meta.error : ""
@@ -128,16 +193,24 @@ const ProfileEditForm = () => {
 
             <div className={css.wrapAdditionalInfo}>
               <p className={css.title}>Додаткові данні</p>
-
+              {/* <textarea
+                className={css.textarea}
+                placeholder="Додаткові данні"
+                rows="5"
+              /> */}
               <Field name="additionalInfo">
                 {({ field, meta }) => (
-                  <Input
-                    {...field}
-                    type="textarea"
-                    placeholder="Додаткові дані "
-                    error={meta.touched && meta.error}
-                    errorMessage={meta.touched && meta.error ? meta.error : ""}
-                  />
+                  <>
+                    <textarea
+                      {...field}
+                      className={css.textarea}
+                      placeholder="Додаткові данні"
+                      rows="5"
+                    />
+                    {meta.touched && meta.error && (
+                      <div className={css.error}>{meta.error}</div>
+                    )}
+                  </>
                 )}
               </Field>
             </div>
@@ -148,6 +221,9 @@ const ProfileEditForm = () => {
                 variant="secondary"
                 type="button"
                 disabled={isSubmitting}
+                onClick={() => {
+                  resetForm();
+                }}
               >
                 Скинути
               </Button>

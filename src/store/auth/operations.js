@@ -47,6 +47,28 @@ export const getUser = createAsyncThunk("auth/me", async (_, thunkAPI) => {
   }
 });
 
+export const updateUser = createAsyncThunk(
+  "auth/updateUser",
+  async (updatedData, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+
+      if (!token) {
+        return thunkAPI.rejectWithValue("Користувач не авторизований");
+      }
+
+      setAuthHeader(token);
+      const { data } = await instance.patch("/users/edit_profile", updatedData);
+      return data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        handleError(err, "Не вдалося оновити дані користувача")
+      );
+    }
+  }
+);
+
 export const refreshTokens = createAsyncThunk(
   "auth/refreshTokens",
   async (_, thunkAPI) => {
