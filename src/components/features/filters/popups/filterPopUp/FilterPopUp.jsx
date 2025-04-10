@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useMediaQuery } from "react-responsive";
 import { useClickOutside } from "../../../../../helpers/hooks/useClickOutside.js";
+import { formatDateLocal } from "../../../../../helpers/formatDateLocal.js";
 
 export default function FilterPopUp({
   buttonRef,
@@ -37,8 +38,8 @@ export default function FilterPopUp({
         onSubmit={(values) => {
           const filters = {
             keyword: values.keyword,
-            from_date: startDate ? startDate.toISOString().split("T")[0] : null,
-            to_date: endDate ? endDate.toISOString().split("T")[0] : null,
+            from_date: startDate ? formatDateLocal(startDate) : null,
+            to_date: endDate ? formatDateLocal(endDate) : null,
             rating_to: values.rating_to,
           };
           onFilterChange(filters);

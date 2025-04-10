@@ -55,7 +55,6 @@ const postSlice = createSlice({
         state.error = null;
         state.isLoading = false;
       })
-      .addCase(sendComment.pending, handlePending)
       .addCase(sendComment.fulfilled, (state, action) => {
         state.comments.push(action.payload);
         state.error = null;

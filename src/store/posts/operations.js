@@ -136,3 +136,23 @@ export const deleteComment = createAsyncThunk(
     }
   }
 );
+
+export const addRating = createAsyncThunk(
+  "rating/add",
+  async ({ id, rating }, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const persistedToken = state.auth.token;
+
+      if (!persistedToken) {
+        return thunkAPI.rejectWithValue("Unable to fetch user");
+      }
+      setAuthHeader(persistedToken);
+      await instance.post(`/ratings/posts/${id}/rate`, {
+        rating: rating,
+      });
+    } catch (err) {
+      return thunkAPI.rejectWithValue(handleError(err, "Failed to add rating"));
+    }
+  }
+);

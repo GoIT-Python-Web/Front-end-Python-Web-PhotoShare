@@ -1,11 +1,15 @@
 import { useSelector } from "react-redux";
 import PostsList from "../../posts/postsList/PostsList.jsx";
 import css from "./UserGallery.module.css";
-import { GoArrowLeft, GoArrowRight } from "react-icons/go";
-import { selectPersonalPosts } from "../../../../store/posts/selectors.js";
+import {
+  selectIsLoading,
+  selectPersonalPosts,
+} from "../../../../store/posts/selectors.js";
+import Loader from "../../../common/loader/Loader.jsx";
 
 export default function UserGallery() {
   const posts = useSelector(selectPersonalPosts);
+  const isLoading = useSelector(selectIsLoading);
 
   return (
     <div>
@@ -17,7 +21,7 @@ export default function UserGallery() {
           )}
         </div>
       </div>
-      <PostsList posts={posts} />
+      {!isLoading ? <PostsList posts={posts} /> : <Loader />}
     </div>
   );
 }

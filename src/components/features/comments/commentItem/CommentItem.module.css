@@ -9,12 +9,14 @@
 }
 
 .userPic {
+  border-radius: 100%;
   margin-right: 24px;
 }
 
 .nameWrapper,
 .timeWrapper {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 8px;
 }

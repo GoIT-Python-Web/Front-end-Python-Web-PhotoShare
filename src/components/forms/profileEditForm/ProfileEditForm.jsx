@@ -9,18 +9,17 @@ import { FaPenToSquare } from "react-icons/fa6";
 import { useRef, useState } from "react";
 import def from "../../../assets/images/EditProfilPage/AvatarDef.png";
 
-const INITIAL_VALUES = {
-  avatar: "",
-  name: "",
-  userName: "",
-  email: "",
-  number: "",
-  password: "",
-  birthday: "",
-  additionalInfo: "",
-};
+const ProfileEditForm = ({ user }) => {
+  const INITIAL_VALUES = {
+    avatar: user?.image_url ?? def,
+    name: user?.name ?? "",
+    email: user?.email ?? "",
+    number: user?.phone ?? "",
+    password: "",
+    birthday: user?.birthday ?? "",
+    additionalInfo: user?.description ?? "",
+  };
 
-const ProfileEditForm = () => {
   const dispatch = useDispatch();
 
   const [avatarSrc, setAvatarSrc] = useState(def);
@@ -50,15 +49,15 @@ const ProfileEditForm = () => {
         onSubmit={async (values, { resetForm }) => {
           try {
             const formData = new FormData();
-        
+
             Object.entries(values).forEach(([key, value]) => {
               formData.append(key, value);
             });
-        
+
             if (fileInputRef.current?.files[0]) {
               formData.append("avatar", fileInputRef.current.files[0]);
             }
-        
+
             await dispatch(updateUser(formData)).unwrap();
             console.log("Форма відправлена:", values);
             resetForm();

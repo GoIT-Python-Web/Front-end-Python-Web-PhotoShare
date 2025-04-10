@@ -44,9 +44,9 @@ export default function PostItem({ post }) {
       )}
 
       <div className={css.credentials}>
-        <Link to={`/profile/${post.user?.id}`}>
+        <Link to={`/profile/${post.user?.id}`} className={css.credLink}>
           <img
-            src={post.user?.image_url ?? def}
+            src={post.user?.img_link ?? def}
             alt={`${post.user?.name}'s profile picture`}
             width={50}
             height={50}
@@ -56,7 +56,11 @@ export default function PostItem({ post }) {
       </div>
       <div className={css.postCredentials}>
         <p className={css.title}>{post.title}</p>
-        {/* <p className={css.tags}>{post.tags.join(" ")}</p> */}
+        {post.tags && (
+          <p className={css.tags}>
+            {post.tags.map((tag) => "#" + tag.name).join(" ")}
+          </p>
+        )}
         <div className={css.ratingDiv}>
           <Stars rating={post.avg_rating} />
           <p className={css.rating}>
@@ -73,7 +77,7 @@ export default function PostItem({ post }) {
         <Button
           size={isDesktop ? "xxl" : isTablet ? "xl" : "lg"}
           onClick={() => {
-            navigate(`/profile/${post.user.id}`);
+            navigate(`/posts/${post.id}`);
           }}
         >
           Детальніше

@@ -1,9 +1,10 @@
 import styles from "./About.module.css";
 import Button from "../../components/common/buttons/Button";
+import img from "../../assets/images/About-img.png";
 
 export default function PhotoShare() {
   return (
-    <div className={`container`}>
+    <div className="container">
       <div className={styles.content}>
         <header className={styles.header}>
           <div className={styles.logo}>
@@ -60,7 +61,7 @@ export default function PhotoShare() {
           <div className={styles.rightSection}>
             <div className={styles.imageContainer}>
               <img
-                src="src\assets\images\About-img.png"
+                src={img}
                 alt="Happy person making peace signs"
                 className={styles.heroImage}
               />
