@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { updateUser } from "../../store/auth/operations.js";
 import { FaPenToSquare } from "react-icons/fa6";
 import { useRef, useState } from "react";
-import def from "../../../assets/images/EditProfilPage/AvatarDef.png";
+import def from "../../assets/images/EditProfilPage/AvatarDef.png";
 
 const ProfileEditForm = ({ user }) => {
   const INITIAL_VALUES = {
