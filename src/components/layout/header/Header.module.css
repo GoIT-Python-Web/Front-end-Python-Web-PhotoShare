@@ -88,6 +88,10 @@ a {
   color: #071a44;
 }
 
+.magIcon {
+  display: none;
+}
+
 @media only screen and (min-width: 768px) {
   .header {
     min-width: 768px;
@@ -162,12 +166,22 @@ a {
     color: var(--additional-text);
     transition: border-color 0.3s ease, width 0.3s ease;
     background: linear-gradient(90deg, #4965a1 0%, #072f86 100%);
+    position: relative;
   }
+
   .header_search:focus {
     border-color: var(--button-hover);
     width: 190px;
     padding: 0 16px;
   }
+
+  .header_search:focus + .magIcon {
+    display: block;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
   .header_search::placeholder {
     background: url("/src/assets/icons/iconSearch.svg") center no-repeat;
     opacity: 1;

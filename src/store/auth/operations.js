@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { handleError, instance, setAuthHeader } from "../init.js";
+import { updateTokens } from "./slice.js";
 
 export const registerUser = createAsyncThunk(
   "auth/register",
@@ -59,7 +60,7 @@ export const updateUser = createAsyncThunk(
       }
 
       setAuthHeader(token);
-      const { data } = await instance.patch("/users/edit_profile", updatedData);
+      const { data } = await instance.put("/users/edit_profile", updatedData);
       return data;
     } catch (err) {
       return thunkAPI.rejectWithValue(
@@ -75,20 +76,21 @@ export const refreshTokens = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       const refreshToken = state.auth.refreshToken;
+      console.log(refreshToken);
       console.log("trying");
       if (!refreshToken) {
         return thunkAPI.rejectWithValue("No refresh token available");
       }
-
-      const { data } = await instance.post(
-        "/refresh",
-        { refresh_token: refreshToken },
-        { headers: { refresh_token: refreshToken } }
-      );
-
+      setAuthHeader(refreshToken);
+      console.log(refreshToken);
+      const { data } = await instance.post("/refresh", {
+        refresh_token: refreshToken,
+      });
       thunkAPI.dispatch(updateTokens(data));
+      console.log("response" + data.access_token);
       return data.access_token;
     } catch (err) {
+      console.log(err);
       return thunkAPI.rejectWithValue("Failed to refresh tokens");
     }
   }

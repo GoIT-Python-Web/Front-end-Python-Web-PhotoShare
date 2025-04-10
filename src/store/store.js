@@ -27,16 +27,10 @@ const authPersistConfig = {
   whitelist: ["token", "refreshToken", "user", "isLoggedIn"],
 };
 
-// const commentsPersistConfig = {
-//   key: "comments",
-//   storage,
-// };
-
 export const store = configureStore({
   reducer: {
     posts: persistReducer(postsPersistConfig, postsReducer),
     auth: persistReducer(authPersistConfig, authReducer),
-    // comments: persistReducer(commentsPersistConfig, commentsReducer),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

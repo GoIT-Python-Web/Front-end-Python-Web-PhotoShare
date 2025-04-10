@@ -48,22 +48,24 @@ export default function PostView() {
         <div className={css.tabletDiv}>
           <p className={css.title}>{post.title}</p>
           <div className={css.rating}>
-            <p>
-              <Stars rating={post.avg_rating} />
-            </p>
+            <>
+              <Stars rating={post.avg_rating} id={post.id} />
+            </>
             <p className={css.ratingText}>
               {post.rating} ({post.rating_count} оцінок)
             </p>
           </div>
         </div>
         <p className={css.description}>{post.description}</p>
-        {/* <div className={css.tags}>
-          {post.tags.map((tag) => (
-            <span key={tag} className={css.tag}>
-              {tag}
-            </span>
-          ))}
-        </div> */}
+        {post.tags && (
+          <div className={css.tags}>
+            {post.tags.map((tag, index) => (
+              <span key={index} className={css.tag}>
+                #{tag.name}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

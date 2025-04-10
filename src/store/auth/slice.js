@@ -17,12 +17,9 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     updateTokens: (state, action) => {
-      state.token = action.payload.access_token;
-      state.refreshToken = action.payload.refresh_token;
+      state.token = action.payload;
     },
     logout: (state) => {
-      state.token = null;
-      state.refreshToken = null;
       state.user = null;
       state.isLoggedIn = false;
     },
@@ -65,16 +62,13 @@ const authSlice = createSlice({
       })
       .addCase(refreshTokens.pending, handlePending)
       .addCase(refreshTokens.fulfilled, (state, action) => {
-        state.token = action.payload.access_token;
-        state.refreshToken = action.payload.refresh_token;
+        state.token = action.payload;
         state.isLoggedIn = true;
         state.isLoading = false;
         state.error = null;
       })
       .addCase(refreshTokens.rejected, (state, action) => {
         state.isLoggedIn = false;
-        state.token = null;
-        state.refreshToken = null;
         handleRejected(state, action);
       })
       .addCase(updateUser.pending, (state) => {

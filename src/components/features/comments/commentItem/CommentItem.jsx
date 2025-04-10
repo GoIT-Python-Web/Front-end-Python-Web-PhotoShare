@@ -1,10 +1,10 @@
 import css from "./CommentItem.module.css";
 import { FiTrash2 } from "react-icons/fi";
-import { MdOutlineStars } from "react-icons/md";
 import formatDateTime from "../../../../helpers/formatDateTime.js";
 import { useDispatch } from "react-redux";
 import { deleteComment } from "../../../../store/posts/operations.js";
 import defineRole from "../../../../helpers/defineRole.jsx";
+import def from "../../../../assets/images/def.png";
 
 export default function CommentItem({ comment }) {
   const dispatch = useDispatch();
@@ -12,8 +12,8 @@ export default function CommentItem({ comment }) {
     <li className={css.wrapper}>
       <div className={css.commentItem}>
         <img
-          src={comment.userPic}
-          alt={`${comment.userName}'s picture`}
+          src={comment.user?.img_link ?? def}
+          alt={`${comment.user?.name}'s picture`}
           width={54}
           height={54}
           className={css.userPic}
@@ -24,8 +24,8 @@ export default function CommentItem({ comment }) {
             onClick={() => dispatch(deleteComment({ id: comment.id }))}
           />
           <div className={css.nameWrapper}>
-            <p className={css.name}>{comment.user.name}</p>
-            {defineRole(comment.user.type)}
+            <p className={css.name}>{comment.user?.name}</p>
+            {defineRole(comment.user?.type)}
           </div>
           <div className={css.timeWrapper}>
             <p>час створення</p>

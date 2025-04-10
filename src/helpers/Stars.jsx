@@ -1,7 +1,15 @@
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { addRating } from "../store/posts/operations.js";
 
-export default function Stars({ rating }) {
+export default function Stars({ rating, id }) {
   const totalStars = 5;
+  const dispatch = useDispatch();
+
+  const handleStarClick = (selectedRating) => {
+    console.log(selectedRating);
+    dispatch(addRating({ id, rating: Number(selectedRating) }));
+  };
 
   return (
     <div style={{ display: "flex", gap: "5px" }}>
@@ -20,13 +28,26 @@ export default function Stars({ rating }) {
           fontSize: "24px",
         };
 
-        if (rating >= index + 1) {
-          return <FaStar key={index} style={starStyle} size={16} />;
-        } else if (rating > index && rating < index + 1) {
-          return <FaStarHalfAlt key={index} style={halfStarStyle} size={16} />;
-        } else {
-          return <FaRegStar key={index} color="#132d6264" size={16} />;
-        }
+        const isFilled = rating >= index + 1;
+        const isHalfFilled = rating > index && rating < index + 1;
+
+        return (
+          <div
+            key={index}
+            onClick={() =>
+              handleStarClick(isHalfFilled ? index + 0.5 : index + 1)
+            }
+            style={{ cursor: "pointer" }}
+          >
+            {isFilled ? (
+              <FaStar style={starStyle} size={16} />
+            ) : isHalfFilled ? (
+              <FaStarHalfAlt style={halfStarStyle} size={16} />
+            ) : (
+              <FaRegStar color="#132d6264" size={16} />
+            )}
+          </div>
+        );
       })}
     </div>
   );

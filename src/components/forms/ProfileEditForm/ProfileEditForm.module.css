@@ -35,7 +35,7 @@
 .editBtn:hover {
   fill: var(--button-hover);
 }
-.addAvatarInput{
+.addAvatarInput {
   visibility: hidden;
 }
 .divider {
@@ -69,20 +69,21 @@
 }
 .textarea {
   width: 328px;
-height: 82px;
-font-family: var(--font-family);
-font-weight: 400;
-font-size: 16px;
-line-height: 140%;
-letter-spacing: 0em;
-border-radius: 8px;
-padding: 8px 40px 8px 8px;
-font-size: 16px;
-color: var(--text);
-border: 1px solid #ccc;
-outline: none;
-transition: border-color 0.3s ease, color 0.3s ease;
-box-sizing: border-box;
+  height: 82px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: 0em;
+  border-radius: 8px;
+  padding: 8px 40px 8px 8px;
+  font-size: 16px;
+  color: var(--text);
+  border: 1px solid #ccc;
+  outline: none;
+  resize: none;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  box-sizing: border-box;
 }
 .textarea:focus {
   border-color: var(--button-hover);

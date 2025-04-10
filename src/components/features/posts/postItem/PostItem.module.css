@@ -12,9 +12,11 @@
   pointer-events: none;
 }
 
-.credentials {
+.credentials,
+.credLink {
   margin-block: 12px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 12px;
 }
