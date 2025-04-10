@@ -36,7 +36,7 @@ export const banUser = createAsyncThunk(
   }
 );
 
-// PUT /admin/toggle-role/{user_id}
+// PUT / admin / toggle - role / { user_id };
 export const toggleUserRole = createAsyncThunk(
   "users/toggleRole",
   async (userId, thunkAPI) => {

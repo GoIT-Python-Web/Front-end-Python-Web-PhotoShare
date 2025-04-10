@@ -18,6 +18,8 @@ import { fetchUsers } from "../../../../store/users/operations";
 const UsersContainer = () => {
   const dispatch = useDispatch();
   const users = useSelector(selectUsers);
+  // console.log(users);
+
   const isLoading = useSelector(selectUsersLoading);
   const error = useSelector(selectUsersError);
   const usersPerPage = 8;
@@ -25,6 +27,7 @@ const UsersContainer = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
+  // const [usersList, setUsers] = useState(users);
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -48,22 +51,6 @@ const UsersContainer = () => {
     ? users
     : filteredUsers.slice(startIndex, startIndex + usersPerPage);
 
-  const handleDeleteClick = (id) => {
-    Swal.fire({
-      title: "Ви впевнені?",
-      text: "Цього користувача буде видалено!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Так, видалити",
-      cancelButtonText: "Скасувати",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // TODO: додати dispatch до backend-видалення
-        Swal.fire("Видалено!", "Користувача видалено.", "success");
-      }
-    });
-  };
-
   // const handleDeleteClick = (id) => {
   //   Swal.fire({
   //     title: "Ви впевнені?",
@@ -74,11 +61,27 @@ const UsersContainer = () => {
   //     cancelButtonText: "Скасувати",
   //   }).then((result) => {
   //     if (result.isConfirmed) {
-  //       setUsers((prev) => prev.filter((user) => user.id !== id));
+  //       // TODO: додати dispatch до backend-видалення
   //       Swal.fire("Видалено!", "Користувача видалено.", "success");
   //     }
   //   });
   // };
+
+  const handleDeleteClick = (id) => {
+    Swal.fire({
+      title: "Ви впевнені?",
+      text: "Цього користувача буде видалено!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Так, видалити",
+      cancelButtonText: "Скасувати",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setUsers((prev) => prev.filter((user) => user.id !== id));
+        Swal.fire("Видалено!", "Користувача видалено.", "success");
+      }
+    });
+  };
 
   const width = useWindowWidth();
 

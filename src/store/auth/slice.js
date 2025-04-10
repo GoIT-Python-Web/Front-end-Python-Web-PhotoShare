@@ -64,6 +64,7 @@ const authSlice = createSlice({
         handleRejected(state, action);
       })
       .addCase(refreshTokens.pending, handlePending)
+
       .addCase(refreshTokens.fulfilled, (state, action) => {
         state.token = action.payload.access_token;
         state.refreshToken = action.payload.refresh_token;

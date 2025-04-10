@@ -8,6 +8,7 @@ import Modal from "../../../modals/modal/Modal.jsx";
 import { banUser, toggleUserRole } from "../../../../store/users/operations.js";
 
 function UserItem({
+  id,
   profileImage = null,
   profileAlt = "Profile picture",
   userName = "User Name",
@@ -80,10 +81,6 @@ function UserItem({
           </div>
         </div>
 
-        {/*  */}
-
-        {/* </div> */}
-
         <div className={s.actionsSection}>
           <button className={s.iconButton} onClick={handleBan}>
             <Icon name="ban" className={s.icons} />
@@ -91,7 +88,7 @@ function UserItem({
           <button className={s.iconButton} onClick={handleRoleChange}>
             <Icon name="user-role" className={s.icons} />
           </button>
-          <button className={s.iconButton} onClick={onDelete}>
+          <button className={s.iconButton} onClick={handleDelete}>
             <Icon name="trash" className={s.icons} />
           </button>
 
@@ -118,7 +115,7 @@ function UserItem({
         <button onClick={handleRoleChange} className={s.modalBtn}>
           <Icon name="user-role" /> Змінити Роль
         </button>
-        <button onClick={onDelete} className={s.modalBtn}>
+        <button onClick={handleDelete} className={s.modalBtn}>
           <Icon name="trash" /> Видалити Профіль
         </button>
         <button onClick={handleBan} className={s.modalBtn}>
