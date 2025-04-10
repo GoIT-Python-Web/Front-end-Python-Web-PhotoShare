@@ -1,9 +1,10 @@
 import styles from "./About.module.css";
 import Button from "../../components/common/buttons/Button";
+import img from "../../assets/images/About-img.png";
 
 export default function PhotoShare() {
   return (
-    <div className={`container`}>
+    <div className="container">
       <div className={styles.content}>
         <div className={styles.header}>
           <div className={styles.logo}>

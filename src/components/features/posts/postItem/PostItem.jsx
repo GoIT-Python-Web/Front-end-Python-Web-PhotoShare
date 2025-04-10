@@ -4,13 +4,16 @@ import "yet-another-react-lightbox/styles.css";
 import { IoIosResize } from "react-icons/io";
 import css from "./PostItem.module.css";
 import { useMediaQuery } from "react-responsive";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Stars from "../../../../helpers/Stars.jsx";
 import Button from "../../../common/buttons/Button.jsx";
 import formatDateTime from "../../../../helpers/formatDateTime.js";
+import def from "../../../../assets/images/def.png";
+import { useSelector } from "react-redux";
+import { selectIsAdmin } from "../../../../store/auth/selectors.js";
 
 export default function PostItem({ post }) {
-  const isAdmin = false;
+  const isAdmin = useSelector(selectIsAdmin);
   const isMyProfile = false;
   const isDesktop = useMediaQuery({ minWidth: 1440 });
   const isTablet = useMediaQuery({ minWidth: 768 });
@@ -40,18 +43,24 @@ export default function PostItem({ post }) {
         />
       )}
 
-      {/* <div className={css.credentials}>
-        <img
-          src={post.photo}
-          alt={`${post.user_name}'s profile picture`}
-          width={70}
-          height={70}
-        />
-        <p>{post.user_name}</p>
-      </div> */}
+      <div className={css.credentials}>
+        <Link to={`/profile/${post.user?.id}`} className={css.credLink}>
+          <img
+            src={post.user?.img_link ?? def}
+            alt={`${post.user?.name}'s profile picture`}
+            width={50}
+            height={50}
+          />
+          <p>{post.user?.name}</p>
+        </Link>
+      </div>
       <div className={css.postCredentials}>
         <p className={css.title}>{post.title}</p>
-        {/* <p className={css.tags}>{post.tags.join(" ")}</p> */}
+        {post.tags && (
+          <p className={css.tags}>
+            {post.tags.map((tag) => "#" + tag.name).join(" ")}
+          </p>
+        )}
         <div className={css.ratingDiv}>
           <Stars rating={post.avg_rating} />
           <p className={css.rating}>

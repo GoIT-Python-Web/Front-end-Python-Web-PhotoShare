@@ -10,7 +10,7 @@
 }
 .editBtn {
   position: absolute;
-  bottom: 40px;
+  bottom: 14px;
   right: 0;
   width: 34px;
   height: 34px;
@@ -20,7 +20,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  fill: red;
   cursor: pointer;
   padding: 0;
   transition: all 0.2s ease;
@@ -29,7 +28,7 @@
 .editBtn:hover {
   fill: var(--button-hover);
 }
-.addAvatarInput {
+.addAvatarInput{
   visibility: hidden;
 }
 .divider {

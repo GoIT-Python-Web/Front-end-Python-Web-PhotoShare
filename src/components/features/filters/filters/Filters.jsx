@@ -48,7 +48,6 @@ export default function Filters({ location }) {
   };
 
   const handleSortChange = ({ sort_by, order }) => {
-    console.log(filters);
     setFilters((prevFilters) => ({
       ...prevFilters,
       sort_by,
