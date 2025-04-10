@@ -44,17 +44,17 @@ const PopupHeaderMenu = ({ menuIsOpen, onClose }) => {
       </button>
       <div className={css.header_popup_wrap}>
         <div className={css.header_popup_top}>
-          <Link to="/my-profile">
+          <Link to={`profile/${user?.id}`}>
             <div className={css.popup_top_user}>
               <img
-                src={user.img_link ?? def}
-                alt={`${user.name}'s profile picture`}
+                src={user?.img_link ?? def}
+                alt={`${user?.name}'s profile picture`}
                 className={css.rounded}
               />
             </div>
           </Link>
-          <span className={css.popup_top_name}>{user.name ?? "User"}</span>
-          <Link to="/my-profile">
+          <span className={css.popup_top_name}>{user?.name ?? "User"}</span>
+          <Link to={`profile/${user?.id}`}>
             <div className={css.popup_top_settings}>⚙️</div>
           </Link>
         </div>
@@ -65,7 +65,10 @@ const PopupHeaderMenu = ({ menuIsOpen, onClose }) => {
             </Link>
           </li>
           <li className={css.popup_list_item}>
-            <Link to="/my-profile" className={css.popup_list_item_link}>
+            <Link
+              to={`profile/${user?.id}`}
+              className={css.popup_list_item_link}
+            >
               Мій профіль
             </Link>
           </li>

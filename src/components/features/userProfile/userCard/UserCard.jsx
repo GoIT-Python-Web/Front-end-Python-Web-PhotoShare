@@ -33,7 +33,8 @@ export default function UserCard({ isMyPage, isAdmin }) {
     <div className={css.cardWrapper}>
       <div>
         <p className={css.tabRegisterDate}>
-          Дата реєстрації <span>{formatDateTime(user.created_at, "date")}</span>
+          Дата реєстрації{" "}
+          <span>{formatDateTime(user?.created_at, "date")}</span>
         </p>
       </div>
       <div
@@ -41,8 +42,8 @@ export default function UserCard({ isMyPage, isAdmin }) {
         data-label={isAdmin ? "admin" : isMyPage ? "myPage" : null}
       >
         <img
-          src={user.img_link ?? def}
-          alt={`${user.name}'s profile picture`}
+          src={user?.img_link ?? def}
+          alt={`${user?.name}'s profile picture`}
           width={70}
           height={74}
           className={css.userPic}
@@ -98,21 +99,21 @@ export default function UserCard({ isMyPage, isAdmin }) {
           <div className={css.column}>
             <p className={css.registerDate}>
               Дата реєстрації{" "}
-              <span>{formatDateTime(user.created_at, "date")}</span>
+              <span>{formatDateTime(user?.created_at, "date")}</span>
             </p>
 
             <div className={css.nameWrapper}>
               <div className={css.column}>
-                <p className={css.name}>{user.name}</p>
-                <p className={css.userName}>{user.username}</p>
+                <p className={css.name}>{user?.name}</p>
+                <p className={css.userName}>{user?.username}</p>
               </div>
               <p className={css.role}>
-                {defineRole(user.type)}
-                {user.type}
+                {defineRole(user?.type)}
+                {user?.type}
               </p>
               <p className={css.deskRegisterDate}>
                 Дата реєстрації{" "}
-                <span>{formatDateTime(user.created_at, "date")}</span>
+                <span>{formatDateTime(user?.created_at, "date")}</span>
               </p>
               {!isAdmin && isDesktop && isMyPage ? (
                 <div className={css.deskIcons}>
@@ -143,10 +144,10 @@ export default function UserCard({ isMyPage, isAdmin }) {
               ) : null}
             </div>
           </div>
-          <p className={css.tabDescription}>{user.description}</p>
+          <p className={css.tabDescription}>{user?.description}</p>
         </div>
       </div>
-      <p className={css.description}>{user.description}</p>
+      <p className={css.description}>{user?.description}</p>
     </div>
   );
 }

@@ -6,7 +6,6 @@ import def from "../../../../assets/images/def.png";
 
 export default function PostView() {
   const post = useSelector(selectPost) ?? {};
-  console.log(post.user);
 
   return (
     <div>

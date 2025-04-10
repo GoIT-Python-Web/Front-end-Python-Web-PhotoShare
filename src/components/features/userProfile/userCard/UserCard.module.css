@@ -212,7 +212,7 @@
     font-style: normal;
   }
   .flex[data-label="myPage"] {
-    padding-bottom: 36px;
+    padding-bottom: 45px;
   }
   .flex[data-label="admin"] {
     padding-bottom: 80px;
@@ -239,8 +239,8 @@
     flex-direction: column;
     position: absolute;
     gap: 16px;
-    right: 30px;
-    top: 60px;
+    right: 22.5px;
+    top: 70px;
   }
   .deskIcons[data-label="admin"] {
     right: 42.5px;

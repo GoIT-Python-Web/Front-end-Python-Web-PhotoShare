@@ -15,6 +15,27 @@ export const fetchPosts = createAsyncThunk(
   }
 );
 
+export const fetchMyPosts = createAsyncThunk(
+  "posts/fetchMy",
+  async ({ id }, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const persistedToken = state.auth.token;
+
+      if (!persistedToken) {
+        return thunkAPI.rejectWithValue("Unable to fetch user");
+      }
+      setAuthHeader(persistedToken);
+      const { data } = await instance.get(`/posts/user/${id}`);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        handleError(err, "Failed to fetch users' posts")
+      );
+    }
+  }
+);
+
 export const fetchPostsByFilters = createAsyncThunk(
   "posts/fetchByFilters",
   async (filters, thunkAPI) => {
