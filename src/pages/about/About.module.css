@@ -1,17 +1,4 @@
-/* .container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f5f5f5;
-} */
-
-.content {
-  width: 100%;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
+/* HEADER SECTION */
 .header {
   margin-bottom: 30px;
 }
@@ -20,14 +7,10 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  padding-top: 25px;
 }
-.logoImg {
-  width: 50px;
-  height: 50px;
-}
+
 .logoIcon {
-  width: 50px;
-  height: 50px;
   background-color: #1e40af;
   border-radius: 50%;
   display: flex;
@@ -35,6 +18,11 @@
   align-items: center;
 }
 
+.logoIcon,
+.logoImg {
+  width: 97px;
+  height: 97px;
+}
 .camera {
   color: white;
 }
@@ -59,10 +47,17 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-top: 5px;
+}
+
+/* MAIN CONTENT */
+.content {
+  max-width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .mainContent {
+  padding-top: 40px;
   display: flex;
   background-color: white;
 }
@@ -81,12 +76,21 @@
   align-items: center;
 }
 
+/* BANNER */
 .banner {
+  padding: 10px;
+  margin-top: 41px;
+  margin-bottom: 81px;
+  background: linear-gradient(90deg, #1041aa 0%, #071a44 100%);
+}
+
+.banner2 {
   padding: 10px;
   width: 732px;
   height: 74px;
   margin-top: 41px;
   background: linear-gradient(90deg, #1041aa 0%, #071a44 100%);
+  display: none;
 }
 
 .bannerContent {
@@ -97,13 +101,9 @@
   line-height: 134%;
   color: var(--additional-text);
 }
-.valuesSection {
-  display: flex;
-  gap: 24px;
-  position: relative;
-  padding-left: 10px;
-}
 
+/* VALUES SECTION */
+.valuesSection,
 .contactsSection {
   display: flex;
   gap: 24px;
@@ -111,8 +111,7 @@
   padding-left: 10px;
 }
 
-.valuesSection::before,
-.contactsSection::before {
+.valuesSection::before {
   content: "";
   position: absolute;
   left: 0;
@@ -122,8 +121,7 @@
   background-color: #1e40af;
 }
 
-.valuesTitle,
-.contactsTitle {
+.valuesTitle {
   font-family: var(--font-family);
   font-weight: 600;
   font-size: 28px;
@@ -148,7 +146,6 @@
 .valuesList li {
   position: relative;
   padding-left: 15px;
-  margin-bottom: 8px;
 }
 
 .valuesList li::before {
@@ -158,11 +155,33 @@
   color: #1e40af;
 }
 
+/* CONTACTS SECTION */
+
+.contactsSection::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: #1e40af;
+}
+
+.contactsTitle {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 134%;
+  text-decoration: underline;
+  color: #1c3879;
+  max-width: 147px;
+  margin: 0;
+}
+
 .contactItem {
   display: flex;
   flex-direction: column;
   align-items: left;
-  gap: 8px;
   margin-bottom: 8px;
   font-family: var(--font-family);
   font-weight: 400;
@@ -183,6 +202,7 @@
   text-decoration: underline;
 }
 
+/* IMAGE CONTAINER */
 .imageContainer {
   width: 100%;
   height: 100%;
@@ -190,13 +210,7 @@
   overflow: hidden;
 }
 
-.heroImage {
-  border-radius: 31px;
-  width: 636px;
-  height: 580px;
-  object-fit: contain;
-}
-
+/* BUTTON */
 .buttonContainer {
   display: flex;
   justify-content: center;
@@ -219,16 +233,205 @@
   background-color: #1c3879;
 }
 
-@media (max-width: 768px) {
-  .mainContent {
+/* RESPONSIVE STYLES */
+@media (max-width: 1440px) {
+  .header {
+    display: flex;
+    align-items: center;
     flex-direction: column;
+  }
+  .valuesSection,
+  .contactsSection {
+    flex-direction: column;
+  }
+  .logo {
+    padding-top: 32px;
+  }
+
+  .logoText {
+    font-weight: 600;
+    font-size: 90px;
   }
 
   .tagline {
+    font-size: 26px;
+  }
+
+  .banner {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    display: none;
+  }
+
+  .banner2 {
+    width: 100%;
+    height: auto;
+    background: linear-gradient(90deg, #1041aa 0%, #071a44 100%);
+    display: inherit;
+  }
+
+  .bannerContent {
+    font-size: 18px;
+  }
+
+  .valuesTitle,
+  .contactsTitle {
+    max-width: 202px;
+    font-size: 28px;
+  }
+
+  .valuesList,
+  .contactItem {
+    font-size: 20px;
+  }
+
+  .buttonContainer {
+    margin-top: 64px;
+    padding-bottom: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    margin-bottom: 20px;
+  }
+
+  .logo {
+    justify-content: center;
+  }
+
+  .tagline {
+    font-size: 22px;
+    text-align: center;
     margin-left: 0;
   }
 
-  .content {
-    padding: 20px;
+  .mainContent {
+    padding-top: 56px;
+    justify-content: center;
+    align-items: center;
+    gap: 11px;
+  }
+
+  .leftSection,
+  .rightSection {
+    width: 100%;
+  }
+
+  .rightSection {
+    margin-bottom: 30px;
+  }
+
+  .banner {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 25px;
+    padding: 10px 15px;
+  }
+
+  .bannerContent {
+    font-size: 16px;
+  }
+
+  .valuesSection,
+  .contactsSection {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .valuesTitle,
+  .contactsTitle {
+    font-size: 22px;
+    max-width: 100%;
+  }
+
+  .valuesList,
+  .contactItem {
+    font-size: 16px;
+  }
+
+  .buttonContainer {
+    margin-top: 35px;
+    padding-bottom: 35px;
+  }
+
+  .returnButton {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .logoIcon,
+  .logoImg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo {
+    padding-top: 24px;
+  }
+
+  .logoText {
+    font-family: var(--font3);
+    font-weight: 600;
+    font-size: 40px;
+  }
+
+  .banner2 {
+    margin-top: 24px;
+  }
+
+  .tagline {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 134%;
+    letter-spacing: -0.01em;
+  }
+
+  .bannerContent {
+    font-weight: 250;
+    font-size: 10px;
+    line-height: 134%;
+    text-align: center;
+    justify-items: center;
+  }
+
+  .valuesTitle,
+  .contactsTitle {
+    font-size: 16px;
+  }
+
+  .valuesList,
+  .contactItem {
+    font-weight: 275;
+    font-size: 12px;
+    line-height: 134%;
+    letter-spacing: 0em;
+  }
+
+  .contactItem {
+    gap: 1px;
+    flex-wrap: wrap;
+  }
+
+  .heroImage {
+    border-radius: 16px;
+    width: 156px;
+    height: 226px;
+  }
+
+  .valuesSection,
+  .contactsSection {
+    gap: 10px;
+  }
+
+  .valuesList li {
+    margin: 0 auto;
+  }
+
+  .leftSection {
+    gap: 22px;
   }
 }
