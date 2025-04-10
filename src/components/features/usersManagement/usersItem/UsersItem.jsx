@@ -1,9 +1,11 @@
 import s from "./UsersItem.module.css";
 import Icon from "../../../common/icons/Icon";
 import getColorFromName from "../../../../helpers/getColorFromName";
+import { useDispatch } from "react-redux";
 import { useRef, useState } from "react";
 import { useScrollLock } from "../../../../helpers/hooks/useScrollLock";
 import Modal from "../../../modals/modal/Modal.jsx";
+import { banUser, toggleUserRole } from "../../../../store/users/operations.js";
 
 function UserItem({
   profileImage = null,
@@ -17,6 +19,8 @@ function UserItem({
   const [showModal, setShowModal] = useState(false);
   useScrollLock(showModal);
 
+  const dispatch = useDispatch();
+
   const buttonRef = useRef(null);
 
   const handleModalClick = () => {
@@ -24,12 +28,18 @@ function UserItem({
   };
 
   const handleRoleChange = () => {
-    console.log(" change role to username");
+    dispatch(toggleUserRole(id));
     setShowModal(false);
   };
 
   const handleBan = () => {
-    console.log("Забанити користувача:", userName);
+    dispatch(banUser(id));
+    setShowModal(false);
+  };
+
+  const handleDelete = () => {
+    // тут або dispatch(deleteUser(id)) якщо реалізуватимемо, поки просто заглушка
+    console.log("Delete user", id);
     setShowModal(false);
   };
 

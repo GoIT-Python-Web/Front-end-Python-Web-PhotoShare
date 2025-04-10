@@ -12,12 +12,18 @@ import {
 import storage from "redux-persist/lib/storage";
 
 import { postsReducer } from "./posts/slice";
+import { usersReducer } from "./users/slice.js";
 import { authReducer } from "./auth/slice.js";
 import { setupInterceptors } from "./interceptor.js";
 import { instance } from "./init.js";
 
 const postsPersistConfig = {
   key: "posts",
+  storage,
+};
+
+const usersPersistConfig = {
+  key: "users",
   storage,
 };
 
@@ -36,6 +42,7 @@ export const store = configureStore({
   reducer: {
     posts: persistReducer(postsPersistConfig, postsReducer),
     auth: persistReducer(authPersistConfig, authReducer),
+    users: persistReducer(usersPersistConfig, usersReducer),
     // comments: persistReducer(commentsPersistConfig, commentsReducer),
   },
   middleware: (getDefaultMiddleware) =>

@@ -4,26 +4,42 @@ import Button from "../../../common/buttons/Button";
 import UserList from "../usersList/UsersList";
 import s from "./UsersContainer.module.css";
 import Swal from "sweetalert2";
-import usersData from "../../../../data/users.json";
 import Filters from "../../filters/filters/Filters";
 import Icon from "../../../common/icons/Icon";
 import useWindowWidth from "../../../../helpers/hooks/useWindowWidth";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectUsers,
+  selectUsersError,
+  selectUsersLoading,
+} from "../../../../store/users/selectors";
+import { fetchUsers } from "../../../../store/users/operations";
 
 const UsersContainer = () => {
+  const dispatch = useDispatch();
+  const users = useSelector(selectUsers);
+  const isLoading = useSelector(selectUsersLoading);
+  const error = useSelector(selectUsersError);
   const usersPerPage = 8;
   const isBackendPagination = false;
 
-  const [users, setUsers] = useState(usersData);
   const [currentPage, setCurrentPage] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [backendTotalPages, setBackendTotalPages] = useState(1);
 
-  const filteredUsers = users.filter((user) =>
-    user.userName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
+
+  const filteredUsers = users.filter((user) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      user.username.toLowerCase().includes(query) ||
+      user.email.toLowerCase().includes(query)
+    );
+  });
 
   const totalPages = isBackendPagination
-    ? backendTotalPages
+    ? 1
     : Math.ceil(filteredUsers.length / usersPerPage);
 
   const startIndex = currentPage * usersPerPage;
@@ -31,11 +47,6 @@ const UsersContainer = () => {
   const currentUsers = isBackendPagination
     ? users
     : filteredUsers.slice(startIndex, startIndex + usersPerPage);
-
-  useEffect(() => {
-    if (!isBackendPagination) return;
-    // future backend fetch
-  }, [currentPage, isBackendPagination]);
 
   const handleDeleteClick = (id) => {
     Swal.fire({
@@ -47,11 +58,27 @@ const UsersContainer = () => {
       cancelButtonText: "Скасувати",
     }).then((result) => {
       if (result.isConfirmed) {
-        setUsers((prev) => prev.filter((user) => user.id !== id));
+        // TODO: додати dispatch до backend-видалення
         Swal.fire("Видалено!", "Користувача видалено.", "success");
       }
     });
   };
+
+  // const handleDeleteClick = (id) => {
+  //   Swal.fire({
+  //     title: "Ви впевнені?",
+  //     text: "Цього користувача буде видалено!",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonText: "Так, видалити",
+  //     cancelButtonText: "Скасувати",
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       setUsers((prev) => prev.filter((user) => user.id !== id));
+  //       Swal.fire("Видалено!", "Користувача видалено.", "success");
+  //     }
+  //   });
+  // };
 
   const width = useWindowWidth();
 
