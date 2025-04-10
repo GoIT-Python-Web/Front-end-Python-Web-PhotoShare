@@ -1,10 +1,10 @@
 import { Formik, Form, Field } from "formik";
 import css from "./ProfileEditForm.module.css";
-import Input from "../../common/inputs/Input.jsx";
-import Button from "../../common/buttons/Button.jsx";
-import { ProfileEditSchema } from "../../../validation/schemas.js";
+import Input from "../common/inputs/Input.jsx";
+import Button from "../common/buttons/Button.jsx";
+import { ProfileEditSchema } from "../../validation/schemas.js";
 import { useDispatch } from "react-redux";
-import { updateUser } from "../../../store/auth/operations";
+import { updateUser } from "../../store/auth/operations.js";
 import { FaPenToSquare } from "react-icons/fa6";
 import { useRef, useState } from "react";
 import def from "../../../assets/images/EditProfilPage/AvatarDef.png";
