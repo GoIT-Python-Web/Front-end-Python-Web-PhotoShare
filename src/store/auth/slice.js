@@ -61,6 +61,7 @@ const authSlice = createSlice({
         handleRejected(state, action);
       })
       .addCase(refreshTokens.pending, handlePending)
+
       .addCase(refreshTokens.fulfilled, (state, action) => {
         state.token = action.payload;
         state.isLoggedIn = true;
