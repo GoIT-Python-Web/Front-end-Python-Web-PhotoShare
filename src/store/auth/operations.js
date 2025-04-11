@@ -70,6 +70,30 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+export const fetchUserById = createAsyncThunk(
+  "auth/fetchUser",
+  async (id, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+
+      if (!token) {
+        return thunkAPI.rejectWithValue("Користувач не авторизований");
+      }
+
+      setAuthHeader(token);
+      console.log(id);
+      const { data } = await instance.get(`/users/${id}`);
+      console.log(data);
+      return data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        handleError(err, "Не вдалося оновити дані користувача")
+      );
+    }
+  }
+);
+
 export const refreshTokens = createAsyncThunk(
   "auth/refreshTokens",
   async (_, thunkAPI) => {
@@ -95,3 +119,21 @@ export const refreshTokens = createAsyncThunk(
     }
   }
 );
+
+export const logout = createAsyncThunk("auth/signout", async (_, thunkAPI) => {
+  try {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
+
+    if (!token) {
+      return thunkAPI.rejectWithValue("Користувач не авторизований");
+    }
+
+    setAuthHeader(token);
+    await instance.post(`/logout`);
+  } catch (err) {
+    return thunkAPI.rejectWithValue(
+      handleError(err, "Не вдалося оновити дані користувача")
+    );
+  }
+});

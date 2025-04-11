@@ -42,6 +42,8 @@
 .credentials img {
   object-fit: cover;
   border-radius: 47px;
+  width: 70px;
+  height: 70px;
 }
 
 .credentials p {
@@ -49,6 +51,15 @@
   font-size: 20px;
   text-transform: capitalize;
   color: #132d62;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  margin-left: auto;
 }
 
 .postCredentials {

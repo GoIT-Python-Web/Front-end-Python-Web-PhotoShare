@@ -11,6 +11,20 @@
   justify-content: space-between;
 }
 
+.no {
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no > p {
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+  color: #132d62;
+}
+
 @media screen and (min-width: 768px) {
   .list {
     margin-top: 48px;

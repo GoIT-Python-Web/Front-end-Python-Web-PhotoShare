@@ -4,34 +4,61 @@ import Title from "../../components/common/title/Title.jsx";
 import UserCard from "../../components/features/userProfile/userCard/UserCard.jsx";
 import UserGallery from "../../components/features/userProfile/userGallery/UserGallery.jsx";
 import css from "./ProfilePage.module.css";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchMyPosts } from "../../store/posts/operations.js";
-import { selectUser } from "../../store/auth/selectors.js";
+import {
+  selectIsAdmin,
+  selectIsLoading,
+  selectProfile,
+} from "../../store/auth/selectors.js";
+import { fetchUserById } from "../../store/auth/operations.js";
+import { clearProfile } from "../../store/auth/slice.js";
+import Loader from "../../components/common/loader/Loader.jsx";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const user = useSelector(selectUser);
-  let isAdmin;
-  let isMyProfile;
-  if (user) {
-    isMyProfile = id === user.id;
-    isAdmin = user.role === "admin";
-  }
+
+  const isLoading = useSelector(selectIsLoading);
+
+  const profile = useSelector(selectProfile);
+  const isAdmin = useSelector(selectIsAdmin);
+  const isMyProfile = id === profile?.id;
 
   useEffect(() => {
-    dispatch(fetchMyPosts({ id: user?.id }));
+    return () => {
+      dispatch(clearProfile());
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchUserById(id));
+    dispatch(fetchMyPosts({ id: id }));
   }, [dispatch, id]);
 
   return (
     <div className={`container ${css.wrapper}`}>
-      <BackButton />
-      <div className={css.title}>
-        <Title location="userProfile" className={css.title} />
-      </div>
-      <UserCard isMyPage={isMyProfile} isAdmin={isAdmin} />
-      <UserGallery />
+      {!isLoading ? (
+        <>
+          <BackButton />
+          <div className={css.title}>
+            <Title location="userProfile" className={css.title} />
+          </div>
+          <UserCard
+            profile={profile}
+            isMyPage={isMyProfile}
+            isAdmin={isAdmin}
+          />
+          <UserGallery isMyProfile={isMyProfile} />
+        </>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 }

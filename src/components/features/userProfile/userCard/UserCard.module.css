@@ -215,7 +215,7 @@
     padding-bottom: 45px;
   }
   .flex[data-label="admin"] {
-    padding-bottom: 80px;
+    padding-bottom: 100px;
   }
   .nameWrapper {
     width: 1195px;
@@ -243,6 +243,6 @@
     top: 70px;
   }
   .deskIcons[data-label="admin"] {
-    right: 42.5px;
+    right: 37.5px;
   }
 }

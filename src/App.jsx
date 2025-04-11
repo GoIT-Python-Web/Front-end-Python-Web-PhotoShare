@@ -8,6 +8,8 @@ import { getUser, refreshTokens } from "./store/auth/operations.js";
 import { RestrictedRoute } from "./routes/RestrictedRoute.jsx";
 import { PrivateRoute } from "./routes/PrivateRoute.jsx";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage.jsx";
+import { toggleUserRole } from "./store/users/operations.js";
+import { AdminRoute } from "./routes/AdminRoute.jsx";
 
 export default function App() {
   const MainPage = lazy(() => import("./pages/main/MainPage.jsx"));
@@ -60,10 +62,34 @@ export default function App() {
             }
           />
 
-          <Route path="admin/users" element={<UsersManagementPage />} />
+          <Route
+            path="admin/users"
+            element={
+              <AdminRoute
+                redirectTo="/posts"
+                component={<UsersManagementPage />}
+              />
+            }
+          />
           <Route path="about" element={<About />} />
-          <Route path="profile-edit" element={<ProfileEditPage />} />
-          <Route path="create-post" element={<CreatePostPage />} />
+          <Route
+            path="profile-edit"
+            element={
+              <PrivateRoute
+                redirectTo="/login"
+                component={<ProfileEditPage />}
+              />
+            }
+          />
+          <Route
+            path="posts/create"
+            element={
+              <PrivateRoute
+                redirectTo="/login"
+                component={<CreatePostPage />}
+              />
+            }
+          />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

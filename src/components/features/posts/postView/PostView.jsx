@@ -3,6 +3,9 @@ import Stars from "../../../../helpers/Stars.jsx";
 import css from "./PostView.module.css";
 import { selectPost } from "../../../../store/posts/selectors.js";
 import def from "../../../../assets/images/def.png";
+import generateGoogleMapsUrl from "../../../../helpers/generateGoogleMapsUrl.jsx";
+import GoogleMapsLink from "../../../../helpers/generateGoogleMapsUrl.jsx";
+import { Link } from "react-router-dom";
 
 export default function PostView() {
   const post = useSelector(selectPost) ?? {};
@@ -20,27 +23,19 @@ export default function PostView() {
         {post.user && (
           <>
             <div className={css.userInfo}>
-              <img
-                src={post.user?.img_link ?? def}
-                alt={`${post.user?.name ?? "User"}'s profile picture`}
-                width={38}
-                height={38}
-                className={css.userPhoto}
-              />
-              <p>{post.user?.name}</p>
-
-              {post.location && (
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                    post.location
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={css.location}
-                >
-                  {post.location}
-                </a>
-              )}
+              <Link to={`/profile/${post.user?.id}`} className={css.link}>
+                <img
+                  src={post.user?.img_link ?? def}
+                  alt={`${post.user?.name ?? "User"}'s profile picture`}
+                  width={38}
+                  height={38}
+                  className={css.userPhoto}
+                />
+                <p>{post.user?.name}</p>
+              </Link>
+              <p className={css.location}>
+                {post.location && <GoogleMapsLink location={post.location} />}
+              </p>
             </div>
           </>
         )}
@@ -49,7 +44,7 @@ export default function PostView() {
           <p className={css.title}>{post.title}</p>
           <div className={css.rating}>
             <>
-              <Stars rating={post.avg_rating} id={post.id} />
+              <Stars rating={post.avg_rating} id={post.id} post="true" />
             </>
             <p className={css.ratingText}>
               {post.rating} ({post.rating_count} оцінок)

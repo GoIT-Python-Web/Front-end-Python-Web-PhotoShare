@@ -9,16 +9,21 @@ import Stars from "../../../../helpers/Stars.jsx";
 import Button from "../../../common/buttons/Button.jsx";
 import formatDateTime from "../../../../helpers/formatDateTime.js";
 import def from "../../../../assets/images/def.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectIsAdmin } from "../../../../store/auth/selectors.js";
+import { deletePost } from "../../../../store/posts/operations.js";
+import GoogleMapsLink from "../../../../helpers/generateGoogleMapsUrl.jsx";
 
-export default function PostItem({ post }) {
+export default function PostItem({ post, isMyProfile }) {
   const isAdmin = useSelector(selectIsAdmin);
-  const isMyProfile = false;
+  const dispatch = useDispatch();
   const isDesktop = useMediaQuery({ minWidth: 1440 });
   const isTablet = useMediaQuery({ minWidth: 768 });
   const navigate = useNavigate();
-
+  const handleDelete = () => {
+    if (isAdmin || isMyProfile) dispatch(deletePost({ id: post.id }));
+  };
+  console.log(post);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -53,6 +58,11 @@ export default function PostItem({ post }) {
           />
           <p>{post.user?.name}</p>
         </Link>
+        {post?.location && (
+          <p className={css.location}>
+            {post.location && <GoogleMapsLink location={post.location} />}
+          </p>
+        )}
       </div>
       <div className={css.postCredentials}>
         <p className={css.title}>{post.title}</p>
@@ -84,10 +94,19 @@ export default function PostItem({ post }) {
         </Button>
       ) : isAdmin ? (
         <div className={css.buttonsWrapper}>
-          <Button size={isDesktop ? "sm" : "xs"}>
+          <Button
+            size={isDesktop ? "sm" : "xs"}
+            onClick={() => {
+              navigate(`/posts/${post.id}`);
+            }}
+          >
             {isMyProfile ? "Редагувати" : "Детальніше"}
           </Button>
-          <Button size={isDesktop ? "sm" : "xs"} variant="secondary-red">
+          <Button
+            size={isDesktop ? "sm" : "xs"}
+            variant="secondary-red"
+            onClick={handleDelete}
+          >
             Видалити
           </Button>
         </div>
