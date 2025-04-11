@@ -3,7 +3,10 @@ import css from "./PopupHeaderMenu.module.css";
 import { Link } from "react-router-dom";
 import close from "../../../../assets/images/Header/close@2x.png";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../../../store/auth/selectors.js";
+import {
+  selectIsLoggedIn,
+  selectUser,
+} from "../../../../store/auth/selectors.js";
 import def from "../../../../assets/images/def.png";
 
 const PopupHeaderMenu = ({ menuIsOpen, onClose }) => {
@@ -25,6 +28,7 @@ const PopupHeaderMenu = ({ menuIsOpen, onClose }) => {
   }
 
   const user = useSelector(selectUser);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return (
     <div
