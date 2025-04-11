@@ -10,8 +10,9 @@ import plus from "../../../assets/images/Header/plus@2x.png";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn, selectUser } from "../../../store/auth/selectors.js";
 import def from "../../../assets/images/def.png";
-import { RiLoginCircleLine } from "react-icons/ri";
-import { MdOutlineAppRegistration } from "react-icons/md";
+import { IoIosArrowDown } from "react-icons/io";
+import { LuSearch } from "react-icons/lu";
+import star_settings from "../../../assets/icons/star_settings.svg";
 import { fetchPostsByFilters } from "../../../store/posts/operations.js";
 
 const Header = () => {
@@ -39,8 +40,7 @@ const Header = () => {
   };
 
   const isDesktopAddButton = useMediaQuery({ minWidth: 1440 });
-  const isMobileLoginIcon = useMediaQuery({ maxWidth: 767 });
-  const isMobileRegisterIcon = useMediaQuery({ maxWidth: 767 });
+  const isMobilAddButton = useMediaQuery({ maxWidth: 767 });
 
   return (
     <header className={css.header}>
@@ -81,29 +81,26 @@ const Header = () => {
             <input
               className={css.header_search}
               type="text"
-              placeholder=" "
+              placeholder="Пошук..."
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleSearch();
               }}
             />
+            <LuSearch className={css.search_icon} />
             {!isLoggedIn && !isOpen ? (
               <div className={css.header_toggle_container}>
                 <Link className={css.toggle_link} to="/login">
-                  {isMobileLoginIcon ? <RiLoginCircleLine /> : "Увійти"}
+                  Увійти
                 </Link>
                 <Link className={css.toggle_link} to="/register">
-                  {isMobileRegisterIcon ? (
-                    <MdOutlineAppRegistration />
-                  ) : (
-                    "Зареєструватися"
-                  )}
+                  Зареєструватися
                 </Link>
               </div>
             ) : (
               <>
-                <Link to="/posts/create">
+                {!isMobilAddButton && (
                   <Button
                     size={isDesktopAddButton ? "sml_header" : "sm_header"}
                     variant="primary"
@@ -113,7 +110,7 @@ const Header = () => {
                     <span>Додати світлину</span>
                     <img src={plus} width={20} height={20} alt="Plus Icon" />
                   </Button>
-                </Link>
+                )}
 
                 <div className={css.header_user}>
                   <Link to={`profile/${user?.id}`}>
@@ -121,13 +118,25 @@ const Header = () => {
                       <img
                         src={user?.img_link ?? def}
                         alt={`${user?.name}'s profile picture`}
-                        className={css.userImg}
                       />
                     </div>
                   </Link>
-                  <p className={css.header_user_name}>{user?.username}</p>
+                  <p className={css.header_user_name}>
+                    {user?.username}
+                    <button className={css.user_name_btn} type="button">
+                      <IoIosArrowDown className={css.user_name_btn_icon} />
+                    </button>
+                  </p>
                   <Link to={`profile/${user?.id}`}>
-                    <div className={css.header_settings_icon}>⚙️</div>
+                    <div className={css.header_settings_icon}>
+                      <img
+                        className={css.star_settings_icon}
+                        src={star_settings}
+                        alt="Settings Icon"
+                        width={24}
+                        height={24}
+                      />
+                    </div>
                   </Link>
                 </div>
               </>
