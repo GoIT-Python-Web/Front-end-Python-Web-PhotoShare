@@ -33,7 +33,7 @@ const SignInForm = ({ onSwitch }) => {
                 <Input
                   {...field}
                   type="text"
-                  placeholder="UserName"
+                  placeholder="Username"
                   autoComplete="off"
                   error={meta.touched && meta.error}
                   errorMessage={meta.touched && meta.error ? meta.error : ""}

@@ -5,6 +5,7 @@ import { updateTokens } from "./slice.js";
 export const registerUser = createAsyncThunk(
   "auth/register",
   async (credentials, thunkAPI) => {
+    console.log(credentials);
     try {
       const { data } = await instance.post("/register", credentials);
       return data;
