@@ -6,7 +6,7 @@ export default function PhotoShare() {
   return (
     <div className="container">
       <div className={styles.content}>
-        <header className={styles.header}>
+        <div className={styles.header}>
           <div className={styles.logo}>
             <div className={styles.logoIcon}>
               <img
@@ -18,7 +18,13 @@ export default function PhotoShare() {
             <h1 className={styles.logoText}>PhotoShare</h1>
           </div>
           <p className={styles.tagline}>Місце, де кожен кадр має значення</p>
-        </header>
+          <div className={styles.banner2}>
+            <p className={styles.bannerContent}>
+              Ми створюємо простір для творчих людей щоб вони могли ділитися
+              своїми моментами та знаходити натхнення
+            </p>
+          </div>
+        </div>
 
         <div className={styles.mainContent}>
           <div className={styles.leftSection}>
@@ -52,7 +58,13 @@ export default function PhotoShare() {
                 </a>
                 <div className={styles.contactItem}>
                   <span className={styles.contactIcon}></span>
-                  <span>📞 Телефон: +380 44 290 16 83</span>
+                  <span>📞 Телефон:</span>
+                  <a
+                    className={styles.contactLink}
+                    href="tel:+380 44 290 16 83"
+                  >
+                    +380 44 290 16 83
+                  </a>
                 </div>
               </div>
             </div>
@@ -60,11 +72,28 @@ export default function PhotoShare() {
 
           <div className={styles.rightSection}>
             <div className={styles.imageContainer}>
-              <img
-                src={img}
-                alt="Happy person making peace signs"
-                className={styles.heroImage}
-              />
+              <picture>
+                <source
+                  media="(min-width: 1440px)"
+                  srcSet="src\assets\images\About-img.png"
+                />
+
+                <source
+                  media="(min-width: 768px)"
+                  srcSet="src\assets\images\about-img-tab.png"
+                />
+
+                <source
+                  media="(max-width: 767px)"
+                  srcSet="src/assets/images/about-img-mob.png"
+                />
+
+                <img
+                  src="src\assets\images\about-img-mob.png"
+                  alt="Happy person making peace signs"
+                  className={styles.heroImage}
+                />
+              </picture>
             </div>
           </div>
         </div>
