@@ -1,5 +1,4 @@
 import { refreshTokens } from "./auth/operations.js";
-import { logout } from "./auth/slice.js";
 
 export const setupInterceptors = (instance, store) => {
   instance.interceptors.response.use(
@@ -20,7 +19,6 @@ export const setupInterceptors = (instance, store) => {
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return instance(originalRequest);
         } catch (refreshError) {
-          store.dispatch(logout());
           return Promise.reject(refreshError);
         }
       }

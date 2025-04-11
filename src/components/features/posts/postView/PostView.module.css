@@ -54,6 +54,12 @@
   color: #697a9e;
 }
 
+.link {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .description {
   font-weight: 400;
   font-size: 14px;

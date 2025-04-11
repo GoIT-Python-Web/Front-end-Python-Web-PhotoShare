@@ -7,6 +7,7 @@ import {
   sendComment,
   fetchPostsByFilters,
   fetchMyPosts,
+  deletePost,
 } from "./operations";
 import { handlePending, handleRejected } from "../init.js";
 
@@ -54,6 +55,17 @@ const postSlice = createSlice({
         state.posts = action.payload;
         state.error = null;
         state.isLoading = false;
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        if (state.personalPosts) {
+          state.personalPosts = state.personalPosts.filter(
+            (post) => post.id !== action.payload
+          );
+        } else {
+          state.posts = state.posts.filter(
+            (post) => post.id !== action.payload
+          );
+        }
       })
       .addCase(sendComment.fulfilled, (state, action) => {
         state.comments.push(action.payload);

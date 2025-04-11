@@ -11,6 +11,8 @@
 .userPic {
   border-radius: 100%;
   margin-right: 24px;
+  width: 54px;
+  height: 54px;
 }
 
 .nameWrapper,

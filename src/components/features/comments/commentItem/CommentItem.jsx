@@ -1,30 +1,41 @@
 import css from "./CommentItem.module.css";
 import { FiTrash2 } from "react-icons/fi";
 import formatDateTime from "../../../../helpers/formatDateTime.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteComment } from "../../../../store/posts/operations.js";
 import defineRole from "../../../../helpers/defineRole.jsx";
 import def from "../../../../assets/images/def.png";
+import { selectIsAdmin, selectUser } from "../../../../store/auth/selectors.js";
+import { Link } from "react-router-dom";
 
 export default function CommentItem({ comment }) {
+  const user = useSelector(selectUser);
+  const isAdmin = useSelector(selectIsAdmin);
+  const couldDelete = isAdmin || user?.id === comment.user?.id;
   const dispatch = useDispatch();
   return (
     <li className={css.wrapper}>
       <div className={css.commentItem}>
-        <img
-          src={comment.user?.img_link ?? def}
-          alt={`${comment.user?.name}'s picture`}
-          width={54}
-          height={54}
-          className={css.userPic}
-        />
-        <div className={css.commentWrapper}>
-          <FiTrash2
-            className={css.trashIcon}
-            onClick={() => dispatch(deleteComment({ id: comment.id }))}
+        <Link to={`/profile/${comment.user?.id}`}>
+          <img
+            src={comment.user?.img_link ?? def}
+            alt={`${comment.user?.name}'s picture`}
+            width={54}
+            height={54}
+            className={css.userPic}
           />
+        </Link>
+        <div className={css.commentWrapper}>
+          {couldDelete && (
+            <FiTrash2
+              className={css.trashIcon}
+              onClick={() => dispatch(deleteComment({ id: comment.id }))}
+            />
+          )}
           <div className={css.nameWrapper}>
-            <p className={css.name}>{comment.user?.name}</p>
+            <Link to={`/profile/${comment.user?.id}`}>
+              <p className={css.name}>{comment.user?.name}</p>
+            </Link>
             {defineRole(comment.user?.type)}
           </div>
           <div className={css.timeWrapper}>

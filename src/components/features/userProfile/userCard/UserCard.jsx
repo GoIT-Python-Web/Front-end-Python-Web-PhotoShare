@@ -3,23 +3,33 @@ import { BsThreeDots } from "react-icons/bs";
 import { useMediaQuery } from "react-responsive";
 import { useRef, useState } from "react";
 import { LuPencil } from "react-icons/lu";
-import { RiLockPasswordLine } from "react-icons/ri";
+import { RxExit } from "react-icons/rx";
 import iconClose from "../../../../assets/icons/iconClose.svg";
 import { TbUserStar } from "react-icons/tb";
 import { FiTrash2 } from "react-icons/fi";
 import { IoBan } from "react-icons/io5";
-import { selectUser } from "../../../../store/auth/selectors.js";
-import { useSelector } from "react-redux";
 import formatDateTime from "../../../../helpers/formatDateTime.js";
 import def from "../../../../assets/images/def.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import defineRole from "../../../../helpers/defineRole.jsx";
 import { useClickOutside } from "../../../../helpers/hooks/useClickOutside.js";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../../store/auth/slice.js";
+import { toggleUserRole } from "../../../../store/users/operations.js";
 
-export default function UserCard({ isMyPage, isAdmin }) {
+export default function UserCard({ profile, isMyPage, isAdmin }) {
   const isDesktop = useMediaQuery({ minWidth: "1440px" });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const user = useSelector(selectUser);
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/posts");
+  };
+
+  const toggleRole = () => {
+    dispatch(toggleUserRole(profile.id));
+  };
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,7 +44,7 @@ export default function UserCard({ isMyPage, isAdmin }) {
       <div>
         <p className={css.tabRegisterDate}>
           Дата реєстрації{" "}
-          <span>{formatDateTime(user?.created_at, "date")}</span>
+          <span>{formatDateTime(profile?.created_at, "date")}</span>
         </p>
       </div>
       <div
@@ -42,8 +52,8 @@ export default function UserCard({ isMyPage, isAdmin }) {
         data-label={isAdmin ? "admin" : isMyPage ? "myPage" : null}
       >
         <img
-          src={user?.img_link ?? def}
-          alt={`${user?.name}'s profile picture`}
+          src={profile?.img_link ?? def}
+          alt={`${profile?.name}'s profile picture`}
           width={70}
           height={74}
           className={css.userPic}
@@ -72,14 +82,17 @@ export default function UserCard({ isMyPage, isAdmin }) {
                     <LuPencil className={css.settingsIcon} />
                     Редагувати свій профіль
                   </Link>
-                  <p className={css.settingsParagraph}>
-                    <RiLockPasswordLine className={css.settingsIcon} />
-                    Змінити пароль
+                  <p className={css.settingsParagraph} onClick={handleLogout}>
+                    <RxExit className={css.settingsIcon} />
+                    Вийти з акаунту
                   </p>
                 </div>
               ) : (
                 <div className={css.icons}>
-                  <p className={css.settingsParagraph}>
+                  <p
+                    className={css.settingsParagraph}
+                    onClick={toggleRole(profile.id)}
+                  >
                     <TbUserStar className={css.settingsIcon} />
                     Змінити Роль
                   </p>
@@ -99,21 +112,21 @@ export default function UserCard({ isMyPage, isAdmin }) {
           <div className={css.column}>
             <p className={css.registerDate}>
               Дата реєстрації{" "}
-              <span>{formatDateTime(user?.created_at, "date")}</span>
+              <span>{formatDateTime(profile?.created_at, "date")}</span>
             </p>
 
             <div className={css.nameWrapper}>
               <div className={css.column}>
-                <p className={css.name}>{user?.name}</p>
-                <p className={css.userName}>{user?.username}</p>
+                <p className={css.name}>{profile?.name}</p>
+                <p className={css.userName}>{profile?.username}</p>
               </div>
               <p className={css.role}>
-                {defineRole(user?.type)}
-                {user?.type}
+                {defineRole(profile?.type)}
+                {profile?.type}
               </p>
               <p className={css.deskRegisterDate}>
                 Дата реєстрації{" "}
-                <span>{formatDateTime(user?.created_at, "date")}</span>
+                <span>{formatDateTime(profile?.created_at, "date")}</span>
               </p>
               {!isAdmin && isDesktop && isMyPage ? (
                 <div className={css.deskIcons}>
@@ -121,14 +134,14 @@ export default function UserCard({ isMyPage, isAdmin }) {
                     <LuPencil className={css.settingsIcon} />
                     Редагувати свій профіль
                   </Link>
-                  <p className={css.settingsParagraph}>
-                    <RiLockPasswordLine className={css.settingsIcon} />
-                    Змінити пароль
+                  <p className={css.settingsParagraph} onClick={handleLogout}>
+                    <RxExit className={css.settingsIcon} />
+                    Вийти з акаунту
                   </p>
                 </div>
               ) : isAdmin && isDesktop ? (
                 <div className={css.deskIcons} data-label="admin">
-                  <p className={css.settingsParagraph}>
+                  <p className={css.settingsParagraph} onClick={toggleRole}>
                     <TbUserStar className={css.settingsIcon} />
                     Змінити Роль
                   </p>
@@ -144,10 +157,10 @@ export default function UserCard({ isMyPage, isAdmin }) {
               ) : null}
             </div>
           </div>
-          <p className={css.tabDescription}>{user?.description}</p>
+          <p className={css.tabDescription}>{profile?.description}</p>
         </div>
       </div>
-      <p className={css.description}>{user?.description}</p>
+      <p className={css.description}>{profile?.description}</p>
     </div>
   );
 }

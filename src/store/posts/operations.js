@@ -56,6 +56,7 @@ export const fetchPostsByFilters = createAsyncThunk(
       const { data } = await instance.get(
         `/posts/search?${queryParams.toString()}`
       );
+      console.log(data);
       return data;
     } catch (err) {
       return thunkAPI.rejectWithValue(
@@ -74,6 +75,20 @@ export const fetchPostById = createAsyncThunk(
     } catch (err) {
       return thunkAPI.rejectWithValue(
         handleError(err, "Failed to fetch post by id")
+      );
+    }
+  }
+);
+
+export const deletePost = createAsyncThunk(
+  "posts/delete",
+  async ({ id }, thunkAPI) => {
+    try {
+      await instance.delete(`/posts/${id}`);
+      return id;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        handleError(err, "Failed to fetch delete post")
       );
     }
   }
