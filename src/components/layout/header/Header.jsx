@@ -11,8 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn, selectUser } from "../../../store/auth/selectors.js";
 import def from "../../../assets/images/def.png";
 import { IoIosArrowDown } from "react-icons/io";
-import { RiLoginCircleLine } from "react-icons/ri";
-import { MdOutlineAppRegistration } from "react-icons/md";
 import { LuSearch } from "react-icons/lu";
 import star_settings from "../../../assets/icons/star_settings.svg";
 import { fetchPostsByFilters } from "../../../store/posts/operations.js";
