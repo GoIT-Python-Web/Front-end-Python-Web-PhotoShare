@@ -15,7 +15,6 @@ export default function Filters({ location }) {
 
   const [filters, setFilters] = useState({
     keyword: "",
-    tags: [],
     from_date: null,
     to_date: null,
     rating_to: null,
@@ -61,8 +60,6 @@ export default function Filters({ location }) {
         order,
       })
     );
-
-    setIsSortingOpen(false);
   };
 
   const handleFilterChange = (newFilters) => {

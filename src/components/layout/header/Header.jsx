@@ -119,15 +119,17 @@ const Header = () => {
             ) : (
               <>
                 {!isMobilAddButton && (
-                  <Button
-                    size={isDesktopAddButton ? "sml_header" : "sm_header"}
-                    variant="primary"
-                    disabled={false}
-                    withArrow={false}
-                  >
-                    <span>Додати світлину</span>
-                    <img src={plus} width={20} height={20} alt="Plus Icon" />
-                  </Button>
+                  <Link to="/posts/create">
+                    <Button
+                      size={isDesktopAddButton ? "sml_header" : "sm_header"}
+                      variant="primary"
+                      disabled={false}
+                      withArrow={false}
+                    >
+                      <span>Додати світлину</span>
+                      <img src={plus} width={20} height={20} alt="Plus Icon" />
+                    </Button>
+                  </Link>
                 )}
 
                 <div className={css.header_user}>
@@ -136,7 +138,7 @@ const Header = () => {
                       <img
                         src={user?.img_link ?? def}
                         alt={`${user?.name}'s profile picture`}
-                        className={css.rounded}
+                        className={css.userImg}
                       />
                     </div>
                   </Link>

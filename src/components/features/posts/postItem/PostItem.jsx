@@ -23,7 +23,6 @@ export default function PostItem({ post, isMyProfile }) {
   const handleDelete = () => {
     if (isAdmin || isMyProfile) dispatch(deletePost({ id: post.id }));
   };
-  console.log(post);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -92,7 +91,7 @@ export default function PostItem({ post, isMyProfile }) {
         >
           Детальніше
         </Button>
-      ) : isAdmin ? (
+      ) : isMyProfile ? (
         <div className={css.buttonsWrapper}>
           <Button
             size={isDesktop ? "sm" : "xs"}

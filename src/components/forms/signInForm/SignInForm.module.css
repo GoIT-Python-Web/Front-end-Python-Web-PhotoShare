@@ -34,6 +34,12 @@
   color: var(--text);
   margin-bottom: 32px;
 }
+
+.error {
+  color: red;
+  font-size: 12px;
+  padding-block: 10px;
+}
 @media only screen and (min-width: 768px) {
   .form {
     width: 526px;
