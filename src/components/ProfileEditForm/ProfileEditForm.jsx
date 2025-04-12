@@ -263,11 +263,7 @@ const ProfileEditForm = ({ user }) => {
               <Button
                 size="lg"
                 variant="secondary"
-                type="button"
-                disabled={isSubmitting}
-                onClick={() => {
-                  resetForm();
-                }}
+                type="reset"
               >
                 Скинути
               </Button>
