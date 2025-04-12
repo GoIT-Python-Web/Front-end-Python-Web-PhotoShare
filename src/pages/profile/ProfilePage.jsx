@@ -49,7 +49,10 @@ export default function ProfilePage() {
         <>
           <BackButton />
           <div className={css.title}>
-            <Title location="userProfile" className={css.title} />
+            <Title
+              location={isMyProfile ? "myProfile" : "userProfile"}
+              className={css.title}
+            />
           </div>
           <UserCard
             profile={profile}

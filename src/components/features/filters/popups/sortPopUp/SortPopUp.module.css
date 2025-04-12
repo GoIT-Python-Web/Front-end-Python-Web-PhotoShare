@@ -6,7 +6,7 @@
   position: absolute;
   background: #f2f6ff;
   right: 0px;
-  top: 60px;
+  top: 80px;
   z-index: 10;
 }
 
@@ -30,4 +30,10 @@
   color: #24448a;
   width: 22px;
   height: 22px;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    top: 72.5px;
+  }
 }

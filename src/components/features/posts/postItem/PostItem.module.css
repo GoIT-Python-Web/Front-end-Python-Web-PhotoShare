@@ -1,6 +1,7 @@
 .postPic {
   height: 328px !important;
   object-fit: cover;
+  border-radius: 8px;
 }
 
 .imageWrapper {

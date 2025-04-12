@@ -89,10 +89,7 @@ export default function UserCard({ profile, isMyPage, isAdmin }) {
                 </div>
               ) : (
                 <div className={css.icons}>
-                  <p
-                    className={css.settingsParagraph}
-                    onClick={toggleRole(profile.id)}
-                  >
+                  <p className={css.settingsParagraph} onClick={toggleRole}>
                     <TbUserStar className={css.settingsIcon} />
                     Змінити Роль
                   </p>
@@ -128,33 +125,43 @@ export default function UserCard({ profile, isMyPage, isAdmin }) {
                 Дата реєстрації{" "}
                 <span>{formatDateTime(profile?.created_at, "date")}</span>
               </p>
-              {!isAdmin && isDesktop && isMyPage ? (
-                <div className={css.deskIcons}>
-                  <Link to="/profile-edit" className={css.settingsParagraph}>
-                    <LuPencil className={css.settingsIcon} />
-                    Редагувати свій профіль
-                  </Link>
-                  <p className={css.settingsParagraph} onClick={handleLogout}>
-                    <RxExit className={css.settingsIcon} />
-                    Вийти з акаунту
-                  </p>
-                </div>
-              ) : isAdmin && isDesktop ? (
-                <div className={css.deskIcons} data-label="admin">
-                  <p className={css.settingsParagraph} onClick={toggleRole}>
-                    <TbUserStar className={css.settingsIcon} />
-                    Змінити Роль
-                  </p>
-                  <p className={css.settingsParagraph}>
-                    <FiTrash2 className={css.settingsIcon} />
-                    Видалити Профіль
-                  </p>
-                  <p className={css.settingsParagraph}>
-                    <IoBan className={css.settingsIcon} />
-                    Забанити Користувача
-                  </p>
-                </div>
-              ) : null}
+              {isDesktop && (
+                <>
+                  {isMyPage ? (
+                    <div className={css.deskIcons}>
+                      <Link
+                        to="/profile-edit"
+                        className={css.settingsParagraph}
+                      >
+                        <LuPencil className={css.settingsIcon} />
+                        Редагувати свій профіль
+                      </Link>
+                      <p
+                        className={css.settingsParagraph}
+                        onClick={handleLogout}
+                      >
+                        <RxExit className={css.settingsIcon} />
+                        Вийти з акаунту
+                      </p>
+                    </div>
+                  ) : isAdmin ? (
+                    <div className={css.deskIcons} data-label="admin">
+                      <p className={css.settingsParagraph} onClick={toggleRole}>
+                        <TbUserStar className={css.settingsIcon} />
+                        Змінити Роль
+                      </p>
+                      <p className={css.settingsParagraph}>
+                        <FiTrash2 className={css.settingsIcon} />
+                        Видалити Профіль
+                      </p>
+                      <p className={css.settingsParagraph}>
+                        <IoBan className={css.settingsIcon} />
+                        Забанити Користувача
+                      </p>
+                    </div>
+                  ) : null}
+                </>
+              )}
             </div>
           </div>
           <p className={css.tabDescription}>{profile?.description}</p>

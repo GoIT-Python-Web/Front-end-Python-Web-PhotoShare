@@ -148,6 +148,27 @@ export const deleteComment = createAsyncThunk(
   }
 );
 
+export const deleteCommentAsAdmin = createAsyncThunk(
+  "comments/deleteAsAdmin",
+  async ({ id }, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const persistedToken = state.auth.token;
+
+      if (!persistedToken) {
+        return thunkAPI.rejectWithValue("Unable to fetch user");
+      }
+      setAuthHeader(persistedToken);
+      await instance.delete(`/admin/comments/${id}`);
+      return id;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        handleError(err, "Failed to delete comment as admin")
+      );
+    }
+  }
+);
+
 export const addRating = createAsyncThunk(
   "rating/add",
   async ({ id, rating }, thunkAPI) => {

@@ -3,12 +3,16 @@ import Stars from "../../../../helpers/Stars.jsx";
 import css from "./PostView.module.css";
 import { selectPost } from "../../../../store/posts/selectors.js";
 import def from "../../../../assets/images/def.png";
-import generateGoogleMapsUrl from "../../../../helpers/generateGoogleMapsUrl.jsx";
 import GoogleMapsLink from "../../../../helpers/generateGoogleMapsUrl.jsx";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import formatRating from "../../../../helpers/formatRating.js";
+import { toast } from "sonner";
+import { selectIsLoggedIn } from "../../../../store/auth/selectors.js";
 
 export default function PostView() {
   const post = useSelector(selectPost) ?? {};
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -23,7 +27,23 @@ export default function PostView() {
         {post.user && (
           <>
             <div className={css.userInfo}>
-              <Link to={`/profile/${post.user?.id}`} className={css.link}>
+              <a
+                className={css.link}
+                href={`/profile/${post.user?.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (!isLoggedIn) {
+                    toast("Щоб переглянути профіль, вам потрібно увійти.", {
+                      action: {
+                        label: "Увійти",
+                        onClick: () => navigate("/login"),
+                      },
+                    });
+                  } else {
+                    navigate(`/profile/${post.user?.id}`);
+                  }
+                }}
+              >
                 <img
                   src={post.user?.img_link ?? def}
                   alt={`${post.user?.name ?? "User"}'s profile picture`}
@@ -32,7 +52,7 @@ export default function PostView() {
                   className={css.userPhoto}
                 />
                 <p>{post.user?.name}</p>
-              </Link>
+              </a>
               <p className={css.location}>
                 {post.location && <GoogleMapsLink location={post.location} />}
               </p>
@@ -47,7 +67,8 @@ export default function PostView() {
               <Stars rating={post.avg_rating} id={post.id} post="true" />
             </>
             <p className={css.ratingText}>
-              {post.rating} ({post.rating_count} оцінок)
+              {post.rating} ({post.rating_count}{" "}
+              {formatRating(post.rating_count)})
             </p>
           </div>
         </div>

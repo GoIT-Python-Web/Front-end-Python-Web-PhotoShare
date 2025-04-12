@@ -75,15 +75,18 @@ const PopupMenuIsNotLogined = ({
               Світлини
             </Link>
           </li>
-          <li className={css.popup_list_item}>
-            <Link
-              to={`profile/${user?.id}`}
-              className={css.popup_list_item_link}
-              onClick={onClose}
-            >
-              Мій профіль
-            </Link>
-          </li>
+          {isLoggedIn && (
+            <li className={css.popup_list_item}>
+              <Link
+                to={`profile/${user?.id}`}
+                className={css.popup_list_item_link}
+                onClick={onClose}
+              >
+                Мій профіль
+              </Link>
+            </li>
+          )}
+
           <li className={css.popup_list_item}>
             <Link
               to="/about"
