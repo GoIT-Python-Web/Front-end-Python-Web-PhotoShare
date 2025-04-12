@@ -1,7 +1,8 @@
 .popup {
   position: absolute;
   top: 0;
-  width: 328px;
+  left: 0;
+  min-width: 360px;
   height: 356px;
   z-index: 100;
   border-radius: 8px;

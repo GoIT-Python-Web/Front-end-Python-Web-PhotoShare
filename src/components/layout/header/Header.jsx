@@ -47,18 +47,24 @@ const Header = () => {
     <header className={css.header}>
       <div className={`container ${css.header_container}`}>
         <Logo />
-        {isOpen && (
+        {isOpen && isLoggedIn && (
           <PopupMenuIsLogined
             menuIsOpen={menuIsOpen}
             onClose={menuIsClose}
             isLoggedIn={true}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            handleSearch={handleSearch}
           />
         )}
-        {isOpen && (
+        {isOpen && !isLoggedIn && (
           <PopupMenuIsNotLogined
             menuIsOpen={menuIsOpen}
             onClose={menuIsClose}
-            isLoggedIn={false}
+            isLoggedIn={true}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            handleSearch={handleSearch}
           />
         )}
         <div className={css.header_wrap}>

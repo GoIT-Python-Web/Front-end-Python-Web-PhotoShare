@@ -59,7 +59,11 @@ const PopupMenuIsNotLogined = ({ menuIsOpen, onClose }) => {
       <div className={css.popup_wrap}>
         <ul className={css.popup_list}>
           <li className={css.popup_list_item}>
-            <Link to="/posts" className={css.popup_list_item_link}>
+            <Link
+              to="/posts"
+              className={css.popup_list_item_link}
+              onClick={onClose}
+            >
               Світлини
             </Link>
           </li>
@@ -67,12 +71,17 @@ const PopupMenuIsNotLogined = ({ menuIsOpen, onClose }) => {
             <Link
               to={`profile/${user?.id}`}
               className={css.popup_list_item_link}
+              onClick={onClose}
             >
               Мій профіль
             </Link>
           </li>
           <li className={css.popup_list_item}>
-            <Link to="/about" className={css.popup_list_item_link}>
+            <Link
+              to="/about"
+              className={css.popup_list_item_link}
+              onClick={onClose}
+            >
               Про нас
             </Link>
           </li>
@@ -88,6 +97,7 @@ const PopupMenuIsNotLogined = ({ menuIsOpen, onClose }) => {
             <div className={css.wrap_register_link}>
               <div className={css.arrows_wrap}>
                 <RiArrowRightWideLine className={css.register_icon} />
+
                 {/* <RiArrowRightWideLine className={css.register_icon} /> */}
               </div>
               <span>Зареєструватись</span>
