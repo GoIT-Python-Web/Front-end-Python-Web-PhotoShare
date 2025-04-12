@@ -19,6 +19,7 @@ import {
 } from "../../../../store/users/selectors";
 import { searchUsers } from "../../../../store/users/operations";
 import { setCurrentPage, setFilters } from "../../../../store/users/slice";
+import Loader from "../../../common/loader/Loader";
 
 const usersPerPage = 8;
 
@@ -72,9 +73,14 @@ const UsersContainer = () => {
   const width = useWindowWidth();
   const buttonSize = width < 768 ? "xs" : width < 1440 ? "xl" : "md";
 
+  const usersToDisplay = users.slice(
+    currentPage * usersPerPage,
+    (currentPage + 1) * usersPerPage
+  );
+
   return (
     <div className={s.wrapper}>
-      {isLoading && <div>Завантаження...</div>}
+      {isLoading && <Loader />}
       {error && <div>Сталася помилка: {error}</div>}
 
       <div className={s.searchContainer}>
@@ -147,7 +153,7 @@ const UsersContainer = () => {
       </div>
 
       <div className={s.userListWrapper}>
-        <UserList users={users} onDelete={handleDeleteClick} />
+        <UserList users={usersToDisplay} onDelete={handleDeleteClick} />
       </div>
 
       <div className={s.pagination}>
