@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import css from "./PopupMenuIsLogined.module.css";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { selectUser } from "../../../../../store/auth/selectors";
+import { logout } from "../../../../../store/auth/slice.js";
 import Button from "../../../../common/buttons/Button";
 import close from "../../../../../assets/images/Header/close@2x.png";
 import def from "../../../../../assets/images/def.png";
@@ -11,7 +12,7 @@ import plus from "../../../../../assets/images/Header/plus@2x.png";
 import star_settings from "../../../../../assets/icons/star_settings.svg";
 import { LuSearch } from "react-icons/lu";
 import { GrLogout } from "react-icons/gr";
-import { FiEdit2 } from "react-icons/fi";
+import { LuPencil } from "react-icons/lu";
 
 const PopupMenuIsLogined = ({
   menuIsOpen,
@@ -36,6 +37,14 @@ const PopupMenuIsLogined = ({
   if (!menuIsOpen) {
     return null;
   }
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/posts");
+    dispatch(logout());
+  };
 
   const user = useSelector(selectUser);
   const isMobilAddButton = useMediaQuery({ maxWidth: 767 });
@@ -78,11 +87,11 @@ const PopupMenuIsLogined = ({
         </div>
         <div className={css.popup_user_buttons}>
           <Link to="/profile-edit" onClick={onClose}>
-            <FiEdit2 className={css.edit_icon} />
+            <LuPencil className={css.edit_icon} />
           </Link>
-          <Link to="logout" onClick={onClose}>
+          <p className={css.logout_wrap} onClick={handleLogout}>
             <GrLogout className={css.logout_icon} />
-          </Link>
+          </p>
         </div>
       </div>
 

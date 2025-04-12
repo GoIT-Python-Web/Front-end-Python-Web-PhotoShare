@@ -31,6 +31,12 @@
   background: transparent;
   border: none;
 }
+.close_btn_icon {
+  transition: all 0.5s ease;
+}
+.close_btn_icon:hover {
+  transform: rotate(180deg);
+}
 .popup_user_wrap {
   display: flex;
   align-items: center;
@@ -82,11 +88,20 @@
   align-items: center;
   column-gap: 16px;
 }
+.logout_wrap {
+  cursor: pointer;
+}
 .edit_icon,
 .logout_icon {
   width: 24px;
   height: 24px;
   color: var(--additional-text);
+  transition: all 0.3s ease;
+}
+.edit_icon:hover,
+.logout_icon:hover {
+  /* color: var(--button-hover); */
+  transform: scale(1.2);
 }
 .popup_addbtn_wrap {
   margin-bottom: 24px;
@@ -169,6 +184,7 @@
   font-size: 18px;
   line-height: 1.5;
   color: var(--additional-text);
+  transition: all 0.3s ease;
 }
 .popup_list_item_link:hover {
   text-shadow: 0 0 1px var(--additional-text);
