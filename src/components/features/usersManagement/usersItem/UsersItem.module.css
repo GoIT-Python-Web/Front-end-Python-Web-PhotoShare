@@ -1,17 +1,18 @@
 .userItemContainer {
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   justify-content: space-between;
   padding: 0;
 }
-
+.mobileWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
 .settingsSection {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 11px;
-  flex: 1;
 }
 
 .profileImageContainer {
@@ -23,6 +24,7 @@
   align-items: center;
   justify-content: center;
   background-color: #ccc;
+  margin-right: 16px;
 }
 
 .profileImage {
@@ -43,7 +45,7 @@
 
 .mobilEmailSection {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 
 .profileInfo {
@@ -67,6 +69,7 @@
 }
 
 .timestampSection {
+  font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: 1.34;
@@ -84,10 +87,14 @@
   height: 16px;
   background: none;
   border: none;
-  stroke: #24448a;
   cursor: pointer;
   padding: 0;
 }
+
+.admIcon {
+  stroke: #24448a;
+}
+
 .dotsOnlyMobile svg {
   width: 22px;
   height: 32px;
@@ -95,20 +102,16 @@
 
 .iconButton {
   padding: 0;
-  /* width: 24px;
-  height: 24px; */
   background: none;
   border: none;
   cursor: pointer;
-  fill: #24448a;
-  stroke: #24448a;
   display: none;
 }
 .pickname {
+  width: 120px;
   display: flex;
-  gap: 11px;
+  justify-content: space-between;
   align-items: center;
-  flex: 1;
 }
 
 .modalContent {
@@ -128,6 +131,8 @@
 .mobileContainer {
   display: flex;
   flex-direction: column;
+  gap: 8px;
+  justify-content: center;
 }
 
 .customUserModal {
@@ -149,8 +154,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  stroke: #24448a;
-  color: #24448a;
   background: none;
   border: none;
   cursor: pointer;
@@ -177,37 +180,49 @@
 
 @media screen and (min-width: 768px) {
   .iconButton {
-    display: inline-block;
+    display: flex;
+    color: #24448a;
   }
   .mobileContainer {
     flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    gap: 22px;
   }
 
   .dotsOnlyMobile {
     display: none;
   }
 
+  .mobileWrapper {
+    gap: 24px;
+    align-items: center;
+  }
+
   .actionIcon {
     display: inline-block;
+    color: #24448a;
   }
-  .userItemContainer {
-    justify-content: center;
-    gap: 24px;
-    flex: 1;
+  .admIcon {
+    width: 24px;
+    height: 24px;
+    color: #24448a;
   }
   .settingsSection {
     justify-content: flex-start;
   }
   .pickname {
     flex: none;
-    gap: 24px;
-    flex: 1;
+    width: 130px;
+    /* gap: 24px;
+    flex: 1; */
   }
   .mobilEmailSection {
     display: flex;
     flex-direction: row;
-    gap: 24px;
-    flex: 1;
+    width: 300px;
+    justify-content: space-between;
+    /* flex: 1; */
   }
   .actionsSection {
     gap: 15px;
@@ -219,6 +234,7 @@
   .profileImageContainer {
     width: 86px;
     height: 85px;
+    margin: 0;
   }
   .profileName {
     font-size: 18px;
@@ -226,12 +242,31 @@
   }
   .emailSection {
     font-size: 12px;
+    font-weight: 500;
+    font-family: "Montserrat", sans-serif;
   }
   .timestampSection {
-    width: 90px;
+    min-width: 120px;
+    font-weight: 500;
   }
   .icons {
     width: 32px;
     height: 32px;
+    color: #24448a;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .userItemContainer {
+    border-bottom: 1px solid #24448a;
+    padding-bottom: 8px;
+  }
+
+  .profileName {
+    font-weight: 600;
+    font-size: 20px;
+  }
+  .mobileWrapper {
+    gap: 24px;
   }
 }

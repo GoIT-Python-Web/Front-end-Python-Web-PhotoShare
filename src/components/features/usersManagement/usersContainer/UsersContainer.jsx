@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Input from "../../../common/inputs/Input";
 import Button from "../../../common/buttons/Button";
 import UserList from "../usersList/UsersList";
@@ -131,23 +131,23 @@ const UsersContainer = () => {
             </button>
           </div>
           <UsersFilters
-            sortBy={filters.sort_by}
-            sortOrder={filters.sort_order}
-            regDateFrom={filters.reg_date_from}
-            regDateTo={filters.reg_date_to}
-            setSortBy={(sortBy) =>
-              dispatch(setFilters({ ...filters, sort_by: sortBy }))
-            }
-            setSortOrder={(sortOrder) =>
-              dispatch(setFilters({ ...filters, sort_order: sortOrder }))
-            }
-            setRegDateFrom={(regDateFrom) =>
-              dispatch(setFilters({ ...filters, reg_date_from: regDateFrom }))
-            }
-            setRegDateTo={(regDateTo) =>
-              dispatch(setFilters({ ...filters, reg_date_to: regDateTo }))
-            }
-            resetPage={() => dispatch(setCurrentPage(0))}
+          // sortBy={filters.sort_by}
+          // sortOrder={filters.sort_order}
+          // regDateFrom={filters.reg_date_from}
+          // regDateTo={filters.reg_date_to}
+          // setSortBy={(sortBy) =>
+          //   dispatch(setFilters({ ...filters, sort_by: sortBy }))
+          // }
+          // setSortOrder={(sortOrder) =>
+          //   dispatch(setFilters({ ...filters, sort_order: sortOrder }))
+          // }
+          // setRegDateFrom={(regDateFrom) =>
+          //   dispatch(setFilters({ ...filters, reg_date_from: regDateFrom }))
+          // }
+          // setRegDateTo={(regDateTo) =>
+          //   dispatch(setFilters({ ...filters, reg_date_to: regDateTo }))
+          // }
+          // resetPage={() => dispatch(setCurrentPage(0))}
           />
         </div>
       </div>

@@ -10,5 +10,6 @@
 }
 @media screen and (min-width: 1440px) {
   .userList {
+    gap: 16px;
   }
 }

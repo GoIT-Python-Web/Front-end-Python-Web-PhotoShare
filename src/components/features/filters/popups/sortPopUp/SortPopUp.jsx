@@ -24,7 +24,7 @@ export default function SortPopUp({ buttonRef, onClose, onSortChange }) {
   };
 
   return (
-    <div className={css.wrapper} ref={modalRef}>
+    <div className={`${css.wrapper} ${css.userWrapper}`} ref={modalRef}>
       <p
         onClick={() => handleSort("asc")}
         className={order === "asc" ? css.active : ""}

@@ -11,12 +11,20 @@
 } */
 
 @media screen and (min-width: 768px) {
+  .usersWrapper {
+    margin-top: 46px;
+  }
+
   .title {
     margin-top: 46px;
   }
 }
 @media screen and (min-width: 1440px) {
+  .usersWrapper {
+    margin-top: 58px;
+  }
+
   .title {
-    /* margin-top: 56px; */
+    margin-top: 68px;
   }
 }

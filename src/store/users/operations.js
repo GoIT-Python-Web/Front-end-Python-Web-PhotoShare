@@ -1,26 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance, handleError, setAuthHeader } from "../init.js";
 
-// // GET /admin/users
-// export const fetchUsers = createAsyncThunk(
-//   "users/fetchAll",
-//   async (_, thunkAPI) => {
-//     try {
-//       const state = thunkAPI.getState();
-//       const token = state.auth.token;
-//       if (!token) return thunkAPI.rejectWithValue("No token");
-//       setAuthHeader(token);
-
-//       const { data } = await instance.get("/admin/users");
-//       return data;
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(
-//         handleError(err, "Не вдалося отримати список користувачів")
-//       );
-//     }
-//   }
-// );
-
 // PUT /admin/users/{user_id}/ban
 export const banUser = createAsyncThunk(
   "users/ban",

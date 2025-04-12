@@ -54,10 +54,10 @@ export default function UsersFilters() {
   };
 
   return (
-    <div className={css.wrapper}>
+    <div className={css.userFillWrap}>
       <button
         ref={datePickerButtonRef}
-        className={css.filterItem}
+        className={css.filterItems}
         onClick={handleDatePickerClick}
       >
         <LuCalendarDays className={css.dateIcon} />
