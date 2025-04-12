@@ -1,45 +1,41 @@
 .logoBox {
+  display: flex;
+}
+.sign {
   display: none;
+}
+.link {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  text-decoration: none;
+  font-family: var(--third-family);
+  font-weight: 600;
+  font-size: 24px;
+  color: var(--additional-text);
+  line-height: 1;
+  height: 100%;
+  padding: 0;
+}
+.headerLogo {
+  width: 28px;
+  height: 28px;
+}
+.title {
+  font-family: var(--third-family);
+  font-weight: 600;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 @media only screen and (min-width: 768px) {
-  .logoBox {
-    display: flex;
-  }
-  .sign {
-    display: none;
-  }
-  .link {
-    display: flex;
-    align-items: center;
-    column-gap: 8px;
-    text-decoration: none;
-    font-family: var(--third-family);
-    font-weight: 600;
-    font-size: 24px;
-    color: var(--additional-text);
-    line-height: 1;
-    height: 100%;
-    padding: 0;
-  }
   .headerLogo {
-    width: 28px;
-    height: 28px;
-  }
-  .title {
-    font-family: var(--third-family);
-    font-weight: 600;
-    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  }
-  .headerTitle {
-    font-size: 25px;
-    color: #fdfdfd;
+    width: 27px;
+    height: 27px;
   }
 }
 
 @media only screen and (min-width: 1440px) {
   .logoBox {
-    display: flex;
     align-items: center;
   }
   .header_footer {

@@ -3,9 +3,16 @@ import Stars from "../../../../helpers/Stars.jsx";
 import css from "./PostView.module.css";
 import { selectPost } from "../../../../store/posts/selectors.js";
 import def from "../../../../assets/images/def.png";
+import GoogleMapsLink from "../../../../helpers/generateGoogleMapsUrl.jsx";
+import { useNavigate } from "react-router-dom";
+import formatRating from "../../../../helpers/formatRating.js";
+import { toast } from "sonner";
+import { selectIsLoggedIn } from "../../../../store/auth/selectors.js";
 
 export default function PostView() {
   const post = useSelector(selectPost) ?? {};
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -20,27 +27,35 @@ export default function PostView() {
         {post.user && (
           <>
             <div className={css.userInfo}>
-              <img
-                src={post.user?.img_link ?? def}
-                alt={`${post.user?.name ?? "User"}'s profile picture`}
-                width={38}
-                height={38}
-                className={css.userPhoto}
-              />
-              <p>{post.user?.name}</p>
-
-              {post.location && (
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                    post.location
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={css.location}
-                >
-                  {post.location}
-                </a>
-              )}
+              <a
+                className={css.link}
+                href={`/profile/${post.user?.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (!isLoggedIn) {
+                    toast("Щоб переглянути профіль, вам потрібно увійти.", {
+                      action: {
+                        label: "Увійти",
+                        onClick: () => navigate("/login"),
+                      },
+                    });
+                  } else {
+                    navigate(`/profile/${post.user?.id}`);
+                  }
+                }}
+              >
+                <img
+                  src={post.user?.img_link ?? def}
+                  alt={`${post.user?.name ?? "User"}'s profile picture`}
+                  width={38}
+                  height={38}
+                  className={css.userPhoto}
+                />
+                <p>{post.user?.name}</p>
+              </a>
+              <p className={css.location}>
+                {post.location && <GoogleMapsLink location={post.location} />}
+              </p>
             </div>
           </>
         )}
@@ -49,10 +64,11 @@ export default function PostView() {
           <p className={css.title}>{post.title}</p>
           <div className={css.rating}>
             <>
-              <Stars rating={post.avg_rating} id={post.id} />
+              <Stars rating={post.avg_rating} id={post.id} post="true" />
             </>
             <p className={css.ratingText}>
-              {post.rating} ({post.rating_count} оцінок)
+              {post.rating} ({post.rating_count}{" "}
+              {formatRating(post.rating_count)})
             </p>
           </div>
         </div>

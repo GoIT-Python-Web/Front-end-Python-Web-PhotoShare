@@ -7,7 +7,7 @@ import {
 } from "../../../../store/posts/selectors.js";
 import Loader from "../../../common/loader/Loader.jsx";
 
-export default function UserGallery() {
+export default function UserGallery({ isMyProfile }) {
   const posts = useSelector(selectPersonalPosts);
   const isLoading = useSelector(selectIsLoading);
 
@@ -21,7 +21,11 @@ export default function UserGallery() {
           )}
         </div>
       </div>
-      {!isLoading ? <PostsList posts={posts} /> : <Loader />}
+      {!isLoading ? (
+        <PostsList posts={posts} isMyProfile={isMyProfile} />
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 }

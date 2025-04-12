@@ -8,11 +8,16 @@ import {
 } from "../../../../store/posts/selectors.js";
 import { useState } from "react";
 import { sendComment } from "../../../../store/posts/operations.js";
+import { selectIsLoggedIn } from "../../../../store/auth/selectors.js";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 export default function PostComments() {
   const dispatch = useDispatch();
   const post = useSelector(selectPost);
   const comments = useSelector(selectComments);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const navigate = useNavigate();
 
   const [commentText, setCommentText] = useState("");
 
@@ -36,7 +41,21 @@ export default function PostComments() {
           value={commentText}
           onChange={handleChange}
         />
-        <PiPaperPlaneTiltBold className={css.send} onClick={handleSubmit} />
+        <PiPaperPlaneTiltBold
+          className={css.send}
+          onClick={() => {
+            if (isLoggedIn) {
+              handleSubmit();
+            } else {
+              toast("Щоб надсилати коментарі вам потрібно увійти.", {
+                action: {
+                  label: "Увійти",
+                  onClick: () => navigate("/login"),
+                },
+              });
+            }
+          }}
+        />
       </div>
       <CommentsList comments={comments} />
     </div>

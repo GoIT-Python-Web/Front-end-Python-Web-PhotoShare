@@ -5,10 +5,28 @@
   gap: 24px;
 }
 
+.li {
+  width: 328px;
+}
+
 .buttons {
   margin-top: 40px;
   display: flex;
   justify-content: space-between;
+}
+
+.no {
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no > p {
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+  color: #132d62;
 }
 
 @media screen and (min-width: 768px) {
@@ -17,11 +35,24 @@
     flex-direction: row;
     flex-wrap: wrap;
   }
+  .li {
+    width: 336px;
+    height: 659px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
 }
 
 @media screen and (min-width: 1440px) {
   .list {
     margin-top: 60px;
+  }
+  .li {
+    width: 416px;
+    height: 723px;
   }
   .buttons {
     justify-content: center;

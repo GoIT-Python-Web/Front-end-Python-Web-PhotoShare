@@ -70,28 +70,63 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+export const fetchUserById = createAsyncThunk(
+  "auth/fetchUser",
+  async (id, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+
+      if (!token) {
+        return thunkAPI.rejectWithValue("Користувач не авторизований");
+      }
+
+      setAuthHeader(token);
+      const { data } = await instance.get(`/users/${id}`);
+      return data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        handleError(err, "Не вдалося оновити дані користувача")
+      );
+    }
+  }
+);
+
 export const refreshTokens = createAsyncThunk(
   "auth/refreshTokens",
   async (_, thunkAPI) => {
     try {
       const state = thunkAPI.getState();
       const refreshToken = state.auth.refreshToken;
-      console.log(refreshToken);
-      console.log("trying");
       if (!refreshToken) {
         return thunkAPI.rejectWithValue("No refresh token available");
       }
       setAuthHeader(refreshToken);
-      console.log(refreshToken);
       const { data } = await instance.post("/refresh", {
         refresh_token: refreshToken,
       });
       thunkAPI.dispatch(updateTokens(data));
-      console.log("response" + data.access_token);
       return data.access_token;
     } catch (err) {
-      console.log(err);
       return thunkAPI.rejectWithValue("Failed to refresh tokens");
     }
   }
 );
+
+export const logout = createAsyncThunk("auth/signout", async (_, thunkAPI) => {
+  try {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
+
+    if (!token) {
+      return thunkAPI.rejectWithValue("Користувач не авторизований");
+    }
+
+    setAuthHeader(token);
+    await instance.post(`/logout`);
+  } catch (err) {
+    return thunkAPI.rejectWithValue(
+      handleError(err, "Не вдалося оновити дані користувача")
+    );
+  }
+});

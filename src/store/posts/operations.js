@@ -39,16 +39,14 @@ export const fetchMyPosts = createAsyncThunk(
 export const fetchPostsByFilters = createAsyncThunk(
   "posts/fetchByFilters",
   async (filters, thunkAPI) => {
-    const { keyword, tags, from_date, to_date, rating_to, sort_by, order } =
-      filters;
+    const { keyword, from_date, to_date, exact_star, sort_by, order } = filters;
 
     const queryParams = new URLSearchParams();
 
     if (keyword) queryParams.append("keyword", keyword);
-    if (tags) queryParams.append("tags", tags.join(","));
     if (from_date) queryParams.append("from_date", from_date);
     if (to_date) queryParams.append("to_date", to_date);
-    if (rating_to) queryParams.append("rating_to", rating_to);
+    if (exact_star) queryParams.append("exact_star", exact_star);
     if (sort_by) queryParams.append("sort_by", sort_by);
     if (order) queryParams.append("order", order);
     console.log(queryParams.toString());
@@ -74,6 +72,20 @@ export const fetchPostById = createAsyncThunk(
     } catch (err) {
       return thunkAPI.rejectWithValue(
         handleError(err, "Failed to fetch post by id")
+      );
+    }
+  }
+);
+
+export const deletePost = createAsyncThunk(
+  "posts/delete",
+  async ({ id }, thunkAPI) => {
+    try {
+      await instance.delete(`/posts/${id}`);
+      return id;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        handleError(err, "Failed to fetch delete post")
       );
     }
   }
@@ -132,6 +144,27 @@ export const deleteComment = createAsyncThunk(
     } catch (err) {
       return thunkAPI.rejectWithValue(
         handleError(err, "Failed to delete comment")
+      );
+    }
+  }
+);
+
+export const deleteCommentAsAdmin = createAsyncThunk(
+  "comments/deleteAsAdmin",
+  async ({ id }, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const persistedToken = state.auth.token;
+
+      if (!persistedToken) {
+        return thunkAPI.rejectWithValue("Unable to fetch user");
+      }
+      setAuthHeader(persistedToken);
+      await instance.delete(`/admin/comments/${id}`);
+      return id;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        handleError(err, "Failed to delete comment as admin")
       );
     }
   }

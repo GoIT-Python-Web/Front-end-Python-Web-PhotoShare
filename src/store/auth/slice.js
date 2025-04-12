@@ -1,10 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { registerUser, loginUser, getUser, refreshTokens } from "./operations";
+import {
+  registerUser,
+  loginUser,
+  getUser,
+  refreshTokens,
+  fetchUserById,
+} from "./operations";
 import { handlePending, handleRejected } from "../init.js";
 import { updateUser } from "./operations.js";
+import { toggleUserRole } from "../users/operations.js";
 
 const initialState = {
   user: null,
+  profile: null,
   token: null,
   refreshToken: null,
   isLoggedIn: false,
@@ -21,7 +29,11 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.user = null;
+      state.token = null;
       state.isLoggedIn = false;
+    },
+    clearProfile: (state) => {
+      state.profile = null;
     },
   },
   extraReducers: (builder) => {
@@ -83,9 +95,23 @@ const authSlice = createSlice({
       .addCase(updateUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(fetchUserById.pending, handlePending)
+      .addCase(fetchUserById.fulfilled, (state, action) => {
+        state.profile = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(toggleUserRole.fulfilled, (state) => {
+        if (state.profile) {
+          state.profile.type =
+            state.profile.type === "admin" ? "user" : "admin";
+        } else {
+          state.user.type === "admin" ? "user" : "admin";
+        }
+        state.isLoading = false;
       });
   },
 });
 
-export const { updateTokens, logout } = authSlice.actions;
+export const { updateTokens, logout, clearProfile } = authSlice.actions;
 export const authReducer = authSlice.reducer;

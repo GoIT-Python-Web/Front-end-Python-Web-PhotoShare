@@ -7,6 +7,8 @@ import {
   sendComment,
   fetchPostsByFilters,
   fetchMyPosts,
+  deletePost,
+  deleteCommentAsAdmin,
 } from "./operations";
 import { handlePending, handleRejected } from "../init.js";
 
@@ -55,6 +57,17 @@ const postSlice = createSlice({
         state.error = null;
         state.isLoading = false;
       })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        if (state.personalPosts) {
+          state.personalPosts = state.personalPosts.filter(
+            (post) => post.id !== action.payload
+          );
+        } else {
+          state.posts = state.posts.filter(
+            (post) => post.id !== action.payload
+          );
+        }
+      })
       .addCase(sendComment.fulfilled, (state, action) => {
         state.comments.push(action.payload);
         state.error = null;
@@ -77,7 +90,16 @@ const postSlice = createSlice({
           (comment) => comment.id !== action.payload
         );
       })
-      .addCase(deleteComment.rejected, handleRejected);
+      .addCase(deleteComment.rejected, handleRejected)
+      .addCase(deleteCommentAsAdmin.pending, handlePending)
+      .addCase(deleteCommentAsAdmin.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.comments = state.comments.filter(
+          (comment) => comment.id !== action.payload
+        );
+      })
+      .addCase(deleteCommentAsAdmin.rejected, handleRejected);
   },
 });
 

@@ -54,6 +54,12 @@
   color: #697a9e;
 }
 
+.link {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .description {
   font-weight: 400;
   font-size: 14px;
@@ -84,7 +90,9 @@
   .image {
     width: 696px;
     height: 504px;
+    object-fit: fill;
   }
+
   .userInfo img {
     width: 38px;
     height: 38px;
@@ -111,6 +119,7 @@
   .image {
     width: 636px;
     height: 636px;
+    object-fit: cover;
   }
 
   .credentials {
