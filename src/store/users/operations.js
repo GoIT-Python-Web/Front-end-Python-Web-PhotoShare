@@ -50,3 +50,22 @@ export const toggleUserRole = createAsyncThunk(
     }
   }
 );
+
+export const updateUser = createAsyncThunk(
+  "auth/updateUser",
+  async (formData, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+      if (!token) return thunkAPI.rejectWithValue("No token");
+      setAuthHeader(token);
+
+      const { data } = await instance.put("/users/edit_profile", formData);
+      return data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        handleError(err, "Не вдалося оновити профіль")
+      );
+    }
+  }
+);
