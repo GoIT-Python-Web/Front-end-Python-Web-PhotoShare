@@ -97,7 +97,6 @@ const PopupMenuIsNotLogined = ({ menuIsOpen, onClose }) => {
             <div className={css.wrap_register_link}>
               <div className={css.arrows_wrap}>
                 <RiArrowRightWideLine className={css.register_icon} />
-
                 {/* <RiArrowRightWideLine className={css.register_icon} /> */}
               </div>
               <span>Зареєструватись</span>
