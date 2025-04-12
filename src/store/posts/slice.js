@@ -8,6 +8,9 @@ import {
   fetchPostsByFilters,
   fetchMyPosts,
   deletePost,
+  createPost,
+  uploadFilteredImage,
+  generateQrCode,
 } from "./operations";
 import { handlePending, handleRejected } from "../init.js";
 
@@ -89,7 +92,29 @@ const postSlice = createSlice({
           (comment) => comment.id !== action.payload
         );
       })
-      .addCase(deleteComment.rejected, handleRejected);
+      .addCase(deleteComment.rejected, handleRejected)
+
+      .addCase(createPost.pending, handlePending)
+      .addCase(createPost.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.personalPosts.unshift(action.payload);
+      })
+      .addCase(createPost.rejected, handleRejected)
+
+      .addCase(uploadFilteredImage.pending, handlePending)
+      .addCase(uploadFilteredImage.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(uploadFilteredImage.rejected, handleRejected)
+
+      .addCase(generateQrCode.pending, handlePending)
+      .addCase(generateQrCode.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(generateQrCode.rejected, handleRejected);
   },
 });
 
