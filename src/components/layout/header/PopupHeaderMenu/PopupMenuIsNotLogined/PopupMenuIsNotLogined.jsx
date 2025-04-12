@@ -11,7 +11,13 @@ import { GrLogout } from "react-icons/gr";
 import { RiArrowRightWideLine } from "react-icons/ri";
 import css from "./PopupMenuIsNotLogined.module.css";
 
-const PopupMenuIsNotLogined = ({ menuIsOpen, onClose }) => {
+const PopupMenuIsNotLogined = ({
+  menuIsOpen,
+  onClose,
+  searchValue,
+  setSearchValue,
+  handleSearch,
+}) => {
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {
@@ -48,11 +54,11 @@ const PopupMenuIsNotLogined = ({ menuIsOpen, onClose }) => {
           className={css.popup_search}
           type="text"
           placeholder="Пошук..."
-          // value={searchValue}
-          // onChange={(e) => setSearchValue(e.target.value)}
-          // onKeyDown={(e) => {
-          //   if (e.key === "Enter") handleSearch();
-          // }}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSearch();
+          }}
         />
         <LuSearch className={css.popup_search_icon} />
       </div>
