@@ -23,8 +23,8 @@ export default function UserCard({ profile, isMyPage, isAdmin }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch(logout());
     navigate("/posts");
+    dispatch(logout());
   };
 
   const toggleRole = () => {

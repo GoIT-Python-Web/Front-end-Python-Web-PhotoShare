@@ -5,8 +5,9 @@ import { loginValidationSchema } from "../../../validation/authSchemas.js";
 import Input from "../../common/inputs/Input.jsx";
 import Button from "../../common/buttons/Button.jsx";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUser, loginUser } from "../../../store/auth/operations.js";
+import { selectError } from "../../../store/auth/selectors.js";
 
 const INITIALS_VALUES = {
   username: "",
@@ -14,6 +15,8 @@ const INITIALS_VALUES = {
 };
 
 const SignInForm = ({ onSwitch }) => {
+  const error = useSelector(selectError);
+
   const dispatch = useDispatch();
   return (
     <div className={css.container}>
@@ -51,6 +54,9 @@ const SignInForm = ({ onSwitch }) => {
                 />
               )}
             </Field>
+            {error?.includes("400") && (
+              <p className={css.error}>Юзернейм або пароль невірний</p>
+            )}
             <Button
               size="fs"
               variant="primary"
