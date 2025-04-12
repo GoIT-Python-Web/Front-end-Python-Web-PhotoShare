@@ -1,9 +1,11 @@
 .wrapper {
   position: relative;
+  /* display: flex; */
 }
 
 .searchContainer {
   display: flex;
+  flex-direction: column;
   margin-top: 37px;
   margin-bottom: 58px;
   justify-content: space-between;
@@ -18,16 +20,31 @@
   top: 40%;
   transform: translateY(-50%);
   pointer-events: none;
-  font-size: 20px;
-  stroke: #24448a;
 }
-.statusIcon {
-  pointer-events: none;
-  font-size: 20px;
-  stroke: #24448a;
+
+.statusButton {
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid #697a9e;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.statusIcons {
+  margin-left: 6px;
+}
+
+.iconButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
 .statusFilter {
-  display: none;
+  display: flex;
+  gap: 10px;
 }
 .userListWrapper {
   margin-bottom: 58px;
@@ -39,19 +56,18 @@
   margin-bottom: 56px;
 }
 .searchInput::placeholder {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.4;
+  font-weight: 275;
+  font-size: 12px;
+  line-height: 1.34;
   letter-spacing: 0em;
-  color: #24448a;
+  color: #697a9e;
 }
 .searchInput {
-  border: 0.6px solid #697a9e;
+  border: 1px solid #697a9e;
   border-radius: 8px;
   padding: 10px 16px;
-  width: 216px;
+  width: 328px;
   height: 40px;
-  font-size: 16px;
 }
 
 .searchInput:nth-child(1) {

@@ -1,25 +1,25 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance, handleError, setAuthHeader } from "../init.js";
 
-// GET /admin/users
-export const fetchUsers = createAsyncThunk(
-  "users/fetchAll",
-  async (_, thunkAPI) => {
-    try {
-      const state = thunkAPI.getState();
-      const token = state.auth.token;
-      if (!token) return thunkAPI.rejectWithValue("No token");
-      setAuthHeader(token);
+// // GET /admin/users
+// export const fetchUsers = createAsyncThunk(
+//   "users/fetchAll",
+//   async (_, thunkAPI) => {
+//     try {
+//       const state = thunkAPI.getState();
+//       const token = state.auth.token;
+//       if (!token) return thunkAPI.rejectWithValue("No token");
+//       setAuthHeader(token);
 
-      const { data } = await instance.get("/admin/users");
-      return data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(
-        handleError(err, "Не вдалося отримати список користувачів")
-      );
-    }
-  }
-);
+//       const { data } = await instance.get("/admin/users");
+//       return data;
+//     } catch (err) {
+//       return thunkAPI.rejectWithValue(
+//         handleError(err, "Не вдалося отримати список користувачів")
+//       );
+//     }
+//   }
+// );
 
 // PUT /admin/users/{user_id}/ban
 export const banUser = createAsyncThunk(
@@ -69,7 +69,11 @@ export const searchUsers = createAsyncThunk(
         params.append("reg_date_from", filters.reg_date_from);
       if (filters.reg_date_to)
         params.append("reg_date_to", filters.reg_date_to);
-      if (filters.sort_by) params.append("sort_by", filters.sort_by);
+      if (filters.sort_by)
+        params.append(
+          "sort_by",
+          filters.sort_by === "date" ? "registration_date" : filters.sort_by
+        );
       if (filters.sort_order) params.append("sort_order", filters.sort_order);
 
       const { data } = await instance.get(
