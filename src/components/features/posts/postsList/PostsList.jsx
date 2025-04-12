@@ -37,7 +37,9 @@ export default function PostsList({ posts, isMyProfile }) {
         <>
           <ul className={css.list}>
             {currentPosts.map((post, i) => (
-              <PostItem key={i} post={post} isMyProfile={isMyProfile} />
+              <li key={i} className={css.li}>
+                <PostItem post={post} isMyProfile={isMyProfile} />
+              </li>
             ))}
           </ul>
 

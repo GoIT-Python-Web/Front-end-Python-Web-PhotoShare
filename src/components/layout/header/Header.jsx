@@ -76,11 +76,14 @@ const Header = () => {
                 Світлини
               </Link>
             </li>
-            <li className={css.header_list_item}>
-              <Link to={`profile/${user?.id}`} className={css.item_link}>
-                Мій профіль
-              </Link>
-            </li>
+            {isLoggedIn && (
+              <li className={css.header_list_item}>
+                <Link to={`profile/${user?.id}`} className={css.item_link}>
+                  Мій профіль
+                </Link>
+              </li>
+            )}
+
             <li className={css.header_list_item}>
               <Link to="about" className={css.item_link}>
                 Про нас
