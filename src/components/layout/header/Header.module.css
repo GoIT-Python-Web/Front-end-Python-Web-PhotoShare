@@ -23,14 +23,19 @@
 .header_user {
   display: none;
 }
-
 .userImg {
   width: 48px;
   height: 48px;
   border-radius: 24px;
   object-fit: cover;
 }
-
+.rounded {
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  object-fit: cover;
+  border-radius: 8px;
+}
 a {
   text-decoration: none;
 }
@@ -41,7 +46,7 @@ a {
   padding: 0;
   background: transparent;
   border: none;
-  z-index: 100;
+  z-index: 99;
 }
 .header_user_icon,
 .header_settings_icon {
@@ -118,7 +123,7 @@ a {
   }
   .header_search:focus {
     border-color: var(--button-hover);
-    width: 135px;
+    width: 190px;
     padding: 0 16px;
   }
   .header_search:focus + .search_icon {

@@ -4,7 +4,8 @@ import Logo from "../logo/Logo.jsx";
 import Button from "../../common/buttons/Button.jsx";
 import css from "./Header.module.css";
 import { useState } from "react";
-import PopupHeaderMenu from "./PopupHeaderMenu/PopupHeaderMenu.jsx";
+import PopupMenuIsLogined from "./PopupHeaderMenu/PopupMenuIsLogined/PopupMenuIsLogined.jsx";
+import PopupMenuIsNotLogined from "./PopupHeaderMenu/PopupMenuIsNotLogined/PopupMenuIsNotLogined.jsx";
 import burger from "../../../assets/images/Header/burger@2x.png";
 import plus from "../../../assets/images/Header/plus@2x.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,6 +47,28 @@ const Header = () => {
     <header className={css.header}>
       <div className={`container ${css.header_container}`}>
         <Logo />
+
+        {isOpen && isLoggedIn && (
+          <PopupMenuIsLogined
+            menuIsOpen={menuIsOpen}
+            onClose={menuIsClose}
+            isLoggedIn={true}
+            handleSearch={handleSearch}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
+        )}
+        {isOpen && !isLoggedIn && (
+          <PopupMenuIsNotLogined
+            menuIsOpen={menuIsOpen}
+            onClose={menuIsClose}
+            isLoggedIn={true}
+            handleSearch={handleSearch}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
+        )}
+
         <div className={css.header_wrap}>
           <ul className={css.header_list}>
             <li className={css.header_list_item}>
@@ -64,6 +87,7 @@ const Header = () => {
               </Link>
             </li>
           </ul>
+
           <button className={css.burger_btn} type="button" onClick={menuIsOpen}>
             <img
               className={css.burger_btn_icon}
@@ -74,9 +98,6 @@ const Header = () => {
             />
           </button>
 
-          {isOpen && (
-            <PopupHeaderMenu menuIsOpen={menuIsOpen} onClose={menuIsClose} />
-          )}
           <div className={css.header_right_side}>
             <input
               className={css.header_search}
