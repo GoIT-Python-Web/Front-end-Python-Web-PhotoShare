@@ -242,12 +242,21 @@
 
 @media only screen and (min-width: 768px) {
   .popup {
-    width: 372px;
+    left: 358px;
+    width: 388px;
     height: 337px;
     padding: 80px 36px 20px;
   }
   .close_btn {
     left: 308px;
+  }
+  .popup_user_wrap {
+    margin-bottom: 40px;
+  }
+  .popup_search,
+  .popup_search_icon,
+  .popup_addbtn_wrap {
+    display: none;
   }
   .popup_list {
     row-gap: 32px;

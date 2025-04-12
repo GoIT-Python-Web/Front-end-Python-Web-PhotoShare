@@ -123,7 +123,7 @@ a {
   }
   .header_search:focus {
     border-color: var(--button-hover);
-    width: 135px;
+    width: 190px;
     padding: 0 16px;
   }
   .header_search:focus + .search_icon {

@@ -38,7 +38,6 @@ const PopupMenuIsLogined = ({
   }
 
   const user = useSelector(selectUser);
-  const isDesktopAddButton = useMediaQuery({ minWidth: 1440 });
   const isMobilAddButton = useMediaQuery({ maxWidth: 767 });
 
   return (
@@ -88,16 +87,18 @@ const PopupMenuIsLogined = ({
       </div>
 
       <div className={css.popup_addbtn_wrap}>
-        <Button
-          size={isMobilAddButton ? "lg" : "sm_header"}
-          variant="primary"
-          disabled={false}
-          withArrow={false}
-          onClick={() => {}}
-        >
-          <span>Додати світлину</span>
-          <img src={plus} width={20} height={20} alt="Plus Icon" />
-        </Button>
+        <Link to="/posts/create" onClick={onClose}>
+          <Button
+            size={isMobilAddButton ? "lg" : "sm_header"}
+            variant="primary"
+            disabled={false}
+            withArrow={false}
+            onClick={() => {}}
+          >
+            <span>Додати світлину</span>
+            <img src={plus} width={20} height={20} alt="Plus Icon" />
+          </Button>
+        </Link>
       </div>
 
       <div className={css.popup_search_wrap}>

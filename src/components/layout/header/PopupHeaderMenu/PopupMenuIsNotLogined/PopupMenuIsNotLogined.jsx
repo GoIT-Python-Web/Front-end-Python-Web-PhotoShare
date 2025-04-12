@@ -49,6 +49,7 @@ const PopupMenuIsNotLogined = ({
           alt="Close Icon"
         />
       </button>
+
       <div className={css.popup_search_wrap}>
         <input
           className={css.popup_search}
@@ -62,6 +63,7 @@ const PopupMenuIsNotLogined = ({
         />
         <LuSearch className={css.popup_search_icon} />
       </div>
+
       <div className={css.popup_wrap}>
         <ul className={css.popup_list}>
           <li className={css.popup_list_item}>

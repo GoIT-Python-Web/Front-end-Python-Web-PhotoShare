@@ -47,14 +47,15 @@ const Header = () => {
     <header className={css.header}>
       <div className={`container ${css.header_container}`}>
         <Logo />
+
         {isOpen && isLoggedIn && (
           <PopupMenuIsLogined
             menuIsOpen={menuIsOpen}
             onClose={menuIsClose}
             isLoggedIn={true}
+            handleSearch={handleSearch}
             searchValue={searchValue}
             setSearchValue={setSearchValue}
-            handleSearch={handleSearch}
           />
         )}
         {isOpen && !isLoggedIn && (
@@ -62,11 +63,12 @@ const Header = () => {
             menuIsOpen={menuIsOpen}
             onClose={menuIsClose}
             isLoggedIn={true}
+            handleSearch={handleSearch}
             searchValue={searchValue}
             setSearchValue={setSearchValue}
-            handleSearch={handleSearch}
           />
         )}
+
         <div className={css.header_wrap}>
           <ul className={css.header_list}>
             <li className={css.header_list_item}>
@@ -85,6 +87,7 @@ const Header = () => {
               </Link>
             </li>
           </ul>
+
           <button className={css.burger_btn} type="button" onClick={menuIsOpen}>
             <img
               className={css.burger_btn_icon}
