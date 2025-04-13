@@ -1,27 +1,50 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUsers, banUser, toggleUserRole } from "./operations";
+import { banUser, toggleUserRole, searchUsers } from "./operations";
 
 const initialState = {
   items: [],
   isLoading: false,
   error: null,
+  totalPages: 1,
+  currentPage: 0, // Додано поточну сторінку
+  usersPerPage: 8, // Кількість користувачів на сторінці
+  filters: {
+    search: "",
+    role: "",
+    reg_date_from: null,
+    reg_date_to: null,
+    sort_by: "name",
+    sort_order: "asc",
+  },
 };
 
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentPage(state, action) {
+      state.currentPage = action.payload; // Оновлення поточної сторінки
+    },
+    resetFilters: () => initialState,
+    setFilters(state, action) {
+      state.filters = action.payload; // Оновлення фільтрів
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUsers.pending, (state) => {
+      .addCase(searchUsers.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchUsers.fulfilled, (state, { payload }) => {
+      .addCase(searchUsers.fulfilled, (state, { payload }) => {
+        const totalUsers = payload.length; // Загальна кількість користувачів
+        const totalPages = Math.ceil(totalUsers / state.usersPerPage); // Обчислення кількості сторінок
+
         state.isLoading = false;
-        state.items = payload;
+        state.items = payload || [];
+        state.totalPages = totalPages; // Якщо totalPages не вказано, ставимо 1
       })
-      .addCase(fetchUsers.rejected, (state, { payload }) => {
+      .addCase(searchUsers.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
       })
@@ -38,4 +61,5 @@ const usersSlice = createSlice({
   },
 });
 
+export const { setCurrentPage, setFilters, resetFilters } = usersSlice.actions;
 export const usersReducer = usersSlice.reducer;

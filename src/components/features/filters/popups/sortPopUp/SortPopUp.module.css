@@ -1,21 +1,49 @@
 .wrapper {
+  border: 1px solid #0051ff;
   border-radius: 8px;
   padding: 28px 20px;
-  width: 225px;
-  height: 160px;
+  width: 202px;
+  height: 146px;
   position: absolute;
   background: #f2f6ff;
   right: 0px;
-  top: 80px;
+  top: 90px;
   z-index: 10;
+  background: #f2f6ff;
 }
 
 .wrapper p {
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-  font-size: 20px;
-  color: #000;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #24448a;
   cursor: pointer;
+  text-decoration-line: underline;
+}
+.wrapper p:hover {
+  position: relative;
+  padding-left: 24px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: #132d62;
+}
+
+.wrapper p::before {
+  content: ""; /* default: no icon */
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.wrapper p:hover::before {
+  content: "✔"; /* ✅ the checkmark */
+  opacity: 1;
 }
 
 .active {
