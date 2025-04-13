@@ -15,20 +15,20 @@
 }
 
 .filterTitle {
-    font-family: var(--font-family);
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 120%;
-    color: var(--text);
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 120%;
+  color: var(--text);
   margin: 0;
 }
 
 .applyFilterBtn {
-    font-family: var(--font-family);
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 120%;
-    color: var(--text);
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 120%;
+  color: var(--text);
   background: none;
   border: none;
   text-decoration: underline;
@@ -77,9 +77,9 @@
     padding: 8px 80px;
   }
   .filterTitle {
-   font-weight: 600;
-font-size: 16px;
-}
+    font-weight: 600;
+    font-size: 16px;
+  }
   .filterOptions {
     gap: 45px;
   }

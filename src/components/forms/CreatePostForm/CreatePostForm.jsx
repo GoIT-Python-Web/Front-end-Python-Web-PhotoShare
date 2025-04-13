@@ -4,9 +4,13 @@ import Button from "../../common/buttons/Button.jsx";
 import Input from "../../common/inputs/Input.jsx";
 import { useState } from "react";
 import { BsQrCode } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../../../store/posts/operations.js";
 import FilterSelector from "./FilterSelector/FilterSelector.jsx";
+import { selectLink } from "../../../store/posts/selectors.js";
+import { CitySearchSelect } from "../../features/locationSelect/LocationSelect.jsx";
+import def from "../../../assets/images/circle-user.png";
+import { clearLink } from "../../../store/posts/slice.js";
 
 const INITIAL_VALUES = {
   title: "",
@@ -17,12 +21,13 @@ const INITIAL_VALUES = {
 
 const EditPostForm = () => {
   const dispatch = useDispatch();
-
-  const [image, setImage] = useState(null);
+  const [filter, setFilter] = useState(null);
+  const [image_url, setImage] = useState(null);
   const [size, setSize] = useState(0);
   const [scale, setScale] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  
+  const link = useSelector(selectLink);
+
   const handleImageFile = (file) => {
     if (file && file.type.startsWith("image/")) {
       setImage(file);
@@ -41,27 +46,29 @@ const EditPostForm = () => {
     handleImageFile(file);
   };
 
-  const defaultImg = "/src/assets/images/EditProfilPage/defaultImg.png";
-
   return (
     <div className={css.container}>
       <Formik
         initialValues={INITIAL_VALUES}
         onSubmit={(values, { resetForm }) => {
-          const formData = new FormData();
-          formData.append("title", values.title);
-          formData.append("description", values.description);
-          formData.append("location", values.location);
-          formData.append("image", image);
-        
-          values.tags
+          const tags = values.tags
             .filter((tag) => tag.trim() !== "")
-            .forEach((tag, index) => {
-              formData.append(`tags[${index}][name]`, tag.trim());
-            });
-        
-          dispatch(createPost(formData));
+            .map((tag) => ({ name: tag.trim() }));
+
+          const payload = {
+            title: values.title,
+            description: values.description,
+            location: values.location,
+            tags,
+            image_url: link,
+          };
+
+          console.log("Submitting JSON body:", payload);
+
+          dispatch(createPost(payload));
+
           resetForm();
+          dispatch(clearLink());
           setImage(null);
           setSize(0);
           setScale(0);
@@ -81,7 +88,10 @@ const EditPostForm = () => {
               >
                 <div className={css.imageBox}>
                   <img
-                    src={image ? URL.createObjectURL(image) : defaultImg}
+                    data-label={!image_url && "def"}
+                    src={
+                      link || (image_url ? URL.createObjectURL(image_url) : def)
+                    }
                     alt="Прев'ю"
                     className={css.previewImage}
                     style={{
@@ -93,7 +103,7 @@ const EditPostForm = () => {
                   />
                 </div>
                 <p className={css.imageText}>
-                  {image
+                  {image_url
                     ? "Перетягніть нове зображення сюди"
                     : "Перетягніть зображення сюди"}
                 </p>
@@ -115,67 +125,15 @@ const EditPostForm = () => {
             </div>
 
             <div className={css.wrapAll}>
-              <div className={css.sliderWrap}>
-                <div className={css.sliderWrapper}>
-                  <label className={css.sliderLabel}>Змінити Розмір</label>
-                  <div className={css.sliderContainer}>
-                    <input
-                      type="range"
-                      min="-100"
-                      max="100"
-                      step="1"
-                      value={size}
-                      onChange={(e) => setSize(Number(e.target.value))}
-                      className={css.slider}
-                      style={{
-                        background: `linear-gradient(to right, var(--text) ${
-                          ((size + 100) / 200) * 100
-                        }%, var(--button-notactive) ${
-                          ((size + 100) / 200) * 100
-                        }%)`,
-                      }}
-                    />
-                    <div className={css.sliderMarks}>
-                      <span>-100</span>
-                      <span>0</span>
-                      <span>100</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={css.sliderWrapper}>
-                  <label className={css.sliderLabel}>Масштабувати</label>
-                  <div className={css.sliderContainer}>
-                    <input
-                      type="range"
-                      min="-100"
-                      max="100"
-                      step="1"
-                      value={scale}
-                      onChange={(e) => setScale(Number(e.target.value))}
-                      className={css.slider}
-                      style={{
-                        background: `linear-gradient(to right, var(--text) ${
-                          ((scale + 100) / 200) * 100
-                        }%, var(--button-notactive) ${
-                          ((scale + 100) / 200) * 100
-                        }%)`,
-                      }}
-                    />
-                    <div className={css.sliderMarks}>
-                      <span>-100</span>
-                      <span>0</span>
-                      <span>100</span>
-                    </div>
-                  </div>
-                </div>
+              <div className={css.wrapDescription}>
+                <Field
+                  name="title"
+                  value={values.title}
+                  onChange={handleChange}
+                  className={css.textarea}
+                  placeholder="Заголовок зображення"
+                />
               </div>
-
-              <FilterSelector
-                image={image}
-                onApply={(filterValue) => setFilter(filterValue)}
-              />
-
               <div className={css.wrapDescription}>
                 <textarea
                   name="description"
@@ -185,6 +143,9 @@ const EditPostForm = () => {
                   placeholder="Опис фото..."
                   rows="5"
                 />
+              </div>
+              <div className={css.wrapDescription}>
+                <CitySearchSelect />
               </div>
 
               <div className={css.wrapTegs}>
@@ -206,6 +167,70 @@ const EditPostForm = () => {
                   </div>
                 ))}
               </div>
+              <fieldset disabled={!image_url} className={css.sliderSection}>
+                <div className={css.sliderWrap}>
+                  <div className={css.sliderWrapper}>
+                    <label className={css.sliderLabel}>Змінити Розмір</label>
+                    <div className={css.sliderContainer}>
+                      <input
+                        type="range"
+                        min="-100"
+                        max="100"
+                        step="1"
+                        value={size}
+                        onChange={(e) => setSize(Number(e.target.value))}
+                        className={css.slider}
+                        style={{
+                          background: `linear-gradient(to right, var(--text) ${
+                            ((size + 100) / 200) * 100
+                          }%, var(--button-notactive) ${
+                            ((size + 100) / 200) * 100
+                          }%)`,
+                        }}
+                      />
+                      <div className={css.sliderMarks}>
+                        <span>-100</span>
+                        <span>0</span>
+                        <span>100</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={css.sliderWrapper}>
+                    <label className={css.sliderLabel}>Масштабувати</label>
+                    <div className={css.sliderContainer}>
+                      <input
+                        type="range"
+                        min="-100"
+                        max="100"
+                        step="1"
+                        value={scale}
+                        onChange={(e) => setScale(Number(e.target.value))}
+                        className={css.slider}
+                        style={{
+                          background: `linear-gradient(to right, var(--text) ${
+                            ((scale + 100) / 200) * 100
+                          }%, var(--button-notactive) ${
+                            ((scale + 100) / 200) * 100
+                          }%)`,
+                        }}
+                      />
+                      <div className={css.sliderMarks}>
+                        <span>-100</span>
+                        <span>0</span>
+                        <span>100</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <FilterSelector
+                  image={image_url}
+                  size={size}
+                  scale={scale}
+                  onApply={(filterValue) => setFilter(filterValue)}
+                />
+              </fieldset>
 
               <div className={css.wrapBtn}>
                 <Button

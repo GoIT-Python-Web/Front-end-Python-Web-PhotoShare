@@ -20,6 +20,7 @@ const postSlice = createSlice({
   initialState: {
     posts: [],
     personalPosts: [],
+    temporaryLink: "",
     comments: [],
     post: null,
     isLoading: false,
@@ -29,6 +30,9 @@ const postSlice = createSlice({
     clearPost(state) {
       state.post = null;
       state.comments = [];
+    },
+    clearLink(state) {
+      state.temporaryLink = "";
     },
   },
   extraReducers: (builder) => {
@@ -61,15 +65,12 @@ const postSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(deletePost.fulfilled, (state, action) => {
-        if (state.personalPosts) {
-          state.personalPosts = state.personalPosts.filter(
-            (post) => post.id !== action.payload
-          );
-        } else {
-          state.posts = state.posts.filter(
-            (post) => post.id !== action.payload
-          );
-        }
+        const id = action.payload;
+
+        state.personalPosts = state.personalPosts?.filter(
+          (post) => post.id !== id
+        );
+        state.posts = state.posts?.filter((post) => post.id !== id);
       })
       .addCase(sendComment.fulfilled, (state, action) => {
         state.comments.push(action.payload);
@@ -106,6 +107,7 @@ const postSlice = createSlice({
       .addCase(uploadFilteredImage.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
+        state.temporaryLink = action.payload;
       })
       .addCase(uploadFilteredImage.rejected, handleRejected)
 
@@ -127,5 +129,5 @@ const postSlice = createSlice({
   },
 });
 
-export const { clearPost } = postSlice.actions;
+export const { clearPost, clearLink } = postSlice.actions;
 export const postsReducer = postSlice.reducer;

@@ -192,14 +192,14 @@ export const addRating = createAsyncThunk(
 
 export const createPost = createAsyncThunk(
   "posts/create",
-  async (formData, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
       const state = thunkAPI.getState();
       const token = state.auth.token;
       if (!token) return thunkAPI.rejectWithValue("Unauthorized");
 
       setAuthHeader(token);
-      const { data } = await instance.post("/posts/", formData);
+      const { data } = await instance.post("/posts/", payload);
       return data;
     } catch (err) {
       return thunkAPI.rejectWithValue(
@@ -212,6 +212,11 @@ export const createPost = createAsyncThunk(
 export const uploadFilteredImage = createAsyncThunk(
   "posts/uploadFilteredImage",
   async ({ file, width, height, crop, effect }, thunkAPI) => {
+    console.log("file", file);
+    console.log("width", width);
+    console.log("height", height);
+    console.log("crop", crop);
+    console.log("effect", effect);
     try {
       const state = thunkAPI.getState();
       const token = state.auth.token;
@@ -223,14 +228,15 @@ export const uploadFilteredImage = createAsyncThunk(
       formData.append("width", width);
       formData.append("height", height);
       formData.append("crop", crop);
-      formData.append("effect", effect);
-
+      formData.append("effect", effect ?? "");
+      console.log(formData);
       const { data } = await instance.post(
         "/posts/upload-filtered-image/",
         formData
       );
-      return data;
-    } catch (err)  {
+      console.log(data);
+      return data.image_url;
+    } catch (err) {
       console.error("Upload filtered image error:", err.response?.data);
       return thunkAPI.rejectWithValue(
         handleError(err, "Failed to upload filtered image")
@@ -248,7 +254,9 @@ export const generateQrCode = createAsyncThunk(
       if (!token) return thunkAPI.rejectWithValue("Unauthorized");
 
       setAuthHeader(token);
-      const { data } = await instance.post("/posts/generate-qr", { post_id: postId });
+      const { data } = await instance.post("/posts/generate-qr", {
+        post_id: postId,
+      });
       return data;
     } catch (err) {
       return thunkAPI.rejectWithValue(

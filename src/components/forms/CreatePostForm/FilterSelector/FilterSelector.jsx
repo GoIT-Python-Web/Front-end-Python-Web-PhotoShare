@@ -4,41 +4,56 @@ import { useDispatch } from "react-redux";
 import { uploadFilteredImage } from "../../../../store/posts/operations.js";
 
 const FILTERS = [
-  { label: "Normal", value: "normal" },
-  { label: "Fade", value: "fade" },
-  { label: "Fad warm", value: "fade_warm" },
-  { label: "Fade cool", value: "fade_cool" },
+  { label: "Normal", value: null },
+  { label: "Fade", value: "art:zorro" },
+  { label: "Warm", value: "art:sizzle" },
+  { label: "Cool", value: "art:frost" },
 ];
 
-const FilterSelector = ({ image, onApply }) => {
-  const [selectedFilter, setSelectedFilter] = useState("normal");
+const mapRangeToFactor = (value) => {
+  return 1 + value / 200;
+};
+
+const FilterSelector = ({ image, size, scale, onApply }) => {
+  const [selectedFilter, setSelectedFilter] = useState(null);
   const dispatch = useDispatch();
+  console.log(size, scale);
 
   const handleApply = async () => {
     if (!image) return;
 
     try {
-      const response = await fetch(image);
-      const blob = await response.blob();
-      const file = new File([blob], "image.jpg", { type: blob.type });
-      const img = new Image();
-      img.src = URL.createObjectURL(file);
-      img.onload = () => {
-        const width = img.width;
-        const height = img.height;
+      let file;
 
-        dispatch(
-          uploadFilteredImage({
-            file,
-            width,
-            height,
-            crop: "center",
-            effect: selectedFilter,
-          })
-        );
+      if (typeof image === "string") {
+        const response = await fetch(image);
+        const blob = await response.blob();
+        file = new File([blob], "image.jpg", { type: blob.type });
+      } else {
+        file = image;
+      }
 
-        onApply(selectedFilter);
-      };
+      const bitmap = await createImageBitmap(file);
+
+      const sizeFactor = mapRangeToFactor(size);
+      const scaleFactor = mapRangeToFactor(scale);
+
+      const finalFactor = sizeFactor * scaleFactor;
+
+      const width = Math.round(bitmap.width * finalFactor);
+      const height = Math.round(bitmap.height * finalFactor);
+
+      dispatch(
+        uploadFilteredImage({
+          file,
+          width,
+          height,
+          crop: "scale",
+          effect: selectedFilter,
+        })
+      );
+
+      onApply?.(selectedFilter);
     } catch (error) {
       console.error("Failed to apply filter:", error);
     }
@@ -52,6 +67,7 @@ const FilterSelector = ({ image, onApply }) => {
           type="button"
           className={css.applyFilterBtn}
           onClick={handleApply}
+          disabled={!image}
         >
           Застосувати фільтр
         </button>
@@ -63,11 +79,12 @@ const FilterSelector = ({ image, onApply }) => {
             type="button"
             key={filter.value}
             className={
-              selectedFilter === filter.value
+              selectedFilter === filter?.value
                 ? `${css.filterBtn} ${css.selected}`
                 : css.filterBtn
             }
-            onClick={() => setSelectedFilter(filter.value)}
+            onClick={() => setSelectedFilter(filter?.value)}
+            disabled={!image}
           >
             <img
               src={

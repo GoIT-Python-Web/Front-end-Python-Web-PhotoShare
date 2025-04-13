@@ -4,17 +4,25 @@ import EditPostForm from "../../components/forms/CreatePostForm/CreatePostForm";
 import BackButton from "../../components/common/backButton/BackButton";
 import { useDispatch, useSelector } from "react-redux";
 import { generateQrCode } from "../../store/posts/operations.js";
+import { toast } from "sonner";
+import { useEffect } from "react";
+import { clearLink } from "../../store/posts/slice.js";
 
 const CreatePostPage = () => {
   const dispatch = useDispatch();
-  const post = useSelector((state) => state.posts.post);
   const handleGenerateQR = () => {
     if (post?.id) {
       dispatch(generateQrCode(post.id));
     } else {
-      alert("Спочатку створіть пост");
+      toast("Спочатку створіть пост");
     }
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearLink());
+    };
+  }, []);
 
   return (
     <div className="container">
