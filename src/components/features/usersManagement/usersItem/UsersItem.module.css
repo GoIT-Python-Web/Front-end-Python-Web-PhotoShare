@@ -260,13 +260,39 @@
   .userItemContainer {
     border-bottom: 1px solid #24448a;
     padding-bottom: 8px;
+    justify-content: space-between;
   }
 
   .profileName {
     font-weight: 600;
     font-size: 20px;
+    width: 238px;
   }
   .mobileWrapper {
-    gap: 24px;
+    gap: 23px;
+    justify-content: baseline;
+    align-items: center;
+  }
+  .mobileContainer {
+    align-items: center;
+    gap: 200px;
+  }
+  .pickname {
+    width: 300px;
+    justify-content: space-between;
+  }
+  .mobilEmailSection {
+    width: 450px;
+    justify-content: space-between;
+    /* display: flex;
+    flex-direction: row;
+    width: 100%; */
+    /* gap: 200px; */
+  }
+  .emailSection {
+    /* flex-grow: 1; */
+  }
+  .timestampSection {
+    /* flex-grow: 1; */
   }
 }

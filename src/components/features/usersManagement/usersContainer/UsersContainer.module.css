@@ -148,4 +148,8 @@
   .iconButtons {
     gap: 715px;
   }
+
+  .userListWrapper {
+    margin-bottom: 58px;
+  }
 }
