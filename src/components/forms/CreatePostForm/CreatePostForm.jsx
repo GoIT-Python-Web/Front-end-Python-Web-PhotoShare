@@ -4,29 +4,28 @@ import Button from "../../common/buttons/Button.jsx";
 import Input from "../../common/inputs/Input.jsx";
 import { useState } from "react";
 import { BsQrCode } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { createPost } from "../../../store/posts/operations.js";
+import FilterSelector from "./FilterSelector/FilterSelector.jsx";
 
 const INITIAL_VALUES = {
-  img: "",
-  size: "",
-  zoom: "",
-  filters: "",
+  title: "",
   description: "",
-  tag: "",
+  location: "",
+  tags: ["", "", "", "", ""],
 };
 
 const EditPostForm = () => {
+  const dispatch = useDispatch();
+
   const [image, setImage] = useState(null);
   const [size, setSize] = useState(0);
   const [scale, setScale] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-
+  
   const handleImageFile = (file) => {
     if (file && file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setImage(e.target.result);
-      };
-      reader.readAsDataURL(file);
+      setImage(file);
     }
   };
 
@@ -42,7 +41,7 @@ const EditPostForm = () => {
     handleImageFile(file);
   };
 
-  const defaultImg = "/src/assets/images/defaultImg.png";
+  const defaultImg = "/src/assets/images/EditProfilPage/defaultImg.png";
 
   return (
     <div className={css.container}>
@@ -50,18 +49,18 @@ const EditPostForm = () => {
         initialValues={INITIAL_VALUES}
         onSubmit={(values, { resetForm }) => {
           const formData = new FormData();
+          formData.append("title", values.title);
           formData.append("description", values.description);
+          formData.append("location", values.location);
           formData.append("image", image);
-          formData.append("size", size);
-          formData.append("scale", scale);
-
-          console.log("Форма відправлена:", {
-            ...values,
-            image,
-            size,
-            scale,
-          });
-
+        
+          values.tags
+            .filter((tag) => tag.trim() !== "")
+            .forEach((tag, index) => {
+              formData.append(`tags[${index}][name]`, tag.trim());
+            });
+        
+          dispatch(createPost(formData));
           resetForm();
           setImage(null);
           setSize(0);
@@ -80,9 +79,9 @@ const EditPostForm = () => {
                 onDragLeave={() => setIsDragging(false)}
                 onDrop={handleDrop}
               >
-               <div className={css.imageBox}>
+                <div className={css.imageBox}>
                   <img
-                    src={image || defaultImg}
+                    src={image ? URL.createObjectURL(image) : defaultImg}
                     alt="Прев'ю"
                     className={css.previewImage}
                     style={{
@@ -172,9 +171,10 @@ const EditPostForm = () => {
                 </div>
               </div>
 
-              <div className={css.wrapFilters}>
-                <h3 className={css.titleFilters}>Фільтри</h3>
-              </div>
+              <FilterSelector
+                image={image}
+                onApply={(filterValue) => setFilter(filterValue)}
+              />
 
               <div className={css.wrapDescription}>
                 <textarea
@@ -188,114 +188,26 @@ const EditPostForm = () => {
               </div>
 
               <div className={css.wrapTegs}>
-                <div className={css.tegItem}>
-                  <Field name="teg">
-                    {({ field, meta }) => (
-                      <Input
-                        {...field}
-                        type="text"
-                        placeholder="Введіть тег #"
-                        error={meta.touched && meta.error}
-                        errorMessage={
-                          meta.touched && meta.error ? meta.error : ""
-                        }
-                      />
-                    )}
-                  </Field>
-                </div>
-
-                <div className={css.tegItem}>
-                  <Field name="teg">
-                    {({ field, meta }) => (
-                      <Input
-                        {...field}
-                        type="text"
-                        placeholder="#..........."
-                        error={meta.touched && meta.error}
-                        errorMessage={
-                          meta.touched && meta.error ? meta.error : ""
-                        }
-                      />
-                    )}
-                  </Field>
-                </div>
-
-                <div className={css.tegItem}>
-                  <Field name="teg">
-                    {({ field, meta }) => (
-                      <Input
-                        {...field}
-                        type="text"
-                        placeholder="#..........."
-                        error={meta.touched && meta.error}
-                        errorMessage={
-                          meta.touched && meta.error ? meta.error : ""
-                        }
-                      />
-                    )}
-                  </Field>
-                </div>
-
-                <div className={css.tegItem}>
-                  <Field name="teg">
-                    {({ field, meta }) => (
-                      <Input
-                        {...field}
-                        type="text"
-                        placeholder="#..........."
-                        error={meta.touched && meta.error}
-                        errorMessage={
-                          meta.touched && meta.error ? meta.error : ""
-                        }
-                      />
-                    )}
-                  </Field>
-                </div>
-
-                <div className={css.tegItem}>
-                  <Field name="teg">
-                    {({ field, meta }) => (
-                      <Input
-                        {...field}
-                        type="text"
-                        placeholder="#..........."
-                        error={meta.touched && meta.error}
-                        errorMessage={
-                          meta.touched && meta.error ? meta.error : ""
-                        }
-                      />
-                    )}
-                  </Field>
-                </div>
-
-                <div className={css.tegItem}>
-                  <Field name="teg">
-                    {({ field, meta }) => (
-                      <Input
-                        {...field}
-                        type="text"
-                        placeholder="#..........."
-                        error={meta.touched && meta.error}
-                        errorMessage={
-                          meta.touched && meta.error ? meta.error : ""
-                        }
-                      />
-                    )}
-                  </Field>
-                </div>
+                {values.tags.map((_, index) => (
+                  <div className={css.tegItem} key={index}>
+                    <Field name={`tags[${index}]`}>
+                      {({ field, meta }) => (
+                        <Input
+                          {...field}
+                          type="text"
+                          placeholder="Введіть тег #"
+                          error={meta.touched && meta.error}
+                          errorMessage={
+                            meta.touched && meta.error ? meta.error : ""
+                          }
+                        />
+                      )}
+                    </Field>
+                  </div>
+                ))}
               </div>
 
               <div className={css.wrapBtn}>
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  type="button"
-                  disabled={isSubmitting}
-                  onClick={() => {}}
-                >
-                  Зберегти
-                </Button>
-
                 <Button
                   size="lg"
                   variant="primary"

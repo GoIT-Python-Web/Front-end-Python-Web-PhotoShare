@@ -10,19 +10,40 @@ import { useRef, useState } from "react";
 import def from "../../assets/images/EditProfilPage/AvatarDef.png";
 
 const ProfileEditForm = ({ user }) => {
+  console.log("User inside ProfileEditForm:", user);
+
+  const normalize = (value) =>
+    typeof value === "string" ? value : value ? String(value) : "";
+
+  const formatDateForInput = (dateString) => {
+    const date = new Date(dateString);
+    if (isNaN(date)) return "";
+    return date.toISOString().split("T")[0]; //YYYY-MM-DD
+  };
+  
   const INITIAL_VALUES = {
-    avatar: user?.image_url ?? def,
-    name: user?.name ?? "",
-    email: user?.email ?? "",
-    number: user?.phone ?? "",
+    avatar: user?.img_link ?? def,
+    name: normalize(user?.name),
+    // username: normalize(user?.username),
+    email: normalize(user?.email),
+    phone: normalize(user?.phone),
     password: "",
-    birthday: user?.birthday ?? "",
-    additionalInfo: user?.description ?? "",
+    birthdate: formatDateForInput(user?.birthdate),
+    description: normalize(user?.description),
   };
 
-  const dispatch = useDispatch();
+  // const INITIAL_VALUES = {
+  //   avatar: user?.image_url ?? def,
+  //   name: user?.name ?? "",
+  //   email: user?.email ?? "",
+  //   phone: user?.phone ?? "",
+  //   password: "",
+  //   birthdate: user?.birthdate ?? "",
+  //   description: user?.description ?? "",
+  // };
 
-  const [avatarSrc, setAvatarSrc] = useState(def);
+  const dispatch = useDispatch();
+  const [avatarSrc, setAvatarSrc] = useState(INITIAL_VALUES.avatar || def);
   const fileInputRef = useRef(null);
 
   const handleImageError = () => {
@@ -45,22 +66,46 @@ const ProfileEditForm = ({ user }) => {
     <div className={css.container}>
       <Formik
         initialValues={INITIAL_VALUES}
+        enableReinitialize
         validationSchema={ProfileEditSchema}
         onSubmit={async (values, { resetForm }) => {
           try {
             const formData = new FormData();
-
+            const formatDate = (dateString) => {
+              const date = new Date(dateString);
+              if (isNaN(date)) return "";
+              return date.toISOString().split("T")[0];
+            };
+        
             Object.entries(values).forEach(([key, value]) => {
-              formData.append(key, value);
+              if (key === "birthdate") {
+                formData.append(key, formatDate(value));
+              } else if (key !== "avatar") {
+                formData.append(key, value);
+              }
             });
-
+        
             if (fileInputRef.current?.files[0]) {
               formData.append("avatar", fileInputRef.current.files[0]);
             }
-
-            await dispatch(updateUser(formData)).unwrap();
-            console.log("Форма відправлена:", values);
-            resetForm();
+        
+            const updatedUser = await dispatch(updateUser(formData)).unwrap();
+        
+            setAvatarSrc(updatedUser.img_link || def);
+        
+            const newValues = {
+              avatar: updatedUser.img_link ?? def,
+              name: normalize(updatedUser.name),
+              username: normalize(updatedUser.username),
+              email: normalize(updatedUser.email),
+              phone: normalize(updatedUser.phone),
+              password: "",
+              birthdate: formatDateForInput(updatedUser.birthdate),
+              description: normalize(updatedUser.description),
+            };
+        
+            resetForm({ values: newValues });
+            console.log("Форма оновлена:", newValues);
           } catch (err) {
             console.error("Помилка оновлення:", err);
           }
@@ -75,7 +120,7 @@ const ProfileEditForm = ({ user }) => {
                 alt="Аватар"
                 onError={handleImageError}
               />
-              <button className={css.editBtn} onClick={handleEditClick}>
+              <button type="button" className={css.editBtn} onClick={handleEditClick}>
                 {/* <svg width="16" height="16">
             <use href="/public/sprite.svg#pen" />
           </svg> */}
@@ -110,7 +155,7 @@ const ProfileEditForm = ({ user }) => {
               </div>
 
               <div className={css.infoItem}>
-                <Field name="userName">
+                <Field name="username">
                   {({ field, meta }) => (
                     <Input
                       {...field}
@@ -142,7 +187,7 @@ const ProfileEditForm = ({ user }) => {
               </div>
 
               <div className={css.infoItem}>
-                <Field name="number">
+                <Field name="phone">
                   {({ field, meta }) => (
                     <Input
                       {...field}
@@ -158,7 +203,7 @@ const ProfileEditForm = ({ user }) => {
               </div>
 
               <div className={css.infoItem}>
-                <Field name="birthday">
+                <Field name="birthdate">
                   {({ field, meta }) => (
                     <Input
                       {...field}
@@ -197,7 +242,7 @@ const ProfileEditForm = ({ user }) => {
                 placeholder="Додаткові данні"
                 rows="5"
               /> */}
-              <Field name="additionalInfo">
+              <Field name="description">
                 {({ field, meta }) => (
                   <>
                     <textarea
@@ -218,11 +263,7 @@ const ProfileEditForm = ({ user }) => {
               <Button
                 size="lg"
                 variant="secondary"
-                type="button"
-                disabled={isSubmitting}
-                onClick={() => {
-                  resetForm();
-                }}
+                type="reset"
               >
                 Скинути
               </Button>

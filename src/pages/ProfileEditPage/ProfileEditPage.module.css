@@ -37,7 +37,7 @@
   width: 312px;
   height: 0;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  margin: 0 auto 40px; /* для центрування і відступів */
+  margin: 0 auto 40px;
 }
 
 @media only screen and (min-width: 768px) {

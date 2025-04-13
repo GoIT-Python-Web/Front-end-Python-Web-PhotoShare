@@ -14,7 +14,7 @@
   padding: 16px;
   width: 328px;
   height: 351px;
-  box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   background: var(--input-backgroung);
 }
 .imageBox {
@@ -32,10 +32,6 @@
 }
 .previewImage {
   border-radius: 13px;
-  /* height: 150px;
-  width: 150px; */
-  /* object-fit: cover; */
-  /* object-position: center; */
 }
 .uploadLabel {
   font-family: var(--font-family);
@@ -74,6 +70,7 @@
   border-radius: 13px;
   padding: 24px 16px;
   width: 328px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   background: var(--input-backgroung);
 }
 .sliderLabel {
@@ -256,7 +253,7 @@
   }
   .imageWrap {
     width: 746px;
-    height: 784px;
+    height: 720px;
   }
   .uploadLabel {
     margin-bottom: 30px;
