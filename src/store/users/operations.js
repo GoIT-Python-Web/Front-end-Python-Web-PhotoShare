@@ -45,6 +45,11 @@ export const updateUser = createAsyncThunk(
     } catch (err) {
       return thunkAPI.rejectWithValue(
         handleError(err, "Не вдалося оновити профіль")
+      );
+    }
+  }
+);
+
 export const searchUsers = createAsyncThunk(
   "users/search",
   async (filters, thunkAPI) => {
