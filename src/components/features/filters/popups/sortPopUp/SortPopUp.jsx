@@ -35,11 +35,11 @@ export default function SortPopUp({ buttonRef, onClose, onSortChange }) {
         {order === "desc" && <PiCheckFatThin className={css.icon} />} Я-А
       </p>
       <p
-        onClick={() => handleSort("date")}
+        onClick={() => handleSort("rating")}
         className={sortBy === "date" ? css.active : ""}
       >
-        {sortBy === "date" && <PiCheckFatThin className={css.icon} />} Дата
-        публікації
+        {sortBy === "rating" && <PiCheckFatThin className={css.icon} />} За
+        рейтингом
       </p>
     </div>
   );
