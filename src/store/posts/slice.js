@@ -114,7 +114,7 @@ const postSlice = createSlice({
         state.isLoading = false;
         state.error = null;
       })
-      .addCase(generateQrCode.rejected, handleRejected);
+      .addCase(generateQrCode.rejected, handleRejected)
       .addCase(deleteCommentAsAdmin.pending, handlePending)
       .addCase(deleteCommentAsAdmin.fulfilled, (state, action) => {
         state.isLoading = false;
