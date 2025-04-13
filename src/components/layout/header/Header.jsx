@@ -1,9 +1,9 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useHref, useLocation, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import Logo from "../logo/Logo.jsx";
 import Button from "../../common/buttons/Button.jsx";
 import css from "./Header.module.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import PopupMenuIsLogined from "./PopupHeaderMenu/PopupMenuIsLogined/PopupMenuIsLogined.jsx";
 import PopupMenuIsNotLogined from "./PopupHeaderMenu/PopupMenuIsNotLogined/PopupMenuIsNotLogined.jsx";
 import burger from "../../../assets/images/Header/burger@2x.png";
@@ -13,26 +13,33 @@ import { selectIsLoggedIn, selectUser } from "../../../store/auth/selectors.js";
 import def from "../../../assets/images/def.png";
 import { IoIosArrowDown } from "react-icons/io";
 import { LuSearch } from "react-icons/lu";
+import { LuPencil } from "react-icons/lu";
+import { RxExit } from "react-icons/rx";
 import star_settings from "../../../assets/icons/star_settings.svg";
 import { fetchPostsByFilters } from "../../../store/posts/operations.js";
+import { logout } from "../../../store/auth/slice.js";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
 
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector(selectUser);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
   const isMainPage = location.pathname === "/posts";
+  const modalRef = useRef(null);
 
   const handleSearch = () => {
     if (!isMainPage) navigate("/posts");
     dispatch(fetchPostsByFilters({ keyword: searchValue, order: "asc" }));
     setSearchValue("");
   };
-
+  const handleLogout = () => {
+    navigate("/posts");
+    dispatch(logout());
+  };
   const menuIsOpen = () => {
     setIsOpen(true);
   };
@@ -43,30 +50,48 @@ const Header = () => {
   const isDesktopAddButton = useMediaQuery({ minWidth: 1440 });
   const isMobilAddButton = useMediaQuery({ maxWidth: 767 });
 
+  /* const PopupComponent = isLoggedIn
+    ? PopupMenuIsLogined
+    : PopupMenuIsNotLogined; */
+
   return (
     <header className={css.header}>
       <div className={`container ${css.header_container}`}>
         <Logo />
 
-        {isOpen && isLoggedIn && (
-          <PopupMenuIsLogined
+        {/* {isOpen && (
+          <PopupComponent
             menuIsOpen={menuIsOpen}
             onClose={menuIsClose}
-            isLoggedIn={true}
+            isLoggedIn={isLoggedIn}
             handleSearch={handleSearch}
             searchValue={searchValue}
             setSearchValue={setSearchValue}
           />
-        )}
-        {isOpen && !isLoggedIn && (
-          <PopupMenuIsNotLogined
-            menuIsOpen={menuIsOpen}
-            onClose={menuIsClose}
-            isLoggedIn={true}
-            handleSearch={handleSearch}
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-          />
+        )} */}
+
+        {isOpen && (
+          <>
+            {isLoggedIn ? (
+              <PopupMenuIsLogined
+                menuIsOpen={menuIsOpen}
+                onClose={menuIsClose}
+                isLoggedIn={true}
+                handleSearch={handleSearch}
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
+              />
+            ) : (
+              <PopupMenuIsNotLogined
+                menuIsOpen={menuIsOpen}
+                onClose={menuIsClose}
+                isLoggedIn={false}
+                handleSearch={handleSearch}
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
+              />
+            )}
+          </>
         )}
 
         <div className={css.header_wrap}>
@@ -149,11 +174,39 @@ const Header = () => {
                     </div>
                   </Link>
                   <p className={css.header_user_name}>
-                    {user?.username}
-                    <button className={css.user_name_btn} type="button">
+                    {isLoggedIn ? user?.username : "Default User"}
+                    <button
+                      className={css.user_name_btn}
+                      type="button"
+                      onClick={() => setIsOpen(false)}
+                    >
                       <IoIosArrowDown className={css.user_name_btn_icon} />
                     </button>
                   </p>
+
+                  {isOpen && (
+                    <div className={css.header_user_popup} ref={modalRef}>
+                      {isLoggedIn && (
+                        <div className={css.icons_wrap}>
+                          <Link
+                            to="/profile-edit"
+                            className={css.edit_icon_wrap}
+                          >
+                            <LuPencil className={css.edit_icon} />
+                            Редагувати профіль
+                          </Link>
+                          <p
+                            className={css.logout_icon_wrap}
+                            onClick={handleLogout}
+                          >
+                            <RxExit className={css.logout_icon} />
+                            Вийти з акаунтa
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   <Link to={`profile/${user?.id}`}>
                     <div className={css.header_settings_icon}>
                       <img

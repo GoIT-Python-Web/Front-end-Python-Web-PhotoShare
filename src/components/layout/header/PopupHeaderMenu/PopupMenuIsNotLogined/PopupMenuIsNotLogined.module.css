@@ -31,6 +31,12 @@
   background: transparent;
   border: none;
 }
+.close_btn_icon {
+  transition: all 0.5s ease;
+}
+.close_btn_icon:hover {
+  transform: rotate(180deg);
+}
 .popup_search_wrap {
   position: relative;
 }
@@ -107,6 +113,7 @@
   font-size: 18px;
   line-height: 1.5;
   color: var(--additional-text);
+  transition: all 0.3s ease;
 }
 .popup_list_item_link:hover {
   text-shadow: 0 0 1px var(--additional-text);
