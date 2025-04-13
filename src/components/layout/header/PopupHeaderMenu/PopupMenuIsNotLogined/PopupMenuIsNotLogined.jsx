@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
@@ -10,6 +10,7 @@ import { LuSearch } from "react-icons/lu";
 import { GrLogout } from "react-icons/gr";
 import { RiArrowRightWideLine } from "react-icons/ri";
 import css from "./PopupMenuIsNotLogined.module.css";
+import { useClickOutside } from "../../../../../helpers/hooks/useClickOutside.js";
 
 const PopupMenuIsNotLogined = ({
   menuIsOpen,
@@ -18,29 +19,23 @@ const PopupMenuIsNotLogined = ({
   setSearchValue,
   handleSearch,
 }) => {
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    };
-    if (menuIsOpen) {
-      document.addEventListener("keydown", handleEscape);
-    }
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [menuIsOpen, onClose]);
-  if (!menuIsOpen) {
-    return null;
-  }
-
   const user = useSelector(selectUser);
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const buttonRef = useRef(null);
+  const modalRef = useRef(null);
+  useClickOutside(modalRef, buttonRef, onClose);
 
   return (
-    <div className={`${css.popup} ${menuIsOpen ? css.popup_open : ""}`}>
-      <button type="button" className={css.close_btn} onClick={onClose}>
+    <div
+      className={`${css.popup} ${menuIsOpen ? css.popup_open : ""}`}
+      ref={modalRef}
+    >
+      <button
+        type="button"
+        className={css.close_btn}
+        onClick={onClose}
+        ref={buttonRef}
+      >
         <img
           className={css.close_btn_icon}
           src={close}

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import css from "./PopupMenuIsLogined.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,7 @@ import star_settings from "../../../../../assets/icons/star_settings.svg";
 import { LuSearch } from "react-icons/lu";
 import { GrLogout } from "react-icons/gr";
 import { LuPencil } from "react-icons/lu";
+import { useClickOutside } from "../../../../../helpers/hooks/useClickOutside.js";
 
 const PopupMenuIsLogined = ({
   menuIsOpen,
@@ -21,22 +22,9 @@ const PopupMenuIsLogined = ({
   setSearchValue,
   handleSearch,
 }) => {
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    };
-    if (menuIsOpen) {
-      document.addEventListener("keydown", handleEscape);
-    }
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [menuIsOpen, onClose]);
-  if (!menuIsOpen) {
-    return null;
-  }
+  const buttonRef = useRef(null);
+  const modalRef = useRef(null);
+  useClickOutside(modalRef, buttonRef, onClose);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -50,8 +38,16 @@ const PopupMenuIsLogined = ({
   const isMobilAddButton = useMediaQuery({ maxWidth: 767 });
 
   return (
-    <div className={`${css.popup} ${menuIsOpen ? css.popup_open : ""}`}>
-      <button type="button" className={css.close_btn} onClick={onClose}>
+    <div
+      className={`${css.popup} ${menuIsOpen ? css.popup_open : ""}`}
+      ref={modalRef}
+    >
+      <button
+        type="button"
+        className={css.close_btn}
+        onClick={onClose}
+        ref={buttonRef}
+      >
         <img
           className={css.close_btn_icon}
           src={close}

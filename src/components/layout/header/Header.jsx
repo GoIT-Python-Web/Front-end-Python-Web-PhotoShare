@@ -3,7 +3,7 @@ import { useMediaQuery } from "react-responsive";
 import Logo from "../logo/Logo.jsx";
 import Button from "../../common/buttons/Button.jsx";
 import css from "./Header.module.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import PopupMenuIsLogined from "./PopupHeaderMenu/PopupMenuIsLogined/PopupMenuIsLogined.jsx";
 import PopupMenuIsNotLogined from "./PopupHeaderMenu/PopupMenuIsNotLogined/PopupMenuIsNotLogined.jsx";
 import burger from "../../../assets/images/Header/burger@2x.png";
@@ -18,6 +18,7 @@ import { RxExit } from "react-icons/rx";
 import star_settings from "../../../assets/icons/star_settings.svg";
 import { fetchPostsByFilters } from "../../../store/posts/operations.js";
 import { logout } from "../../../store/auth/slice.js";
+import { useClickOutside } from "../../../helpers/hooks/useClickOutside.js";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -52,6 +53,10 @@ const Header = () => {
   const closePopup = () => {
     setPopupIsOpen(false);
   };
+
+  const buttonRef = useRef(null);
+  const modalRef = useRef(null);
+  useClickOutside(modalRef, buttonRef, closePopup);
 
   const isDesktopAddButton = useMediaQuery({ minWidth: 1440 });
   const isMobilAddButton = useMediaQuery({ maxWidth: 767 });
@@ -164,12 +169,15 @@ const Header = () => {
                         togglePopup();
                       }}
                     >
-                      <IoIosArrowDown className={css.user_name_btn_icon} />
+                      <IoIosArrowDown
+                        className={css.user_name_btn_icon}
+                        ref={buttonRef}
+                      />
                     </button>
                   </p>
 
                   {popupIsOpen && (
-                    <div className={css.header_user_popup}>
+                    <div className={css.header_user_popup} ref={modalRef}>
                       {isLoggedIn && (
                         <div className={css.icons_wrap}>
                           <Link

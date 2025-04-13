@@ -1,26 +1,36 @@
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { addRating } from "../store/posts/operations.js";
 
-export default function Stars({ rating, id, post = false }) {
+export default function Stars({ rating, id, post = false, onRated }) {
   const totalStars = 5;
   const dispatch = useDispatch();
   const [hoverRating, setHoverRating] = useState(null);
+  const [currentRating, setCurrentRating] = useState(rating);
+  const [isRated, setIsRated] = useState(false);
+
+  useEffect(() => {
+    setCurrentRating(rating);
+  }, [rating]);
 
   const handleStarClick = (selectedRating) => {
-    if (!post) return;
-    dispatch(addRating({ id, rating: Number(selectedRating) }));
+    if (!post || isRated) return;
+    const newRating = Number(selectedRating);
+    setCurrentRating(newRating);
+    setIsRated(true);
+    dispatch(addRating({ id, rating: newRating }));
+    if (onRated) onRated(newRating);
   };
 
-  const getCurrentRating = () => (hoverRating !== null ? hoverRating : rating);
+  const displayedRating = hoverRating !== null ? hoverRating : currentRating;
 
   return (
     <div style={{ display: "flex", gap: "5px" }}>
       {[...Array(totalStars)].map((_, index) => {
-        const currentRating = getCurrentRating();
-        const isFilled = currentRating >= index + 1;
-        const isHalfFilled = currentRating > index && currentRating < index + 1;
+        const isFilled = displayedRating >= index + 1;
+        const isHalfFilled =
+          displayedRating > index && displayedRating < index + 1;
 
         const baseStyle = {
           color: "#1041aa",
@@ -31,11 +41,13 @@ export default function Stars({ rating, id, post = false }) {
           <div
             key={index}
             onClick={() =>
-              post && handleStarClick(isHalfFilled ? index + 0.5 : index + 1)
+              !isRated &&
+              post &&
+              handleStarClick(isHalfFilled ? index + 0.5 : index + 1)
             }
-            onMouseEnter={() => post && setHoverRating(index + 1)}
-            onMouseLeave={() => post && setHoverRating(null)}
-            style={{ cursor: post ? "pointer" : "default" }}
+            onMouseEnter={() => !isRated && post && setHoverRating(index + 1)}
+            onMouseLeave={() => !isRated && post && setHoverRating(null)}
+            style={{ cursor: !isRated && post ? "pointer" : "default" }}
           >
             {isFilled ? (
               <FaStar style={baseStyle} size={16} />
