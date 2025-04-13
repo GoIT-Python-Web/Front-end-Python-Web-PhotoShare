@@ -1,9 +1,9 @@
-import { Link, useHref, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import Logo from "../logo/Logo.jsx";
 import Button from "../../common/buttons/Button.jsx";
 import css from "./Header.module.css";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import PopupMenuIsLogined from "./PopupHeaderMenu/PopupMenuIsLogined/PopupMenuIsLogined.jsx";
 import PopupMenuIsNotLogined from "./PopupHeaderMenu/PopupMenuIsNotLogined/PopupMenuIsNotLogined.jsx";
 import burger from "../../../assets/images/Header/burger@2x.png";
@@ -21,15 +21,15 @@ import { logout } from "../../../store/auth/slice.js";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
-
   const [isOpen, setIsOpen] = useState(false);
+  const [popupIsOpen, setPopupIsOpen] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const location = useLocation();
   const isMainPage = location.pathname === "/posts";
-  const modalRef = useRef(null);
 
   const handleSearch = () => {
     if (!isMainPage) navigate("/posts");
@@ -46,20 +46,26 @@ const Header = () => {
   const menuIsClose = () => {
     setIsOpen(false);
   };
+  const togglePopup = () => {
+    setPopupIsOpen((prev) => !prev);
+  };
+  const closePopup = () => {
+    setPopupIsOpen(false);
+  };
 
   const isDesktopAddButton = useMediaQuery({ minWidth: 1440 });
   const isMobilAddButton = useMediaQuery({ maxWidth: 767 });
 
-  /* const PopupComponent = isLoggedIn
+  const PopupComponent = isLoggedIn
     ? PopupMenuIsLogined
-    : PopupMenuIsNotLogined; */
+    : PopupMenuIsNotLogined;
 
   return (
     <header className={css.header}>
       <div className={`container ${css.header_container}`}>
         <Logo />
 
-        {/* {isOpen && (
+        {isOpen && (
           <PopupComponent
             menuIsOpen={menuIsOpen}
             onClose={menuIsClose}
@@ -68,30 +74,6 @@ const Header = () => {
             searchValue={searchValue}
             setSearchValue={setSearchValue}
           />
-        )} */}
-
-        {isOpen && (
-          <>
-            {isLoggedIn ? (
-              <PopupMenuIsLogined
-                menuIsOpen={menuIsOpen}
-                onClose={menuIsClose}
-                isLoggedIn={true}
-                handleSearch={handleSearch}
-                searchValue={searchValue}
-                setSearchValue={setSearchValue}
-              />
-            ) : (
-              <PopupMenuIsNotLogined
-                menuIsOpen={menuIsOpen}
-                onClose={menuIsClose}
-                isLoggedIn={false}
-                handleSearch={handleSearch}
-                searchValue={searchValue}
-                setSearchValue={setSearchValue}
-              />
-            )}
-          </>
         )}
 
         <div className={css.header_wrap}>
@@ -108,7 +90,6 @@ const Header = () => {
                 </Link>
               </li>
             )}
-
             <li className={css.header_list_item}>
               <Link to="about" className={css.item_link}>
                 Про нас
@@ -173,24 +154,28 @@ const Header = () => {
                       />
                     </div>
                   </Link>
+
                   <p className={css.header_user_name}>
                     {isLoggedIn ? user?.username : "Default User"}
                     <button
                       className={css.user_name_btn}
                       type="button"
-                      onClick={() => setIsOpen(false)}
+                      onClick={() => {
+                        togglePopup();
+                      }}
                     >
                       <IoIosArrowDown className={css.user_name_btn_icon} />
                     </button>
                   </p>
 
-                  {isOpen && (
-                    <div className={css.header_user_popup} ref={modalRef}>
+                  {popupIsOpen && (
+                    <div className={css.header_user_popup}>
                       {isLoggedIn && (
                         <div className={css.icons_wrap}>
                           <Link
                             to="/profile-edit"
                             className={css.edit_icon_wrap}
+                            onClick={closePopup}
                           >
                             <LuPencil className={css.edit_icon} />
                             Редагувати профіль
