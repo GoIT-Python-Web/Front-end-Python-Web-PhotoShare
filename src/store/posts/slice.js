@@ -11,6 +11,7 @@ import {
   createPost,
   uploadFilteredImage,
   generateQrCode,
+  deleteCommentAsAdmin,
 } from "./operations";
 import { handlePending, handleRejected } from "../init.js";
 
@@ -93,7 +94,6 @@ const postSlice = createSlice({
         );
       })
       .addCase(deleteComment.rejected, handleRejected)
-
       .addCase(createPost.pending, handlePending)
       .addCase(createPost.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -115,6 +115,15 @@ const postSlice = createSlice({
         state.error = null;
       })
       .addCase(generateQrCode.rejected, handleRejected);
+      .addCase(deleteCommentAsAdmin.pending, handlePending)
+      .addCase(deleteCommentAsAdmin.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.comments = state.comments.filter(
+          (comment) => comment.id !== action.payload
+        );
+      })
+      .addCase(deleteCommentAsAdmin.rejected, handleRejected);
   },
 });
 

@@ -11,6 +11,7 @@ import {
   selectIsAdmin,
   selectIsLoading,
   selectProfile,
+  selectUser,
 } from "../../store/auth/selectors.js";
 import { fetchUserById } from "../../store/auth/operations.js";
 import { clearProfile } from "../../store/auth/slice.js";
@@ -23,8 +24,9 @@ export default function ProfilePage() {
   const isLoading = useSelector(selectIsLoading);
 
   const profile = useSelector(selectProfile);
+  const user = useSelector(selectUser);
   const isAdmin = useSelector(selectIsAdmin);
-  const isMyProfile = id === profile?.id;
+  const isMyProfile = user.id === profile?.id;
 
   useEffect(() => {
     return () => {
@@ -47,7 +49,10 @@ export default function ProfilePage() {
         <>
           <BackButton />
           <div className={css.title}>
-            <Title location="userProfile" className={css.title} />
+            <Title
+              location={isMyProfile ? "myProfile" : "userProfile"}
+              className={css.title}
+            />
           </div>
           <UserCard
             profile={profile}

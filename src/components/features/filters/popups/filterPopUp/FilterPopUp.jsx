@@ -33,14 +33,14 @@ export default function FilterPopUp({
           keyword: "",
           from_date: null,
           to_date: null,
-          rating_to: 0,
+          exact_star: 0,
         }}
         onSubmit={(values) => {
           const filters = {
             keyword: values.keyword,
             from_date: startDate ? formatDateLocal(startDate) : null,
             to_date: endDate ? formatDateLocal(endDate) : null,
-            rating_to: values.rating_to,
+            exact_star: values.exact_star,
           };
           onFilterChange(filters);
         }}
@@ -50,7 +50,7 @@ export default function FilterPopUp({
             keyword: "",
             from_date: null,
             to_date: null,
-            rating_to: 0,
+            exact_star: 0,
           });
         }}
       >
@@ -111,9 +111,10 @@ export default function FilterPopUp({
                 За рейтингом
                 <div className={css.starList}>
                   {[1, 2, 3, 4, 5].map((star) => {
-                    const isFull = values.rating_to >= star;
+                    const isFull = values.exact_star >= star;
                     const isHalf =
-                      values.rating_to >= star - 0.5 && values.rating_to < star;
+                      values.exact_star >= star - 0.5 &&
+                      values.exact_star < star;
 
                     return (
                       <span
@@ -124,7 +125,7 @@ export default function FilterPopUp({
                           const clickX = e.clientX - rect.left;
                           const newRating =
                             clickX < rect.width / 2 ? star - 0.5 : star;
-                          setFieldValue("rating_to", newRating);
+                          setFieldValue("exact_star", newRating);
                         }}
                       >
                         {isFull ? (

@@ -39,48 +39,54 @@ function UserItem({
   };
 
   const handleDelete = () => {
-    // тут або dispatch(deleteUser(id)) якщо реалізуватимемо, поки просто заглушка
-    console.log("Delete user", id);
+    onDelete(id);
     setShowModal(false);
   };
 
   return (
     <div className={s.userItem}>
       <div className={s.userItemContainer}>
-        <div className={s.profileImageContainer}>
-          {typeof profileImage === "string" &&
-          profileImage.trim() !== "" &&
-          profileImage !== "null" &&
-          profileImage !== "undefined" ? (
-            <img
-              src={profileImage}
-              alt={profileAlt}
-              className={s.profileImage}
-            />
-          ) : (
-            <div
-              className={s.initialAvatar}
-              style={{ backgroundColor: getColorFromName(userName) }}
-            >
-              {userName.charAt(0).toUpperCase()}
-            </div>
-          )}
-        </div>
-        <div className={s.mobileContainer}>
-          <div className={s.pickname}>
-            <span className={s.profileName}>{userName}</span>
-            <div className={s.settingsSection}>
-              <button className={s.adminIconButton}>
-                <Icon name={role === "admin" ? "shield" : "user"} />
-              </button>
-            </div>
+        <div className={s.mobileWrapper}>
+          <div className={s.profileImageContainer}>
+            {typeof profileImage === "string" &&
+            profileImage.trim() !== "" &&
+            profileImage !== "null" &&
+            profileImage !== "undefined" ? (
+              <img
+                src={profileImage}
+                alt={profileAlt}
+                className={s.profileImage}
+              />
+            ) : (
+              <div
+                className={s.initialAvatar}
+                style={{ backgroundColor: getColorFromName(userName) }}
+              >
+                {userName.charAt(0).toUpperCase()}
+              </div>
+            )}
           </div>
-          <div className={s.mobilEmailSection}>
-            <div className={s.emailSection}>{email}</div>
-            <div className={s.timestampSection}>{dateTime}</div>
-          </div>
-        </div>
 
+          <div className={s.mobileContainer}>
+            <div className={s.pickname}>
+              <span className={s.profileName}>{userName}</span>
+              <div className={s.settingsSection}>
+                <button className={s.adminIconButton}>
+                  <Icon
+                    className={s.admIcon}
+                    name={role === "admin" ? "shield" : "user"}
+                    width="16"
+                    height="16"
+                  />
+                </button>
+              </div>
+            </div>
+            <div className={s.mobilEmailSection}>
+              <div className={s.emailSection}>{email}</div>
+              <div className={s.timestampSection}>{dateTime}</div>
+            </div>
+          </div>
+        </div>
         <div className={s.actionsSection}>
           <button className={s.iconButton} onClick={handleBan}>
             <Icon name="ban" className={s.icons} />
@@ -98,7 +104,7 @@ function UserItem({
             className={`${s.iconButton} ${s.dotsOnlyMobile}`}
             onClick={handleModalClick}
           >
-            <Icon name="dots" />
+            <Icon name="dots" width="5" height="22" />
           </button>
         </div>
       </div>

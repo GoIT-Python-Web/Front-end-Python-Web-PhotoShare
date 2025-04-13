@@ -25,6 +25,7 @@ const SignUpForm = ({ onSwitch }) => {
         initialValues={INITIAL_VALUES}
         validationSchema={registerValidationSchema}
         onSubmit={async (values) => {
+          dispatch(registerUser(values));
           navigate("/login");
         }}
       >

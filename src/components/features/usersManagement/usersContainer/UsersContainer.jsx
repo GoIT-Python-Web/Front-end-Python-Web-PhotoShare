@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Input from "../../../common/inputs/Input";
 import Button from "../../../common/buttons/Button";
 import UserList from "../usersList/UsersList";
 import s from "./UsersContainer.module.css";
 import Swal from "sweetalert2";
-import Filters from "../../filters/filters/Filters";
+import UsersFilters from "../../filters/filters/UsersFilters"; // замість Filters
 import Icon from "../../../common/icons/Icon";
 import useWindowWidth from "../../../../helpers/hooks/useWindowWidth";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,60 +12,47 @@ import {
   selectUsers,
   selectUsersError,
   selectUsersLoading,
+  selectCurrentPage,
+  selectUsersPerPage,
+  selectTotalPages,
+  selectFilters,
 } from "../../../../store/users/selectors";
-import { fetchUsers } from "../../../../store/users/operations";
+import { searchUsers } from "../../../../store/users/operations";
+import { setCurrentPage, setFilters } from "../../../../store/users/slice";
+import Loader from "../../../common/loader/Loader";
+
+const usersPerPage = 8;
 
 const UsersContainer = () => {
   const dispatch = useDispatch();
   const users = useSelector(selectUsers);
-  // console.log(users);
-
   const isLoading = useSelector(selectUsersLoading);
   const error = useSelector(selectUsersError);
-  const usersPerPage = 8;
-  const isBackendPagination = false;
-
-  const [currentPage, setCurrentPage] = useState(0);
-  const [searchQuery, setSearchQuery] = useState("");
-  // const [usersList, setUsers] = useState(users);
+  const currentPage = useSelector(selectCurrentPage);
+  const usersPerPage = useSelector(selectUsersPerPage);
+  const totalPages = useSelector(selectTotalPages);
+  const filters = useSelector(selectFilters);
 
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
+    const delayDebounce = setTimeout(() => {
+      dispatch(searchUsers(filters));
+    }, 300);
 
-  const filteredUsers = users.filter((user) => {
-    const query = searchQuery.toLowerCase();
-    return (
-      user.username.toLowerCase().includes(query) ||
-      user.email.toLowerCase().includes(query)
-    );
-  });
+    return () => clearTimeout(delayDebounce);
+  }, [dispatch, filters, currentPage]);
 
-  const totalPages = isBackendPagination
-    ? 1
-    : Math.ceil(filteredUsers.length / usersPerPage);
+  const handleRoleFilterClick = (role) => {
+    dispatch(setCurrentPage(0));
+    dispatch(setFilters({ ...filters, role: role || "" }));
+  };
 
-  const startIndex = currentPage * usersPerPage;
-
-  const currentUsers = isBackendPagination
-    ? users
-    : filteredUsers.slice(startIndex, startIndex + usersPerPage);
-
-  // const handleDeleteClick = (id) => {
-  //   Swal.fire({
-  //     title: "Ви впевнені?",
-  //     text: "Цього користувача буде видалено!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonText: "Так, видалити",
-  //     cancelButtonText: "Скасувати",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       // TODO: додати dispatch до backend-видалення
-  //       Swal.fire("Видалено!", "Користувача видалено.", "success");
-  //     }
-  //   });
-  // };
+  const handlePageChange = (direction) => {
+    const newPage =
+      direction === "next"
+        ? Math.min(currentPage + 1, totalPages - 1)
+        : Math.max(currentPage - 1, 0);
+    dispatch(setCurrentPage(newPage)); // Оновлюємо поточну сторінку в Redux
+  };
 
   const handleDeleteClick = (id) => {
     Swal.fire({
@@ -77,41 +64,96 @@ const UsersContainer = () => {
       cancelButtonText: "Скасувати",
     }).then((result) => {
       if (result.isConfirmed) {
-        setUsers((prev) => prev.filter((user) => user.id !== id));
+        dispatch(deleteUser(id));
         Swal.fire("Видалено!", "Користувача видалено.", "success");
       }
     });
   };
 
   const width = useWindowWidth();
-
   const buttonSize = width < 768 ? "xs" : width < 1440 ? "xl" : "md";
+
+  const usersToDisplay = users.slice(
+    currentPage * usersPerPage,
+    (currentPage + 1) * usersPerPage
+  );
 
   return (
     <div className={s.wrapper}>
+      {isLoading && <Loader />}
+      {error && <div>Сталася помилка: {error}</div>}
+
       <div className={s.searchContainer}>
         <div className={s.label}>
           <Input
             className={s.searchInput}
             placeholder="Пошук користувачів за ім’ям, поштою "
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            value={filters.search}
+            onChange={(e) => {
+              dispatch(setFilters({ ...filters, search: e.target.value })); // Оновлюємо фільтр пошуку
+              dispatch(setCurrentPage(0)); // Скидаємо на першу сторінку при зміні пошуку
+            }}
             type="text"
             name="search"
           />
-          <Icon name="magnifier" className={s.magnifier} />
-          <div className={s.statusFilter}>
-            <Icon name="user" className={s.statusIcon} />
-            <Icon name="shield" className={s.statusIcon} />
-          </div>
+          <Icon name="magnifier1" color=" #697a9e" className={s.magnifier} />
         </div>
         <div className={s.iconButtons}>
-          <Filters location="admin" />
+          <div className={s.statusFilter}>
+            <button
+              className={`${s.statusButton} ${
+                filters.role === "user" ? s.active : ""
+              }`}
+              onClick={() => handleRoleFilterClick("user")}
+            >
+              <Icon
+                name="user"
+                width="18"
+                height="18"
+                stroke=" #697a9e"
+                color=" #697a9e"
+                className={s.statusIcon}
+              />
+            </button>
+            <button
+              className={`${s.statusButton} ${
+                filters.role === "admin" ? s.active : ""
+              }`}
+              onClick={() => handleRoleFilterClick("admin")}
+            >
+              <Icon
+                name="shield"
+                width="18"
+                height="18"
+                stroke=" #697a9e"
+                className={s.statusIcons}
+              />
+            </button>
+          </div>
+          <UsersFilters
+          // sortBy={filters.sort_by}
+          // sortOrder={filters.sort_order}
+          // regDateFrom={filters.reg_date_from}
+          // regDateTo={filters.reg_date_to}
+          // setSortBy={(sortBy) =>
+          //   dispatch(setFilters({ ...filters, sort_by: sortBy }))
+          // }
+          // setSortOrder={(sortOrder) =>
+          //   dispatch(setFilters({ ...filters, sort_order: sortOrder }))
+          // }
+          // setRegDateFrom={(regDateFrom) =>
+          //   dispatch(setFilters({ ...filters, reg_date_from: regDateFrom }))
+          // }
+          // setRegDateTo={(regDateTo) =>
+          //   dispatch(setFilters({ ...filters, reg_date_to: regDateTo }))
+          // }
+          // resetPage={() => dispatch(setCurrentPage(0))}
+          />
         </div>
       </div>
 
       <div className={s.userListWrapper}>
-        <UserList users={currentUsers} onDelete={handleDeleteClick} />
+        <UserList users={usersToDisplay} onDelete={handleDeleteClick} />
       </div>
 
       <div className={s.pagination}>
@@ -120,7 +162,7 @@ const UsersContainer = () => {
           variant="primary"
           withArrow
           arrowPosition="left"
-          onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+          onClick={() => handlePageChange("prev")}
           disabled={currentPage === 0}
         >
           Назад
@@ -130,7 +172,7 @@ const UsersContainer = () => {
           variant="primary"
           withArrow
           arrowPosition="right"
-          onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
+          onClick={() => handlePageChange("next")}
           disabled={currentPage >= totalPages - 1}
         >
           Далі

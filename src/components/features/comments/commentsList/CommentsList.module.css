@@ -4,3 +4,11 @@
   gap: 24px;
   margin-bottom: 35px;
 }
+
+.paragraph {
+  margin-block: 100px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+  color: #132d62;
+}

@@ -3,13 +3,14 @@ import { Outlet } from "react-router-dom";
 import Loader from "./components/common/loader/Loader.jsx";
 import Header from "./components/layout/header/Header.jsx";
 import Footer from "./components/layout/footer/Footer.jsx";
-import About from "./pages/about/About.jsx";
+import { Toaster } from "sonner";
 
 const Layout = () => {
   return (
     <div className="wrapper">
       <Header />
       <main className="content">
+        <Toaster />
         <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>

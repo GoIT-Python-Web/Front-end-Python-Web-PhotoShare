@@ -6,7 +6,8 @@ export default function Title({ location }) {
     editScreen: "Завантаження та редагування фото",
     leaveAComment: "Залишити коментар",
     viewPublication: "Перегляд публікації",
-    userProfile: "Профіль Користувача",
+    myProfile: "Мій профіль",
+    userProfile: "Профіль користувача",
     admin: "Управління користувачами",
   };
 

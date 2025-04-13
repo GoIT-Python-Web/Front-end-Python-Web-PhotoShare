@@ -96,6 +96,11 @@
   align-items: center;
 }
 
+.userPic {
+  width: 70px;
+  height: 74px;
+}
+
 /* SETTINGS */
 .settings {
   position: absolute;
