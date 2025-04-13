@@ -252,6 +252,7 @@ a {
     border-color: var(--button-hover);
   }
   .header_user {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -271,5 +272,42 @@ a {
   }
   .user_name_btn_icon:hover {
     transform: rotate(180deg);
+  }
+  .header_user_popup {
+    position: absolute;
+    top: 63px;
+    right: 35px;
+    z-index: 101;
+    width: 216px;
+    height: 100px;
+    border-radius: 8px;
+    padding: 20px 10px;
+    background: var(--background);
+    border: 0.5px solid var(--button-hover);
+    transition: all 0.3s ease;
+  }
+  .icons_wrap {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    row-gap: 12px;
+  }
+  .edit_icon_wrap,
+  .logout_icon_wrap {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.2;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .edit_icon,
+  .logout_icon {
+    font-size: 24px;
   }
 }
