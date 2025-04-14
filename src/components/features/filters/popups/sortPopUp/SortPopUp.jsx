@@ -26,14 +26,16 @@ const sortOptions = [
   },
 ];
 
-export default function SortPopUp({ buttonRef, onClose, onSortChange }) {
-  const [selected, setSelected] = useState({ order: "", sort_by: "" });
-
+export default function SortPopUp({
+  buttonRef,
+  onClose,
+  onSortChange,
+  selected,
+}) {
   const modalRef = useRef(null);
   useClickOutside(modalRef, buttonRef, onClose);
 
   const handleSort = (option) => {
-    setSelected({ order: option.order, sort_by: option.sort_by });
     onSortChange({ order: option.order, sort_by: option.sort_by });
   };
 
@@ -50,7 +52,12 @@ export default function SortPopUp({ buttonRef, onClose, onSortChange }) {
             onClick={() => handleSort(option)}
             className={isActive ? css.active : ""}
           >
-            {isActive && <PiCheckFatThin className={css.icon} />} {option.label}
+            {isActive && (
+              <PiCheckFatThin
+                className={isActive ? css.activeIcon : css.icon}
+              />
+            )}{" "}
+            {option.label}
           </p>
         );
       })}

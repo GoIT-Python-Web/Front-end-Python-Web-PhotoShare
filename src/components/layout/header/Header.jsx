@@ -19,6 +19,7 @@ import { LuSearch } from "react-icons/lu";
 import { LuPencil } from "react-icons/lu";
 import { RxExit } from "react-icons/rx";
 import css from "./Header.module.css";
+import defineRole from "../../../helpers/defineRole.jsx";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -200,16 +201,11 @@ const Header = () => {
                     </div>
                   )}
 
-                  <Link to={`profile/${user?.id}`}>
-                    <div className={css.header_settings_icon}>
-                      <img
-                        className={css.star_settings_icon}
-                        src={star_settings}
-                        alt="Settings Icon"
-                        width={24}
-                        height={24}
-                      />
-                    </div>
+                  <Link
+                    to={`profile/${user?.id}`}
+                    className={css.header_settings_icon}
+                  >
+                    <div>{defineRole(user?.type)}</div>
                   </Link>
                 </div>
               </>

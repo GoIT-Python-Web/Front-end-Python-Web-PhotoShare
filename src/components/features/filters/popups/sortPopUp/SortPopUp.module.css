@@ -3,7 +3,6 @@
   border-radius: 8px;
   padding: 28px 20px;
   width: 202px;
-  height: 146px;
   position: absolute;
   background: #f2f6ff;
   right: 0px;
@@ -18,40 +17,34 @@
   line-height: 1.2;
   color: #24448a;
   cursor: pointer;
-  text-decoration-line: underline;
 }
 .wrapper p:hover {
   position: relative;
-  padding-left: 24px;
-  font-weight: 600;
-  font-size: 16px;
   line-height: 1.2;
   letter-spacing: 0.01em;
-  color: #132d62;
-}
-
-.wrapper p::before {
-  content: ""; /* default: no icon */
-  position: absolute;
-  left: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 16px;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.wrapper p:hover::before {
-  content: "✔"; /* ✅ the checkmark */
-  opacity: 1;
 }
 
 .active {
-  color: #24448a !important;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  color: white !important;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  background: linear-gradient(90deg, #4965a1 0%, #072f86 100%);
+  padding: 4px;
+  border-bottom: 0.4px solid #132d62;
+  border-radius: 8px;
 }
 
 .wrapper p:not(:last-child) {
   margin-bottom: 16px;
+}
+
+.activeIcon {
+  stroke-width: 1px;
+  stroke: #fdfdfd !important;
 }
 
 .icon {
