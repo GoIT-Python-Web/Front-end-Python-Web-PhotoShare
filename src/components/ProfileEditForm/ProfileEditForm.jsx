@@ -104,8 +104,11 @@ const ProfileEditForm = ({ user }) => {
             };
 
             Object.entries(values).forEach(([key, value]) => {
-              if (key === "birthdate") {
-                formData.append(key, formatDate(value));
+              if (key === "birthdate" && value) {
+                const parsed = parse(value, "dd-MM-yyyy", new Date());
+                if (!isNaN(parsed)) {
+                  formData.append(key, format(parsed, "yyyy-MM-dd"));
+                }
               } else if (key !== "avatar") {
                 formData.append(key, value);
               }
