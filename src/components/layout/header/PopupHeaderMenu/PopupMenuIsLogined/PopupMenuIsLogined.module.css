@@ -3,7 +3,6 @@
   top: 0;
   left: 0;
   min-width: 360px;
-  height: 464px;
   z-index: 100;
   border-radius: 8px;
   padding: 80px 16px 20px;
@@ -153,6 +152,10 @@
   visibility: hidden;
   opacity: 0;
 }
+.popup_settings_icon {
+  color: #fff;
+  margin-left: -10px;
+}
 .popup_search::placeholder {
   font-family: var(--font-family);
   font-size: 12px;
@@ -277,7 +280,6 @@
   .popup {
     left: 358px;
     width: 388px;
-    height: 337px;
     padding: 80px 36px 20px;
   }
   .close_btn {

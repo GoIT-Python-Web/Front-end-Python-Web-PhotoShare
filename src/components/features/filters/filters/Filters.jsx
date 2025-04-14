@@ -12,7 +12,10 @@ export default function Filters({ location }) {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [isSortingOpen, setIsSortingOpen] = useState(false);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-
+  const [sortConfig, setSortConfig] = useState({
+    order: "desc",
+    sort_by: "date",
+  });
   const [filters, setFilters] = useState({
     keyword: "",
     from_date: null,
@@ -107,6 +110,7 @@ export default function Filters({ location }) {
           onClose={() => setIsSortingOpen(false)}
           buttonRef={sortButtonRef}
           onSortChange={handleSortChange}
+          selected={filters}
         />
       )}
 

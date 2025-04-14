@@ -1,6 +1,7 @@
 import { Formik, Form, Field } from "formik";
 import css from "./ProfileEditForm.module.css";
-import Input from "../common/inputs/Input.jsx";
+// import Input from "../common/inputs/Input.jsx";
+import LabeledField from "../common/labeledField/LabeledField.jsx";
 import Button from "../common/buttons/Button.jsx";
 import { ProfileEditSchema } from "../../validation/schemas.js";
 import { useDispatch } from "react-redux";
@@ -37,16 +38,6 @@ const ProfileEditForm = ({ user }) => {
     description: normalize(user?.description),
   };
 
-  // const INITIAL_VALUES = {
-  //   avatar: user?.image_url ?? def,
-  //   name: user?.name ?? "",
-  //   email: user?.email ?? "",
-  //   phone: user?.phone ?? "",
-  //   password: "",
-  //   birthdate: user?.birthdate ?? "",
-  //   description: user?.description ?? "",
-  // };
-
   const dispatch = useDispatch();
   const [avatarSrc, setAvatarSrc] = useState(INITIAL_VALUES.avatar || def);
   const fileInputRef = useRef(null);
@@ -67,6 +58,37 @@ const ProfileEditForm = ({ user }) => {
     fileInputRef.current?.click();
   };
 
+  const CustomDatePicker = ({ field, form, meta }) => {
+    const selectedDate = (() => {
+      if (!field.value) return null;
+      const parsed = parse(field.value, "dd-MM-yyyy", new Date());
+      return isNaN(parsed) ? null : parsed;
+    })();
+
+    return (
+      <div className={css.datePickerWrap}>
+        <DatePicker
+          selected={selectedDate}
+          onChange={(date) => {
+            const formattedDate = date ? format(date, "dd-MM-yyyy") : "";
+            form.setFieldValue(field.name, formattedDate);
+          }}
+          dateFormat="dd-MM-yyyy"
+          placeholderText="День народження"
+          className={`${css.input} ${
+            meta.touched && meta.error ? css.error : ""
+          }`}
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
+        />
+        {meta.touched && meta.error && (
+          <div className={css.errorMsg}>{meta.error}</div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className={css.container}>
       <Formik
@@ -82,8 +104,11 @@ const ProfileEditForm = ({ user }) => {
             };
 
             Object.entries(values).forEach(([key, value]) => {
-              if (key === "birthdate") {
-                formData.append(key, formatDate(value));
+              if (key === "birthdate" && value) {
+                const parsed = parse(value, "dd-MM-yyyy", new Date());
+                if (!isNaN(parsed)) {
+                  formData.append(key, format(parsed, "yyyy-MM-dd"));
+                }
               } else if (key !== "avatar") {
                 formData.append(key, value);
               }
@@ -100,10 +125,8 @@ const ProfileEditForm = ({ user }) => {
             const newValues = {
               avatar: updatedUser.img_link ?? def,
               name: normalize(updatedUser.name),
-              username: normalize(updatedUser.username),
               email: normalize(updatedUser.email),
               phone: normalize(updatedUser.phone),
-              // password: "",
               birthdate: formatDateForInput(updatedUser.birthdate),
               description: normalize(updatedUser.description),
             };
@@ -129,9 +152,6 @@ const ProfileEditForm = ({ user }) => {
                 className={css.editBtn}
                 onClick={handleEditClick}
               >
-                {/* <svg width="16" height="16">
-            <use href="/public/sprite.svg#pen" />
-          </svg> */}
                 <FaPenToSquare size={22} />
               </button>
               <input
@@ -147,138 +167,53 @@ const ProfileEditForm = ({ user }) => {
             <p className={css.title}>Особисті данні</p>
             <div className={css.wrapInfo}>
               <div className={css.infoItem}>
-                <Field name="name">
-                  {({ field, meta }) => (
-                    <Input
-                      {...field}
-                      type="text"
-                      placeholder="Імʼя"
-                      error={meta.touched && meta.error}
-                      errorMessage={
-                        meta.touched && meta.error ? meta.error : ""
-                      }
-                    />
-                  )}
-                </Field>
-              </div>
-
-              {/* <div className={css.infoItem}>
-                <Field name="username">
-                  {({ field, meta }) => (
-                    <Input
-                      {...field}
-                      type="text"
-                      readOnly
-                      placeholder="UserName"
-                      error={meta.touched && meta.error}
-                      errorMessage={
-                        meta.touched && meta.error ? meta.error : ""
-                      }
-                    />
-                  )}
-                </Field>
-              </div> */}
-
-              <div className={css.infoItem}>
-                <Field name="email">
-                  {({ field, meta }) => (
-                    <Input
-                      {...field}
-                      type="email"
-                      placeholder="Електронна пошта"
-                      error={meta.touched && meta.error}
-                      errorMessage={
-                        meta.touched && meta.error ? meta.error : ""
-                      }
-                    />
-                  )}
-                </Field>
+                <LabeledField
+                  name="name"
+                  label="Імʼя"
+                  type="text"
+                  placeholder="Імʼя"
+                />
               </div>
 
               <div className={css.infoItem}>
-                <Field name="phone">
-                  {({ field, meta }) => (
-                    <Input
-                      {...field}
-                      type="text"
-                      placeholder="Номер телефону"
-                      error={meta.touched && meta.error}
-                      errorMessage={
-                        meta.touched && meta.error ? meta.error : ""
-                      }
-                    />
-                  )}
-                </Field>
+                <LabeledField
+                  name="email"
+                  label="Електронна пошта"
+                  type="email"
+                  placeholder="Електронна пошта"
+                />
               </div>
 
               <div className={css.infoItem}>
-                <Field name="birthdate">
-                  {({ field, form, meta }) => {
-                    const selectedDate =
-                      typeof field.value === "string"
-                        ? (() => {
-                            const parsed = parse(
-                              field.value,
-                              "dd-MM-yyyy",
-                              new Date()
-                            );
-                            return isNaN(parsed) ? null : parsed;
-                          })()
-                        : null;
-
-                    return (
-                      <div className={css.datePickerWrap}>
-                        <DatePicker
-                          selected={selectedDate}
-                          onChange={(date) => {
-                            const formattedDate = date
-                              ? format(date, "dd-MM-yyyy")
-                              : "";
-                            form.setFieldValue("birthdate", formattedDate);
-                          }}
-                          dateFormat="dd-MM-yyyy"
-                          placeholderText="День народження"
-                          className={`${css.input} ${
-                            meta.touched && meta.error ? css.error : ""
-                          }`}
-                          showMonthDropdown
-                          showYearDropdown
-                          dropdownMode="select"
-                        />
-                        {meta.touched && meta.error && (
-                          <div className={css.errorMsg}>{meta.error}</div>
-                        )}
-                      </div>
-                    );
-                  }}
-                </Field>
+                <LabeledField
+                  name="phone"
+                  label="Номер телефону"
+                  type="text"
+                  placeholder="Номер телефону"
+                />
               </div>
 
               <div className={css.infoItem}>
-                <Field name="password">
-                  {({ field, meta }) => (
-                    <Input
-                      {...field}
-                      type="password"
-                      readOnly
-                      placeholder="Пароль"
-                      error={meta.touched && meta.error}
-                      errorMessage={
-                        meta.touched && meta.error ? meta.error : ""
-                      }
-                    />
-                  )}
-                </Field>
+                <LabeledField
+                  name="birthdate"
+                  label="День народження"
+                  customComponent={CustomDatePicker}
+                />
+              </div>
+
+              <div className={css.infoItem}>
+                <LabeledField
+                  name="password"
+                  label="Пароль"
+                  type="password"
+                  placeholder="Пароль"
+                />
               </div>
             </div>
 
             <div className={css.wrapAdditionalInfo}>
               <p className={css.title}>Додаткові данні</p>
-              {/* <textarea
-                className={css.textarea}
-                placeholder="Додаткові данні"
-                rows="5"
-              /> */}
+
               <Field name="description">
                 {({ field, meta }) => (
                   <>

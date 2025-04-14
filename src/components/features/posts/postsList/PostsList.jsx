@@ -3,6 +3,7 @@ import PostItem from "../postItem/PostItem.jsx";
 import css from "./PostList.module.css";
 import { useMediaQuery } from "react-responsive";
 import Button from "../../../common/buttons/Button.jsx";
+import { toast } from "sonner";
 
 export default function PostsList({ posts, isMyProfile }) {
   const isTablet = useMediaQuery({ minWidth: "768px" });

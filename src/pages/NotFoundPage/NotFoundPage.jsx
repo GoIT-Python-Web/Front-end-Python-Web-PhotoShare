@@ -1,8 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import css from "./NotFoundPage.module.css";
 import nfp from "../../assets/images/NotFoundPage/nfp_img@2x.jpg";
 
 const NotFoundPage = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate("/posts");
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
   return (
     <div className="container">
       <div className={css.nfp_wrap}>

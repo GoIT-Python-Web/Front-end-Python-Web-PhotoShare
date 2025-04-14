@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { logout } from "../../../../../store/auth/slice.js";
 import { useClickOutside } from "../../../../../helpers/hooks/useClickOutside.js";
@@ -13,6 +13,8 @@ import { LuSearch } from "react-icons/lu";
 import { GrLogout } from "react-icons/gr";
 import { LuPencil } from "react-icons/lu";
 import css from "./PopupMenuIsLogined.module.css";
+import defineRole from "../../../../../helpers/defineRole.jsx";
+import { selectIsAdmin } from "../../../../../store/auth/selectors.js";
 
 const PopupMenuIsLogined = ({
   user,
@@ -25,6 +27,7 @@ const PopupMenuIsLogined = ({
   const buttonRef = useRef(null);
   const modalRef = useRef(null);
   useClickOutside(modalRef, buttonRef, onClose);
+  const isAdmin = useSelector(selectIsAdmin);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -70,16 +73,8 @@ const PopupMenuIsLogined = ({
           <p className={css.popup_user_name}>
             {user?.username || "Default User"}
           </p>
-          <Link to={`profile/${user?.id}`}>
-            <div className={css.popup_settings_icon} onClick={onClose}>
-              <img
-                className={css.star_settings_icon}
-                src={star_settings}
-                alt="Settings Icon"
-                width={24}
-                height={24}
-              />
-            </div>
+          <Link to={`profile/${user?.id}`} className={css.popup_settings_icon}>
+            <div onClick={onClose}>{defineRole(user?.type)}</div>
           </Link>
         </div>
         <div className={css.popup_user_buttons}>
@@ -151,6 +146,17 @@ const PopupMenuIsLogined = ({
               Про нас
             </Link>
           </li>
+          {isAdmin && (
+            <li className={css.popup_list_item}>
+              <Link
+                to="/admin/users"
+                className={css.popup_list_item_link}
+                onClick={onClose}
+              >
+                Користувачі
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </div>

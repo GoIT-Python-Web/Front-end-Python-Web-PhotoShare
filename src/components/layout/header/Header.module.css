@@ -64,6 +64,7 @@ a {
   height: 24px;
   border: none;
   font-size: 20px;
+  color: white;
 }
 .header_user_name {
   display: flex;

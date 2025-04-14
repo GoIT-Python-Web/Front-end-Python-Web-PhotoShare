@@ -1,12 +1,14 @@
-import { Formik, Form, Field } from "formik";
-import Input from "../../common/inputs/Input.jsx";
+import { Formik, Form } from "formik";
+import LabeledField from "../../common/labeledField/LabeledField.jsx";
 import Button from "../../common/buttons/Button.jsx";
-
 import css from "./SignUpForm.module.css";
 import { registerValidationSchema } from "../../../validation/authSchemas.js";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../../store/auth/operations.js";
+import { selectIsLoading } from "../../../store/auth/selectors.js";
+import Loader from "../../common/loader/Loader.jsx";
+import { toast } from "sonner";
 
 const INITIAL_VALUES = {
   name: "",
@@ -18,87 +20,70 @@ const INITIAL_VALUES = {
 const SignUpForm = ({ onSwitch }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+
   return (
     <div className={css.container}>
       <h2 className={css.title}>Реєстрація</h2>
       <Formik
         initialValues={INITIAL_VALUES}
         validationSchema={registerValidationSchema}
-        onSubmit={async (values) => {
-          dispatch(registerUser(values));
-          navigate("/login");
+        onSubmit={async (values, { setStatus }) => {
+          try {
+            await dispatch(registerUser(values)).unwrap();
+
+            navigate("/login");
+          } catch (error) {
+            toast.error(error);
+            setStatus("Помилка при реєстрації. Спробуйте пізніше.");
+          }
         }}
       >
-        {() => (
+        {({ status }) => (
           <Form className={css.form}>
-            <Field name="name">
-              {({ field, meta }) => (
-                <Input
-                  {...field}
-                  type="text"
-                  placeholder="Імʼя"
-                  error={meta.touched && meta.error}
-                  errorMessage={meta.touched && meta.error ? meta.error : ""}
-                />
-              )}
-            </Field>
-
-            <Field name="username">
-              {({ field, meta }) => (
-                <Input
-                  {...field}
-                  type="text"
-                  placeholder="UserName"
-                  error={meta.touched && meta.error}
-                  errorMessage={meta.touched && meta.error ? meta.error : ""}
-                />
-              )}
-            </Field>
-
-            <Field name="email">
-              {({ field, meta }) => (
-                <Input
-                  {...field}
-                  type="email"
-                  placeholder="Email"
-                  error={meta.touched && meta.error}
-                  errorMessage={meta.touched && meta.error ? meta.error : ""}
-                />
-              )}
-            </Field>
-
-            <Field name="password">
-              {({ field, meta }) => (
-                <Input
-                  {...field}
-                  type="password"
-                  placeholder="Пароль"
-                  error={meta.touched && meta.error}
-                  errorMessage={meta.touched && meta.error ? meta.error : ""}
-                />
-              )}
-            </Field>
-
+            <LabeledField
+              name="name"
+              label="Імʼя"
+              type="text"
+              placeholder="Введіть Ім’я"
+            />
+            <LabeledField
+              name="username"
+              label="UserName"
+              type="text"
+              placeholder="Введіть UserName"
+            />
+            <LabeledField
+              name="email"
+              label="Електронна пошта"
+              type="email"
+              placeholder="Введіть Пошту"
+            />
+            <LabeledField
+              name="password"
+              label="Пароль"
+              type="password"
+              placeholder="Введіть Пароль"
+            />
             <Button
               size="fs"
               variant="primary"
               type="submit"
               onClick={onSwitch}
             >
-              Зареєструватись
+              {isLoading ? <Loader location="auth" /> : "Зареєструватись"}
             </Button>
-
             <p className={css.terms}>
               Натискаючи кнопку реєстрації, ви погоджуєтесь з умовами
               використання сервісу.
             </p>
-
             <p className={css.loginText}>
               Вже є обліковий запис?{" "}
               <Link to="/login" className={css.loginLink}>
                 Увійти
               </Link>
             </p>
+            {status && <p className={css.error}>{status}</p>}{" "}
           </Form>
         )}
       </Formik>

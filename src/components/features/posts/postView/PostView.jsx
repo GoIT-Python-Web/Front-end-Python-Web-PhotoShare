@@ -7,13 +7,18 @@ import GoogleMapsLink from "../../../../helpers/generateGoogleMapsUrl.jsx";
 import { useNavigate } from "react-router-dom";
 import formatRating from "../../../../helpers/formatRating.js";
 import { toast } from "sonner";
-import { selectIsLoggedIn } from "../../../../store/auth/selectors.js";
+import {
+  selectIsLoggedIn,
+  selectUser,
+} from "../../../../store/auth/selectors.js";
 import { useEffect, useState } from "react";
 
 export default function PostView() {
   const post = useSelector(selectPost) ?? {};
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
+  const user = useSelector(selectUser);
+  const isMyPost = post.user?.id === user?.id;
 
   const [avgRating, setAvgRating] = useState(post.avg_rating ?? 0);
   const [ratingCount, setRatingCount] = useState(post.rating_count ?? 0);
@@ -86,6 +91,7 @@ export default function PostView() {
                 id={post.id}
                 post={true}
                 onRated={handleRated}
+                isMyPost={isMyPost}
               />
             </>
             <p className={css.ratingText}>
