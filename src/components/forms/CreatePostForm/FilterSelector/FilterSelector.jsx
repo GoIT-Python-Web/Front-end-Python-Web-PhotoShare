@@ -2,6 +2,7 @@ import { useState } from "react";
 import css from "../FilterSelector/FilterSelector.module.css";
 import { useDispatch } from "react-redux";
 import { uploadFilteredImage } from "../../../../store/posts/operations.js";
+import def from "../../../../assets/images/circle-user.png";
 
 const FILTERS = [
   { label: "Normal", value: null },
@@ -14,10 +15,9 @@ const mapRangeToFactor = (value) => {
   return 1 + value / 200;
 };
 
-const FilterSelector = ({ image, size, scale, onApply }) => {
+const FilterSelector = ({ image, size, scale, buttonRef }) => {
   const [selectedFilter, setSelectedFilter] = useState(null);
   const dispatch = useDispatch();
-  console.log(size, scale);
 
   const handleApply = async () => {
     if (!image) return;
@@ -42,18 +42,14 @@ const FilterSelector = ({ image, size, scale, onApply }) => {
 
       const width = Math.round(bitmap.width * finalFactor);
       const height = Math.round(bitmap.height * finalFactor);
-
-      dispatch(
-        uploadFilteredImage({
-          file,
-          width,
-          height,
-          crop: "scale",
-          effect: selectedFilter,
-        })
-      );
-
-      onApply?.(selectedFilter);
+      const filters = {
+        file,
+        width,
+        height,
+        crop: "scale",
+        effect: selectedFilter,
+      };
+      dispatch(uploadFilteredImage(filters));
     } catch (error) {
       console.error("Failed to apply filter:", error);
     }
@@ -63,14 +59,14 @@ const FilterSelector = ({ image, size, scale, onApply }) => {
     <div className={css.filterWrap}>
       <div className={css.filterHeader}>
         <h3 className={css.filterTitle}>Фільтри</h3>
-        <button
-          type="button"
-          className={css.applyFilterBtn}
+        <p
+          className={`${css.applyFilterBtn} ${!image ? css.disabled : ""}`}
           onClick={handleApply}
+          ref={buttonRef}
           disabled={!image}
         >
           Застосувати фільтр
-        </button>
+        </p>
       </div>
 
       <div className={css.filterOptions}>
@@ -92,7 +88,7 @@ const FilterSelector = ({ image, size, scale, onApply }) => {
                   ? typeof image === "string"
                     ? image
                     : URL.createObjectURL(image)
-                  : "/src/assets/images/EditProfilPage/defaultImg.png"
+                  : def
               }
               alt={filter.label}
               className={css.filterImage}

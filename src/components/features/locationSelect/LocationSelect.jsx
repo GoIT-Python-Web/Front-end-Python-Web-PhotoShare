@@ -1,8 +1,6 @@
-import { useState } from "react";
 import AsyncSelect from "react-select/async";
 import { fetchCities } from "./api";
 import debounce from "lodash.debounce";
-import css from "./LocationSelect.module.css";
 import { useFormikContext } from "formik";
 import { useMediaQuery } from "react-responsive";
 
@@ -22,7 +20,6 @@ export const CitySearchSelect = () => {
   };
 
   const handleChange = (selectedCity) => {
-    console.log(selectedCity.label);
     setFieldValue("location", selectedCity ? selectedCity.label : "");
   };
 

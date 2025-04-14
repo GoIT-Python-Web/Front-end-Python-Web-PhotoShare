@@ -20,7 +20,9 @@ const postSlice = createSlice({
   initialState: {
     posts: [],
     personalPosts: [],
-    temporaryLink: "",
+    temporaryLink: null,
+    qr: null,
+    url: null,
     comments: [],
     post: null,
     isLoading: false,
@@ -32,7 +34,8 @@ const postSlice = createSlice({
       state.comments = [];
     },
     clearLink(state) {
-      state.temporaryLink = "";
+      state.temporaryLink = null;
+      state.qr = null;
     },
   },
   extraReducers: (builder) => {
@@ -99,7 +102,8 @@ const postSlice = createSlice({
       .addCase(createPost.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.personalPosts.unshift(action.payload);
+        state.url = action.payload;
+        // state.personalPosts.unshift(action.payload);
       })
       .addCase(createPost.rejected, handleRejected)
 
@@ -114,6 +118,7 @@ const postSlice = createSlice({
       .addCase(generateQrCode.pending, handlePending)
       .addCase(generateQrCode.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.qr = action.payload;
         state.error = null;
       })
       .addCase(generateQrCode.rejected, handleRejected)

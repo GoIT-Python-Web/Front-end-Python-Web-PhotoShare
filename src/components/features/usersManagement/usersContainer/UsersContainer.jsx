@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import Input from "../../../common/inputs/Input";
 import Button from "../../../common/buttons/Button";
 import UserList from "../usersList/UsersList";

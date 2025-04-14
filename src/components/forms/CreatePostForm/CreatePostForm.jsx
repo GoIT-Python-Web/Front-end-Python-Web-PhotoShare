@@ -2,7 +2,7 @@ import { Formik, Form, Field } from "formik";
 import css from "../CreatePostForm/CreatePostForm.module.css";
 import Button from "../../common/buttons/Button.jsx";
 import Input from "../../common/inputs/Input.jsx";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BsQrCode } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../../../store/posts/operations.js";
@@ -11,6 +11,7 @@ import { selectLink } from "../../../store/posts/selectors.js";
 import { CitySearchSelect } from "../../features/locationSelect/LocationSelect.jsx";
 import def from "../../../assets/images/circle-user.png";
 import { clearLink } from "../../../store/posts/slice.js";
+import { toast } from "sonner";
 
 const INITIAL_VALUES = {
   title: "",
@@ -19,18 +20,30 @@ const INITIAL_VALUES = {
   tags: ["", "", "", "", ""],
 };
 
-const EditPostForm = () => {
+const EditPostForm = ({ generateQR, url }) => {
+  const buttonRef = useRef();
+  const formikRef = useRef();
   const dispatch = useDispatch();
-  const [filter, setFilter] = useState(null);
   const [image_url, setImage] = useState(null);
+  const [submit, setSubmit] = useState(false);
+  const [link, setLink] = useState(null);
   const [size, setSize] = useState(0);
   const [scale, setScale] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  const link = useSelector(selectLink);
+  const reduxLink = useSelector(selectLink);
 
   const handleImageFile = (file) => {
     if (file && file.type.startsWith("image/")) {
       setImage(file);
+    }
+  };
+
+  const showLoadingToast = () => {
+    if (submit) {
+      toast.info("Йде процес публікації, будь ласка, зачекайте...", {
+        autoClose: false,
+        toastId: "loading",
+      });
     }
   };
 
@@ -46,34 +59,53 @@ const EditPostForm = () => {
     handleImageFile(file);
   };
 
+  useEffect(() => {
+    if (reduxLink && submit) {
+      setLink(reduxLink);
+      toast.dismiss("loading");
+      const tags = formikRef.current?.values.tags
+        .filter((tag) => tag.trim() !== "")
+        .map((tag) => ({ name: tag.trim() }));
+
+      const payload = {
+        title: formikRef.current?.values.title,
+        description: formikRef.current?.values.description,
+        location: formikRef.current?.values.location,
+        tags,
+        image_url: reduxLink,
+      };
+      console.log(payload);
+      dispatch(createPost(payload));
+      formikRef.current?.resetForm();
+      dispatch(clearLink());
+      setLink(null);
+      setImage(def);
+      setSize(0);
+      setScale(0);
+      setSubmit(false);
+      toast("Фото було опубліковано! Тепер ви можете отримати QR код.", {
+        action: {
+          label: "Отримати QR",
+          onClick: () => generateQR(link),
+        },
+      });
+    } else if (reduxLink) {
+      setLink(reduxLink);
+      toast.dismiss("loading");
+    }
+  }, [reduxLink, submit, generateQR, url, dispatch]);
+
+  const handlePublish = () => {
+    if (!link) {
+      buttonRef.current?.click();
+      showLoadingToast();
+    }
+    setSubmit(true);
+  };
+
   return (
     <div className={css.container}>
-      <Formik
-        initialValues={INITIAL_VALUES}
-        onSubmit={(values, { resetForm }) => {
-          const tags = values.tags
-            .filter((tag) => tag.trim() !== "")
-            .map((tag) => ({ name: tag.trim() }));
-
-          const payload = {
-            title: values.title,
-            description: values.description,
-            location: values.location,
-            tags,
-            image_url: link,
-          };
-
-          console.log("Submitting JSON body:", payload);
-
-          dispatch(createPost(payload));
-
-          resetForm();
-          dispatch(clearLink());
-          setImage(null);
-          setSize(0);
-          setScale(0);
-        }}
-      >
+      <Formik initialValues={INITIAL_VALUES} innerRef={formikRef}>
         {({ isSubmitting, values, handleChange }) => (
           <Form className={css.form}>
             <div className={css.wrapImgDesk}>
@@ -90,7 +122,10 @@ const EditPostForm = () => {
                   <img
                     data-label={!image_url && "def"}
                     src={
-                      link || (image_url ? URL.createObjectURL(image_url) : def)
+                      link ||
+                      (image_url && image_url instanceof File
+                        ? URL.createObjectURL(image_url)
+                        : def)
                     }
                     alt="Прев'ю"
                     className={css.previewImage}
@@ -118,7 +153,11 @@ const EditPostForm = () => {
                   style={{ display: "none" }}
                 />
               </div>
-              <button className={css.qrBtnDown}>
+              <button
+                className={css.qrBtnDown}
+                type="button"
+                onClick={() => generateQR(url)}
+              >
                 <BsQrCode size={32} />
                 &nbsp;Отримати QR код
               </button>
@@ -228,19 +267,19 @@ const EditPostForm = () => {
                   image={image_url}
                   size={size}
                   scale={scale}
-                  onApply={(filterValue) => setFilter(filterValue)}
+                  buttonRef={buttonRef}
                 />
               </fieldset>
 
               <div className={css.wrapBtn}>
-                <Button
-                  size="lg"
-                  variant="primary"
+                <button
+                  onClick={handlePublish}
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={!image_url}
+                  className={css.btn}
                 >
                   Опублікувати
-                </Button>
+                </button>
               </div>
             </div>
           </Form>

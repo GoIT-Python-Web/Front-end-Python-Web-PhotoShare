@@ -15,6 +15,23 @@
   width: 312px;
   height: 300px;
 }
+.input {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: 0em;
+  border-radius: 8px;
+  padding: 8px 40px 8px 8px;
+  width: 100%;
+  height: 48px;
+  font-size: 16px;
+  color: var(--text);
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  box-sizing: border-box;
+}
 .editBtn {
   position: absolute;
   bottom: -4px;
@@ -108,10 +125,7 @@
     width: 100%;
     height: 192px;
     border-radius: 8px;
-    background-image: image-set(
-      url("/frame.jpg") 1x,
-      url("/frame@2x.jpg") 2x
-    );
+    background-image: image-set(url("/frame.jpg") 1x, url("/frame@2x.jpg") 2x);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -146,7 +160,7 @@
     display: none;
   }
 
-    .wrapInfo {
+  .wrapInfo {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 24px 72px;
@@ -164,7 +178,6 @@
   }
 }
 @media only screen and (min-width: 1440px) {
-  
   .avatarWrap {
     height: 273px;
     margin-top: 50px;
@@ -182,7 +195,7 @@
     bottom: -55px;
     left: 90px;
   }
- 
+
   .wrapInfo {
     gap: 24px 70px;
     width: 1076px;
