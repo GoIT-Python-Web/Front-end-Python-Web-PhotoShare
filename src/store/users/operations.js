@@ -6,7 +6,6 @@ export const banUser = createAsyncThunk(
   "users/ban",
   async (userId, thunkAPI) => {
     try {
-      console.log(userId);
       await instance.put(`/admin/users/${userId}/ban`);
       return { userId };
     } catch (err) {

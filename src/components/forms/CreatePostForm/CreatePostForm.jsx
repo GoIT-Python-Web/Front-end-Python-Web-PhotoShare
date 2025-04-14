@@ -20,11 +20,12 @@ const INITIAL_VALUES = {
   tags: ["", "", "", "", ""],
 };
 
-const EditPostForm = ({ generateQR, url }) => {
+const EditPostForm = ({ generateQR, url, ref }) => {
   const buttonRef = useRef();
   const formikRef = useRef();
   const dispatch = useDispatch();
   const [image_url, setImage] = useState(null);
+  const [isFormDisabled, setIsFormDisabled] = useState(true);
   const [submit, setSubmit] = useState(false);
   const [link, setLink] = useState(null);
   const [size, setSize] = useState(0);
@@ -35,6 +36,7 @@ const EditPostForm = ({ generateQR, url }) => {
   const handleImageFile = (file) => {
     if (file && file.type.startsWith("image/")) {
       setImage(file);
+      setIsFormDisabled(false);
     }
   };
 
@@ -82,14 +84,16 @@ const EditPostForm = ({ generateQR, url }) => {
       setSize(0);
       setScale(0);
       setSubmit(false);
+      formikRef.current?.setFieldValue("location", "");
+      setIsFormDisabled(true);
       setTimeout(() => {
         toast("Фото було опубліковано! Тепер ви можете отримати QR код.", {
           action: {
             label: "Отримати QR",
-            onClick: () => generateQR(link),
+            onClick: () => ref.current?.click(),
           },
         });
-      }, 1200);
+      }, 1000);
     } else if (reduxLink) {
       setLink(reduxLink);
       toast.dismiss("loading");
@@ -107,7 +111,7 @@ const EditPostForm = ({ generateQR, url }) => {
   return (
     <div className={css.container}>
       <Formik initialValues={INITIAL_VALUES} innerRef={formikRef}>
-        {({ isSubmitting, values, handleChange }) => (
+        {({ values, handleChange }) => (
           <Form className={css.form}>
             <div className={css.wrapImgDesk}>
               <div
@@ -121,7 +125,7 @@ const EditPostForm = ({ generateQR, url }) => {
               >
                 <div className={css.imageBox}>
                   <img
-                    data-label={!image_url && "def"}
+                    data-label={isFormDisabled && "def"}
                     src={
                       link ||
                       (image_url && image_url instanceof File
@@ -207,7 +211,7 @@ const EditPostForm = ({ generateQR, url }) => {
                   </div>
                 ))}
               </div>
-              <fieldset disabled={!image_url} className={css.sliderSection}>
+              <fieldset disabled={isFormDisabled} className={css.sliderSection}>
                 <div className={css.sliderWrap}>
                   <div className={css.sliderWrapper}>
                     <label className={css.sliderLabel}>Змінити Розмір</label>
@@ -263,7 +267,6 @@ const EditPostForm = ({ generateQR, url }) => {
                     </div>
                   </div>
                 </div>
-
                 <FilterSelector
                   image={image_url}
                   size={size}

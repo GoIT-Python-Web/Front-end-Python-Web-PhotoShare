@@ -6,7 +6,6 @@ import { LuPencil } from "react-icons/lu";
 import { RxExit } from "react-icons/rx";
 import iconClose from "../../../../assets/icons/iconClose.svg";
 import { TbUserStar } from "react-icons/tb";
-import { FiTrash2 } from "react-icons/fi";
 import { IoBan } from "react-icons/io5";
 import formatDateTime from "../../../../helpers/formatDateTime.js";
 import def from "../../../../assets/images/def.png";

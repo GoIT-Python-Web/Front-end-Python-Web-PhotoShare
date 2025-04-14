@@ -4,10 +4,10 @@ import css from "./QRModal.module.css";
 import Button from "../../common/buttons/Button.jsx";
 import { toast } from "sonner";
 
-const QRModalContent = () => {
+const QRModalContent = ({ link }) => {
   const qr = useSelector(selectQR);
 
-  if (!qr) return null;
+  if (!link && !qr) return null;
 
   const handleDownload = () => {
     const link = document.createElement("a");
@@ -18,13 +18,10 @@ const QRModalContent = () => {
 
   const handleCopy = async () => {
     try {
-      const response = await fetch(qr);
-      const blob = await response.blob();
-      const clipboardItem = new ClipboardItem({ [blob.type]: blob });
-      await navigator.clipboard.write([clipboardItem]);
-      toast("QR-код скопійовано в буфер обміну!");
+      await navigator.clipboard.writeText(qr);
+      toast("URL QR-коду скопійовано в буфер обміну!");
     } catch (err) {
-      console.error(err);
+      toast.error("Не вдалося скопіювати URL QR-коду.");
     }
   };
 

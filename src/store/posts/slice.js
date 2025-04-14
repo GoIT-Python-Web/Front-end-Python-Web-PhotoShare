@@ -35,6 +35,7 @@ const postSlice = createSlice({
     },
     clearLink(state) {
       state.temporaryLink = null;
+      state.url = null;
       state.qr = null;
     },
   },
@@ -103,7 +104,6 @@ const postSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.url = action.payload;
-        // state.personalPosts.unshift(action.payload);
       })
       .addCase(createPost.rejected, handleRejected)
 
