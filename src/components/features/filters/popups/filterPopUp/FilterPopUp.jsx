@@ -51,6 +51,8 @@ export default function FilterPopUp({
             from_date: null,
             to_date: null,
             exact_star: 0,
+            sort_by: null,
+            order: null,
           });
         }}
       >

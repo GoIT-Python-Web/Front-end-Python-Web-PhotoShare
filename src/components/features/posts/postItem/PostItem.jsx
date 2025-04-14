@@ -30,13 +30,12 @@ export default function PostItem({ post, isMyProfile }) {
     if (isAdmin || isMyProfile) dispatch(deletePost({ id: post.id }));
   };
   const [isOpen, setIsOpen] = useState(false);
-
   return (
     <>
       <div className={css.imageWrapper}>
         <img
           src={post.image_url}
-          alt="Post's picture"
+          alt={`${post.user?.name}'s post picture`}
           className={css.postPic}
         />
         <button className={css.viewButton} onClick={() => setIsOpen(true)}>

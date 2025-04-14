@@ -5,6 +5,12 @@
 
 .title {
   margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.block {
+  color: red;
 }
 
 @media screen and (min-width: 768px) {

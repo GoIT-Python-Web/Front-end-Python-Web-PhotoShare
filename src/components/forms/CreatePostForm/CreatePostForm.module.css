@@ -4,6 +4,17 @@
   row-gap: 24px;
 }
 
+.sliderSection {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.sliderSection:disabled {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
 .imageWrap {
   display: flex;
   flex-direction: column;
@@ -32,6 +43,10 @@
 }
 .previewImage {
   border-radius: 13px;
+}
+.previewImage[data-label="def"] {
+  width: 102px !important ;
+  height: 102px !important;
 }
 .uploadLabel {
   font-family: var(--font-family);
@@ -155,16 +170,38 @@
   margin-bottom: 24px;
 }
 
+.btn {
+  border-radius: 8px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 120%;
+  color: var(--additional-text);
+  background: linear-gradient(90deg, #2b59ba 0%, #083494 100%);
+  background-color: #1654d7;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
 .textarea {
   border: 1px solid var(--text);
   border-radius: 13px;
   padding: 10px;
+  resize: none;
   width: 328px;
   height: 48px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   background: var(--input-backgroung);
   outline: none;
 }
+
 .textarea:focus,
 .textarea:active {
   border-color: var(--button-hover);
@@ -182,12 +219,11 @@
 .wrapTegs {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   border: 1px solid var(--text);
   border-radius: 13px;
   padding: 16px;
   width: 328px;
-  /* height: 102px; */
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   background: var(--input-backgroung);
 }
@@ -205,6 +241,10 @@
   .imageWrap {
     width: 696px;
     height: 504px;
+  }
+  .previewImage[data-label="def"] {
+    width: 160px !important ;
+    height: 160px !important;
   }
   .sliderWrap {
     flex-direction: row;
@@ -282,15 +322,12 @@
     text-decoration-skip-ink: none;
     color: var(--text);
   }
-  .wrapAll {
-  }
   .sliderWrap {
     width: 536px;
     height: 144px;
   }
   .wrapFilters {
     width: 536px;
-    height: 168px;
   }
   .textarea {
     width: 536px;

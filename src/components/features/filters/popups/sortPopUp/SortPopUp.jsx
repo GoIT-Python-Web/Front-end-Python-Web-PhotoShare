@@ -3,44 +3,57 @@ import css from "./SortPopUp.module.css";
 import { PiCheckFatThin } from "react-icons/pi";
 import { useClickOutside } from "../../../../../helpers/hooks/useClickOutside.js";
 
+const sortOptions = [
+  {
+    label: "Найновіші",
+    order: "desc",
+    sort_by: "date",
+  },
+  {
+    label: "Найстаріші",
+    order: "asc",
+    sort_by: "date",
+  },
+  {
+    label: "Високий рейтинг",
+    order: "desc",
+    sort_by: "rating",
+  },
+  {
+    label: "Низький рейтинг",
+    order: "asc",
+    sort_by: "rating",
+  },
+];
+
 export default function SortPopUp({ buttonRef, onClose, onSortChange }) {
-  const [sortBy, setSortBy] = useState("");
-  const [order, setOrder] = useState("");
+  const [selected, setSelected] = useState({ order: "", sort_by: "" });
 
   const modalRef = useRef(null);
   useClickOutside(modalRef, buttonRef, onClose);
 
-  const handleSort = (sortOption) => {
-    if (sortOption === "asc" || sortOption === "desc") {
-      setOrder(sortOption);
-      onSortChange({ sort_by: sortBy, order: sortOption });
-    } else {
-      setSortBy(sortOption);
-      onSortChange({ sort_by: sortOption, order });
-    }
+  const handleSort = (option) => {
+    setSelected({ order: option.order, sort_by: option.sort_by });
+    onSortChange({ order: option.order, sort_by: option.sort_by });
   };
 
   return (
     <div className={`${css.wrapper} ${css.userWrapper}`} ref={modalRef}>
-      <p
-        onClick={() => handleSort("asc")}
-        className={order === "asc" ? css.active : ""}
-      >
-        {order === "asc" && <PiCheckFatThin className={css.icon} />} А-Я
-      </p>
-      <p
-        onClick={() => handleSort("desc")}
-        className={order === "desc" ? css.active : ""}
-      >
-        {order === "desc" && <PiCheckFatThin className={css.icon} />} Я-А
-      </p>
-      <p
-        onClick={() => handleSort("rating")}
-        className={sortBy === "date" ? css.active : ""}
-      >
-        {sortBy === "rating" && <PiCheckFatThin className={css.icon} />} За
-        рейтингом
-      </p>
+      {sortOptions.map((option) => {
+        const isActive =
+          selected.order === option.order &&
+          selected.sort_by === option.sort_by;
+
+        return (
+          <p
+            key={`${option.sort_by}-${option.order}`}
+            onClick={() => handleSort(option)}
+            className={isActive ? css.active : ""}
+          >
+            {isActive && <PiCheckFatThin className={css.icon} />} {option.label}
+          </p>
+        );
+      })}
     </div>
   );
 }

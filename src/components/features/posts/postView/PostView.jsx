@@ -8,17 +8,34 @@ import { useNavigate } from "react-router-dom";
 import formatRating from "../../../../helpers/formatRating.js";
 import { toast } from "sonner";
 import { selectIsLoggedIn } from "../../../../store/auth/selectors.js";
+import { useEffect, useState } from "react";
 
 export default function PostView() {
   const post = useSelector(selectPost) ?? {};
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
 
+  const [avgRating, setAvgRating] = useState(post.avg_rating ?? 0);
+  const [ratingCount, setRatingCount] = useState(post.rating_count ?? 0);
+  useEffect(() => {
+    setAvgRating(post.avg_rating);
+    setRatingCount(post.rating_count);
+  }, [post]);
+
+  const handleRated = (newRating) => {
+    const total = avgRating * ratingCount;
+    const newCount = ratingCount + 1;
+    const updatedAvg = (total + newRating) / newCount;
+
+    setRatingCount(newCount);
+    setAvgRating(updatedAvg);
+  };
+
   return (
     <div>
       <img
         src={post.image_url}
-        alt={`${post.user_name}'s post picture`}
+        alt={`${post.user?.name}'s post picture`}
         width={328}
         height={300}
         className={css.image}
@@ -64,11 +81,16 @@ export default function PostView() {
           <p className={css.title}>{post.title}</p>
           <div className={css.rating}>
             <>
-              <Stars rating={post.avg_rating} id={post.id} post="true" />
+              <Stars
+                rating={avgRating}
+                id={post.id}
+                post={true}
+                onRated={handleRated}
+              />
             </>
             <p className={css.ratingText}>
-              {post.rating} ({post.rating_count}{" "}
-              {formatRating(post.rating_count)})
+              {avgRating?.toFixed(1)} ({ratingCount} {formatRating(ratingCount)}
+              )
             </p>
           </div>
         </div>

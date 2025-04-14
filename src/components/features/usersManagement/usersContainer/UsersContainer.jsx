@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import Input from "../../../common/inputs/Input";
 import Button from "../../../common/buttons/Button";
 import UserList from "../usersList/UsersList";
@@ -20,6 +19,7 @@ import {
 import { searchUsers } from "../../../../store/users/operations";
 import { setCurrentPage, setFilters } from "../../../../store/users/slice";
 import Loader from "../../../common/loader/Loader";
+import { useEffect } from "react";
 
 const usersPerPage = 8;
 

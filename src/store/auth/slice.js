@@ -8,7 +8,7 @@ import {
 } from "./operations";
 import { handlePending, handleRejected } from "../init.js";
 import { updateUser } from "./operations.js";
-import { toggleUserRole } from "../users/operations.js";
+import { toggleUserRole, banUser } from "../users/operations.js";
 
 const initialState = {
   user: null,
@@ -83,6 +83,9 @@ const authSlice = createSlice({
       .addCase(refreshTokens.rejected, (state, action) => {
         state.isLoggedIn = false;
         handleRejected(state, action);
+      })
+      .addCase(banUser.fulfilled, (state) => {
+        state.profile.is_active = !state.profile.is_active;
       })
       .addCase(updateUser.pending, (state) => {
         state.isLoading = true;

@@ -8,6 +8,9 @@ import { updateUser } from "../../store/auth/operations.js";
 import { FaPenToSquare } from "react-icons/fa6";
 import { useRef, useState } from "react";
 import def from "../../assets/images/EditProfilPage/AvatarDef.png";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format, parse } from "date-fns";
 
 const ProfileEditForm = ({ user }) => {
   console.log("User inside ProfileEditForm:", user);
@@ -16,19 +19,21 @@ const ProfileEditForm = ({ user }) => {
     typeof value === "string" ? value : value ? String(value) : "";
 
   const formatDateForInput = (dateString) => {
-    const date = new Date(dateString);
-    if (isNaN(date)) return "";
-    return date.toISOString().split("T")[0]; //YYYY-MM-DD
+    if (!dateString) return "";
+    const parsed = new Date(dateString);
+    return isNaN(parsed) ? "" : format(parsed, "dd-MM-yyyy");
   };
-  
+
   const INITIAL_VALUES = {
     avatar: user?.img_link ?? def,
     name: normalize(user?.name),
-    // username: normalize(user?.username),
     email: normalize(user?.email),
     phone: normalize(user?.phone),
     password: "",
-    birthdate: formatDateForInput(user?.birthdate),
+    birthdate:
+      user?.birthdate && !isNaN(new Date(user.birthdate).getTime())
+        ? format(new Date(user.birthdate), "dd-MM-yyyy")
+        : "",
     description: normalize(user?.description),
   };
 
@@ -72,11 +77,10 @@ const ProfileEditForm = ({ user }) => {
           try {
             const formData = new FormData();
             const formatDate = (dateString) => {
-              const date = new Date(dateString);
-              if (isNaN(date)) return "";
-              return date.toISOString().split("T")[0];
+              const parsed = parse(dateString, "dd-MM-yyyy", new Date());
+              return format(parsed, "yyyy-MM-dd");
             };
-        
+
             Object.entries(values).forEach(([key, value]) => {
               if (key === "birthdate") {
                 formData.append(key, formatDate(value));
@@ -84,26 +88,26 @@ const ProfileEditForm = ({ user }) => {
                 formData.append(key, value);
               }
             });
-        
+
             if (fileInputRef.current?.files[0]) {
               formData.append("avatar", fileInputRef.current.files[0]);
             }
-        
+
             const updatedUser = await dispatch(updateUser(formData)).unwrap();
-        
+
             setAvatarSrc(updatedUser.img_link || def);
-        
+
             const newValues = {
               avatar: updatedUser.img_link ?? def,
               name: normalize(updatedUser.name),
               username: normalize(updatedUser.username),
               email: normalize(updatedUser.email),
               phone: normalize(updatedUser.phone),
-              password: "",
+              // password: "",
               birthdate: formatDateForInput(updatedUser.birthdate),
               description: normalize(updatedUser.description),
             };
-        
+
             resetForm({ values: newValues });
             console.log("Форма оновлена:", newValues);
           } catch (err) {
@@ -120,7 +124,11 @@ const ProfileEditForm = ({ user }) => {
                 alt="Аватар"
                 onError={handleImageError}
               />
-              <button type="button" className={css.editBtn} onClick={handleEditClick}>
+              <button
+                type="button"
+                className={css.editBtn}
+                onClick={handleEditClick}
+              >
                 {/* <svg width="16" height="16">
             <use href="/public/sprite.svg#pen" />
           </svg> */}
@@ -154,12 +162,13 @@ const ProfileEditForm = ({ user }) => {
                 </Field>
               </div>
 
-              <div className={css.infoItem}>
+              {/* <div className={css.infoItem}>
                 <Field name="username">
                   {({ field, meta }) => (
                     <Input
                       {...field}
                       type="text"
+                      readOnly
                       placeholder="UserName"
                       error={meta.touched && meta.error}
                       errorMessage={
@@ -168,7 +177,7 @@ const ProfileEditForm = ({ user }) => {
                     />
                   )}
                 </Field>
-              </div>
+              </div> */}
 
               <div className={css.infoItem}>
                 <Field name="email">
@@ -204,17 +213,44 @@ const ProfileEditForm = ({ user }) => {
 
               <div className={css.infoItem}>
                 <Field name="birthdate">
-                  {({ field, meta }) => (
-                    <Input
-                      {...field}
-                      type="date"
-                      placeholder="День народження"
-                      error={meta.touched && meta.error}
-                      errorMessage={
-                        meta.touched && meta.error ? meta.error : ""
-                      }
-                    />
-                  )}
+                  {({ field, form, meta }) => {
+                    const selectedDate =
+                      typeof field.value === "string"
+                        ? (() => {
+                            const parsed = parse(
+                              field.value,
+                              "dd-MM-yyyy",
+                              new Date()
+                            );
+                            return isNaN(parsed) ? null : parsed;
+                          })()
+                        : null;
+
+                    return (
+                      <div className={css.datePickerWrap}>
+                        <DatePicker
+                          selected={selectedDate}
+                          onChange={(date) => {
+                            const formattedDate = date
+                              ? format(date, "dd-MM-yyyy")
+                              : "";
+                            form.setFieldValue("birthdate", formattedDate);
+                          }}
+                          dateFormat="dd-MM-yyyy"
+                          placeholderText="День народження"
+                          className={`${css.input} ${
+                            meta.touched && meta.error ? css.error : ""
+                          }`}
+                          showMonthDropdown
+                          showYearDropdown
+                          dropdownMode="select"
+                        />
+                        {meta.touched && meta.error && (
+                          <div className={css.errorMsg}>{meta.error}</div>
+                        )}
+                      </div>
+                    );
+                  }}
                 </Field>
               </div>
 
@@ -224,6 +260,7 @@ const ProfileEditForm = ({ user }) => {
                     <Input
                       {...field}
                       type="password"
+                      readOnly
                       placeholder="Пароль"
                       error={meta.touched && meta.error}
                       errorMessage={
@@ -260,11 +297,7 @@ const ProfileEditForm = ({ user }) => {
             </div>
 
             <div className={css.wrapBtn}>
-              <Button
-                size="lg"
-                variant="secondary"
-                type="reset"
-              >
+              <Button size="lg" variant="secondary" type="reset">
                 Скинути
               </Button>
 

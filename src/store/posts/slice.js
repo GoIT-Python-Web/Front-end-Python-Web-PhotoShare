@@ -20,6 +20,9 @@ const postSlice = createSlice({
   initialState: {
     posts: [],
     personalPosts: [],
+    temporaryLink: null,
+    qr: null,
+    url: null,
     comments: [],
     post: null,
     isLoading: false,
@@ -29,6 +32,11 @@ const postSlice = createSlice({
     clearPost(state) {
       state.post = null;
       state.comments = [];
+    },
+    clearLink(state) {
+      state.temporaryLink = null;
+      state.url = null;
+      state.qr = null;
     },
   },
   extraReducers: (builder) => {
@@ -61,15 +69,12 @@ const postSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(deletePost.fulfilled, (state, action) => {
-        if (state.personalPosts) {
-          state.personalPosts = state.personalPosts.filter(
-            (post) => post.id !== action.payload
-          );
-        } else {
-          state.posts = state.posts.filter(
-            (post) => post.id !== action.payload
-          );
-        }
+        const id = action.payload;
+
+        state.personalPosts = state.personalPosts?.filter(
+          (post) => post.id !== id
+        );
+        state.posts = state.posts?.filter((post) => post.id !== id);
       })
       .addCase(sendComment.fulfilled, (state, action) => {
         state.comments.push(action.payload);
@@ -98,7 +103,7 @@ const postSlice = createSlice({
       .addCase(createPost.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.personalPosts.unshift(action.payload);
+        state.url = action.payload;
       })
       .addCase(createPost.rejected, handleRejected)
 
@@ -106,12 +111,14 @@ const postSlice = createSlice({
       .addCase(uploadFilteredImage.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
+        state.temporaryLink = action.payload;
       })
       .addCase(uploadFilteredImage.rejected, handleRejected)
 
       .addCase(generateQrCode.pending, handlePending)
       .addCase(generateQrCode.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.qr = action.payload;
         state.error = null;
       })
       .addCase(generateQrCode.rejected, handleRejected)
@@ -127,5 +134,5 @@ const postSlice = createSlice({
   },
 });
 
-export const { clearPost } = postSlice.actions;
+export const { clearPost, clearLink } = postSlice.actions;
 export const postsReducer = postSlice.reducer;
