@@ -12,6 +12,7 @@ import def from "../../assets/images/EditProfilPage/AvatarDef.png";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, parse } from "date-fns";
+import { toast } from "sonner";
 
 const ProfileEditForm = ({ user }) => {
   console.log("User inside ProfileEditForm:", user);
@@ -132,8 +133,10 @@ const ProfileEditForm = ({ user }) => {
             };
 
             resetForm({ values: newValues });
+            toast.success("Профіль було оновлено!");
             console.log("Форма оновлена:", newValues);
-          } catch (err) {
+          } catch (err)  {
+            toast.error("Не вдалося оновити профіль. Спробуйте ще раз.");
             console.error("Помилка оновлення:", err);
           }
         }}
