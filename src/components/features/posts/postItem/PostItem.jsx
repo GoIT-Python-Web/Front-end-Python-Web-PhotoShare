@@ -27,10 +27,26 @@ export default function PostItem({ post, isMyProfile }) {
   const isDesktop = useMediaQuery({ minWidth: 1440 });
   const isTablet = useMediaQuery({ minWidth: 768 });
   const navigate = useNavigate();
-  const handleDelete = () => {
-    if (isAdmin || isMyProfile) dispatch(deletePost({ id: post.id }));
-  };
+  const handleDelete = () => {};
   const [isOpen, setIsOpen] = useState(false);
+  const formatAverage = (num) => {
+    const rounded = Math.round(num * 2) / 2;
+    return rounded.toFixed(1);
+  };
+
+  const handleDeletePost = () => {
+    toast.warning("Точно бажаєте видалити пост?", {
+      action: {
+        label: "Видалити",
+        onClick: () => {
+          if (isAdmin || isMyProfile) {
+            dispatch(deletePost({ id: post.id }));
+          }
+        },
+      },
+    });
+  };
+
   return (
     <>
       <div className={css.imageWrapper}>
@@ -95,8 +111,8 @@ export default function PostItem({ post, isMyProfile }) {
         <div className={css.ratingDiv}>
           <Stars rating={post.avg_rating} />
           <p className={css.rating}>
-            {post.rating} ({post.rating_count} {formatRating(post.rating_count)}
-            )
+            {formatAverage(post.avg_rating)} ({post.rating_count}{" "}
+            {formatRating(post.rating_count)})
           </p>
         </div>
         <div className={css.dateDiv}>
@@ -116,7 +132,7 @@ export default function PostItem({ post, isMyProfile }) {
           <Button
             size={isDesktop ? "sm" : "xs"}
             variant="secondary-red"
-            onClick={handleDelete}
+            onClick={handleDeletePost}
           >
             Видалити
           </Button>

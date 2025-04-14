@@ -10,7 +10,7 @@ const Layout = () => {
     <div className="wrapper">
       <Header />
       <main className="content">
-        <Toaster />
+        <Toaster richColors />
         <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>

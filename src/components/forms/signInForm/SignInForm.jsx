@@ -5,8 +5,11 @@ import { loginValidationSchema } from "../../../validation/authSchemas.js";
 import LabeledField from "../../common/labeledField/LabeledField.jsx";
 import Button from "../../common/buttons/Button.jsx";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUser, loginUser } from "../../../store/auth/operations.js";
+import { selectIsLoading } from "../../../store/auth/selectors.js";
+import Loader from "../../common/loader/Loader.jsx";
+import { toast } from "sonner";
 
 const INITIALS_VALUES = {
   username: "",
@@ -15,6 +18,7 @@ const INITIALS_VALUES = {
 
 const SignInForm = ({ onSwitch }) => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
   return (
     <div className={css.container}>
       <h2 className={css.title}>Вхід</h2>
@@ -25,6 +29,7 @@ const SignInForm = ({ onSwitch }) => {
           try {
             await dispatch(loginUser(values)).unwrap();
             dispatch(getUser());
+            toast.success("Успішний вхід!");
           } catch (error) {
             if (error?.includes(400) || error?.response?.status === 400) {
               setStatus("Невірний юзернейм чи пароль");
@@ -58,7 +63,7 @@ const SignInForm = ({ onSwitch }) => {
               onClick={onSwitch}
               style={{ marginBottom: "24px", marginTop: "16px" }}
             >
-              Увійти
+              {isLoading ? <Loader location="auth" /> : "Увійти"}
             </Button>
             <div className={css.bottomTxt}>
               <p className={css.dscr}>Немає облікового запису?</p>

@@ -3,7 +3,6 @@
   top: 0;
   left: 0;
   min-width: 360px;
-  height: 464px;
   z-index: 100;
   border-radius: 8px;
   padding: 80px 16px 20px;
@@ -281,7 +280,6 @@
   .popup {
     left: 358px;
     width: 388px;
-    height: 337px;
     padding: 80px 36px 20px;
   }
   .close_btn {
