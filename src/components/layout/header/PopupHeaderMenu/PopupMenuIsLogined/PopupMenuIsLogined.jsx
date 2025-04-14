@@ -13,6 +13,7 @@ import { LuSearch } from "react-icons/lu";
 import { GrLogout } from "react-icons/gr";
 import { LuPencil } from "react-icons/lu";
 import css from "./PopupMenuIsLogined.module.css";
+import defineRole from "../../../../../helpers/defineRole.jsx";
 
 const PopupMenuIsLogined = ({
   user,
@@ -70,16 +71,8 @@ const PopupMenuIsLogined = ({
           <p className={css.popup_user_name}>
             {user?.username || "Default User"}
           </p>
-          <Link to={`profile/${user?.id}`}>
-            <div className={css.popup_settings_icon} onClick={onClose}>
-              <img
-                className={css.star_settings_icon}
-                src={star_settings}
-                alt="Settings Icon"
-                width={24}
-                height={24}
-              />
-            </div>
+          <Link to={`profile/${user?.id}`} className={css.popup_settings_icon}>
+            <div onClick={onClose}>{defineRole(user?.type)}</div>
           </Link>
         </div>
         <div className={css.popup_user_buttons}>

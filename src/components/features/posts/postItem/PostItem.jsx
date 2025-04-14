@@ -18,6 +18,7 @@ import { deletePost } from "../../../../store/posts/operations.js";
 import GoogleMapsLink from "../../../../helpers/generateGoogleMapsUrl.jsx";
 import formatRating from "../../../../helpers/formatRating.js";
 import { toast } from "sonner";
+import shortenName from "../../../../helpers/shortenName.js";
 
 export default function PostItem({ post, isMyProfile }) {
   const isAdmin = useSelector(selectIsAdmin);
@@ -76,7 +77,7 @@ export default function PostItem({ post, isMyProfile }) {
             width={50}
             height={50}
           />
-          <p>{post.user?.name}</p>
+          <p>{shortenName(post.user?.name)}</p>
         </a>
         {post?.location && (
           <p className={css.location}>

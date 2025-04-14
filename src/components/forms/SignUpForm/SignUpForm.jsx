@@ -1,5 +1,5 @@
-import { Formik, Form, Field } from "formik";
-import Input from "../../common/inputs/Input.jsx";
+import { Formik, Form } from "formik";
+import LabeledField from "../../common/labeledField/LabeledField.jsx";
 import Button from "../../common/buttons/Button.jsx";
 
 import css from "./SignUpForm.module.css";
@@ -31,53 +31,33 @@ const SignUpForm = ({ onSwitch }) => {
       >
         {() => (
           <Form className={css.form}>
-            <Field name="name">
-              {({ field, meta }) => (
-                <Input
-                  {...field}
-                  type="text"
-                  placeholder="Імʼя"
-                  error={meta.touched && meta.error}
-                  errorMessage={meta.touched && meta.error ? meta.error : ""}
-                />
-              )}
-            </Field>
+            <LabeledField
+              name="name"
+              label="Імʼя"
+              type="text"
+              placeholder="Введіть Ім’я"
+            />
 
-            <Field name="username">
-              {({ field, meta }) => (
-                <Input
-                  {...field}
-                  type="text"
-                  placeholder="UserName"
-                  error={meta.touched && meta.error}
-                  errorMessage={meta.touched && meta.error ? meta.error : ""}
-                />
-              )}
-            </Field>
+            <LabeledField
+              name="username"
+              label="UserName"
+              type="text"
+              placeholder="Введіть UserName"
+            />
 
-            <Field name="email">
-              {({ field, meta }) => (
-                <Input
-                  {...field}
-                  type="email"
-                  placeholder="Email"
-                  error={meta.touched && meta.error}
-                  errorMessage={meta.touched && meta.error ? meta.error : ""}
-                />
-              )}
-            </Field>
+            <LabeledField
+              name="email"
+              label="Електронна пошта"
+              type="email"
+              placeholder="Введіть Пошту"
+            />
 
-            <Field name="password">
-              {({ field, meta }) => (
-                <Input
-                  {...field}
-                  type="password"
-                  placeholder="Пароль"
-                  error={meta.touched && meta.error}
-                  errorMessage={meta.touched && meta.error ? meta.error : ""}
-                />
-              )}
-            </Field>
+            <LabeledField
+              name="password"
+              label="Пароль"
+              type="password"
+              placeholder="Введіть Пароль"
+            />
 
             <Button
               size="fs"
@@ -105,5 +85,6 @@ const SignUpForm = ({ onSwitch }) => {
     </div>
   );
 };
+
 
 export default SignUpForm;

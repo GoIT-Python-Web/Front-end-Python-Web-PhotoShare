@@ -67,7 +67,7 @@ const EditPostForm = ({ generateQR, url, ref }) => {
       toast.dismiss("loading");
       const tags = formikRef.current?.values.tags
         .filter((tag) => tag.trim() !== "")
-        .map((tag) => ({ name: tag.trim() }));
+        .map((tag) => ({ name: tag.trim().replace(/#/g, "") }));
 
       const payload = {
         title: formikRef.current?.values.title,

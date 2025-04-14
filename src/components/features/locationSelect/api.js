@@ -1,10 +1,9 @@
 import axios from "axios";
 
-const GEO_API_KEY = "42868704b2msh9d72fa62ed89632p16e643jsn062e4be6cddb";
-const GEO_API_HOST = "wft-geo-db.p.rapidapi.com";
-
 export const fetchCities = async (inputValue) => {
   if (!inputValue) return [];
+  const GEO_API_KEY = import.meta.env.VITE_APP_GEO_API_KEY;
+  const GEO_API_HOST = import.meta.env.VITE_APP_GEO_API_HOST;
 
   try {
     const response = await axios.get(`https://${GEO_API_HOST}/v1/geo/cities`, {
