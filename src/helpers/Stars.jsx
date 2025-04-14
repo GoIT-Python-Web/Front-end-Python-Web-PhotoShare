@@ -1,9 +1,11 @@
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { addRating } from "../store/posts/operations.js";
+import { toast } from "sonner";
+import { selectError } from "../store/posts/selectors.js";
 
-export default function Stars({ rating, id, post = false, onRated }) {
+export default function Stars({ rating, id, post = false, onRated, isMyPost }) {
   const totalStars = 5;
   const dispatch = useDispatch();
   const [hoverRating, setHoverRating] = useState(null);
@@ -14,13 +16,24 @@ export default function Stars({ rating, id, post = false, onRated }) {
     setCurrentRating(rating);
   }, [rating]);
 
-  const handleStarClick = (selectedRating) => {
+  const handleStarClick = async (selectedRating) => {
     if (!post || isRated) return;
+
+    if (isMyPost) {
+      toast.warning("Ви не можете оцінити власний пост");
+      return;
+    }
+
     const newRating = Number(selectedRating);
-    setCurrentRating(newRating);
-    setIsRated(true);
-    dispatch(addRating({ id, rating: newRating }));
-    if (onRated) onRated(newRating);
+
+    try {
+      await dispatch(addRating({ id, rating: newRating })).unwrap();
+      setCurrentRating(newRating);
+      setIsRated(true);
+      if (onRated) onRated(newRating);
+    } catch (error) {
+      toast.error("Ви не можете оцінити пост двічі");
+    }
   };
 
   const displayedRating = hoverRating !== null ? hoverRating : currentRating;

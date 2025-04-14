@@ -12,6 +12,7 @@ import {
   uploadFilteredImage,
   generateQrCode,
   deleteCommentAsAdmin,
+  addRating,
 } from "./operations";
 import { handlePending, handleRejected } from "../init.js";
 
@@ -81,6 +82,7 @@ const postSlice = createSlice({
         state.error = null;
         state.isLoading = false;
       })
+      .addCase(addRating.rejected, handleRejected)
       .addCase(fetchCommentsToPost.pending, handlePending)
       .addCase(fetchCommentsToPost.fulfilled, (state, action) => {
         state.isLoading = false;
