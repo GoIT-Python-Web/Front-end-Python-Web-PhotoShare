@@ -17,7 +17,6 @@ export default function PostView() {
 
   const [avgRating, setAvgRating] = useState(post.avg_rating ?? 0);
   const [ratingCount, setRatingCount] = useState(post.rating_count ?? 0);
-
   useEffect(() => {
     setAvgRating(post.avg_rating);
     setRatingCount(post.rating_count);
@@ -36,7 +35,7 @@ export default function PostView() {
     <div>
       <img
         src={post.image_url}
-        alt={`${post.user_name}'s post picture`}
+        alt={`${post.user?.name}'s post picture`}
         width={328}
         height={300}
         className={css.image}

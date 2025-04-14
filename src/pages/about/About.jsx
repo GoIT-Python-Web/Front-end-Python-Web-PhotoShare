@@ -1,6 +1,9 @@
 import styles from "./About.module.css";
 import Button from "../../components/common/buttons/Button";
-import img from "../../assets/images/About-img.png";
+import deskImg from "../../assets/images/About-img.png";
+import tabImg from "../../assets/images/about-img-tab.png";
+import img from "../../assets/images/about-img-mob.png";
+import logo from "../../assets/icons/favicon.svg";
 
 export default function PhotoShare() {
   return (
@@ -9,11 +12,7 @@ export default function PhotoShare() {
         <div className={styles.header}>
           <div className={styles.logo}>
             <div className={styles.logoIcon}>
-              <img
-                className={styles.logoImg}
-                src="/src/assets/icons/favicon.svg"
-                alt="Logo"
-              />
+              <img className={styles.logoImg} src={logo} alt="Logo" />
             </div>
             <h1 className={styles.logoText}>PhotoShare</h1>
           </div>
@@ -25,7 +24,6 @@ export default function PhotoShare() {
             </p>
           </div>
         </div>
-
         <div className={styles.mainContent}>
           <div className={styles.leftSection}>
             <div className={styles.banner}>
@@ -73,23 +71,14 @@ export default function PhotoShare() {
           <div className={styles.rightSection}>
             <div className={styles.imageContainer}>
               <picture>
-                <source
-                  media="(min-width: 1440px)"
-                  srcSet="src\assets\images\About-img.png"
-                />
+                <source media="(min-width: 1440px)" srcSet={deskImg} />
 
-                <source
-                  media="(min-width: 768px)"
-                  srcSet="src\assets\images\about-img-tab.png"
-                />
+                <source media="(min-width: 768px)" srcSet={tabImg} />
 
-                <source
-                  media="(max-width: 767px)"
-                  srcSet="src/assets/images/about-img-mob.png"
-                />
+                <source media="(max-width: 767px)" srcSet={img} />
 
                 <img
-                  src="src\assets\images\about-img-mob.png"
+                  src={img}
                   alt="Happy person making peace signs"
                   className={styles.heroImage}
                 />

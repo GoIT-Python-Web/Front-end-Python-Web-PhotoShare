@@ -20,8 +20,8 @@ export const ProfileEditSchema = Yup.object().shape({
     .min(8, "Має бути не менше 8 символів!")
     .max(30, "Має бути менше 30 символів!")
     .optional(),
-    birthdate: Yup.date().typeError("Невірний формат дати").optional(),
-    description: Yup.string()
+  birthdate: Yup.string().typeError("Невірний формат дати").optional(),
+  description: Yup.string()
     .min(10, "Занадто короткий опис!")
     .max(1000, "Занадто довгий опис")
     .optional(),

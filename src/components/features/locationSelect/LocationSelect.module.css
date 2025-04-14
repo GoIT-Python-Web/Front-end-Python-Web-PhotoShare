@@ -1,19 +1,27 @@
 .input {
   width: 100%;
   max-width: 400px;
-  margin: 20px auto;
   font-family: inherit;
   font-size: 16px;
+  border: 1px solid var(--text);
+  border-radius: 13px;
+  padding: 10px;
+  resize: none;
+  width: 328px;
+  height: 48px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  background: var(--input-backgroung);
+  outline: none;
 }
 
 .control {
-  border-radius: 8px;
-  border-color: #ccc;
-}
-
-.controlFocused {
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+  border-radius: 13px;
+  border: 1px solid var(--text);
+  background: var(--input-backgroung);
+  padding: 10px;
+  width: 328px;
+  height: 48px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .menu {
@@ -23,10 +31,10 @@
 
 .optionFocused {
   background-color: #f0f8ff;
-  color: #000;
+  color: black;
 }
 
 .optionSelected {
   background-color: #007bff;
-  color: #fff;
+  color: white;
 }
