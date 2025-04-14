@@ -1,10 +1,9 @@
-import { useEffect, useRef } from "react";
-import css from "./PopupMenuIsLogined.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-import { selectUser } from "../../../../../store/auth/selectors";
 import { logout } from "../../../../../store/auth/slice.js";
+import { useClickOutside } from "../../../../../helpers/hooks/useClickOutside.js";
 import Button from "../../../../common/buttons/Button";
 import close from "../../../../../assets/images/Header/close@2x.png";
 import def from "../../../../../assets/images/def.png";
@@ -13,9 +12,10 @@ import star_settings from "../../../../../assets/icons/star_settings.svg";
 import { LuSearch } from "react-icons/lu";
 import { GrLogout } from "react-icons/gr";
 import { LuPencil } from "react-icons/lu";
-import { useClickOutside } from "../../../../../helpers/hooks/useClickOutside.js";
+import css from "./PopupMenuIsLogined.module.css";
 
 const PopupMenuIsLogined = ({
+  user,
   menuIsOpen,
   onClose,
   searchValue,
@@ -34,7 +34,6 @@ const PopupMenuIsLogined = ({
     dispatch(logout());
   };
 
-  const user = useSelector(selectUser);
   const isMobilAddButton = useMediaQuery({ maxWidth: 767 });
 
   return (
@@ -68,7 +67,9 @@ const PopupMenuIsLogined = ({
               />
             </div>
           </Link>
-          <p className={css.popup_user_name}>{user?.username}</p>
+          <p className={css.popup_user_name}>
+            {user?.username || "Default User"}
+          </p>
           <Link to={`profile/${user?.id}`}>
             <div className={css.popup_settings_icon} onClick={onClose}>
               <img
@@ -92,18 +93,19 @@ const PopupMenuIsLogined = ({
       </div>
 
       <div className={css.popup_addbtn_wrap}>
-        <Link to="/posts/create" onClick={onClose}>
-          <Button
-            size={isMobilAddButton ? "lg" : "sm_header"}
-            variant="primary"
-            disabled={false}
-            withArrow={false}
-            onClick={() => {}}
-          >
-            <span>Додати світлину</span>
-            <img src={plus} width={20} height={20} alt="Plus Icon" />
-          </Button>
-        </Link>
+        <Button
+          size={isMobilAddButton ? "lg" : "sm_header"}
+          variant="primary"
+          disabled={false}
+          withArrow={false}
+          onClick={() => {
+            onClose();
+            navigate("/posts/create");
+          }}
+        >
+          <span>Додати світлину</span>
+          <img src={plus} width={20} height={20} alt="Plus Icon" />
+        </Button>
       </div>
 
       <div className={css.popup_search_wrap}>

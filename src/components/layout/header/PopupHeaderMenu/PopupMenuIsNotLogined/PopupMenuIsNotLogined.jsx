@@ -1,16 +1,11 @@
-import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import {
-  selectIsLoggedIn,
-  selectUser,
-} from "../../../../../store/auth/selectors";
+import { useRef } from "react";
+import { useClickOutside } from "../../../../../helpers/hooks/useClickOutside.js";
 import close from "../../../../../assets/images/Header/close@2x.png";
 import { LuSearch } from "react-icons/lu";
 import { GrLogout } from "react-icons/gr";
 import { RiArrowRightWideLine } from "react-icons/ri";
 import css from "./PopupMenuIsNotLogined.module.css";
-import { useClickOutside } from "../../../../../helpers/hooks/useClickOutside.js";
 
 const PopupMenuIsNotLogined = ({
   menuIsOpen,
@@ -19,8 +14,6 @@ const PopupMenuIsNotLogined = ({
   setSearchValue,
   handleSearch,
 }) => {
-  const user = useSelector(selectUser);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
   const buttonRef = useRef(null);
   const modalRef = useRef(null);
   useClickOutside(modalRef, buttonRef, onClose);
@@ -70,18 +63,6 @@ const PopupMenuIsNotLogined = ({
               Світлини
             </Link>
           </li>
-          {isLoggedIn && (
-            <li className={css.popup_list_item}>
-              <Link
-                to={`profile/${user?.id}`}
-                className={css.popup_list_item_link}
-                onClick={onClose}
-              >
-                Мій профіль
-              </Link>
-            </li>
-          )}
-
           <li className={css.popup_list_item}>
             <Link
               to="/about"
