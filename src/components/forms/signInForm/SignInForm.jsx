@@ -1,8 +1,8 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import css from "./SignInForm.module.css";
 import { loginValidationSchema } from "../../../validation/authSchemas.js";
 
-import Input from "../../common/inputs/Input.jsx";
+import LabeledField from "../../common/labeledField/LabeledField.jsx";
 import Button from "../../common/buttons/Button.jsx";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,32 +31,21 @@ const SignInForm = ({ onSwitch }) => {
       >
         {() => (
           <Form className={css.form}>
-            <Field name="username">
-              {({ field, meta }) => (
-                <Input
-                  {...field}
-                  type="text"
-                  placeholder="Username"
-                  autoComplete="off"
-                  error={meta.touched && meta.error}
-                  errorMessage={meta.touched && meta.error ? meta.error : ""}
-                />
-              )}
-            </Field>
-            <Field name="password">
-              {({ field, meta }) => (
-                <Input
-                  {...field}
-                  type="password"
-                  placeholder="Пароль"
-                  error={meta.touched && meta.error}
-                  errorMessage={meta.touched && meta.error ? meta.error : ""}
-                />
-              )}
-            </Field>
-            {error?.includes("400") && (
-              <p className={css.error}>Юзернейм або пароль невірний</p>
-            )}
+           
+            <LabeledField
+              name="username"
+              label="UserName"
+              type="text"
+              placeholder="Введіть UserName"
+            />
+
+            <LabeledField
+              name="password"
+              label="Пароль"
+              type="password"
+              placeholder="Введіть Пароль"
+            />
+
             <Button
               size="fs"
               variant="primary"

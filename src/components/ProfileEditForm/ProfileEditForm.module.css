@@ -75,7 +75,6 @@
 .wrapInfo {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 24px;
   margin-bottom: 24px;
   width: 100%;

@@ -5,10 +5,6 @@ export const ProfileEditSchema = Yup.object().shape({
     .min(3, "Занадто коротке!")
     .max(20, "Занадто довге!")
     .optional(),
-  userName: Yup.string()
-    .min(3, "Занадто коротке!")
-    .max(20, "Занадто довге!")
-    .optional(),
   email: Yup.string().email("Недійсний email!").optional(),
   phone: Yup.string()
     .matches(
