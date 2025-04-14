@@ -153,6 +153,10 @@
   visibility: hidden;
   opacity: 0;
 }
+.popup_settings_icon {
+  color: #fff;
+  margin-left: -10px;
+}
 .popup_search::placeholder {
   font-family: var(--font-family);
   font-size: 12px;
