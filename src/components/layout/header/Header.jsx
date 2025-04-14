@@ -1,24 +1,24 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
 import Logo from "../logo/Logo.jsx";
 import Button from "../../common/buttons/Button.jsx";
-import css from "./Header.module.css";
-import { useRef, useState } from "react";
 import PopupMenuIsLogined from "./PopupHeaderMenu/PopupMenuIsLogined/PopupMenuIsLogined.jsx";
 import PopupMenuIsNotLogined from "./PopupHeaderMenu/PopupMenuIsNotLogined/PopupMenuIsNotLogined.jsx";
-import burger from "../../../assets/images/Header/burger@2x.png";
-import plus from "../../../assets/images/Header/plus@2x.png";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn, selectUser } from "../../../store/auth/selectors.js";
+import { fetchPostsByFilters } from "../../../store/posts/operations.js";
+import { logout } from "../../../store/auth/slice.js";
+import { useClickOutside } from "../../../helpers/hooks/useClickOutside.js";
+import burger from "../../../assets/images/Header/burger@2x.png";
+import plus from "../../../assets/images/Header/plus@2x.png";
 import def from "../../../assets/images/def.png";
+import star_settings from "../../../assets/icons/star_settings.svg";
 import { IoIosArrowDown } from "react-icons/io";
 import { LuSearch } from "react-icons/lu";
 import { LuPencil } from "react-icons/lu";
 import { RxExit } from "react-icons/rx";
-import star_settings from "../../../assets/icons/star_settings.svg";
-import { fetchPostsByFilters } from "../../../store/posts/operations.js";
-import { logout } from "../../../store/auth/slice.js";
-import { useClickOutside } from "../../../helpers/hooks/useClickOutside.js";
+import css from "./Header.module.css";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -41,12 +41,9 @@ const Header = () => {
     navigate("/posts");
     dispatch(logout());
   };
-  const menuIsOpen = () => {
-    setIsOpen(true);
-  };
-  const menuIsClose = () => {
-    setIsOpen(false);
-  };
+  const openMenu = () => setIsOpen(true);
+  const closeMenu = () => setIsOpen(false);
+
   const togglePopup = () => {
     setPopupIsOpen((prev) => !prev);
   };
@@ -72,8 +69,9 @@ const Header = () => {
 
         {isOpen && (
           <PopupComponent
-            menuIsOpen={menuIsOpen}
-            onClose={menuIsClose}
+            user={user}
+            menuIsOpen={openMenu}
+            onClose={closeMenu}
             isLoggedIn={isLoggedIn}
             handleSearch={handleSearch}
             searchValue={searchValue}
@@ -102,7 +100,7 @@ const Header = () => {
             </li>
           </ul>
 
-          <button className={css.burger_btn} type="button" onClick={menuIsOpen}>
+          <button className={css.burger_btn} type="button" onClick={openMenu}>
             <img
               className={css.burger_btn_icon}
               src={burger}
@@ -161,7 +159,7 @@ const Header = () => {
                   </Link>
 
                   <p className={css.header_user_name}>
-                    {isLoggedIn ? user?.username : "Default User"}
+                    {user?.username || "Default User"}
                     <button
                       className={css.user_name_btn}
                       type="button"
@@ -170,7 +168,9 @@ const Header = () => {
                       }}
                     >
                       <IoIosArrowDown
-                        className={css.user_name_btn_icon}
+                        className={`${css.user_name_btn_icon} ${
+                          popupIsOpen ? css.user_name_btn_icon_open : ""
+                        }`}
                         ref={buttonRef}
                       />
                     </button>
@@ -193,7 +193,7 @@ const Header = () => {
                             onClick={handleLogout}
                           >
                             <RxExit className={css.logout_icon} />
-                            Вийти з акаунтa
+                            Вийти з акаунту
                           </p>
                         </div>
                       )}
