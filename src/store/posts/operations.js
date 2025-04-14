@@ -49,7 +49,6 @@ export const fetchPostsByFilters = createAsyncThunk(
     if (exact_star) queryParams.append("exact_star", exact_star);
     if (sort_by) queryParams.append("sort_by", sort_by);
     if (order) queryParams.append("order", order);
-    console.log(queryParams.toString());
     try {
       const { data } = await instance.get(
         `/posts/search?${queryParams.toString()}`
@@ -198,7 +197,6 @@ export const createPost = createAsyncThunk(
       const token = state.auth.token;
       if (!token) return thunkAPI.rejectWithValue("Unauthorized");
       setAuthHeader(token);
-      console.log(payload);
 
       const { data } = await instance.post("/posts/", payload);
       return data.image_url;
@@ -214,7 +212,6 @@ export const uploadFilteredImage = createAsyncThunk(
   "posts/uploadFilteredImage",
   async ({ file, width, height, crop, effect }, thunkAPI) => {
     try {
-      console.log(file);
       const state = thunkAPI.getState();
       const token = state.auth.token;
       if (!token) return thunkAPI.rejectWithValue("Unauthorized");
@@ -230,7 +227,6 @@ export const uploadFilteredImage = createAsyncThunk(
         "/posts/upload-filtered-image/",
         formData
       );
-      console.log(data.image_url);
       return data.image_url;
     } catch (err) {
       console.error("Upload filtered image error:", err.response?.data);

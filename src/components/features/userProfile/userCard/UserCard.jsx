@@ -13,18 +13,24 @@ import def from "../../../../assets/images/def.png";
 import { Link, useNavigate } from "react-router-dom";
 import defineRole from "../../../../helpers/defineRole.jsx";
 import { useClickOutside } from "../../../../helpers/hooks/useClickOutside.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../../store/auth/slice.js";
-import { toggleUserRole } from "../../../../store/users/operations.js";
+import { banUser, toggleUserRole } from "../../../../store/users/operations.js";
+import { selectIsProfileAdmin } from "../../../../store/auth/selectors.js";
 
 export default function UserCard({ profile, isMyPage, isAdmin }) {
   const isDesktop = useMediaQuery({ minWidth: "1440px" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isProfileAdmin = useSelector(selectIsProfileAdmin);
 
   const handleLogout = () => {
     navigate("/posts");
     dispatch(logout());
+  };
+
+  const toggleBan = () => {
+    dispatch(banUser(profile.id));
   };
 
   const toggleRole = () => {
@@ -93,13 +99,9 @@ export default function UserCard({ profile, isMyPage, isAdmin }) {
                     <TbUserStar className={css.settingsIcon} />
                     Змінити Роль
                   </p>
-                  <p className={css.settingsParagraph}>
-                    <FiTrash2 className={css.settingsIcon} />
-                    Видалити Профіль
-                  </p>
-                  <p className={css.settingsParagraph}>
+                  <p className={css.settingsParagraph} onClick={toggleBan}>
                     <IoBan className={css.settingsIcon} />
-                    Забанити Користувача
+                    {profile.is_active ? "Забанити" : "Розбанити"} Користувача
                   </p>
                 </div>
               )}
@@ -144,17 +146,13 @@ export default function UserCard({ profile, isMyPage, isAdmin }) {
                         Вийти з акаунту
                       </p>
                     </div>
-                  ) : isAdmin ? (
+                  ) : isAdmin && !isProfileAdmin ? (
                     <div className={css.deskIcons} data-label="admin">
                       <p className={css.settingsParagraph} onClick={toggleRole}>
                         <TbUserStar className={css.settingsIcon} />
                         Змінити Роль
                       </p>
-                      <p className={css.settingsParagraph}>
-                        <FiTrash2 className={css.settingsIcon} />
-                        Видалити Профіль
-                      </p>
-                      <p className={css.settingsParagraph}>
+                      <p className={css.settingsParagraph} onClick={toggleBan}>
                         <IoBan className={css.settingsIcon} />
                         Забанити Користувача
                       </p>

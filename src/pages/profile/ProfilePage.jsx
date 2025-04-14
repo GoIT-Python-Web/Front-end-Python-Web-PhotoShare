@@ -16,6 +16,7 @@ import {
 import { fetchUserById } from "../../store/auth/operations.js";
 import { clearProfile } from "../../store/auth/slice.js";
 import Loader from "../../components/common/loader/Loader.jsx";
+import { ImBlocked } from "react-icons/im";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ export default function ProfilePage() {
               location={isMyProfile ? "myProfile" : "userProfile"}
               className={css.title}
             />
+            {!profile?.is_active && <ImBlocked className={css.block} />}
           </div>
           <UserCard
             profile={profile}

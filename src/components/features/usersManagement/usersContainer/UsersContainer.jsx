@@ -19,6 +19,7 @@ import {
 import { searchUsers } from "../../../../store/users/operations";
 import { setCurrentPage, setFilters } from "../../../../store/users/slice";
 import Loader from "../../../common/loader/Loader";
+import { useEffect } from "react";
 
 const usersPerPage = 8;
 

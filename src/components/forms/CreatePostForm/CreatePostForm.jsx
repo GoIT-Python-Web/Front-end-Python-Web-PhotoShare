@@ -74,7 +74,6 @@ const EditPostForm = ({ generateQR, url }) => {
         tags,
         image_url: reduxLink,
       };
-      console.log(payload);
       dispatch(createPost(payload));
       formikRef.current?.resetForm();
       dispatch(clearLink());
@@ -83,12 +82,14 @@ const EditPostForm = ({ generateQR, url }) => {
       setSize(0);
       setScale(0);
       setSubmit(false);
-      toast("Фото було опубліковано! Тепер ви можете отримати QR код.", {
-        action: {
-          label: "Отримати QR",
-          onClick: () => generateQR(link),
-        },
-      });
+      setTimeout(() => {
+        toast("Фото було опубліковано! Тепер ви можете отримати QR код.", {
+          action: {
+            label: "Отримати QR",
+            onClick: () => generateQR(link),
+          },
+        });
+      }, 1200);
     } else if (reduxLink) {
       setLink(reduxLink);
       toast.dismiss("loading");
