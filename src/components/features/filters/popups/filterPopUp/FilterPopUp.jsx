@@ -133,11 +133,11 @@ export default function FilterPopUp({
             </div>
 
             <div className={css.buttons}>
-              <Button size={isTablet ? "sm" : "xs"} type="submit">
+              <Button size={isTablet ? "sm" : "xxs"} type="submit">
                 Застосувати
               </Button>
               <Button
-                size={isTablet ? "sm" : "xs"}
+                size={isTablet ? "sm" : "xxs"}
                 variant="secondary-red"
                 type="reset"
               >

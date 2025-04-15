@@ -1,13 +1,12 @@
 .wrapper {
   border-radius: 10px;
   padding: 16px;
-  width: 360px;
+  width: 330px;
   margin-left: -16px;
   height: auto;
   box-shadow: 0 4px 10px 0 rgba(80, 80, 80, 0.05);
   background: #f2f6ff;
   position: absolute;
-  left: 0;
   right: 0;
   top: 75px;
   z-index: 10;
@@ -88,7 +87,7 @@
   height: 36px;
   color: #697a9e;
   position: absolute;
-  right: 5px;
+  right: -5px;
   top: 40px;
   cursor: pointer;
 }
@@ -174,7 +173,7 @@
 .buttons {
   margin-top: 12px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 @media screen and (min-width: 768px) {
