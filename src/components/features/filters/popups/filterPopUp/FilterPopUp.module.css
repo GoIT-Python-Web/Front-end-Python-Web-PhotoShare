@@ -13,10 +13,22 @@
   z-index: 10;
 }
 
+.hidden {
+  display: none;
+}
+
 .form,
+.inputSuperWrapper,
 .inputWrapper {
   display: flex;
   flex-direction: column;
+}
+@media screen and (max-width: 767px) {
+  .inputSuperWrapper {
+    position: absolute;
+    left: -230px;
+    top: 75px;
+  }
 }
 
 .form {
@@ -67,8 +79,8 @@
 }
 
 .glassDateIcon {
-  bottom: 190px;
-  left: 25px;
+  left: 10px;
+  bottom: 10px;
 }
 
 .dateIcon {
@@ -76,8 +88,8 @@
   height: 36px;
   color: #697a9e;
   position: absolute;
-  right: 21.5px;
-  bottom: 185px;
+  right: 5px;
+  top: 40px;
   cursor: pointer;
 }
 
@@ -173,8 +185,13 @@
     right: 70px;
     top: 70px;
   }
+  .inputSuperWrapper {
+    position: absolute;
+    left: -575px;
+  }
   .searchInput {
     width: 100%;
+    outline: none;
   }
 
   .dateInput {
@@ -188,10 +205,13 @@
     width: 210px;
   }
   .dateIcon {
-    right: 18px;
+    right: 2px;
     bottom: 192.5px;
   }
-  .glassDateIcon {
-    bottom: 200px;
+}
+
+@media screen and (min-width: 1440px) {
+  .inputSuperWrapper {
+    left: -1175px;
   }
 }
