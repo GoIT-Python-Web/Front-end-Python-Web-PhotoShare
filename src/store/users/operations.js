@@ -2,26 +2,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance, handleError, setAuthHeader } from "../init.js";
 
 // PUT /admin/users/{user_id}/ban
-// export const banUser = createAsyncThunk(
-//   "users/ban",
-//   async (userId, thunkAPI) => {
-//     try {
-//       await instance.put(`/admin/users/${userId}/ban`);
-//       return { userId, banMessage: data.message };
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(
-//         handleError(err, "Не вдалося забанити користувача")
-//       );
-//     }
-//   }
-// );
 export const banUser = createAsyncThunk(
   "users/ban",
   async (userId, thunkAPI) => {
     try {
-      // Extract data from the API response:
-      const { data } = await instance.put(`/admin/users/${userId}/ban`);
-      // Return both userId and the message from the response
+      await instance.put(`/admin/users/${userId}/ban`);
       return { userId, banMessage: data.message };
     } catch (err) {
       return thunkAPI.rejectWithValue(

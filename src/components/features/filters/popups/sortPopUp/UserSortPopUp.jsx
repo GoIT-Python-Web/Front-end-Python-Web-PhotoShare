@@ -13,7 +13,6 @@ export default function UserSortPopUp({
   const modalRef = useRef(null);
   useClickOutside(modalRef, buttonRef, onClose);
 
-  // Якщо не передають опції сортування, використовуємо наступний набір за замовчуванням:
   const sortOptions = options || [
     {
       label: "Ім’я (A-Z)",
@@ -39,8 +38,6 @@ export default function UserSortPopUp({
     onSortChange({ sort_by, order });
   };
 
-  // Отримуємо поточні значення сортування з filters (selected)
-  // Зверніть увагу, що у фільтрах може бути ключ sort_order або order
   const currentSortBy = selected?.sort_by || "";
   const currentOrder = selected?.sort_order || selected?.order || "";
 
@@ -51,11 +48,14 @@ export default function UserSortPopUp({
           ? option.value.sort_by
           : option.sort_by;
         const optionOrder = option.value ? option.value.order : option.order;
+        const mappedOptionSortBy =
+          optionSortBy === "date" ? "registration_date" : optionSortBy;
+
         const isActive =
-          currentSortBy === optionSortBy && currentOrder === optionOrder;
+          currentSortBy === mappedOptionSortBy && currentOrder === optionOrder;
         return (
           <p
-            key={`${optionSortBy}-${optionOrder}`}
+            key={`${mappedOptionSortBy}-${optionOrder}`}
             onClick={() => handleSort(option)}
             className={isActive ? css.active : ""}
           >
