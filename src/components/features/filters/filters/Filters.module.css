@@ -59,6 +59,9 @@
   .wrapper[aria-label="main"] {
     margin-left: 120px;
   }
+  .userFillWrap {
+    gap: 24px;
+  }
   .filterItem {
     width: 48px;
     height: 48px;

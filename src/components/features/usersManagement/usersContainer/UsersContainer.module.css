@@ -115,7 +115,7 @@
 
   .iconButtons {
     display: flex;
-    gap: 125px;
+    gap: 120px;
     justify-content: space-between;
     align-items: center;
   }
@@ -130,6 +130,7 @@
     color: #24448a;
     stroke: #24448a;
   }
+
   .magnifier {
     position: absolute;
     left: 10px;
