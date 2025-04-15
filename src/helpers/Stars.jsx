@@ -4,10 +4,14 @@ import { useState, useEffect } from "react";
 import { addRating } from "../store/posts/operations.js";
 import { toast } from "sonner";
 import { selectError } from "../store/posts/selectors.js";
+import { selectIsLoggedIn } from "../store/auth/selectors.js";
+import { useNavigate } from "react-router-dom";
 
 export default function Stars({ rating, id, post = false, onRated, isMyPost }) {
   const totalStars = 5;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const [hoverRating, setHoverRating] = useState(null);
   const [currentRating, setCurrentRating] = useState(rating);
   const [isRated, setIsRated] = useState(false);
@@ -17,6 +21,15 @@ export default function Stars({ rating, id, post = false, onRated, isMyPost }) {
   }, [rating]);
 
   const handleStarClick = async (selectedRating) => {
+    if (!isLoggedIn) {
+      toast("Щоб поставити оцінку, вам потрібно увійти.", {
+        action: {
+          label: "Увійти",
+          onClick: () => navigate("/login"),
+        },
+      });
+      return;
+    }
     if (!post || isRated) return;
 
     if (isMyPost) {
