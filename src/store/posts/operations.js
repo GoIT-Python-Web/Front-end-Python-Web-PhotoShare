@@ -77,6 +77,20 @@ export const fetchPostById = createAsyncThunk(
   }
 );
 
+export const editPost = createAsyncThunk(
+  "posts/editPost",
+  async ({ id, description }, thunkAPI) => {
+    try {
+      const data = await instance.put(`/posts/${id}`, { description });
+      return data.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        handleError(err, "Failed to update post")
+      );
+    }
+  }
+);
+
 export const deletePost = createAsyncThunk(
   "posts/delete",
   async ({ id }, thunkAPI) => {
