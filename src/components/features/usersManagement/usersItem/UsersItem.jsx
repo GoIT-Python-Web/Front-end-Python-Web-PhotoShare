@@ -136,7 +136,7 @@ function UserItem({
               <Icon name="user-role" className={s.icons} />
             </button>
           ) : (
-            <button className={s.modalBtnGrey}>
+            <button className={s.mobileBtnGray}>
               <Icon name="user-role" className={s.modalBtnGrey} />
             </button>
           )}
@@ -165,7 +165,7 @@ function UserItem({
         >
           <Icon
             name={"user-role"}
-            className={!isBanned ? s.profileName : s.modalBtnDel}
+            className={!isBanned ? s.mobUserText : s.modalBtnDel}
           />
           Змінити Роль
         </button>
