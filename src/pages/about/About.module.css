@@ -60,6 +60,7 @@
   padding-top: 40px;
   display: flex;
   background-color: white;
+  margin-bottom: 65px;
 }
 
 .leftSection {
@@ -232,6 +233,27 @@
   background-color: #1c3879;
 }
 
+.btnLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  width: 416px;
+  height: 56px;
+  padding: 8px 16px;
+  background: linear-gradient(90deg, #2b59ba 0%, #083494 100%);
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #fff;
+  margin: 0 auto;
+  margin-bottom: 61px;
+}
+.btnLink:hover {
+  background: var(--button-hover);
+}
+
 /* RESPONSIVE STYLES */
 @media (max-width: 1440px) {
   .header {
@@ -288,6 +310,14 @@
   .buttonContainer {
     margin-top: 64px;
     padding-bottom: 48px;
+  }
+  .mainContent {
+    margin-bottom: 78px;
+  }
+  .btnLink {
+    width: 456px;
+    margin: 0 auto;
+    margin-bottom: 62px;
   }
 }
 
@@ -358,6 +388,10 @@
   .returnButton {
     padding: 10px 20px;
     font-size: 0.9rem;
+  }
+  .btnLink {
+    width: 456px;
+    margin-bottom: 62px;
   }
 }
 
@@ -432,5 +466,12 @@
 
   .leftSection {
     gap: 22px;
+  }
+  .mainContent {
+    margin-bottom: 56px;
+  }
+  .btnLink {
+    width: 328px;
+    height: 56px;
   }
 }

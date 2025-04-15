@@ -15,6 +15,10 @@
   width: 312px;
   height: 300px;
 }
+.inputWrap {
+  position: relative;
+  width: 100%;
+}
 .input {
   font-family: var(--font-family);
   font-weight: 400;
