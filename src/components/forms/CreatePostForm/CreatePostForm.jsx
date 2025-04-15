@@ -1,6 +1,5 @@
 import { Formik, Form, Field } from "formik";
 import css from "../CreatePostForm/CreatePostForm.module.css";
-import Button from "../../common/buttons/Button.jsx";
 import Input from "../../common/inputs/Input.jsx";
 import { useEffect, useRef, useState } from "react";
 import { BsQrCode } from "react-icons/bs";
@@ -12,6 +11,7 @@ import { CitySearchSelect } from "../../features/locationSelect/LocationSelect.j
 import def from "../../../assets/images/circle-user.png";
 import { clearLink } from "../../../store/posts/slice.js";
 import { toast } from "sonner";
+import { CreatePostSchema } from "../../../validation/schemas.js";
 
 const INITIAL_VALUES = {
   title: "",
@@ -30,12 +30,15 @@ const EditPostForm = ({ generateQR, url, ref }) => {
   const [link, setLink] = useState(null);
   const [size, setSize] = useState(0);
   const [scale, setScale] = useState(0);
+  const [previewUrl, setPreviewUrl] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const reduxLink = useSelector(selectLink);
 
   const handleImageFile = (file) => {
     if (file && file.type.startsWith("image/")) {
+      const preview = URL.createObjectURL(file);
       setImage(file);
+      setPreviewUrl(preview);
       setIsFormDisabled(false);
     }
   };
@@ -61,8 +64,18 @@ const EditPostForm = ({ generateQR, url, ref }) => {
     handleImageFile(file);
   };
 
+  const resetImage = () => {
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+    }
+    setPreviewUrl(null);
+    setImage(null);
+    const input = document.getElementById("upload-photo");
+    if (input) input.value = "";
+  };
+
   useEffect(() => {
-    if (reduxLink && submit) {
+    if (reduxLink && submit && formikRef.current?.isValid) {
       setLink(reduxLink);
       toast.dismiss("loading");
       const tags = formikRef.current?.values.tags
@@ -79,8 +92,9 @@ const EditPostForm = ({ generateQR, url, ref }) => {
       dispatch(createPost(payload));
       formikRef.current?.resetForm();
       dispatch(clearLink());
+      resetImage();
       setLink(null);
-      setImage(def);
+      dispatch(clearLink());
       setSize(0);
       setScale(0);
       setSubmit(false);
@@ -101,17 +115,26 @@ const EditPostForm = ({ generateQR, url, ref }) => {
   }, [reduxLink, submit, generateQR, url, dispatch]);
 
   const handlePublish = () => {
-    if (!link) {
-      buttonRef.current?.click();
-      showLoadingToast();
-    }
-    setSubmit(true);
+    formikRef.current?.submitForm();
   };
 
   return (
     <div className={css.container}>
-      <Formik initialValues={INITIAL_VALUES} innerRef={formikRef}>
-        {({ values, handleChange }) => (
+      <Formik
+        initialValues={INITIAL_VALUES}
+        innerRef={formikRef}
+        validationSchema={CreatePostSchema}
+        validateOnBlur
+        validateOnChange
+        onSubmit={(values) => {
+          if (!link) {
+            buttonRef.current?.click();
+            setSubmit(true);
+            showLoadingToast();
+          }
+        }}
+      >
+        {({ values, handleChange, touched, errors }) => (
           <Form className={css.form}>
             <div className={css.wrapImgDesk}>
               <div
@@ -126,12 +149,7 @@ const EditPostForm = ({ generateQR, url, ref }) => {
                 <div className={css.imageBox}>
                   <img
                     data-label={isFormDisabled && "def"}
-                    src={
-                      link ||
-                      (image_url && image_url instanceof File
-                        ? URL.createObjectURL(image_url)
-                        : def)
-                    }
+                    src={previewUrl || def}
                     alt="Прев'ю"
                     className={css.previewImage}
                     style={{
@@ -170,23 +188,38 @@ const EditPostForm = ({ generateQR, url, ref }) => {
 
             <div className={css.wrapAll}>
               <div className={css.wrapDescription}>
-                <Field
-                  name="title"
-                  value={values.title}
-                  onChange={handleChange}
-                  className={css.textarea}
-                  placeholder="Заголовок зображення"
-                />
+                <Field name="title">
+                  {({ field }) => (
+                    <Input
+                      {...field}
+                      value={field.value}
+                      className={css.title}
+                      placeholder="Заголовок зображення"
+                      onChange={handleChange}
+                      error={touched.title && errors.title}
+                      errorMessage={
+                        touched.title && errors.title ? errors.title : ""
+                      }
+                    />
+                  )}
+                </Field>
               </div>
               <div className={css.wrapDescription}>
-                <textarea
-                  name="description"
-                  value={values.description}
-                  onChange={handleChange}
-                  className={css.textarea}
-                  placeholder="Опис фото..."
-                  rows="5"
-                />
+                <Field name="description">
+                  {({ field, meta }) => (
+                    <div className={css.wrapDescription}>
+                      <textarea
+                        {...field}
+                        className={css.textarea}
+                        placeholder="Опис фото..."
+                        rows="5"
+                      />
+                      {meta.touched && meta.error && (
+                        <div className={css.error}>{meta.error}</div>
+                      )}
+                    </div>
+                  )}
+                </Field>
               </div>
               <div className={css.wrapDescription}>
                 <CitySearchSelect />
@@ -196,20 +229,46 @@ const EditPostForm = ({ generateQR, url, ref }) => {
                 {values.tags.map((_, index) => (
                   <div className={css.tegItem} key={index}>
                     <Field name={`tags[${index}]`}>
-                      {({ field, meta }) => (
-                        <Input
-                          {...field}
-                          type="text"
-                          placeholder="Введіть тег #"
-                          error={meta.touched && meta.error}
-                          errorMessage={
-                            meta.touched && meta.error ? meta.error : ""
-                          }
-                        />
-                      )}
+                      {({ field, form, meta }) => {
+                        const cleanValue = (value) => {
+                          const cleaned = value
+                            .replace(/#/g, "")
+                            .toLowerCase()
+                            .match(/[a-zа-яіїєґ0-9_]+/gi);
+                          return cleaned ? "#" + cleaned[0] : "";
+                        };
+
+                        const isGeneralError =
+                          typeof errors.tags === "string" && touched.tags;
+
+                        return (
+                          <Input
+                            {...field}
+                            value={field.value}
+                            placeholder="#тег"
+                            onChange={(e) => {
+                              const value = cleanValue(e.target.value);
+                              form.setFieldValue(`tags[${index}]`, value);
+                              form.setFieldTouched(`tags[${index}]`, true);
+                            }}
+                            error={
+                              !isGeneralError && meta.touched && !!meta.error
+                            }
+                            errorMessage={
+                              !isGeneralError && meta.touched && meta.error
+                                ? meta.error
+                                : ""
+                            }
+                          />
+                        );
+                      }}
                     </Field>
                   </div>
                 ))}
+
+                {typeof errors.tags === "string" && (
+                  <div className={css.error}>{errors.tags}</div>
+                )}
               </div>
               <fieldset disabled={isFormDisabled} className={css.sliderSection}>
                 <div className={css.sliderWrap}>
