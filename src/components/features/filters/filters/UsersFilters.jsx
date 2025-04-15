@@ -1,7 +1,7 @@
 import css from "./Filters.module.css";
 import { useState, useRef, useEffect } from "react";
 import Icon from "../../../common/icons/Icon";
-import SortPopUp from "../popups/sortPopUp/SortPopUp";
+import UserSortPopUp from "../popups/sortPopUp/UserSortPopUp";
 import UserDatePickerPopUp from "../popups/datePickerPopUp/UserDatePickerPopUp";
 import { LuCalendarDays } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,7 +28,7 @@ export default function UsersFilters() {
 
   const handleDatePickerClick = () => {
     setIsSortingOpen(false); // Закриваємо сортування, якщо воно відкрите
-    setIsDatePickerOpen(!isDatePickerOpen); // Переключаємо стан календаря
+    setIsDatePickerOpen(!isDatePickerOpen);
   };
 
   const handleSortChange = ({ sort_by, order }) => {
@@ -38,7 +38,7 @@ export default function UsersFilters() {
       sort_order: order,
     };
     dispatch(setFilters(newFilters));
-    setIsSortingOpen(false); // Закриваємо попап сортування після зміни
+    setIsSortingOpen(false);
   };
 
   const handleDateChange = ({ from, to }) => {
@@ -50,7 +50,7 @@ export default function UsersFilters() {
       reg_date_to: formattedTo,
     };
     dispatch(setFilters(newFilters));
-    setIsDatePickerOpen(false); // Закриваємо календар після зміни
+    setIsDatePickerOpen(false);
   };
 
   return (
@@ -80,28 +80,11 @@ export default function UsersFilters() {
       )}
 
       {isSortingOpen && (
-        <SortPopUp
+        <UserSortPopUp
           onClose={() => setIsSortingOpen(false)}
           buttonRef={sortButtonRef}
           onSortChange={handleSortChange}
-          options={[
-            {
-              label: "Ім’я (A-Z)",
-              value: { sort_by: "username", order: "asc" },
-            },
-            {
-              label: "Ім’я (Z-A)",
-              value: { sort_by: "username", order: "desc" },
-            },
-            {
-              label: "Дата реєстрації (нові)",
-              value: { sort_by: "created_at", order: "desc" },
-            },
-            {
-              label: "Дата реєстрації (старі)",
-              value: { sort_by: "created_at", order: "asc" },
-            },
-          ]}
+          selected={filters}
         />
       )}
     </div>

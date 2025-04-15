@@ -4,6 +4,8 @@ import { banUser, toggleUserRole, searchUsers } from "./operations";
 const initialState = {
   items: [],
   isLoading: false,
+  is_active: true,
+  banMessage: "",
   error: null,
   totalPages: 1,
   currentPage: 0, // Додано поточну сторінку
@@ -51,6 +53,7 @@ const usersSlice = createSlice({
       .addCase(banUser.fulfilled, (state, { payload }) => {
         const user = state.items.find((u) => u.id === payload.userId);
         if (user) user.is_active = false;
+        user.banMessage = payload.message;
       })
       .addCase(toggleUserRole.fulfilled, (state, { payload }) => {
         const user = state.items.find((u) => u.id === payload.userId);

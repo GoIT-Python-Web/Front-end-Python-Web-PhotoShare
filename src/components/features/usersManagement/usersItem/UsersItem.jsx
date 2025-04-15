@@ -1,20 +1,23 @@
 import s from "./UsersItem.module.css";
 import Icon from "../../../common/icons/Icon";
 import getColorFromName from "../../../../helpers/getColorFromName";
-import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
+
+import { useDispatch, useSelector } from "react-redux";
 import { useRef, useState } from "react";
 import { useScrollLock } from "../../../../helpers/hooks/useScrollLock";
 import Modal from "../../../modals/modal/Modal.jsx";
 import { banUser, toggleUserRole } from "../../../../store/users/operations.js";
+import { GoBlocked } from "react-icons/go";
 
 function UserItem({
   id,
+  is_active,
   profileImage = null,
   profileAlt = "Profile picture",
   userName = "User Name",
   email = "email@example.com",
   dateTime = "DD.MM.YY HH:MM",
-  onDelete,
   role = "user",
 }) {
   const [showModal, setShowModal] = useState(false);
@@ -23,6 +26,7 @@ function UserItem({
   const dispatch = useDispatch();
 
   const buttonRef = useRef(null);
+  // console.log(is_active);
 
   const handleModalClick = () => {
     setShowModal(!showModal);
@@ -33,15 +37,36 @@ function UserItem({
     setShowModal(false);
   };
 
+  const [localActive, setLocalActive] = useState(is_active);
+
   const handleBan = () => {
-    dispatch(banUser(id));
-    setShowModal(false);
+    Swal.fire({
+      title: "Are you sure?",
+      text: localActive
+        ? "This user will be banned!"
+        : "This user will be unbanned!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: localActive ? "Yes, ban them" : "Yes, unban them",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (role === "admin" && localActive) {
+          Swal.fire({
+            title: "Admin",
+            text: "Cannot ban an Admin!",
+            icon: "warning",
+          });
+          return;
+        }
+        setLocalActive(!localActive);
+        dispatch(banUser(id));
+        setShowModal(false);
+      }
+    });
   };
 
-  const handleDelete = () => {
-    onDelete(id);
-    setShowModal(false);
-  };
+  const isBanned = !localActive;
 
   return (
     <div className={s.userItem}>
@@ -69,36 +94,52 @@ function UserItem({
 
           <div className={s.mobileContainer}>
             <div className={s.pickname}>
-              <span className={s.profileName}>{userName}</span>
+              <span data-label={isBanned && "banned"} className={s.profileName}>
+                {userName}
+              </span>
               <div className={s.settingsSection}>
                 <button className={s.adminIconButton}>
-                  <Icon
-                    className={s.admIcon}
-                    name={role === "admin" ? "shield" : "user"}
-                    width="16"
-                    height="16"
-                  />
+                  {!isBanned ? (
+                    <Icon
+                      className={s.admIcon}
+                      name={role === "admin" ? "shield" : "user"}
+                      width="16"
+                      height="16"
+                    />
+                  ) : (
+                    <Icon name="banned" className={s.banned} />
+                  )}
                 </button>
               </div>
             </div>
             <div className={s.mobilEmailSection}>
-              <div className={s.emailSection}>{email}</div>
-              <div className={s.timestampSection}>{dateTime}</div>
+              {!isBanned ? (
+                <>
+                  <div className={s.emailSection}>{email}</div>
+                  <div className={s.timestampSection}>{dateTime}</div>
+                </>
+              ) : (
+                <p className={s.banMessage}>Користувача заблоковано</p>
+              )}
             </div>
           </div>
         </div>
         <div className={s.actionsSection}>
           <button className={s.iconButton} onClick={handleBan}>
-            <Icon name="ban" className={s.icons} />
+            <Icon
+              className={s.icons}
+              name={!isBanned ? "ban" : "banned_tick"}
+            />
           </button>
-          <button className={s.iconButton} onClick={handleRoleChange}>
-            <Icon name="user-role" className={s.icons} />
-          </button>
-          <button className={s.iconButton} onClick={handleDelete}>
-            <Icon name="trash" className={s.icons} />
-          </button>
-
-          {/* Кнопка три крапки — тільки на мобільній версії */}
+          {!isBanned ? (
+            <button className={s.iconButton} onClick={handleRoleChange}>
+              <Icon name="user-role" className={s.icons} />
+            </button>
+          ) : (
+            <button className={s.mobileBtnGray}>
+              <Icon name="user-role" className={s.modalBtnGrey} />
+            </button>
+          )}
           <button
             ref={buttonRef}
             className={`${s.iconButton} ${s.dotsOnlyMobile}`}
@@ -118,14 +159,27 @@ function UserItem({
         <button className={s.closeModal} onClick={() => setShowModal(false)}>
           <Icon name="xclose" />
         </button>
-        <button onClick={handleRoleChange} className={s.modalBtn}>
-          <Icon name="user-role" /> Змінити Роль
+        <button
+          onClick={handleRoleChange}
+          className={!isBanned ? s.modalBtn : s.modalBtnDel}
+        >
+          <Icon
+            name={"user-role"}
+            className={!isBanned ? s.mobUserText : s.modalBtnDel}
+          />
+          Змінити Роль
         </button>
-        <button onClick={handleDelete} className={s.modalBtn}>
-          <Icon name="trash" /> Видалити Профіль
-        </button>
-        <button onClick={handleBan} className={s.modalBtn}>
-          <Icon name="ban" /> Забанити Користувача
+        {!isBanned ? (
+          <button onClick={handleBan} className={s.modalBtn}>
+            <Icon name="ban" /> Забанити Користувача
+          </button>
+        ) : (
+          <button onClick={handleBan} className={s.modalBtn}>
+            <Icon name="banned_tick" /> Розблокувати Користувача
+          </button>
+        )}
+        <button className={isBanned ? s.modalBtnGrey : s.modalBtnDel}>
+          <Icon name="user-role" /> Змінити роль
         </button>
       </Modal>
     </div>

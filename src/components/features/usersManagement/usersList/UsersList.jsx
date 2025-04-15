@@ -15,13 +15,13 @@ const UserList = ({ users, onDelete }) => {
           key={user.id}
           user={user}
           id={user.id}
+          is_active={user.is_active}
           profileImage={user.img_link}
           profileAlt={user.name || user.username}
           userName={user.name || user.username} // Якщо ім'я відсутнє, показуємо username
           email={user.email}
           role={user.type}
-          dateTime={formatDateTime(user.created_at)} // Форматуємо дату
-          onDelete={() => onDelete(user.id)} // Видалення користувача
+          dateTime={formatDateTime(user.created_at)}
         />
       ))}
     </div>
