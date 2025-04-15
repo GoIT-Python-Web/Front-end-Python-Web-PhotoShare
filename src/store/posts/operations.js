@@ -49,6 +49,7 @@ export const fetchPostsByFilters = createAsyncThunk(
     if (exact_star) queryParams.append("exact_star", exact_star);
     if (sort_by) queryParams.append("sort_by", sort_by);
     if (order) queryParams.append("order", order);
+    console.log(queryParams.toString());
     try {
       const { data } = await instance.get(
         `/posts/search?${queryParams.toString()}`
@@ -71,6 +72,20 @@ export const fetchPostById = createAsyncThunk(
     } catch (err) {
       return thunkAPI.rejectWithValue(
         handleError(err, "Failed to fetch post by id")
+      );
+    }
+  }
+);
+
+export const editPost = createAsyncThunk(
+  "posts/editPost",
+  async ({ id, description }, thunkAPI) => {
+    try {
+      const data = await instance.put(`/posts/${id}`, { description });
+      return data.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        handleError(err, "Failed to update post")
       );
     }
   }

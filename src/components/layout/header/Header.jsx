@@ -6,16 +6,18 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsLoggedIn, selectUser } from "../../../store/auth/selectors.js";
+import {
+  selectIsAdmin,
+  selectIsLoggedIn,
+  selectUser,
+} from "../../../store/auth/selectors.js";
 import { fetchPostsByFilters } from "../../../store/posts/operations.js";
 import { logout } from "../../../store/auth/slice.js";
 import { useClickOutside } from "../../../helpers/hooks/useClickOutside.js";
 import burger from "../../../assets/images/Header/burger@2x.png";
 import plus from "../../../assets/images/Header/plus@2x.png";
 import def from "../../../assets/images/def.png";
-import star_settings from "../../../assets/icons/star_settings.svg";
 import { IoIosArrowDown } from "react-icons/io";
-import { LuSearch } from "react-icons/lu";
 import { LuPencil } from "react-icons/lu";
 import { RxExit } from "react-icons/rx";
 import css from "./Header.module.css";
@@ -30,6 +32,7 @@ const Header = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isAdmin = useSelector(selectIsAdmin);
   const location = useLocation();
   const isMainPage = location.pathname === "/posts";
 
@@ -99,6 +102,13 @@ const Header = () => {
                 Про нас
               </Link>
             </li>
+            {isAdmin && (
+              <li className={css.header_list_item}>
+                <Link to="/admin/users" className={css.item_link}>
+                  Користувачі
+                </Link>
+              </li>
+            )}
           </ul>
 
           <button className={css.burger_btn} type="button" onClick={openMenu}>
@@ -112,17 +122,6 @@ const Header = () => {
           </button>
 
           <div className={css.header_right_side}>
-            <input
-              className={css.header_search}
-              type="text"
-              placeholder="Пошук..."
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") handleSearch();
-              }}
-            />
-            <LuSearch className={css.search_icon} />
             {!isLoggedIn && !isOpen ? (
               <div className={css.header_toggle_container}>
                 <Link className={css.toggle_link} to="/login">

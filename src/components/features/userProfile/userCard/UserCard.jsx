@@ -22,6 +22,8 @@ export default function UserCard({ profile, isMyPage, isAdmin }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isProfileAdmin = useSelector(selectIsProfileAdmin);
+  const shouldShowMenu =
+    (isMyPage || (isAdmin && !isMyPage && !isProfileAdmin)) && !isDesktop;
 
   const handleLogout = () => {
     navigate("/posts");
@@ -63,49 +65,55 @@ export default function UserCard({ profile, isMyPage, isAdmin }) {
           height={74}
           className={css.userPic}
         />
-        <div className={css.textWrapper}>
-          {(isAdmin || isMyPage) && !isDesktop && (
-            <BsThreeDots
-              className={css.dotsIcon}
-              ref={buttonRef}
-              onClick={() => setIsOpen(!isOpen)}
-            />
-          )}
-          {isOpen && (
-            <div className={css.settings} ref={modalRef}>
-              <div className={css.closeIconWrapper}>
-                <img
-                  src={iconClose}
-                  alt="Close"
-                  className={css.closeIcon}
-                  onClick={() => setIsOpen(false)}
-                />
+        <div>
+          <div className={css.textWrapper}>
+            {shouldShowMenu && (
+              <BsThreeDots
+                className={css.dotsIcon}
+                ref={buttonRef}
+                onClick={() => setIsOpen(!isOpen)}
+              />
+            )}
+
+            {isOpen && (
+              <div className={css.settings} ref={modalRef}>
+                <div className={css.closeIconWrapper}>
+                  <img
+                    src={iconClose}
+                    alt="Close"
+                    className={css.closeIcon}
+                    onClick={() => setIsOpen(false)}
+                  />
+                </div>
+
+                {isMyPage && (
+                  <div className={css.icons}>
+                    <Link to="/profile-edit" className={css.settingsParagraph}>
+                      <LuPencil className={css.settingsIcon} />
+                      Редагувати свій профіль
+                    </Link>
+                    <p className={css.settingsParagraph} onClick={handleLogout}>
+                      <RxExit className={css.settingsIcon} />
+                      Вийти з акаунту
+                    </p>
+                  </div>
+                )}
+
+                {!isMyPage && isAdmin && !isProfileAdmin && (
+                  <div className={css.icons}>
+                    <p className={css.settingsParagraph} onClick={toggleRole}>
+                      <TbUserStar className={css.settingsIcon} />
+                      Змінити Роль
+                    </p>
+                    <p className={css.settingsParagraph} onClick={toggleBan}>
+                      <IoBan className={css.settingsIcon} />
+                      {profile.is_active ? "Забанити" : "Розбанити"} Користувача
+                    </p>
+                  </div>
+                )}
               </div>
-              {!isAdmin ? (
-                <div className={css.icons}>
-                  <Link to="/profile-edit" className={css.settingsParagraph}>
-                    <LuPencil className={css.settingsIcon} />
-                    Редагувати свій профіль
-                  </Link>
-                  <p className={css.settingsParagraph} onClick={handleLogout}>
-                    <RxExit className={css.settingsIcon} />
-                    Вийти з акаунту
-                  </p>
-                </div>
-              ) : (
-                <div className={css.icons}>
-                  <p className={css.settingsParagraph} onClick={toggleRole}>
-                    <TbUserStar className={css.settingsIcon} />
-                    Змінити Роль
-                  </p>
-                  <p className={css.settingsParagraph} onClick={toggleBan}>
-                    <IoBan className={css.settingsIcon} />
-                    {profile.is_active ? "Забанити" : "Розбанити"} Користувача
-                  </p>
-                </div>
-              )}
-            </div>
-          )}
+            )}
+          </div>
 
           <div className={css.column}>
             <p className={css.registerDate}>

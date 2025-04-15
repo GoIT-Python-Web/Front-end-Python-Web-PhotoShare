@@ -75,6 +75,18 @@
   color: #333;
 }
 
+.fadePreview {
+  filter: brightness(1.1) saturate(0.7);
+}
+
+.warmPreview {
+  filter: sepia(0.4) brightness(1.1);
+}
+
+.coolPreview {
+  filter: brightness(1.05) contrast(1.1) saturate(0.8) hue-rotate(200deg);
+}
+
 @media only screen and (min-width: 768px) {
   .filterWrap {
     width: 696px;

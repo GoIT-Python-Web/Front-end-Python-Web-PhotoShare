@@ -40,6 +40,18 @@ const EditPostForm = ({ generateQR, url, ref }) => {
     }
   };
 
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      dispatch(clearLink());
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [dispatch]);
+
   const showLoadingToast = () => {
     if (submit) {
       toast.info("Йде процес публікації, будь ласка, зачекайте...", {

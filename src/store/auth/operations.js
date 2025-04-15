@@ -61,6 +61,7 @@ export const updateUser = createAsyncThunk(
 
       setAuthHeader(token);
       const { data } = await instance.put("/users/edit_profile", updatedData);
+      dispatch(getUser());
       return data;
     } catch (err) {
       return thunkAPI.rejectWithValue(
@@ -130,5 +131,3 @@ export const logout = createAsyncThunk("auth/signout", async (_, thunkAPI) => {
     );
   }
 });
-
-

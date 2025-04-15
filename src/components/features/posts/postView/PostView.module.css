@@ -4,6 +4,27 @@
   margin-bottom: 24px;
 }
 
+.textarea {
+  width: 100%;
+  border: 1px solid #697a9e;
+  border-radius: 10px;
+  min-height: 88px;
+  resize: none;
+  padding: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 120%;
+}
+
+.saveBtn {
+  border: none;
+  background-color: transparent;
+  font-size: 18px;
+  margin-left: auto;
+  display: block;
+  color: blue;
+}
+
 .title {
   font-style: italic;
   font-weight: 600;

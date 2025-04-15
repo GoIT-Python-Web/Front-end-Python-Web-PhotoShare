@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import css from "../FilterSelector/FilterSelector.module.css";
 import { useDispatch } from "react-redux";
 import { uploadFilteredImage } from "../../../../store/posts/operations.js";
 import def from "../../../../assets/images/circle-user.png";
+import { clearLink } from "../../../../store/posts/slice.js";
 
 const FILTERS = [
   { label: "Normal", value: null },
@@ -91,7 +92,17 @@ const FilterSelector = ({ image, size, scale, buttonRef }) => {
                   : def
               }
               alt={filter.label}
-              className={css.filterImage}
+              className={`${css.filterImage} ${
+                image
+                  ? filter.value === "art:zorro"
+                    ? css.fadePreview
+                    : filter.value === "art:sizzle"
+                    ? css.warmPreview
+                    : filter.value === "art:frost"
+                    ? css.coolPreview
+                    : css.normalPreview
+                  : ""
+              }`}
             />
             <span className={css.filterLabel}>{filter.label}</span>
           </button>

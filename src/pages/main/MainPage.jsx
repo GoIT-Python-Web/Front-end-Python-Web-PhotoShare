@@ -7,9 +7,12 @@ import { fetchPosts } from "../../store/posts/operations.js";
 import PostsList from "../../components/features/posts/postsList/PostsList.jsx";
 import { selectIsLoading, selectPosts } from "../../store/posts/selectors.js";
 import Loader from "../../components/common/loader/Loader.jsx";
+import { useMediaQuery } from "react-responsive";
 
 export default function MainPage() {
   const dispatch = useDispatch();
+  const isTablet = useMediaQuery({ minWidth: "768px" });
+  const isMobile = useMediaQuery({ maxWidth: "767px" });
 
   useEffect(() => {
     dispatch(fetchPosts());
@@ -22,9 +25,17 @@ export default function MainPage() {
     <div className={`container  ${css.mainPage}`}>
       <div className={css.headWrapper}>
         <Title location="main" />
-        <Filters location="main" />
+        {isMobile && <Filters location="main" />}
+        {}
       </div>
-      {!isLoading ? <PostsList posts={posts} /> : <Loader />}
+      {!isLoading ? (
+        <>
+          {isTablet && <Filters location="main" />}
+          <PostsList posts={posts} />
+        </>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 }
