@@ -49,7 +49,6 @@ export const fetchPostsByFilters = createAsyncThunk(
     if (exact_star) queryParams.append("exact_star", exact_star);
     if (sort_by) queryParams.append("sort_by", sort_by);
     if (order) queryParams.append("order", order);
-    console.log(queryParams.toString());
     try {
       const { data } = await instance.get(
         `/posts/search?${queryParams.toString()}`

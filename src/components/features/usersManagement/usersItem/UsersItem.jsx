@@ -26,7 +26,6 @@ function UserItem({
   const dispatch = useDispatch();
 
   const buttonRef = useRef(null);
-  // console.log(is_active);
 
   const handleModalClick = () => {
     setShowModal(!showModal);
