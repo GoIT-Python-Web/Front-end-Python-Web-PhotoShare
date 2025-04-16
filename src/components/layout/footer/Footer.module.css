@@ -1,6 +1,4 @@
 .footer {
-  min-width: 360px;
-  width: 100%;
   background: var(--header-footer);
   padding: 16px 16px 32px 16px;
   margin: 0 auto;

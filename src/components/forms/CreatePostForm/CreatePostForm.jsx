@@ -1,5 +1,6 @@
 import { Formik, Form, Field } from "formik";
 import css from "../CreatePostForm/CreatePostForm.module.css";
+import Button from "../../common/buttons/Button.jsx";
 import Input from "../../common/inputs/Input.jsx";
 import { useEffect, useRef, useState } from "react";
 import { BsQrCode } from "react-icons/bs";
@@ -25,21 +26,22 @@ const EditPostForm = ({ generateQR, url, ref }) => {
   const formikRef = useRef();
   const dispatch = useDispatch();
   const [image_url, setImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(def);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+
   const [isFormDisabled, setIsFormDisabled] = useState(true);
   const [submit, setSubmit] = useState(false);
   const [link, setLink] = useState(null);
   const [size, setSize] = useState(0);
   const [scale, setScale] = useState(0);
-  const [previewUrl, setPreviewUrl] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const reduxLink = useSelector(selectLink);
 
   const handleImageFile = (file) => {
     if (file && file.type.startsWith("image/")) {
-      const preview = URL.createObjectURL(file);
       setImage(file);
-      setPreviewUrl(preview);
       setIsFormDisabled(false);
+      setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
@@ -76,18 +78,8 @@ const EditPostForm = ({ generateQR, url, ref }) => {
     handleImageFile(file);
   };
 
-  const resetImage = () => {
-    if (previewUrl) {
-      URL.revokeObjectURL(previewUrl);
-    }
-    setPreviewUrl(null);
-    setImage(null);
-    const input = document.getElementById("upload-photo");
-    if (input) input.value = "";
-  };
-
   useEffect(() => {
-    if (reduxLink && submit && formikRef.current?.isValid) {
+    if (reduxLink && submit) {
       setLink(reduxLink);
       toast.dismiss("loading");
       const tags = formikRef.current?.values.tags
@@ -104,14 +96,16 @@ const EditPostForm = ({ generateQR, url, ref }) => {
       dispatch(createPost(payload));
       formikRef.current?.resetForm();
       dispatch(clearLink());
-      resetImage();
       setLink(null);
-      dispatch(clearLink());
+      setImage(null);
+      setHasSubmitted(false);
       setSize(0);
       setScale(0);
       setSubmit(false);
       formikRef.current?.setFieldValue("location", "");
       setIsFormDisabled(true);
+      setPreviewUrl(def);
+
       setTimeout(() => {
         toast("Фото було опубліковано! Тепер ви можете отримати QR код.", {
           action: {
@@ -119,16 +113,27 @@ const EditPostForm = ({ generateQR, url, ref }) => {
             onClick: () => ref.current?.click(),
           },
         });
+        setPreviewUrl(null);
       }, 1000);
-    } else if (reduxLink) {
-      setLink(reduxLink);
-      toast.dismiss("loading");
     }
   }, [reduxLink, submit, generateQR, url, dispatch]);
 
   const handlePublish = () => {
-    formikRef.current?.submitForm();
+    if (!link) {
+      buttonRef.current?.click();
+      showLoadingToast();
+    }
+    setSubmit(true);
+    setHasSubmitted(true);
+    setPreviewUrl(null);
   };
+
+  useEffect(() => {
+    if (reduxLink && !submit && !hasSubmitted) {
+      setPreviewUrl(reduxLink);
+      setIsFormDisabled(false);
+    }
+  }, [reduxLink, submit, hasSubmitted]);
 
   return (
     <div className={css.container}>
@@ -160,7 +165,11 @@ const EditPostForm = ({ generateQR, url, ref }) => {
               >
                 <div className={css.imageBox}>
                   <img
-                    data-label={isFormDisabled && "def"}
+                    data-label={
+                      previewUrl === def || previewUrl === null
+                        ? "def"
+                        : undefined
+                    }
                     src={previewUrl || def}
                     alt="Прев'ю"
                     className={css.previewImage}

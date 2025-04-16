@@ -73,7 +73,8 @@
   min-width: 120px;
 }
 .xs {
-  min-width: 156px;
+  width: 100%;
+  max-width: 140px;
 }
 .sm {
   min-width: 198px;
@@ -92,10 +93,11 @@
   min-width: 280px;
 }
 .md {
-  min-width: 310px;
+  width: 310px;
 }
 .lg {
-  min-width: 328px;
+  width: 100%;
+  max-width: 328px;
 }
 .xl {
   min-width: 336px;
@@ -128,4 +130,13 @@
 }
 .button:active .arrow.left {
   transform: translateX(-6px);
+}
+
+@media screen and (min-width: 768px) {
+  .lg {
+    min-width: 328px;
+  }
+  .xs {
+    min-width: 156px;
+  }
 }

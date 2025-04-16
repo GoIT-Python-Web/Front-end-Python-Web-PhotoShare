@@ -55,6 +55,12 @@
 
 @media screen and (min-width: 768px) {
   .wrapper {
-    top: 72.5px;
+    top: 140.5px;
+    right: 30px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .wrapper {
+    right: 70px;
   }
 }
