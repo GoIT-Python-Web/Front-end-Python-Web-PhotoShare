@@ -180,7 +180,7 @@
 @media screen and (min-width: 768px) {
   .wrapper {
     padding: 24px 16px;
-    width: 452px;
+    max-width: 452px;
     left: auto;
     right: 100px;
     top: 140px;

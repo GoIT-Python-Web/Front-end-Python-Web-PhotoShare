@@ -104,7 +104,7 @@ const EditPostForm = ({ generateQR, url, ref }) => {
       setSubmit(false);
       formikRef.current?.setFieldValue("location", "");
       setIsFormDisabled(true);
-      setPreviewUrl(def);
+      setPreviewUrl(null);
 
       setTimeout(() => {
         toast("Фото було опубліковано! Тепер ви можете отримати QR код.", {
@@ -116,6 +116,7 @@ const EditPostForm = ({ generateQR, url, ref }) => {
         setPreviewUrl(null);
       }, 1000);
     }
+    setPreviewUrl(null);
   }, [reduxLink, submit, generateQR, url, dispatch]);
 
   const handlePublish = () => {
@@ -149,6 +150,7 @@ const EditPostForm = ({ generateQR, url, ref }) => {
             setSubmit(true);
             showLoadingToast();
           }
+          setPreviewUrl(null);
         }}
       >
         {({ values, handleChange, touched, errors }) => (
