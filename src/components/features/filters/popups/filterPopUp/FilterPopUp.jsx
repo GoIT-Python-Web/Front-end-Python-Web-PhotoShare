@@ -16,6 +16,7 @@ export default function FilterPopUp({
   location,
   onClose,
   onFilterChange,
+  keyword,
 }) {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
@@ -30,7 +31,7 @@ export default function FilterPopUp({
     <div className={css.wrapper} ref={modalRef}>
       <Formik
         initialValues={{
-          keyword: "",
+          keyword: keyword || "",
           from_date: null,
           to_date: null,
           exact_star: 0,
@@ -58,19 +59,6 @@ export default function FilterPopUp({
       >
         {({ values, setFieldValue }) => (
           <Form className={css.form}>
-            <div className={css.inputWrapper}>
-              <label className={css.label}>
-                Пошук
-                <Field
-                  className={css.searchInput}
-                  type="text"
-                  name="keyword"
-                  placeholder="Введіть #тег / пошту / Email "
-                />
-                <HiOutlineMagnifyingGlass className={css.glassIcon} />
-              </label>
-            </div>
-
             <div className={css.inputWrapper}>
               <label className={css.label}>
                 За датою {location === "main" ? "Публікації" : "Створення"}
@@ -145,11 +133,11 @@ export default function FilterPopUp({
             </div>
 
             <div className={css.buttons}>
-              <Button size={isTablet ? "sm" : "xs"} type="submit">
+              <Button size={isTablet ? "sm" : "xxs"} type="submit">
                 Застосувати
               </Button>
               <Button
-                size={isTablet ? "sm" : "xs"}
+                size={isTablet ? "sm" : "xxs"}
                 variant="secondary-red"
                 type="reset"
               >

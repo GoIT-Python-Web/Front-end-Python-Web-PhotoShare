@@ -1,31 +1,41 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Stars from "../../../../helpers/Stars.jsx";
 import css from "./PostView.module.css";
-import { selectPost } from "../../../../store/posts/selectors.js";
 import def from "../../../../assets/images/def.png";
 import GoogleMapsLink from "../../../../helpers/generateGoogleMapsUrl.jsx";
 import { useNavigate } from "react-router-dom";
 import formatRating from "../../../../helpers/formatRating.js";
 import { toast } from "sonner";
-import {
-  selectIsLoggedIn,
-  selectUser,
-} from "../../../../store/auth/selectors.js";
+import { selectIsLoggedIn } from "../../../../store/auth/selectors.js";
 import { useEffect, useState } from "react";
+import { editPost } from "../../../../store/posts/operations.js";
+import { BiSend } from "react-icons/bi";
 
-export default function PostView() {
-  const post = useSelector(selectPost) ?? {};
+export default function PostView({ post, isMyPost, editMode, setEditMode }) {
+  const [newDescription, setNewDescription] = useState(post.description || "");
+
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
-  const user = useSelector(selectUser);
-  const isMyPost = post.user?.id === user?.id;
+  const dispatch = useDispatch();
 
   const [avgRating, setAvgRating] = useState(post.avg_rating ?? 0);
   const [ratingCount, setRatingCount] = useState(post.rating_count ?? 0);
   useEffect(() => {
     setAvgRating(post.avg_rating);
     setRatingCount(post.rating_count);
+    setNewDescription(post.description || "");
   }, [post]);
+
+  const handleSave = () => {
+    if (newDescription.trim() === "") return;
+    dispatch(editPost({ id: post.id, description: newDescription }))
+      .unwrap()
+      .then(() => {
+        toast.success("Опис оновлено!");
+        setEditMode(false);
+      })
+      .catch(() => toast.error("Не вдалося оновити опис."));
+  };
 
   const handleRated = (newRating) => {
     const total = avgRating * ratingCount;
@@ -100,7 +110,20 @@ export default function PostView() {
             </p>
           </div>
         </div>
-        <p className={css.description}>{post.description}</p>
+        {isMyPost && editMode ? (
+          <div className={css.editBox}>
+            <textarea
+              value={newDescription}
+              onChange={(e) => setNewDescription(e.target.value)}
+              className={css.textarea}
+            />
+            <button onClick={handleSave} className={css.saveBtn}>
+              <BiSend />
+            </button>
+          </div>
+        ) : (
+          <p className={css.description}>{post.description}</p>
+        )}
         {post.tags && (
           <div className={css.tags}>
             {post.tags.map((tag, index) => (

@@ -1,29 +1,29 @@
 import { Formik, Form, Field } from "formik";
 import css from "./ProfileEditForm.module.css";
-// import Input from "../common/inputs/Input.jsx";
 import LabeledField from "../common/labeledField/LabeledField.jsx";
 import Button from "../common/buttons/Button.jsx";
 import { ProfileEditSchema } from "../../validation/schemas.js";
-import { useDispatch } from "react-redux";
-import { updateUser } from "../../store/auth/operations.js";
 import { FaPenToSquare } from "react-icons/fa6";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import def from "../../assets/images/EditProfilPage/AvatarDef.png";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, parse } from "date-fns";
+import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { getUser, updateUser } from "../../store/auth/operations.js";
+
+const normalize = (value) =>
+  typeof value === "string" ? value : value ? String(value) : "";
+
+const formatDateForInput = (dateString) => {
+  if (!dateString) return "";
+  const parsed = new Date(dateString);
+  return isNaN(parsed) ? "" : format(parsed, "dd-MM-yyyy");
+};
 
 const ProfileEditForm = ({ user }) => {
-  console.log("User inside ProfileEditForm:", user);
-
-  const normalize = (value) =>
-    typeof value === "string" ? value : value ? String(value) : "";
-
-  const formatDateForInput = (dateString) => {
-    if (!dateString) return "";
-    const parsed = new Date(dateString);
-    return isNaN(parsed) ? "" : format(parsed, "dd-MM-yyyy");
-  };
+  const dispatch = useDispatch();
 
   const INITIAL_VALUES = {
     avatar: user?.img_link ?? def,
@@ -38,7 +38,10 @@ const ProfileEditForm = ({ user }) => {
     description: normalize(user?.description),
   };
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
   const [avatarSrc, setAvatarSrc] = useState(INITIAL_VALUES.avatar || def);
   const fileInputRef = useRef(null);
 
@@ -98,10 +101,6 @@ const ProfileEditForm = ({ user }) => {
         onSubmit={async (values, { resetForm }) => {
           try {
             const formData = new FormData();
-            const formatDate = (dateString) => {
-              const parsed = parse(dateString, "dd-MM-yyyy", new Date());
-              return format(parsed, "yyyy-MM-dd");
-            };
 
             Object.entries(values).forEach(([key, value]) => {
               if (key === "birthdate" && value) {
@@ -132,13 +131,15 @@ const ProfileEditForm = ({ user }) => {
             };
 
             resetForm({ values: newValues });
-            console.log("Форма оновлена:", newValues);
+
+            toast.success("Профіль було оновлено!");
           } catch (err) {
+            toast.error("Не вдалося оновити профіль. Спробуйте ще раз.");
             console.error("Помилка оновлення:", err);
           }
         }}
       >
-        {({ isSubmitting, resetForm }) => (
+        {({ isSubmitting }) => (
           <Form className={css.form}>
             <div className={css.avatarWrap}>
               <img

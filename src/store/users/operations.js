@@ -7,7 +7,7 @@ export const banUser = createAsyncThunk(
   async (userId, thunkAPI) => {
     try {
       await instance.put(`/admin/users/${userId}/ban`);
-      return { userId };
+      return { userId, banMessage: data.message };
     } catch (err) {
       return thunkAPI.rejectWithValue(
         handleError(err, "Не вдалося забанити користувача")

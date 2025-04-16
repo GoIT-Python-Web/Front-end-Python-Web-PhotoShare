@@ -7,15 +7,13 @@ import { LuCalendarDays } from "react-icons/lu";
 import DatePickerPopUp from "../popups/datePickerPopUp/DatePickerPopUp.jsx";
 import { useDispatch } from "react-redux";
 import { fetchPostsByFilters } from "../../../../store/posts/operations.js";
+import SearchInput from "../searchInput/SearchInput.jsx";
 
 export default function Filters({ location }) {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [isSortingOpen, setIsSortingOpen] = useState(false);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-  const [sortConfig, setSortConfig] = useState({
-    order: "desc",
-    sort_by: "date",
-  });
+
   const [filters, setFilters] = useState({
     keyword: "",
     from_date: null,
@@ -75,6 +73,10 @@ export default function Filters({ location }) {
 
   return (
     <div className={css.wrapper} aria-label={location}>
+      <SearchInput
+        keyword={filters.keyword}
+        onKeywordChange={(kw) => handleFilterChange({ keyword: kw })}
+      />
       <button
         ref={currentRef}
         className={css.filterItem}
@@ -102,6 +104,7 @@ export default function Filters({ location }) {
           location={location}
           onClose={() => setIsFiltersOpen(false)}
           onFilterChange={handleFilterChange}
+          keyword={filters.keyword}
         />
       )}
 

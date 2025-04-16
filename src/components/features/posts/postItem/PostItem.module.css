@@ -2,6 +2,7 @@
   height: 328px !important;
   object-fit: cover;
   border-radius: 8px;
+  width: 360px;
 }
 
 .imageWrapper {
