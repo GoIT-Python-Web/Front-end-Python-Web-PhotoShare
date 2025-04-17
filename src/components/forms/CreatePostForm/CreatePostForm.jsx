@@ -79,7 +79,7 @@ const EditPostForm = ({ generateQR, url, ref }) => {
   };
 
   useEffect(() => {
-    if (reduxLink && submit) {
+    if (reduxLink && submit && formikRef.current.isValid) {
       setLink(reduxLink);
       toast.dismiss("loading");
       const tags = formikRef.current?.values.tags
@@ -124,9 +124,11 @@ const EditPostForm = ({ generateQR, url, ref }) => {
       buttonRef.current?.click();
       showLoadingToast();
     }
-    setSubmit(true);
-    setHasSubmitted(true);
-    setPreviewUrl(null);
+    if (formikRef.current.isValid) {
+      setPreviewUrl(null);
+      setSubmit(true);
+      setHasSubmitted(true);
+    }
   };
 
   useEffect(() => {
@@ -359,9 +361,9 @@ const EditPostForm = ({ generateQR, url, ref }) => {
 
               <div className={css.wrapBtn}>
                 <button
-                  onClick={handlePublish}
+                  onClick={!formikRef.current?.isValid && handlePublish}
                   type="submit"
-                  disabled={!image_url}
+                  disabled={!formikRef.current?.isValid}
                   className={css.btn}
                 >
                   Опублікувати

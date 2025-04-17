@@ -31,7 +31,7 @@ const SignInForm = ({ onSwitch }) => {
             dispatch(getUser());
             toast.success("Успішний вхід!");
           } catch (error) {
-            if (error?.includes(400) || error?.response?.status === 400) {
+            if (error?.includes("400") || error?.response?.status === 400) {
               setStatus("Невірний юзернейм чи пароль");
             } else {
               setStatus("Сталася помилка. Спробуйте пізніше.");
