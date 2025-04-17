@@ -27,7 +27,7 @@ const AuthPage = () => {
       <div className={css.wrapper}>
         <img src={img} className={css.img} alt="Decorative background image" />
         <div className={css.wrap}>
-          <div className={css.form}>
+          <div className={css.form} data-label={path === "/login" && "login"}>
             {path === "/register" && <SignUpForm />}
             {path === "/login" && <SignInForm />}
           </div>
