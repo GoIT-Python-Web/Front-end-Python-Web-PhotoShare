@@ -4,7 +4,8 @@ import deskImg from "../../assets/images/About-img.png";
 import tabImg from "../../assets/images/about-img-tab.png";
 import img from "../../assets/images/about-img-mob.png";
 import logo from "../../assets/icons/favicon.svg";
-
+import { SlEnvolopeLetter } from "react-icons/sl";
+import { FiPhoneCall } from "react-icons/fi";
 export default function PhotoShare() {
   return (
     <div className="container">
@@ -47,7 +48,9 @@ export default function PhotoShare() {
               <h2 className={css.contactsTitle}>Контакти</h2>
               <div className={css.contactItem}>
                 <span className={css.contactIcon}></span>
-                <span>✉ Електронна Пошта:</span>
+                <span>
+                  <SlEnvolopeLetter /> Електронна Пошта:
+                </span>
                 <a
                   href="mailto:support@photoshare.com"
                   className={css.contactLink}
@@ -56,7 +59,9 @@ export default function PhotoShare() {
                 </a>
                 <div className={css.contactItem}>
                   <span className={css.contactIcon}></span>
-                  <span>📞 Телефон:</span>
+                  <span>
+                    <FiPhoneCall /> Телефон:
+                  </span>
                   <a className={css.contactLink} href="tel:+380 44 290 16 83">
                     +380 44 290 16 83
                   </a>

@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import css from "../FilterSelector/FilterSelector.module.css";
 import { useDispatch } from "react-redux";
 import { uploadFilteredImage } from "../../../../store/posts/operations.js";
 import def from "../../../../assets/images/circle-user.png";
-import { clearLink } from "../../../../store/posts/slice.js";
 
 const FILTERS = [
   { label: "Normal", value: null },
@@ -20,7 +19,8 @@ const FilterSelector = ({ image, size, scale, buttonRef }) => {
   const [selectedFilter, setSelectedFilter] = useState(null);
   const dispatch = useDispatch();
 
-  const handleApply = async () => {
+  const handleApply = async (e) => {
+    e.preventDefault();
     if (!image) return;
 
     try {
@@ -60,14 +60,14 @@ const FilterSelector = ({ image, size, scale, buttonRef }) => {
     <div className={css.filterWrap}>
       <div className={css.filterHeader}>
         <h3 className={css.filterTitle}>Фільтри</h3>
-        <p
+        <button
           className={`${css.applyFilterBtn} ${!image ? css.disabled : ""}`}
           onClick={handleApply}
           ref={buttonRef}
           disabled={!image}
         >
           Застосувати фільтр
-        </p>
+        </button>
       </div>
 
       <div className={css.filterOptions}>

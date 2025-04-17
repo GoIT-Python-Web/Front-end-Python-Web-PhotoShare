@@ -57,8 +57,8 @@
     margin-left: 80px;
     align-items: center;
     gap: 8px;
-    margin-top: 100px;
-    margin-bottom: 32px;
+    margin-top: 20px;
+    margin-bottom: 80px;
   }
   .wrapper {
     display: flex;
@@ -84,5 +84,9 @@
   .img {
     width: 575px;
     height: 600px;
+  }
+  .form[data-label="login"] {
+    padding-block: 0px;
+    padding-bottom: 70px;
   }
 }

@@ -12,6 +12,10 @@ import def from "../../../assets/images/circle-user.png";
 import { clearLink } from "../../../store/posts/slice.js";
 import { toast } from "sonner";
 import { CreatePostSchema } from "../../../validation/schemas.js";
+import Cropper from "react-easy-crop";
+import { getCroppedImg } from "../../../helpers/cropImageUtils.js";
+import { FaCheck } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
 const INITIAL_VALUES = {
   title: "",
@@ -25,21 +29,41 @@ const EditPostForm = ({ generateQR, url, ref }) => {
   const formikRef = useRef();
   const dispatch = useDispatch();
   const [image_url, setImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(def);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+
   const [isFormDisabled, setIsFormDisabled] = useState(true);
   const [submit, setSubmit] = useState(false);
   const [link, setLink] = useState(null);
   const [size, setSize] = useState(0);
   const [scale, setScale] = useState(0);
-  const [previewUrl, setPreviewUrl] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
+
+  const [isCropping, setIsCropping] = useState(false);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+
   const reduxLink = useSelector(selectLink);
+
+  const handleCropConfirm = async () => {
+    const { blob, url } = await getCroppedImg(previewUrl, croppedAreaPixels);
+    const croppedFile = new File([blob], image_url.name, {
+      type: "image/jpeg",
+    });
+
+    setImage(croppedFile);
+    setPreviewUrl(url);
+    setIsCropping(false);
+  };
 
   const handleImageFile = (file) => {
     if (file && file.type.startsWith("image/")) {
-      const preview = URL.createObjectURL(file);
       setImage(file);
-      setPreviewUrl(preview);
       setIsFormDisabled(false);
+      setPreviewUrl(URL.createObjectURL(file));
+      window.scrollTo(0, 0);
+      setIsCropping(true);
     }
   };
 
@@ -76,18 +100,8 @@ const EditPostForm = ({ generateQR, url, ref }) => {
     handleImageFile(file);
   };
 
-  const resetImage = () => {
-    if (previewUrl) {
-      URL.revokeObjectURL(previewUrl);
-    }
-    setPreviewUrl(null);
-    setImage(null);
-    const input = document.getElementById("upload-photo");
-    if (input) input.value = "";
-  };
-
   useEffect(() => {
-    if (reduxLink && submit && formikRef.current?.isValid) {
+    if (reduxLink && submit && formikRef.current.isValid) {
       setLink(reduxLink);
       toast.dismiss("loading");
       const tags = formikRef.current?.values.tags
@@ -104,14 +118,16 @@ const EditPostForm = ({ generateQR, url, ref }) => {
       dispatch(createPost(payload));
       formikRef.current?.resetForm();
       dispatch(clearLink());
-      resetImage();
       setLink(null);
-      dispatch(clearLink());
+      setImage(null);
+      setHasSubmitted(false);
       setSize(0);
       setScale(0);
       setSubmit(false);
       formikRef.current?.setFieldValue("location", "");
       setIsFormDisabled(true);
+      setPreviewUrl(null);
+
       setTimeout(() => {
         toast("Фото було опубліковано! Тепер ви можете отримати QR код.", {
           action: {
@@ -119,16 +135,30 @@ const EditPostForm = ({ generateQR, url, ref }) => {
             onClick: () => ref.current?.click(),
           },
         });
+        setPreviewUrl(null);
       }, 1000);
-    } else if (reduxLink) {
-      setLink(reduxLink);
-      toast.dismiss("loading");
     }
+    setPreviewUrl(null);
   }, [reduxLink, submit, generateQR, url, dispatch]);
 
   const handlePublish = () => {
-    formikRef.current?.submitForm();
+    if (!link) {
+      buttonRef.current?.click();
+      showLoadingToast();
+    }
+    if (formikRef.current.isValid) {
+      setPreviewUrl(null);
+      setSubmit(true);
+      setHasSubmitted(true);
+    }
   };
+
+  useEffect(() => {
+    if (reduxLink && !submit && !hasSubmitted) {
+      setPreviewUrl(reduxLink);
+      setIsFormDisabled(false);
+    }
+  }, [reduxLink, submit, hasSubmitted]);
 
   return (
     <div className={css.container}>
@@ -144,11 +174,41 @@ const EditPostForm = ({ generateQR, url, ref }) => {
             setSubmit(true);
             showLoadingToast();
           }
+          setPreviewUrl(null);
         }}
       >
         {({ values, handleChange, touched, errors }) => (
           <Form className={css.form}>
             <div className={css.wrapImgDesk}>
+              {image_url && isCropping && (
+                <div className={css.modal}>
+                  <Cropper
+                    image={previewUrl}
+                    crop={crop}
+                    zoom={zoom}
+                    aspect={1}
+                    onCropChange={setCrop}
+                    onZoomChange={setZoom}
+                    onCropComplete={(_, croppedPixels) =>
+                      setCroppedAreaPixels(croppedPixels)
+                    }
+                  />
+                  <div className={css.modalButtons}>
+                    <button
+                      onClick={handleCropConfirm}
+                      className={css.confirmButton}
+                    >
+                      <FaCheck />
+                    </button>
+                    <button
+                      onClick={() => setIsCropping(false)}
+                      className={css.cancelButton}
+                    >
+                      <IoClose />
+                    </button>
+                  </div>
+                </div>
+              )}
               <div
                 className={`${css.imageWrap} ${isDragging ? css.dragging : ""}`}
                 onDragOver={(e) => {
@@ -160,7 +220,11 @@ const EditPostForm = ({ generateQR, url, ref }) => {
               >
                 <div className={css.imageBox}>
                   <img
-                    data-label={isFormDisabled && "def"}
+                    data-label={
+                      previewUrl === def || previewUrl === null
+                        ? "def"
+                        : undefined
+                    }
                     src={previewUrl || def}
                     alt="Прев'ю"
                     className={css.previewImage}
@@ -348,9 +412,9 @@ const EditPostForm = ({ generateQR, url, ref }) => {
 
               <div className={css.wrapBtn}>
                 <button
-                  onClick={handlePublish}
+                  onClick={!formikRef.current?.isValid && handlePublish}
                   type="submit"
-                  disabled={!image_url}
+                  disabled={!formikRef.current?.isValid}
                   className={css.btn}
                 >
                   Опублікувати

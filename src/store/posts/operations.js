@@ -241,6 +241,7 @@ export const uploadFilteredImage = createAsyncThunk(
         "/posts/upload-filtered-image/",
         formData
       );
+
       return data.image_url;
     } catch (err) {
       console.error("Upload filtered image error:", err.response?.data);

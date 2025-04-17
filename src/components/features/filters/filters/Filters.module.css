@@ -2,7 +2,6 @@
   width: 96px;
   display: flex;
   gap: 16px;
-  position: relative;
 }
 
 .userFillWrap {
