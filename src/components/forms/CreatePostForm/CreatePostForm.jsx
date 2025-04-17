@@ -1,6 +1,5 @@
 import { Formik, Form, Field } from "formik";
 import css from "../CreatePostForm/CreatePostForm.module.css";
-import Button from "../../common/buttons/Button.jsx";
 import Input from "../../common/inputs/Input.jsx";
 import { useEffect, useRef, useState } from "react";
 import { BsQrCode } from "react-icons/bs";
@@ -13,6 +12,10 @@ import def from "../../../assets/images/circle-user.png";
 import { clearLink } from "../../../store/posts/slice.js";
 import { toast } from "sonner";
 import { CreatePostSchema } from "../../../validation/schemas.js";
+import Cropper from "react-easy-crop";
+import { getCroppedImg } from "../../../helpers/cropImageUtils.js";
+import { FaCheck } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
 const INITIAL_VALUES = {
   title: "",
@@ -35,13 +38,32 @@ const EditPostForm = ({ generateQR, url, ref }) => {
   const [size, setSize] = useState(0);
   const [scale, setScale] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+
+  const [isCropping, setIsCropping] = useState(false);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+
   const reduxLink = useSelector(selectLink);
+
+  const handleCropConfirm = async () => {
+    const { blob, url } = await getCroppedImg(previewUrl, croppedAreaPixels);
+    const croppedFile = new File([blob], image_url.name, {
+      type: "image/jpeg",
+    });
+
+    setImage(croppedFile);
+    setPreviewUrl(url);
+    setIsCropping(false);
+  };
 
   const handleImageFile = (file) => {
     if (file && file.type.startsWith("image/")) {
       setImage(file);
       setIsFormDisabled(false);
       setPreviewUrl(URL.createObjectURL(file));
+      window.scrollTo(0, 0);
+      setIsCropping(true);
     }
   };
 
@@ -158,6 +180,35 @@ const EditPostForm = ({ generateQR, url, ref }) => {
         {({ values, handleChange, touched, errors }) => (
           <Form className={css.form}>
             <div className={css.wrapImgDesk}>
+              {image_url && isCropping && (
+                <div className={css.modal}>
+                  <Cropper
+                    image={previewUrl}
+                    crop={crop}
+                    zoom={zoom}
+                    aspect={1}
+                    onCropChange={setCrop}
+                    onZoomChange={setZoom}
+                    onCropComplete={(_, croppedPixels) =>
+                      setCroppedAreaPixels(croppedPixels)
+                    }
+                  />
+                  <div className={css.modalButtons}>
+                    <button
+                      onClick={handleCropConfirm}
+                      className={css.confirmButton}
+                    >
+                      <FaCheck />
+                    </button>
+                    <button
+                      onClick={() => setIsCropping(false)}
+                      className={css.cancelButton}
+                    >
+                      <IoClose />
+                    </button>
+                  </div>
+                </div>
+              )}
               <div
                 className={`${css.imageWrap} ${isDragging ? css.dragging : ""}`}
                 onDragOver={(e) => {

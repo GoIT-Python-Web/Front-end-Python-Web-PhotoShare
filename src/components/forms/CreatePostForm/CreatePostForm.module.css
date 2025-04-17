@@ -15,6 +15,38 @@
   cursor: pointer;
 }
 
+.btn:disabled {
+  cursor: not-allowed;
+}
+
+.confirmButton,
+.cancelButton {
+  border: none;
+  background-color: transparent;
+  font-size: 40px;
+  color: green;
+}
+
+.cancelButton {
+  font-size: 60px;
+  color: red;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalButtons {
+  position: absolute;
+  z-index: 10101010;
+  display: flex;
+  top: 60px;
+  left: 20px;
+  flex-direction: column;
+}
+
 .imageWrap {
   display: flex;
   flex-direction: column;
@@ -234,6 +266,7 @@
   border: 1px solid var(--text);
   border-radius: 13px;
   padding: 10px;
+  padding-top: 14px;
   resize: none;
   width: 328px;
   height: 48px;
@@ -318,6 +351,9 @@
 @media only screen and (min-width: 768px) {
   .imageBox {
     height: 100%;
+  }
+  .modalButtons {
+    top: 90px;
   }
   .imageWrap {
     width: 696px;
