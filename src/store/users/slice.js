@@ -8,8 +8,8 @@ const initialState = {
   banMessage: "",
   error: null,
   totalPages: 1,
-  currentPage: 0, // Додано поточну сторінку
-  usersPerPage: 8, // Кількість користувачів на сторінці
+  currentPage: 0,
+  usersPerPage: 8,
   filters: {
     search: "",
     role: "",
@@ -25,11 +25,11 @@ const usersSlice = createSlice({
   initialState,
   reducers: {
     setCurrentPage(state, action) {
-      state.currentPage = action.payload; // Оновлення поточної сторінки
+      state.currentPage = action.payload;
     },
     resetFilters: () => initialState,
     setFilters(state, action) {
-      state.filters = action.payload; // Оновлення фільтрів
+      state.filters = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -39,12 +39,12 @@ const usersSlice = createSlice({
         state.error = null;
       })
       .addCase(searchUsers.fulfilled, (state, { payload }) => {
-        const totalUsers = payload.length; // Загальна кількість користувачів
-        const totalPages = Math.ceil(totalUsers / state.usersPerPage); // Обчислення кількості сторінок
+        const totalUsers = payload.length;
+        const totalPages = Math.ceil(totalUsers / state.usersPerPage);
 
         state.isLoading = false;
         state.items = payload || [];
-        state.totalPages = totalPages; // Якщо totalPages не вказано, ставимо 1
+        state.totalPages = totalPages;
       })
       .addCase(searchUsers.rejected, (state, { payload }) => {
         state.isLoading = false;

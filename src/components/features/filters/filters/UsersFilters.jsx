@@ -22,12 +22,12 @@ export default function UsersFilters() {
   const datePickerButtonRef = useRef(null);
 
   const handleSortingClick = () => {
-    setIsDatePickerOpen(false); // Закриваємо календар, якщо він відкритий
-    setIsSortingOpen(!isSortingOpen); // Переключаємо стан сортування
+    setIsDatePickerOpen(false);
+    setIsSortingOpen(!isSortingOpen);
   };
 
   const handleDatePickerClick = () => {
-    setIsSortingOpen(false); // Закриваємо сортування, якщо воно відкрите
+    setIsSortingOpen(false);
     setIsDatePickerOpen(!isDatePickerOpen);
   };
 

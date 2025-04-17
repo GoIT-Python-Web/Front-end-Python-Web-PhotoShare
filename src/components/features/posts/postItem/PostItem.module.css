@@ -75,10 +75,7 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 120%;
-  background: linear-gradient(90deg, #4965a1 0%, #072f86 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #132d62;
 }
 
 .tags,
@@ -99,7 +96,7 @@
   font-family: "Montserrat", sans-serif;
   font-size: 12px;
   text-align: center;
-  color: #132d62;
+  color: #24448a;
 }
 
 .dateDiv {

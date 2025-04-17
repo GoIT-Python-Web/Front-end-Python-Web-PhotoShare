@@ -9,6 +9,7 @@ import { useScrollLock } from "../../../../helpers/hooks/useScrollLock";
 import Modal from "../../../modals/modal/Modal.jsx";
 import { banUser, toggleUserRole } from "../../../../store/users/operations.js";
 import { GoBlocked } from "react-icons/go";
+import { Link } from "react-router-dom";
 
 function UserItem({
   id,
@@ -40,20 +41,18 @@ function UserItem({
 
   const handleBan = () => {
     Swal.fire({
-      title: "Are you sure?",
-      text: localActive
-        ? "This user will be banned!"
-        : "This user will be unbanned!",
+      title: "Впевнені?",
+      text: localActive ? "Юзера буде забанено!" : "Юзера буде розбанено!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: localActive ? "Yes, ban them" : "Yes, unban them",
-      cancelButtonText: "Cancel",
+      confirmButtonText: localActive ? "Так, забанити" : "Так, розбанити",
+      cancelButtonText: "Відмінити",
     }).then((result) => {
       if (result.isConfirmed) {
         if (role === "admin" && localActive) {
           Swal.fire({
-            title: "Admin",
-            text: "Cannot ban an Admin!",
+            title: "Адмін",
+            text: "Ви не можете забанити адміна!",
             icon: "warning",
           });
           return;
@@ -71,31 +70,38 @@ function UserItem({
     <div className={s.userItem}>
       <div className={s.userItemContainer}>
         <div className={s.mobileWrapper}>
-          <div className={s.profileImageContainer}>
-            {typeof profileImage === "string" &&
-            profileImage.trim() !== "" &&
-            profileImage !== "null" &&
-            profileImage !== "undefined" ? (
-              <img
-                src={profileImage}
-                alt={profileAlt}
-                className={s.profileImage}
-              />
-            ) : (
-              <div
-                className={s.initialAvatar}
-                style={{ backgroundColor: getColorFromName(userName) }}
-              >
-                {userName.charAt(0).toUpperCase()}
-              </div>
-            )}
-          </div>
+          <Link to={`/profile/${id}`}>
+            <div className={s.profileImageContainer}>
+              {typeof profileImage === "string" &&
+              profileImage.trim() !== "" &&
+              profileImage !== "null" &&
+              profileImage !== "undefined" ? (
+                <img
+                  src={profileImage}
+                  alt={profileAlt}
+                  className={s.profileImage}
+                />
+              ) : (
+                <div
+                  className={s.initialAvatar}
+                  style={{ backgroundColor: getColorFromName(userName) }}
+                >
+                  {userName.charAt(0).toUpperCase()}
+                </div>
+              )}
+            </div>
+          </Link>
 
           <div className={s.mobileContainer}>
             <div className={s.pickname}>
-              <span data-label={isBanned && "banned"} className={s.profileName}>
-                {userName}
-              </span>
+              <Link to={`/profile/${id}`}>
+                <span
+                  data-label={isBanned && "banned"}
+                  className={s.profileName}
+                >
+                  {userName}
+                </span>
+              </Link>
               <div className={s.settingsSection}>
                 <button className={s.adminIconButton}>
                   {!isBanned ? (

@@ -34,7 +34,7 @@ export default function UserSortPopUp({
 
   // Обробка кліку по опції
   const handleSort = (option) => {
-    const { sort_by, order } = option.value || option; // Якщо опції мають поле value, використовуємо його
+    const { sort_by, order } = option.value || option;
     onSortChange({ sort_by, order });
   };
 

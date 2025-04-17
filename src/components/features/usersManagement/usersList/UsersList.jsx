@@ -2,8 +2,7 @@ import formatDateTime from "../../../../helpers/formatDateTime";
 import UserItem from "../usersItem/UsersItem";
 import styles from "./UsersList.module.css";
 
-const UserList = ({ users, onDelete }) => {
-  // Якщо немає користувачів, відображаємо повідомлення
+const UserList = ({ users }) => {
   if (!users || users.length === 0) {
     return <div>Немає користувачів для відображення</div>;
   }
@@ -18,7 +17,7 @@ const UserList = ({ users, onDelete }) => {
           is_active={user.is_active}
           profileImage={user.img_link}
           profileAlt={user.name || user.username}
-          userName={user.name || user.username} // Якщо ім'я відсутнє, показуємо username
+          userName={user.name || user.username}
           email={user.email}
           role={user.type}
           dateTime={formatDateTime(user.created_at)}

@@ -16,10 +16,10 @@ export default function UserDatePickerPopUp({
   useClickOutside(modalRef, buttonRef, onClose);
 
   const handleDateChange = (update) => {
-    setDateRange(update); // Оновлюємо стан з вибраними датами
+    setDateRange(update);
     if (onDateSelect) {
       const [from, to] = update;
-      onDateSelect({ from, to }); // Передаємо обрані дати назад в батьківський компонент
+      onDateSelect({ from, to });
     }
   };
 
@@ -27,7 +27,7 @@ export default function UserDatePickerPopUp({
     <div ref={modalRef} className={css.wrapper}>
       <DatePicker
         selected={startDate}
-        onChange={handleDateChange} // Викликаємо функцію для оновлення дати
+        onChange={handleDateChange}
         startDate={startDate}
         endDate={endDate}
         selectsRange

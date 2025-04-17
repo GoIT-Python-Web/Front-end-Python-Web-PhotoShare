@@ -3,7 +3,7 @@ import Button from "../../../common/buttons/Button";
 import UserList from "../usersList/UsersList";
 import s from "./UsersContainer.module.css";
 import Swal from "sweetalert2";
-import UsersFilters from "../../filters/filters/UsersFilters"; // замість Filters
+import UsersFilters from "../../filters/filters/UsersFilters";
 import Icon from "../../../common/icons/Icon";
 import useWindowWidth from "../../../../helpers/hooks/useWindowWidth";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,8 +20,6 @@ import { searchUsers } from "../../../../store/users/operations";
 import { setCurrentPage, setFilters } from "../../../../store/users/slice";
 import Loader from "../../../common/loader/Loader";
 import { useEffect } from "react";
-
-const usersPerPage = 8;
 
 const UsersContainer = () => {
   const dispatch = useDispatch();
@@ -51,7 +49,7 @@ const UsersContainer = () => {
       direction === "next"
         ? Math.min(currentPage + 1, totalPages - 1)
         : Math.max(currentPage - 1, 0);
-    dispatch(setCurrentPage(newPage)); // Оновлюємо поточну сторінку в Redux
+    dispatch(setCurrentPage(newPage));
   };
 
   const handleDeleteClick = (id) => {
@@ -90,8 +88,8 @@ const UsersContainer = () => {
             placeholder="Пошук користувачів за ім’ям, поштою "
             value={filters.search}
             onChange={(e) => {
-              dispatch(setFilters({ ...filters, search: e.target.value })); // Оновлюємо фільтр пошуку
-              dispatch(setCurrentPage(0)); // Скидаємо на першу сторінку при зміні пошуку
+              dispatch(setFilters({ ...filters, search: e.target.value }));
+              dispatch(setCurrentPage(0));
             }}
             type="text"
             name="search"
@@ -130,25 +128,7 @@ const UsersContainer = () => {
               />
             </button>
           </div>
-          <UsersFilters
-          // sortBy={filters.sort_by}
-          // sortOrder={filters.sort_order}
-          // regDateFrom={filters.reg_date_from}
-          // regDateTo={filters.reg_date_to}
-          // setSortBy={(sortBy) =>
-          //   dispatch(setFilters({ ...filters, sort_by: sortBy }))
-          // }
-          // setSortOrder={(sortOrder) =>
-          //   dispatch(setFilters({ ...filters, sort_order: sortOrder }))
-          // }
-          // setRegDateFrom={(regDateFrom) =>
-          //   dispatch(setFilters({ ...filters, reg_date_from: regDateFrom }))
-          // }
-          // setRegDateTo={(regDateTo) =>
-          //   dispatch(setFilters({ ...filters, reg_date_to: regDateTo }))
-          // }
-          // resetPage={() => dispatch(setCurrentPage(0))}
-          />
+          <UsersFilters />
         </div>
       </div>
 
