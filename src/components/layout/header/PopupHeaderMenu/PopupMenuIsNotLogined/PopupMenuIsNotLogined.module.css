@@ -2,8 +2,9 @@
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
   max-width: 360px;
-  height: 356px;
+  /* height: 356px; */
   z-index: 100;
   border-radius: 8px;
   padding: 80px 16px 20px;
@@ -204,10 +205,10 @@
 
 @media only screen and (min-width: 768px) {
   .popup {
-    left: 372px;
+    left: 396px;
     width: 372px;
-    height: 337px;
-    padding: 80px 36px 20px;
+    /* height: 337px; */
+    padding: 80px 36px 36px;
   }
   .close_btn {
     left: 308px;

@@ -8,9 +8,9 @@ import Button from "../../../../common/buttons/Button";
 import close from "../../../../../assets/images/Header/close@2x.png";
 import def from "../../../../../assets/images/def.png";
 import plus from "../../../../../assets/images/Header/plus@2x.png";
-import star_settings from "../../../../../assets/icons/star_settings.svg";
 import { LuSearch } from "react-icons/lu";
-import { GrLogout } from "react-icons/gr";
+import { RxExit } from "react-icons/rx";
+// import { GrLogout } from "react-icons/gr";
 import { LuPencil } from "react-icons/lu";
 import css from "./PopupMenuIsLogined.module.css";
 import defineRole from "../../../../../helpers/defineRole.jsx";
@@ -82,14 +82,14 @@ const PopupMenuIsLogined = ({
             <LuPencil className={css.edit_icon} />
           </Link>
           <p className={css.logout_wrap} onClick={handleLogout}>
-            <GrLogout className={css.logout_icon} />
+            <RxExit className={css.logout_icon} />
           </p>
         </div>
       </div>
 
       <div className={css.popup_addbtn_wrap}>
         <Button
-          size={isMobilAddButton ? "lg" : "sm_header"}
+          size={isMobilAddButton ? "lg" : "sm_header_popup"}
           variant="primary"
           disabled={false}
           withArrow={false}
