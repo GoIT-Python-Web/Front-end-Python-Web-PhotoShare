@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+
 export const instance = axios.create({
-  baseURL: "https://damp-giovanna-photohsare-3ee4d857.koyeb.app",
+  baseURL: BASE_URL,
 });
 
 export const setAuthHeader = (token) => {
